@@ -1,100 +1,92 @@
 'use stricts';
 
+require('dotenv').config();
 const Axios = require('axios');
+const Crypto = require('crypto');
 const Endpoints = require('./endpoints.js');
 
 const Bleutrade = {
-	getAssets: function(callback) {
+	getAssets: function() {
     const r = {
       uri: Endpoints.api.bitrecife,
       public: '/public/getassets'
     };
 
-    Axios({
+    const data = Axios({
       method: 'GET',
       url: r.uri + r.public
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    });
+    })
+
+    return data
   },
-  getMarkets: function(callback) {
+  getMarkets: function() {
     const r = {
       uri: Endpoints.api.bitrecife,
       public: '/public/getmarkets'
     };
 
-    Axios({
+    const data = Axios({
       method: 'GET',
       url: r.uri + r.public
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    });
+    })
+
+    return data
   },
-  getTicker: function(market, callback) {
+  getTicker: function(market) {
     const r = {
       uri: Endpoints.api.bitrecife,
       public: '/public/getticker'
     };
 
-    Axios({
+    const data = Axios({
       method: 'GET',
       url: r.uri + r.public,
       params: {
         market
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    });
+    })
+
+    return data;
   },
-  getMarketSummary: function(market, callback) {
+  getMarketSummary: function(market) {
     const r = {
       uri: Endpoints.api.bitrecife,
       public: '/public/getmarketsummary'
     };
 
-    Axios({
+    const data = Axios({
       method: 'GET',
       url: r.uri + r.public,
       params: {
         market
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    });
+    })
+
+    return data;
   },
-  getMarketSummaries: function(basemarket, callback) {
+  getMarketSummaries: function(basemarket) {
     const r = {
       uri: Endpoints.api.bitrecife,
       public: '/public​/getmarketsummaries'
     };
 
-    Axios({
+    const data = Axios({
       method: 'GET',
       url: r.uri + r.public,
       params: {
         basemarket
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
     });
+
+    return data;
   },
-  getOrderBook: function(market, type, depth, callback) {
+  getOrderBook: function(market, type, depth) {
     const r = {
       uri: Endpoints.api.bitrecife,
       public: '/public/getorderbook'
     };
 
-    Axios({
+    const data = Axios({
       method: 'GET',
       url: r.uri + r.public,
       params: {
@@ -102,51 +94,45 @@ const Bleutrade = {
         type,
         depth
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    });
+    })
+
+    return data;
   },
-  getMarketHistory: function(market, count, callback) {
+  getMarketHistory: function(market, count) {
     const r = {
       uri: Endpoints.api.bitrecife,
       public: '/public/getmarkethistory'
     };
 
-    Axios({
+    const data = Axios({
       method: 'GET',
       url: r.uri + r.public,
       params: {
         market,
         count
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
     });
+
+    return data;
   },
-  getCandles: function(market, period, callback) {
+  getCandles: function(market, period) {
     const r = {
       uri: Endpoints.api.bitrecife,
       public: '/public​/getcandles'
     };
 
-    Axios({
+    const data = Axios({
       method: 'GET',
       url: r.uri + r.public,
       params: {
         market,
         period
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
     });
+
+    return data;
   },
-  getBalance: function(asset, callback) {
+  getBalance: function(asset) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/getbalance',
@@ -163,7 +149,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -174,13 +160,11 @@ const Bleutrade = {
         nonce: r.params.nonce,
         asset
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
     })
+
+    return data;
   },
-  getBalances: function(callback) {
+  getBalances: function() {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/getbalances',
@@ -196,7 +180,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -206,13 +190,11 @@ const Bleutrade = {
         apikey: r.params.apikey,
         nonce: r.params.nonce
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  setBuyLimit: function(market, rate, quantity, callback) {
+  setBuyLimit: function(market, rate, quantity) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/buylimit',
@@ -232,7 +214,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -246,13 +228,11 @@ const Bleutrade = {
         quantity: r.params.quantity,
         postonly: r.params.postonly
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  setSellLimit: function(market, rate, quantity, callback) {
+  setSellLimit: function(market, rate, quantity) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/selllimit',
@@ -272,7 +252,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -286,13 +266,11 @@ const Bleutrade = {
         quantity: r.params.quantity,
         postonly: r.params.postonly
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  setAMIBuy: function(market, rate, amirate, quantity, callback) {
+  setAMIBuy: function(market, rate, amirate, quantity) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private​/buylimitami',
@@ -312,7 +290,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -326,13 +304,11 @@ const Bleutrade = {
         amirate: r.params.amirate,
         quantity: r.params.quantity
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  setAMISell: function(market, rate, amirate, quantity, callback) {
+  setAMISell: function(market, rate, amirate, quantity) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private​/selllimitami',
@@ -352,7 +328,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -366,13 +342,11 @@ const Bleutrade = {
         amirate: r.params.amirate,
         quantity: r.params.quantity
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  setStopBuyLimit: function(market, stop, limit, quantity, callback) {
+  setStopBuyLimit: function(market, stop, limit, quantity) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/buystoplimit',
@@ -392,7 +366,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -406,13 +380,11 @@ const Bleutrade = {
         limit: r.params.limit,
         quantity: r.params.quantity
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  setStopSellLimit: function(market, stop, limit, quantity, callback) {
+  setStopSellLimit: function(market, stop, limit, quantity) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/sellstoplimit',
@@ -432,7 +404,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -446,13 +418,11 @@ const Bleutrade = {
         limit: r.params.limit,
         quantity: r.params.quantity
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  setOrderCancel: function(orderId, callback) {
+  setOrderCancel: function(orderId) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/ordercancel',
@@ -469,7 +439,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -480,13 +450,11 @@ const Bleutrade = {
         nonce: r.params.nonce,
         orderid: r.params.orderId
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  getOpenOrders: function(market, callback) {
+  getOpenOrders: function(market) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/getopenorders',
@@ -503,7 +471,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -514,13 +482,11 @@ const Bleutrade = {
         nonce: r.params.nonce,
         market: r.params.market
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  getDepositAddress: function(asset, callback) {
+  getDepositAddress: function(asset) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/getdepositaddress',
@@ -537,7 +503,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -548,13 +514,11 @@ const Bleutrade = {
         nonce: r.params.nonce,
         asset: r.params.asset
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  getDepositHistory: function(callback) {
+  getDepositHistory: function() {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/getdeposithistory',
@@ -571,7 +535,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -581,13 +545,11 @@ const Bleutrade = {
         apikey: r.params.apikey,
         nonce: r.params.nonce
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  getMyTransactions: function(asset, callback) {
+  getMyTransactions: function(asset) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/getmytransactions',
@@ -604,7 +566,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -615,13 +577,11 @@ const Bleutrade = {
         nonce: r.params.nonce,
         asset: r.params.asset
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  setWithdraw: function(asset, quantity, address, callback) {
+  setWithdraw: function(asset, quantity, address) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/withdraw',
@@ -640,7 +600,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -653,13 +613,11 @@ const Bleutrade = {
         quantity: r.params.quantity,
         address: r.params.address
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  setDirectTransfer: function(asset, quantity, exchangeto, accountto, callback) {
+  setDirectTransfer: function(asset, quantity, exchangeto, accountto) {
     // 1 - Bleutrade, 2 - ExCripto, 3 - Bitrecife
     const r = {
       uri: Endpoints.api.bitrecife,
@@ -680,7 +638,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -694,13 +652,11 @@ const Bleutrade = {
         exchangeto: r.params.exchangeto,
         accountto: r.params.accountto
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  getWithdrawHistory: function(callback) {
+  getWithdrawHistory: function() {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/getwithdrawhistory',
@@ -716,7 +672,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -726,13 +682,11 @@ const Bleutrade = {
         apikey: r.params.apikey,
         nonce: r.params.nonce
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   },
-  getLimits: function(callback) {
+  getLimits: function() {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/getlimits',
@@ -748,7 +702,7 @@ const Bleutrade = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    Axios({
+    const data = Axios({
       method: 'POST',
       headers: {
         apisign
@@ -758,11 +712,9 @@ const Bleutrade = {
         apikey: r.params.apikey,
         nonce: r.params.nonce
       }
-    }).then((data) => {
-      callback(data);
-    }).catch((er) => {
-      callback(er);
-    })
+    });
+
+    return data;
   }
 };
 

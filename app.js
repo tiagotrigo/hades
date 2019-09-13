@@ -1,18 +1,19 @@
 'use stricts';
 
+const Await = require('await');
 const Bitrecife = require('./bitrecife.js');
+const Bleutrade = require('./bleutrade.js');
 
 class Hades {
 	
 	constructor() {
-
 	}
-
-
-	run() {
-		Bitrecife.setSellLimit('BTC_BRL', 45000, 42, function(response) {
-			console.log(response.data)
-		})
+	
+	async run() {
+		// Real
+		const BRL = await Bitrecife.getBalance('BRL');
+		// Dólar
+		const USDT = await Bleutrade.getBalance('USDT');
 	}
 }
 

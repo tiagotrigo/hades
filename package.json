@@ -6,6 +6,7 @@
   "author": "Tiago Trigo <tiago.a.trigo@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "await": "^0.2.6",
     "axios": "^0.19.0",
     "crypto": "^1.0.1",
     "dotenv": "^8.1.0",

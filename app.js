@@ -10,8 +10,8 @@ class Hades {
 
 
 	run() {
-		Bitrecife.getOrderBook('BTC_BRL', 'BUY', 20, function(response) {
-			console.log(response.data.result.buy)
+		Bitrecife.getBalance('BTC', function(response) {
+			console.log(response)
 		})
 	}
 }

@@ -1,5 +1,7 @@
 'use stricts';
 
+const Bitrecife = require('./bitrecife.js');
+
 class Hades {
 	
 	constructor() {
@@ -8,7 +10,7 @@ class Hades {
 
 
 	run() {
-		console.log(Endpoints.api.bleutrade)
+		console.log('foi')
 	}
 }
 

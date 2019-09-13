@@ -5,10 +5,10 @@ const Endpoints = require('./endpoints.js');
 
 const Bitrecife = {
 	getAssets: function() {
-
+		//
 	},
 	getMarkets: function() {
-
+		//
 	},
 	getTicker: function(market) {
 		// Ex: ETH_BTC
@@ -20,13 +20,13 @@ const Bitrecife = {
 		// Ex: BTC
 	},
 	getOrderBook: function(market = 'ETH_BTC', type = 'BUY', depth = 20) {
-
+		//
 	},
 	getMarketHistory: function(market = 'ETH_BTC', count = 20) {
 		// 20/200
 	},
 	getCandles: function(market = 'ETH_BTC', period = '1d') {
-
+		//
 	}
 };
 

@@ -10,8 +10,8 @@ class Hades {
 
 
 	run() {
-		Bitrecife.getBalance('BTC', function(response) {
-			console.log(response)
+		Bitrecife.setSellLimit('BTC_BRL', 45000, 42, function(response) {
+			console.log(response.data)
 		})
 	}
 }

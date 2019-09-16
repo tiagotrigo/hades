@@ -8,7 +8,7 @@ const Endpoints = require('./endpoints.js');
 const Bleutrade = {
 	getAssets: function() {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       public: '/public/getassets'
     };
 
@@ -21,7 +21,7 @@ const Bleutrade = {
   },
   getMarkets: function() {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       public: '/public/getmarkets'
     };
 
@@ -34,7 +34,7 @@ const Bleutrade = {
   },
   getTicker: function(market) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       public: '/public/getticker'
     };
 
@@ -50,7 +50,7 @@ const Bleutrade = {
   },
   getMarketSummary: function(market) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       public: '/public/getmarketsummary'
     };
 
@@ -66,7 +66,7 @@ const Bleutrade = {
   },
   getMarketSummaries: function(basemarket) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       public: '/public​/getmarketsummaries'
     };
 
@@ -82,7 +82,7 @@ const Bleutrade = {
   },
   getOrderBook: function(market, type, depth) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       public: '/public/getorderbook'
     };
 
@@ -100,7 +100,7 @@ const Bleutrade = {
   },
   getMarketHistory: function(market, count) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       public: '/public/getmarkethistory'
     };
 
@@ -117,7 +117,7 @@ const Bleutrade = {
   },
   getCandles: function(market, period) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       public: '/public​/getcandles'
     };
 
@@ -134,11 +134,11 @@ const Bleutrade = {
   },
   getBalance: function(asset) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/getbalance',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         asset
       }
@@ -158,7 +158,7 @@ const Bleutrade = {
       params: {
         apikey: r.params.apikey,
         nonce: r.params.nonce,
-        asset
+        asset: r.params.asset
       }
     })
 
@@ -166,11 +166,11 @@ const Bleutrade = {
   },
   getBalances: function() {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/getbalances',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000)
       }
     };
@@ -196,11 +196,11 @@ const Bleutrade = {
   },
   setBuyLimit: function(market, rate, quantity) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/buylimit',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         market,
         rate,
@@ -234,11 +234,11 @@ const Bleutrade = {
   },
   setSellLimit: function(market, rate, quantity) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/selllimit',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         market,
         rate,
@@ -272,11 +272,11 @@ const Bleutrade = {
   },
   setAMIBuy: function(market, rate, amirate, quantity) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private​/buylimitami',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         market,
         rate,
@@ -310,11 +310,11 @@ const Bleutrade = {
   },
   setAMISell: function(market, rate, amirate, quantity) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private​/selllimitami',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         market,
         rate,
@@ -348,11 +348,11 @@ const Bleutrade = {
   },
   setStopBuyLimit: function(market, stop, limit, quantity) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/buystoplimit',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         market,
         stop,
@@ -386,11 +386,11 @@ const Bleutrade = {
   },
   setStopSellLimit: function(market, stop, limit, quantity) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/sellstoplimit',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         market,
         stop,
@@ -424,11 +424,11 @@ const Bleutrade = {
   },
   setOrderCancel: function(orderId) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/ordercancel',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         orderId
       }
@@ -456,11 +456,11 @@ const Bleutrade = {
   },
   getOpenOrders: function(market) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/getopenorders',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         market
       }
@@ -488,11 +488,11 @@ const Bleutrade = {
   },
   getDepositAddress: function(asset) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/getdepositaddress',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         asset
       }
@@ -520,11 +520,11 @@ const Bleutrade = {
   },
   getDepositHistory: function() {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/getdeposithistory',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         asset
       }
@@ -551,11 +551,11 @@ const Bleutrade = {
   },
   getMyTransactions: function(asset) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/getmytransactions',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         asset
       }
@@ -583,11 +583,11 @@ const Bleutrade = {
   },
   setWithdraw: function(asset, quantity, address) {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/withdraw',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         asset,
         quantity,
@@ -620,11 +620,11 @@ const Bleutrade = {
   setDirectTransfer: function(asset, quantity, exchangeto, accountto) {
     // 1 - Bleutrade, 2 - ExCripto, 3 - Bitrecife
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/directtransfer',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000),
         asset,
         quantity,
@@ -658,11 +658,11 @@ const Bleutrade = {
   },
   getWithdrawHistory: function() {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/getwithdrawhistory',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000)
       }
     };
@@ -688,11 +688,11 @@ const Bleutrade = {
   },
   getLimits: function() {
     const r = {
-      uri: Endpoints.api.bitrecife,
+      uri: Endpoints.api.bleutrade,
       private: '/private/getlimits',
       params: {
-        apikey: process.env.BITRECIFE_APIKEY,
-        apisecret: process.env.BITRECIFE_APISECRET,
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
         nonce: Math.floor(new Date() / 1000)
       }
     };

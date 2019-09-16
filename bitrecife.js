@@ -158,7 +158,7 @@ const Bitrecife = {
       params: {
         apikey: r.params.apikey,
         nonce: r.params.nonce,
-        asset
+        asset: r.params.asset
       }
     })
 

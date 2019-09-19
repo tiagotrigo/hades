@@ -285,26 +285,26 @@ const Bitrecife = {
       }
     };
 
-    const hmacURL = `${r.uri}${r.private}?apikey=${r.params.apikey}&nonce=${r.params.nonce}&market=${r.params.market}&rate=${r.params.rate}&amirate=${r.params.amirate}&quantity=${r.params.quantity}`;
+    const hmacURL = `${r.uri}${r.private}?apikey=${r.params.apikey}&nonce=${r.params.nonce}&quantity=${r.params.quantity}&rate=${r.params.rate}&amirate=${r.params.amirate}&market=${r.params.market}`;
     const hmac512 = Crypto.createHmac('sha512', r.params.apisecret);
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
-
+    
     const data = Axios({
       method: 'POST',
       headers: {
         apisign
       },
-      url: r.uri + r.private,
+      url: encodeURIComponent(r.uri + r.private),
       params: {
         apikey: r.params.apikey,
         nonce: r.params.nonce,
-        market: r.params.market,
+        quantity: r.params.quantity,
         rate: r.params.rate,
         amirate: r.params.amirate,
-        quantity: r.params.quantity
+        market: r.params.market
       }
-    });
+    })
 
     return data;
   },
@@ -333,14 +333,14 @@ const Bitrecife = {
       headers: {
         apisign
       },
-      url: r.uri + r.private,
+      url: encodeURIComponent(r.uri + r.private),
       params: {
         apikey: r.params.apikey,
         nonce: r.params.nonce,
-        market: r.params.market,
+        quantity: r.params.quantity,
         rate: r.params.rate,
         amirate: r.params.amirate,
-        quantity: r.params.quantity
+        market: r.params.market
       }
     });
 

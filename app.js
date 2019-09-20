@@ -75,11 +75,8 @@ class Hades {
       console.log('=== BRL-USDT-BTC ===');
       console.log(' ');
       console.log('Entry:', this.usdt);
-      console.log('Profit:', this.usdt + (this.usdt * (profit/100)));
-      console.log(' ');
-      console.log('BRL:', BT_BRL.data.result[0].Balance);
-      console.log('USDT:', BT_USDT.data.result[0].Balance);
-      console.log('BTC:', BL_BTC.data.result[0].Balance);
+      console.log('Price:', this.usdt + (this.usdt * (profit/100)));
+      console.log('Profit:', profit);
       console.log(' ');
     }
   }

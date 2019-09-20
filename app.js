@@ -29,14 +29,6 @@ class Hades {
     ));
   }
 
-  qnt(amount, price) {
-    return amount * price;
-  }
-
-  percent(price1, price2) {
-    return ((price1 - price2) / price1) * 100;
-  }
-
   async main() {
     // Balance
     const BT_USDT = await Bitrecife.getBalance('USDT');
@@ -65,9 +57,9 @@ class Hades {
     this.qnt_BRL = (this.qnt_BTC * BT_BTC_BRL.data.result[0].Bid) * (1 - this.rateBt);
 
     // Profit to arbitration
-    const profit = this.qnt_BRL - 25 
+    const profit = this.qnt_BRL - 25;
     
-    if (profit > 1) {
+    if (Math.sign(profit) === 1 && profit > 0.1) {
       console.log('Arbitragem');
     } else {
       console.log(profit);

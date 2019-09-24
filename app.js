@@ -11,9 +11,11 @@ class Hades {
   constructor() {
     this.rateBl = 0.0025,
     this.rateBt = 0.0040,
-    this.usdt = 0,
-    this.qnt_BRL = 0,
-    this.qnt_BTC = 0
+    this.usdt = 0.0,
+    this.qnt_BRL = 0.0,
+    this.qnt_BTC = 0.0,
+    this.profit = 0.0,
+    this.balance = 0.0
   }
 
   wait(ms) {
@@ -31,20 +33,17 @@ class Hades {
 
   async main() {
     // Balance
-    const BT_USDT = await Bitrecife.getBalance('USDT');
     const BT_BRL = await Bitrecife.getBalance('BRL');
     const BL_BTC = await Bitrecife.getBalance('BTC');
     
     // Ticker
     const BL_BTC_USDT = await Bleutrade.getTicker('BTC_USDT');
-    const BT_USDT_BRL = await Bitrecife.getTicker('USDT_BRL');
     const BT_BTC_BRL = await Bitrecife.getTicker('BTC_BRL');
 
     // Book
-    const BL_BOOK_BTC_USDT = await Bleutrade.getOrderBook('BTC_USDT', 'ALL', 5);
     const BT_BOOK_USDT_BRL = await Bitrecife.getOrderBook('USDT_BRL', 'ALL', 5);
-    const BT_BOOK_BTC_BRL = await Bitrecife.getOrderBook('BTC_BRL', 'ALL', 5);
-      
+
+    // Buy  
     // Quantity BRL to USDT
     this.usdt = (BT_BRL.data.result[0].Balance / BT_BOOK_USDT_BRL.data.result.sell[0].Rate) * (1 - this.rateBt);
     
@@ -55,14 +54,15 @@ class Hades {
     // Bid
     // Quantity BTC to BRL(BT)
     this.qnt_BRL = (this.qnt_BTC * BT_BTC_BRL.data.result[0].Bid) * (1 - this.rateBt);
-
-    // Profit to arbitration
-    const profit = this.qnt_BRL - 25;
     
-    if (Math.sign(profit) === 1 && profit > 0.1) {
-      console.log('Arbitragem');
+    // Profit to arbitration
+    this.profit = ((this.qnt_BRL - BT_BRL.data.result[0].Balance) * 100) / this.qnt_BRL;
+
+    if (Math.sign(this.profit) === 1 && this.profit >= 0.012) {
+      this.balance = this.balance + this.profit
+      console.log('BRL:', this.balance, 'PRO:', this.profit);
     } else {
-      console.log(profit);
+      console.log('BRL:', this.balance, 'PROFIT:', this.profit);
     }
   }
 

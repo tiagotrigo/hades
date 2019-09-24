@@ -58,9 +58,9 @@ class Hades {
     // Profit to arbitration
     this.profit = ((this.qnt_BRL - BT_BRL.data.result[0].Balance) * 100) / this.qnt_BRL;
 
-    if (Math.sign(this.profit) === 1 && this.profit >= 0.012) {
+    if (Math.sign(this.profit) === 1 && this.profit >= 0.01) {
       this.balance = this.balance + this.profit
-      console.log('BRL:', this.balance, 'PRO:', this.profit);
+      console.log('BRL:', this.balance, 'PROFIT:', this.profit);
     } else {
       console.log('BRL:', this.balance, 'PROFIT:', this.profit);
     }

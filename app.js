@@ -95,7 +95,7 @@ class Hades {
 
   async run() {
     this.repeat(
-      5000, 
+      1000, 
       () => Promise.all([
         this.main()
       ])

@@ -194,7 +194,7 @@ const Bitrecife = {
 
     return data;
   },
-  setBuyLimit: function(market, rate, quantity) {
+  setBuyLimit: function(market, rate, quantity, postonly) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/buylimit',
@@ -205,7 +205,7 @@ const Bitrecife = {
         market,
         rate,
         quantity,
-        postonly: true
+        postonly
       }
     };
 
@@ -232,7 +232,7 @@ const Bitrecife = {
 
     return data;
   },
-  setSellLimit: function(market, rate, quantity) {
+  setSellLimit: function(market, rate, quantity, postonly) {
     const r = {
       uri: Endpoints.api.bitrecife,
       private: '/private/selllimit',
@@ -243,7 +243,7 @@ const Bitrecife = {
         market,
         rate,
         quantity,
-        postonly: true
+        postonly
       }
     };
 

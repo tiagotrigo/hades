@@ -36,7 +36,8 @@ class Hades {
   async main() {
     // Balance
     const BT_BRL = await Bitrecife.getBalance('BRL');
-    const BL_USDT = await Bitrecife.getBalance('USDT');
+    const BT_USDT = await Bitrecife.getBalance('USDT');
+    const BL_BTC = await Bitrecife.getBalance('BTC');
     
     // Ticker
     const BL_BTC_USDT = await Bleutrade.getTicker('BTC_USDT');
@@ -47,10 +48,17 @@ class Hades {
 
     // Buy  
     // Quantity BRL to USDT
-    if (BT_BRL.data.result[0].Balance > this.brl) {
-      this.brl++
-      this.usdt = (BT_BRL.data.result[0].Balance / BT_BOOK_USDT_BRL.data.result.sell[0].Rate) * (1 - this.rateBt);
-
+    if (BT_BRL.data.result[0].Balance > 0) {
+      //
+      this.usdt = (BT_BRL.data.result[0].Balance / BT_BOOK_USDT_BRL.data.result.sell[0].Rate) * (1 - this.rateBt); 
+      //
+      console.log(`Trocando BRL por ${this.usdt} USDT`);
+      //
+    } else if (BT_USDT.data.result[0].Balance > 0) {
+      //
+      console.log(`Transferindo ${this.usdt} USDT para Bleutrade`);
+      //
+    } else if (BL_BTC.data.result[0].Balance > 0) {
       // Ask
       // Quantity USDT to BTC(BL)
       this.qnt_BTC = (this.usdt / BL_BTC_USDT.data.result[0].Ask) * (1 - this.rateBl);
@@ -60,16 +68,13 @@ class Hades {
       this.qnt_BRL = (this.qnt_BTC * BT_BTC_BRL.data.result[0].Bid) * (1 - this.rateBt);
 
       // Profit to arbitration
-      this.profit = ((this.qnt_BRL - BT_BRL.data.result[0].Balance) * 100) / this.qnt_BRL;  
-      //
-    } else if (BL_USDT.data.result[0].Balance > 0) {
-      //
-    } else {
+      this.profit = ((this.qnt_BRL - BT_BRL.data.result[0].Balance) * 100) / this.qnt_BRL;
+
       if (Math.sign(this.profit) === 1 && this.profit >= 0.01) {
         console.log('BRL:', colors.green(BT_BRL.data.result[0].Balance), 'PROFIT:', colors.yellow(this.profit));
       } else {
         console.log('BRL:', colors.green(BT_BRL.data.result[0].Balance), 'PROFIT:', colors.yellow(this.profit));
-      }  
+      }
     }
 
   }

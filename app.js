@@ -65,7 +65,7 @@ class Hades {
      if (parseInt(BT_BRL.data.result[0].Balance) > 0) {
      
        // Calcule BRL to USDT
-       this.usdt = (this.entry / BT_BOOK_USDT_BRL.data.result.sell[0].Rate) * (1 - this.rateBt); 
+       this.usdt = this.fpArithmetic('/', this.entry, BT_BOOK_USDT_BRL.data.result.sell[0].Rate) * (1 - this.rateBt); 
        
        // Buy USDT
        await Bitrecife.setBuyLimit('USDT_BRL', BT_BOOK_USDT_BRL.data.result.sell[0].Rate, this.usdt, false);
@@ -83,7 +83,7 @@ class Hades {
        
        // Ask
        // Quantity USDT to BTC(BL)
-       this.qnt_BTC = (BL_USDT.data.result[0].Balance / BL_BTC_USDT.data.result[0].Ask) * (1 - this.rateBl);
+       this.qnt_BTC = this.fpArithmetic('/', BL_USDT.data.result[0].Balance, BL_BTC_USDT.data.result[0].Ask) * (1 - this.rateBl);
        this.qnt_BTC_fee = this.fpArithmetic('+', this.qnt_BTC, 0.00000001);
 
        // Sell BTC
@@ -94,7 +94,7 @@ class Hades {
      } else if (BL_BTC.data.result[0].Balance > 0.00001) {
        
        // Quantity to BRL
-       this.qnt_BRL = (BL_BTC.data.result[0].Balance * BT_BTC_BRL.data.result[0].Bid) * (1 - this.rateBt);
+       this.qnt_BRL = this.fpArithmetic('*', BL_BTC.data.result[0].Balance, BT_BTC_BRL.data.result[0].Bid) * (1 - this.rateBt);
        
        // Profit to arbitration
        this.profit = ((this.qnt_BRL - this.entry) * 100) / this.qnt_BRL;

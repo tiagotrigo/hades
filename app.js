@@ -63,8 +63,8 @@ class Hades {
       this.profit = ((this.qnt_BRL - BT_BRL.data.result[0].Balance) * 100) / this.qnt_BRL;  
       //
     } else if (BL_USDT.data.result[0].Balance > 0) {
-
-    } else {}
+      //
+    } else {
       if (Math.sign(this.profit) === 1 && this.profit >= 0.01) {
         console.log('BRL:', colors.green(BT_BRL.data.result[0].Balance), 'PROFIT:', colors.yellow(this.profit));
       } else {

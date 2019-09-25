@@ -68,7 +68,7 @@ class Hades {
        // Ask
        // Quantity USDT to BTC(BL)
        this.qnt_BTC = (BL_USDT.data.result[0].Balance / BL_BTC_USDT.data.result[0].Ask) * (1 - this.rateBl);
-       this.qnt_BTC_fee = parseFloat(sprintf('%.8f', this.qnt_BTC));
+       this.qnt_BTC_fee = parseFloat(sprintf('%.8f', this.qnt_BTC)) + 0.00000001;
        // Sell BTC
        await Bleutrade.setBuyLimit('BTC_USDT', BL_BTC_USDT.data.result[0].Ask, this.qnt_BTC_fee, false);
        //
@@ -80,17 +80,16 @@ class Hades {
        this.profit = ((this.qnt_BRL - this.entry) * 100) / this.qnt_BRL;
 
        if (Math.sign(this.profit) === 1 && this.profit >= 0.01) {
-         // Transfer BTC to Bitrecife
-         await Bleutrade.setDirectTransfer('BTC', BL_BTC.data.result[0].Balance, 3, 'tiago.a.trigo@gmail.com');
-         // Buy BTC to BRL
-         await Bitrecife.setBuyLimit('BTC_BRL', BT_BTC_BRL.data.result[0].Bid, BT_BTC.data.result[0].Balance * (1 - this.rateBt), false);
-         //
-         console.log('BRL:', colors.green(BT_BRL.data.result[0].Balance), 'PROFIT:', colors.yellow(this.profit));
+           // Transfer BTC to Bitrecife
+           await Bleutrade.setDirectTransfer('BTC', BL_BTC.data.result[0].Balance, 3, 'tiago.a.trigo@gmail.com');
+           // Buy BTC to BRL
+           await Bitrecife.setBuyLimit('BTC_BRL', BT_BTC_BRL.data.result[0].Bid, BT_BTC.data.result[0].Balance * (1 - this.rateBt), false);
+           //
+           console.log('BRL:', colors.green(BT_BRL.data.result[0].Balance), 'PROFIT:', colors.yellow(this.profit));
        } else {
          console.log('BRL:', colors.green(BT_BRL.data.result[0].Balance), 'PROFIT:', colors.yellow(this.profit));
        }
-     }
-   
+    }
   }
 
   async run() {

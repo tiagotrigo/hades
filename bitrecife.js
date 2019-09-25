@@ -19,9 +19,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     });
   },
@@ -38,9 +36,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     });
   },
@@ -60,9 +56,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     });
   },
@@ -82,9 +76,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     });
   },
@@ -104,9 +96,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     });
   },
@@ -128,9 +118,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     });
   },
@@ -151,9 +139,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     });
   },
@@ -174,9 +160,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     });
   },
@@ -249,9 +233,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -293,9 +275,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -337,9 +317,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -381,9 +359,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -425,9 +401,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -469,9 +443,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -513,9 +485,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -551,9 +521,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -589,9 +557,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -627,9 +593,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -663,9 +627,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -701,9 +663,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -743,9 +703,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -788,9 +746,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -824,9 +780,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   },
@@ -860,9 +814,7 @@ const Bitrecife = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject('Oops!').catch(err => {
-          throw new Error(err);
-        });
+        reject(err)
       })
     })
   }

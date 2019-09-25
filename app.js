@@ -33,6 +33,17 @@ class Hades {
     ));
   }
 
+  fpArithmetic(op, x, y) {
+    const n = {
+      '*': x * y,
+      '-': x - y,
+      '+': x + y,
+      '/': x / y
+    }[op];        
+
+    return Math.round(n * 100)/100;
+  }
+
   async main() {
     // Balance
     const BT_BRL = await Bitrecife.getBalance('BRL');
@@ -73,8 +84,8 @@ class Hades {
        // Ask
        // Quantity USDT to BTC(BL)
        this.qnt_BTC = (BL_USDT.data.result[0].Balance / BL_BTC_USDT.data.result[0].Ask) * (1 - this.rateBl);
-       this.qnt_BTC_fee = parseFloat(sprintf('%.8f', this.qnt_BTC)) + 0.00000001;
-       
+       this.qnt_BTC_fee = this.fpArithmetic('+', this.qnt_BTC, 0.00000001);
+
        // Sell BTC
        await Bleutrade.setBuyLimit('BTC_USDT', BL_BTC_USDT.data.result[0].Ask, this.qnt_BTC_fee, false);
        
@@ -97,8 +108,7 @@ class Hades {
            console.log('BRL:', colors.green(BT_BRL.data.result[0].Balance), 'PROFIT:', colors.yellow(this.profit));
        } else {
          console.log('BRL:', colors.green(BT_BRL.data.result[0].Balance), 'PROFIT:', colors.yellow(this.profit));
-       }
-
+       }       
     }
   }
 

@@ -19,7 +19,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     });
   },
@@ -36,7 +38,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     });
   },
@@ -56,7 +60,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     });
   },
@@ -76,7 +82,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     });
   },
@@ -96,7 +104,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     });
   },
@@ -118,7 +128,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     });
   },
@@ -139,7 +151,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     });
   },
@@ -160,7 +174,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     });
   },
@@ -196,7 +212,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
 
@@ -231,7 +249,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -273,7 +293,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -315,7 +337,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -357,7 +381,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -399,7 +425,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -441,7 +469,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -483,7 +513,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -519,7 +551,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -555,7 +589,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -591,7 +627,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -625,7 +663,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -661,7 +701,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -701,7 +743,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -744,7 +788,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -778,7 +824,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   },
@@ -812,7 +860,9 @@ const Bleutrade = {
       }).then(function(data) {
         resolve(data);
       }).catch(function(err) {
-        reject(err)
+        reject('Oops!').catch(err => {
+          throw new Error(err);
+        });
       })
     })
   }

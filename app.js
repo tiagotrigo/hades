@@ -203,13 +203,13 @@ class Hades {
       } else {
         return {
           success: false,
-          message: 'Erro! Problema para carregar o saldo em BTC'
+          message: 'Erro! Problema para carregar o saldo em BTC na Bitrecife'
         } 
       }
     } else {
       return {
         success: false,
-        message: 'Erro! Problema para carregar o saldo em BTC'
+        message: 'Erro! Problema para carregar o saldo em BTC na Bleutrade'
       }
     }
     return {

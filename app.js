@@ -11,13 +11,12 @@ class Hades {
   
   constructor() {
     this.entry = 25.00,
-    this.fee_Bl = 0.0025,
-    this.fee_Bt = 0.0040,
     this.dolar = 0.0,
+    this.profit = 0.0,
     this.qnt_BRL = 0.0,
     this.qnt_BTC = 0.0,
-    this.profit = 0.0,
-    this.balance = 0.0
+    this.fee_Bl = 0.0025,
+    this.fee_Bt = 0.0040
   }
 
   atraso(ms) {
@@ -67,10 +66,7 @@ class Hades {
               // Validando a transferência
               let direct = await Bitrecife.setDirectTransfer('USDT', BT_USDT.data.result[0].Balance, 1, 'tiago.a.trigo@gmail.com');
               if (direct && direct.data) {
-                return {
-                  success: true,
-                  message: 'Transferência para Bleutrade realizada com sucesso'
-                }
+                console.log('Transferência para Bleutrade realizada com sucesso')
               } else {
                 return {
                   success: false,
@@ -227,7 +223,7 @@ class Hades {
     const two = await this.passoDois();
     const three = await this.passoTres();
 
-    this.repetir(3000, () => {
+    this.repetir(5000, () => {
       if (one && one.success) {
         console.log(' ');
         console.log(one.message);

@@ -227,9 +227,23 @@ class Hades {
     const two = await this.passoDois();
     const three = await this.passoTres();
 
-    setInterval(() => {
-      console.log(three.message)
-    }, 3000)
+    this.repetir(3000, () => {
+      if (one && one.success) {
+        console.log(' ');
+        console.log(one.message);
+        console.log(' ');
+      } else if (two && two.success) {
+        console.log(' ');
+        console.log(two.message);
+        console.log(' ');
+      } else if (three && three.success) {
+        console.log(' ');
+        console.log(three.message);
+        console.log(' ');
+      } else {
+        console.log(three.message);
+      }
+    })
   }
 }
 

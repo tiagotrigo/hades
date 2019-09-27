@@ -229,7 +229,7 @@ const Bitrecife = {
         postonly: options.params.postonly
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   setSellLimit: function(market, rate, quantity, postonly, callback) {
@@ -267,7 +267,7 @@ const Bitrecife = {
         postonly: options.params.postonly
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   setAMIBuy: function(market, rate, amirate, quantity, callback) {
@@ -305,7 +305,7 @@ const Bitrecife = {
         market: options.params.market
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   setAMISell: function(market, rate, amirate, quantity, callback) {
@@ -343,7 +343,7 @@ const Bitrecife = {
         market: options.params.market
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   setStopBuyLimit: function(market, stop, limit, quantity, callback) {
@@ -381,7 +381,7 @@ const Bitrecife = {
         quantity: options.params.quantity
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   setStopSellLimit: function(market, stop, limit, quantity, callback) {
@@ -419,7 +419,7 @@ const Bitrecife = {
         quantity: options.params.quantity
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   setOrderCancel: function(orderId, callback) {
@@ -451,7 +451,7 @@ const Bitrecife = {
         orderid: options.params.orderId
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   getOpenOrders: function(market, callback) {
@@ -483,7 +483,7 @@ const Bitrecife = {
         market: options.params.market
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   getDepositAddress: function(asset, callback) {
@@ -515,7 +515,7 @@ const Bitrecife = {
         asset: options.params.asset
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   getDepositHistory: function(callback) {
@@ -545,7 +545,7 @@ const Bitrecife = {
         nonce: options.params.nonce
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   getMyTransactions: function(asset, callback) {
@@ -577,7 +577,7 @@ const Bitrecife = {
         asset: options.params.asset
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   setWithdraw: function(asset, quantity, address, callback) {
@@ -613,7 +613,7 @@ const Bitrecife = {
         address: options.params.address
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   setDirectTransfer: function(asset, quantity, exchangeto, accountto, callback) {
@@ -682,7 +682,7 @@ const Bitrecife = {
         nonce: options.params.nonce
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   },
   getLimits: function(callback) {
@@ -712,7 +712,7 @@ const Bitrecife = {
         nonce: options.params.nonce
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result[0])
+      callback(resp.data.success, resp.data)
     })
   }
 };

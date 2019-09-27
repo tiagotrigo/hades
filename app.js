@@ -106,6 +106,10 @@ class Hades {
     });
   }
 
+  async terceiroCiclo() {
+    
+  }
+
   async iniciar() {
     await this.primeiroCiclo();
     await this.segundoCiclo();

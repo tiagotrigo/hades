@@ -35,7 +35,7 @@ class Hades {
         console.log('Error: getBalance');
         return;
       }
-      if (brl.Balance > 5) {
+      if (brl.Balance > 1) {
         await Bitrecife.getOrderBook('USDT_BRL', 'ALL', 1, async function(er, book) {
           if (!er) {
             console.log('Error: getOrderBook');
@@ -57,7 +57,7 @@ class Hades {
                 console.log('Error: getBalance');
                 return;
               }
-              if (usd.Balance > qnt_usd) {
+              if (usd.Balance > 1) {
                 // Direct Transfer
                 await Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com', async function(er, direct) {
                   if (!er) {
@@ -76,11 +76,39 @@ class Hades {
   }
 
   async segundoCiclo() {
-    
+    await Bleutrade.getBalance('USDT', async function(er, usd) {
+      if (!er) {
+        console.log('Error: getBalance');
+        return;
+      }
+      // USDT
+      if (usd.Balance > 1) {
+        await Bleutrade.getTicker('BTC_USDT', async function(er, ticker) {
+          if (!er) {
+            console.log('Error: getTicker');
+            return;
+          }
+          // Calculando fee
+          const qnt_BTC = (usd.Balance / ticker.Ask) * (1 - 0.0025);
+          const qnt_BTC_int = parseInt((qnt_BTC * 100000000)) - 1;
+          const qnt_BTC_float = qnt_BTC_int / 100000000;
+          // Compra de BTC ( Ask )
+          await Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false, async function(er, buy) {
+            if (!er) {
+              console.log('Error: setBuyLimit');
+              return
+            }
+            console.log(' ');
+            console.log('Troca de USDT para BTC');
+          });
+        });
+      }
+    });
   }
 
   async iniciar() {
-    await this.primeiroCiclo()
+    await this.primeiroCiclo();
+    await this.segundoCiclo();
   }
 }
 

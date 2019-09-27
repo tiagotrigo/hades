@@ -16,10 +16,10 @@ const Bleutrade = {
       method: 'GET',
       url: options.uri + options.public
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getMarkets: function() {
+  getMarkets: function(callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       public: '/public/getmarkets'
@@ -29,10 +29,10 @@ const Bleutrade = {
       method: 'GET',
       url: options.uri + options.public
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getTicker: function(market) {
+  getTicker: function(market, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       public: '/public/getticker'
@@ -45,10 +45,10 @@ const Bleutrade = {
         market
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getMarketSummary: function(market) {
+  getMarketSummary: function(market, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       public: '/public/getmarketsummary'
@@ -61,10 +61,10 @@ const Bleutrade = {
         market
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getMarketSummaries: function(basemarket) {
+  getMarketSummaries: function(basemarket, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       public: '/public​/getmarketsummaries'
@@ -77,10 +77,10 @@ const Bleutrade = {
         basemarket
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getOrderBook: function(market, type, depth) {
+  getOrderBook: function(market, type, depth, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       public: '/public/getorderbook'
@@ -95,10 +95,10 @@ const Bleutrade = {
         depth
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getMarketHistory: function(market, count) {
+  getMarketHistory: function(market, count, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       public: '/public/getmarkethistory'
@@ -112,10 +112,10 @@ const Bleutrade = {
         count
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getCandles: function(market, period) {
+  getCandles: function(market, period, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       public: '/public​/getcandles'
@@ -129,7 +129,7 @@ const Bleutrade = {
         period
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
   getBalance: function(asset, callback) {
@@ -161,10 +161,10 @@ const Bleutrade = {
         asset: options.params.asset
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getBalances: function() {
+  getBalances: function(callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/getbalances',
@@ -191,10 +191,10 @@ const Bleutrade = {
         nonce: options.params.nonce
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  setBuyLimit: function(market, rate, quantity, postonly) {
+  setBuyLimit: function(market, rate, quantity, postonly, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/buylimit',
@@ -229,10 +229,10 @@ const Bleutrade = {
         postonly: options.params.postonly
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  setSellLimit: function(market, rate, quantity, postonly) {
+  setSellLimit: function(market, rate, quantity, postonly, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/selllimit',
@@ -267,10 +267,10 @@ const Bleutrade = {
         postonly: options.params.postonly
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  setAMIBuy: function(market, rate, amirate, quantity) {
+  setAMIBuy: function(market, rate, amirate, quantity, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private​/buylimitami',
@@ -305,10 +305,10 @@ const Bleutrade = {
         market: options.params.market
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  setAMISell: function(market, rate, amirate, quantity) {
+  setAMISell: function(market, rate, amirate, quantity, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private​/selllimitami',
@@ -343,10 +343,10 @@ const Bleutrade = {
         market: options.params.market
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  setStopBuyLimit: function(market, stop, limit, quantity) {
+  setStopBuyLimit: function(market, stop, limit, quantity, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/buystoplimit',
@@ -381,10 +381,10 @@ const Bleutrade = {
         quantity: options.params.quantity
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  setStopSellLimit: function(market, stop, limit, quantity) {
+  setStopSellLimit: function(market, stop, limit, quantity, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/sellstoplimit',
@@ -419,10 +419,10 @@ const Bleutrade = {
         quantity: options.params.quantity
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  setOrderCancel: function(orderId) {
+  setOrderCancel: function(orderId, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/ordercancel',
@@ -451,10 +451,10 @@ const Bleutrade = {
         orderid: options.params.orderId
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getOpenOrders: function(market) {
+  getOpenOrders: function(market, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/getopenorders',
@@ -483,10 +483,10 @@ const Bleutrade = {
         market: options.params.market
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getDepositAddress: function(asset) {
+  getDepositAddress: function(asset, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/getdepositaddress',
@@ -515,10 +515,10 @@ const Bleutrade = {
         asset: options.params.asset
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getDepositHistory: function() {
+  getDepositHistory: function(callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/getdeposithistory',
@@ -545,10 +545,10 @@ const Bleutrade = {
         nonce: options.params.nonce
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getMyTransactions: function(asset) {
+  getMyTransactions: function(asset, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/getmytransactions',
@@ -577,10 +577,10 @@ const Bleutrade = {
         asset: options.params.asset
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  setWithdraw: function(asset, quantity, address) {
+  setWithdraw: function(asset, quantity, address, callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/withdraw',
@@ -613,10 +613,10 @@ const Bleutrade = {
         address: options.params.address
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  setDirectTransfer: function(asset, quantity, exchangeto, accountto) {
+  setDirectTransfer: function(asset, quantity, exchangeto, accountto, callback) {
     // 1 - Bleutrade, 2 - ExCripto, 3 - Bitrecife
     const options = {
       uri: Endpoints.api.bleutrade,
@@ -655,7 +655,7 @@ const Bleutrade = {
       callback(resp.data.success, resp.data.result)
     })
   },
-  getWithdrawHistory: function() {
+  getWithdrawHistory: function(callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/getwithdrawhistory',
@@ -682,10 +682,10 @@ const Bleutrade = {
         nonce: options.params.nonce
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   },
-  getLimits: function() {
+  getLimits: function(callback) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/getlimits',
@@ -712,7 +712,7 @@ const Bleutrade = {
         nonce: options.params.nonce
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data.result)
+      callback(resp.data.success, resp.data.result[0])
     })
   }
 };

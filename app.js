@@ -10,13 +10,9 @@ const sprintf = require("sprintf-js").sprintf;
 class Hades {
   
   constructor() {
-    this.entry = 25.00,
-    this.dolar = 0.0,
-    this.profit = 0.0,
-    this.qnt_BRL = 0.0,
-    this.qnt_BTC = 0.0,
-    this.fee_Bl = 0.0025,
-    this.fee_Bt = 0.0040
+    this.entry = 20.00,
+    this.fee_bl = 0.0025,
+    this.fee_bt = 0.0040
   }
 
   atraso(ms) {
@@ -32,24 +28,73 @@ class Hades {
     ));
   }
 
-  calcular(op, x, y) {
-    const n = {
-      '*': x * y,
-      '-': x - y,
-      '+': x + y,
-      '/': x / y
-    }[op];        
-
-    return Math.round(n * 100) / 100;
+  async primeiroCiclo() {
+    // BRL
+    await Bitrecife.getBalance('BRL', async function(er, brl) {
+      if (!er) {
+        console.log('Error: getBalance');
+        return;
+      }
+      if (brl.Balance > 0) {
+        console.log(`Saldo de R$ ${brl.Balance}`);
+        await Bitrecife.getOrderBook('USDT_BRL', 'ALL', 5, async function(er, book) {
+          if (!er) {
+            console.log('Error: getOrderBook');
+            return;
+          }
+          // Compra de USDT ( ASK )
+          const qnt_usd = (brl.Balance / book.sell[0].Rate) * (1 - 0.0040);
+          // Ordem de compra ( ASK )
+          await Bitrecife.setBuyLimit('USDT_BRL', book.sell[0].Rate, parseFloat(qnt_usd).toFixed(8), false, async function(er, buy) {
+            if (!er) {
+              console.log('Error: setBuyLimit');
+              return;
+            }
+            console.log(buy);
+            // USDT
+            await Bitrecife.getBalance('USDT', async function(er, usd) {
+              if (!er) {
+                console.log('Error: getBalance');
+                return;
+              }
+              if (usd.Balance > 0) {
+                console.log(`Saldo de $ ${usd.balance}`);
+                // Direct Transfer
+                await Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com', async function(er, direct) {
+                  if (!er) {
+                    console.log('Error: setDirectTransfer');
+                    return;
+                  }
+                  console.log(direct.message);
+                })
+              } else {
+                console.log('Sem saldo em USDT');
+              }
+            });
+          });
+        });
+      } else {
+        console.log('Sem saldo em BRL');
+      }
+    });
   }
 
   async iniciar() {
-    await Bitrecife.getBalance('BRL', function(err, data) {
-      if (!err) return;        
-
-      
-      console.log(data)
-    });
+    await Bleutrade.getBalance('USDT', async function(er, usd) {
+      if (!er) {
+        console.log('Error: getBalance');
+        return;
+      }
+      console.log('Saldo', usd.Balance)
+      await Bleutrade.setDirectTransfer('USDT', usd.Available, 3, 'tiago.a.trigo@gmail.com', async function(er, direct) {
+        if (!er) {
+          console.log('Error: setDirectTransfer');
+          return;
+        }
+        console.log('Envio com sucesso');
+      })
+    })
+    
   }
 }
 

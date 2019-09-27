@@ -6,22 +6,18 @@ const Crypto = require('crypto');
 const Endpoints = require('./endpoints.js');
 
 const Bitrecife = {
-  getAssets: function() {
+  getAssets: function(callback) {
     const options = {
       uri: Endpoints.api.bitrecife,
       public: '/public/getassets'
     };
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'GET',
-        url: options.uri + options.public
-      }).then(function(data) {
-        resolve(data)
-      }).catch(function(err) {
-        reject(err)
-      })
-    });
+    Axios({
+      method: 'GET',
+      url: options.uri + options.public
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
+    })
   },
   getMarkets: function() {
     const options = {
@@ -29,16 +25,12 @@ const Bitrecife = {
       public: '/public/getmarkets'
     };
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'GET',
-        url: options.uri + options.public
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
-    });
+    Axios({
+      method: 'GET',
+      url: options.uri + options.public
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
+    })
   },
   getTicker: function(market) {
     const options = {
@@ -46,19 +38,15 @@ const Bitrecife = {
       public: '/public/getticker'
     };
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'GET',
-        url: options.uri + options.public,
-        params: {
-          market
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
-    });
+    Axios({
+      method: 'GET',
+      url: options.uri + options.public,
+      params: {
+        market
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
+    })
   },
   getMarketSummary: function(market) {
     const options = {
@@ -66,19 +54,15 @@ const Bitrecife = {
       public: '/public/getmarketsummary'
     };
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'GET',
-        url: options.uri + options.public,
-        params: {
-          market
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
-    });
+    Axios({
+      method: 'GET',
+      url: options.uri + options.public,
+      params: {
+        market
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
+    })
   },
   getMarketSummaries: function(basemarket) {
     const options = {
@@ -86,19 +70,15 @@ const Bitrecife = {
       public: '/public​/getmarketsummaries'
     };
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'GET',
-        url: options.uri + options.public,
-        params: {
-          basemarket
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
-    });
+    Axios({
+      method: 'GET',
+      url: options.uri + options.public,
+      params: {
+        basemarket
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
+    })
   },
   getOrderBook: function(market, type, depth) {
     const options = {
@@ -106,21 +86,17 @@ const Bitrecife = {
       public: '/public/getorderbook'
     };
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'GET',
-        url: options.uri + options.public,
-        params: {
-          market,
-          type,
-          depth
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
-    });
+    Axios({
+      method: 'GET',
+      url: options.uri + options.public,
+      params: {
+        market,
+        type,
+        depth
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
+    })
   },
   getMarketHistory: function(market, count) {
     const options = {
@@ -128,20 +104,16 @@ const Bitrecife = {
       public: '/public/getmarkethistory'
     };
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'GET',
-        url: options.uri + options.public,
-        params: {
-          market,
-          count
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
-    });
+    Axios({
+      method: 'GET',
+      url: options.uri + options.public,
+      params: {
+        market,
+        count
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
+    })
   },
   getCandles: function(market, period) {
     const options = {
@@ -149,22 +121,18 @@ const Bitrecife = {
       public: '/public​/getcandles'
     };
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'GET',
-        url: options.uri + options.public,
-        params: {
-          market,
-          period
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
-    });
+    Axios({
+      method: 'GET',
+      url: options.uri + options.public,
+      params: {
+        market,
+        period
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
+    })
   },
-  getBalance: function(asset) {
+  getBalance: function(asset, callback) {
     const options = {
       uri: Endpoints.api.bitrecife,
       private: '/private/getbalance',
@@ -181,27 +149,20 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          asset: options.params.asset
-        }
-      }).then(async function(req, res, next) {
-        try {
-          resolve(req);
-        } catch(err) {
-          next(err)
-        }
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        asset: options.params.asset
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
-
   },
   getBalances: function() {
     const options = {
@@ -219,22 +180,18 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   setBuyLimit: function(market, rate, quantity, postonly) {
@@ -257,26 +214,22 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          market: options.params.market,
-          rate: options.params.rate,
-          quantity: options.params.quantity,
-          postonly: options.params.postonly
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        market: options.params.market,
+        rate: options.params.rate,
+        quantity: options.params.quantity,
+        postonly: options.params.postonly
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   setSellLimit: function(market, rate, quantity, postonly) {
@@ -299,26 +252,22 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          market: options.params.market,
-          rate: options.params.rate,
-          quantity: options.params.quantity,
-          postonly: options.params.postonly
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        market: options.params.market,
+        rate: options.params.rate,
+        quantity: options.params.quantity,
+        postonly: options.params.postonly
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   setAMIBuy: function(market, rate, amirate, quantity) {
@@ -341,26 +290,22 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: encodeURIComponent(options.uri + options.private),
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          quantity: options.params.quantity,
-          rate: options.params.rate,
-          amirate: options.params.amirate,
-          market: options.params.market
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: encodeURIComponent(options.uri + options.private),
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        quantity: options.params.quantity,
+        rate: options.params.rate,
+        amirate: options.params.amirate,
+        market: options.params.market
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   setAMISell: function(market, rate, amirate, quantity) {
@@ -383,26 +328,22 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: encodeURIComponent(options.uri + options.private),
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          quantity: options.params.quantity,
-          rate: options.params.rate,
-          amirate: options.params.amirate,
-          market: options.params.market
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: encodeURIComponent(options.uri + options.private),
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        quantity: options.params.quantity,
+        rate: options.params.rate,
+        amirate: options.params.amirate,
+        market: options.params.market
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   setStopBuyLimit: function(market, stop, limit, quantity) {
@@ -425,26 +366,22 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          market: options.params.market,
-          stop: options.params.rate,
-          limit: options.params.limit,
-          quantity: options.params.quantity
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        market: options.params.market,
+        stop: options.params.rate,
+        limit: options.params.limit,
+        quantity: options.params.quantity
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   setStopSellLimit: function(market, stop, limit, quantity) {
@@ -467,26 +404,22 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          market: options.params.market,
-          stop: options.params.rate,
-          limit: options.params.limit,
-          quantity: options.params.quantity
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        market: options.params.market,
+        stop: options.params.rate,
+        limit: options.params.limit,
+        quantity: options.params.quantity
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   setOrderCancel: function(orderId) {
@@ -506,23 +439,19 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          orderid: options.params.orderId
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        orderid: options.params.orderId
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   getOpenOrders: function(market) {
@@ -542,23 +471,19 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          market: options.params.market
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        market: options.params.market
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   getDepositAddress: function(asset) {
@@ -578,23 +503,19 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          asset: options.params.asset
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        asset: options.params.asset
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   getDepositHistory: function() {
@@ -613,22 +534,18 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   getMyTransactions: function(asset) {
@@ -648,23 +565,19 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          asset: options.params.asset
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        asset: options.params.asset
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   setWithdraw: function(asset, quantity, address) {
@@ -686,25 +599,21 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          asset: options.params.asset,
-          quantity: options.params.quantity,
-          address: options.params.address
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        asset: options.params.asset,
+        quantity: options.params.quantity,
+        address: options.params.address
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   setDirectTransfer: function(asset, quantity, exchangeto, accountto) {
@@ -728,26 +637,22 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce,
-          asset: options.params.asset,
-          quantity: options.params.quantity,
-          exchangeto: options.params.exchangeto,
-          accountto: options.params.accountto
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce,
+        asset: options.params.asset,
+        quantity: options.params.quantity,
+        exchangeto: options.params.exchangeto,
+        accountto: options.params.accountto
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   getWithdrawHistory: function() {
@@ -766,22 +671,18 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   },
   getLimits: function() {
@@ -800,22 +701,18 @@ const Bitrecife = {
     hmac512.update(hmacURL);
     const apisign = hmac512.digest('hex');
 
-    return new Promise(function(resolve, reject) {
-      Axios({
-        method: 'POST',
-        headers: {
-          apisign
-        },
-        url: options.uri + options.private,
-        params: {
-          apikey: options.params.apikey,
-          nonce: options.params.nonce
-        }
-      }).then(function(data) {
-        resolve(data);
-      }).catch(function(err) {
-        reject(err)
-      })
+    Axios({
+      method: 'POST',
+      headers: {
+        apisign
+      },
+      url: options.uri + options.private,
+      params: {
+        apikey: options.params.apikey,
+        nonce: options.params.nonce
+      }
+    }).then(function(resp) {
+      callback(resp.data.success, resp.data.result)
     })
   }
 };

@@ -32,7 +32,7 @@ class Hades {
     // BRL
     await Bitrecife.getBalance('BRL', async function(er, brl) {
       if (!er) {
-        console.log('Error 1: getBalance', brl);
+        console.log('Error 1: getBalance');
         return;
       }
       if (parseInt(brl.Balance) > 0) {
@@ -150,11 +150,11 @@ class Hades {
   }
 
   async iniciar() {
-    this.repetir(5000, async () => {
-      await this.primeiroCiclo();
-      await this.segundoCiclo();
-      await this.terceiroCiclo();  
-    });
+    this.repetir(5000, () => Promise.all([
+      this.primeiroCiclo(),
+      this.segundoCiclo(),
+      this.terceiroCiclo()
+    ]))
   }
 }
 

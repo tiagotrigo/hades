@@ -49,7 +49,6 @@ class Hades {
               console.log('Error 1: setBuyLimit');
               return;
             }
-            console.log(' ');
             console.log('Troca de BRL para USDT');
             // USDT
             await Bitrecife.getBalance('USDT', async function(er, usd) {
@@ -65,7 +64,6 @@ class Hades {
                     return;
                   }
                   console.log('Transferindo USDT para Bleutrade');
-                  console.log(' ');
                 })
               }
             });
@@ -98,7 +96,6 @@ class Hades {
               console.log('Error 2: setBuyLimit');
               return
             }
-            console.log(' ');
             console.log('Troca de USDT para BTC');
           });
         });
@@ -107,24 +104,43 @@ class Hades {
   }
 
   async terceiroCiclo() {
-    await Bleutrade.getBalance('BTC', async function(er, btc) {
+    await Bleutrade.getBalance('BTC', async function(er, bleuBTC) {
       if (!er) {
         console.log('Error 3: getBalance');
         return;
       }
-      if (btc.Balance > 0.0006) {
+      if (bleuBTC.Balance > 0.0006) {
         await Bitrecife.getTicker('BTC_BRL', async function(er, ticker) {
           if (!er) {
             console.log('Error 3: getTicker')
             return;
           }
           // Calculo do fee
-          const qnt_BRL = (btc.Balance * ticker.Bid) * (1 - 0.0040);
+          const qnt_BRL = (bleuBTC.Balance * ticker.Bid) * (1 - 0.0040);
           // Lucro
-          const profit = ((qnt_BRL - 21.95) * 100) / qnt_BRL;
+          const profit = ((qnt_BRL - 21.60) * 100) / qnt_BRL;
           // Procurando oportunidade
           if (Math.sign(profit) === 1 && profit >= 0.01) {
-            console.log('arbitragem', profit);
+            await Bleutrade.setDirectTransfer('BTC', bleuBTC.Balance, 3, 'tiago.a.trigo@gmail.com', async function(er, direct) {
+              if (!er) {
+                console.log('Error 3: setDirectTransfer');
+                return;
+              }
+              console.log('Transferindo BTC para Bitrecife');
+              await Bitrecife.getBalance('BTC', async function(er, bitBTC) {
+                if (!er) {
+                  console.log('Error 3: getBalance');
+                  return;
+                }
+                await Bitrecife.setSellLimit('BTC_BRL', ticker.Bid, bitBTC.Balance, false, async function(er, sell) {
+                  if (!er) {
+                    console.log('Error: setSellLimit');
+                    return;
+                  }
+                  console.log('Troca de BTC por BRL');
+                });
+              });
+            });
           } else {
             console.log(profit);
           }
@@ -134,9 +150,11 @@ class Hades {
   }
 
   async iniciar() {
-    await this.primeiroCiclo();
-    await this.segundoCiclo();
-    await this.terceiroCiclo();
+    this.repetir(5000, async () => {
+      await this.primeiroCiclo();
+      await this.segundoCiclo();
+      await this.terceiroCiclo();  
+    });
   }
 }
 

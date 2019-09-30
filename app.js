@@ -35,14 +35,14 @@ class Hades {
         console.log('Error 1: getBalance');
         return;
       }
-      if (parseInt(brl.Balance) > 0) {
+      if (parseInt(brl.Balance) > 5) {
         await Bitrecife.getOrderBook('USDT_BRL', 'ALL', 1, async function(er, book) {
           if (!er) {
             console.log('Error 1: getOrderBook');
             return;
           }
           // Compra de USDT ( ASK )
-          const qnt_usd = (brl.Balance / book.sell[0].Rate) * (1 - 0.0040);
+          const qnt_usd = (21.60 / book.sell[0].Rate) * (1 - 0.0040);
           // Ordem de compra ( ASK )
           await Bitrecife.setBuyLimit('USDT_BRL', book.sell[0].Rate, qnt_usd, false, async function(er, buy) {
             if (!er) {
@@ -56,7 +56,7 @@ class Hades {
                 console.log('Error 1: getBalance');
                 return;
               }
-              if (parseInt(usd.Balance) > 0) {
+              if (parseInt(usd.Balance) > 5) {
                 // Direct Transfer
                 await Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com', async function(er, direct) {
                   if (!er) {
@@ -80,7 +80,7 @@ class Hades {
         return;
       }
       // USDT
-      if (parseInt(usd.Balance) > 0) {
+      if (parseInt(usd.Balance) > 5) {
         await Bleutrade.getTicker('BTC_USDT', async function(er, ticker) {
           if (!er) {
             console.log('Error 2: getTicker');
@@ -90,6 +90,7 @@ class Hades {
           const qnt_BTC = (usd.Balance / ticker.Ask) * (1 - 0.0025);
           const qnt_BTC_int = parseInt((qnt_BTC * 100000000)) - 1;
           const qnt_BTC_float = qnt_BTC_int / 100000000;
+
           // Compra de BTC ( Ask )
           await Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false, async function(er, buy) {
             if (!er) {
@@ -109,7 +110,7 @@ class Hades {
         console.log('Error 3: getBalance');
         return;
       }
-      if (bleuBTC.Balance > 0.0006) {
+      if (bleuBTC.Balance > 0.0005) {
         await Bitrecife.getTicker('BTC_BRL', async function(er, ticker) {
           if (!er) {
             console.log('Error 3: getTicker')

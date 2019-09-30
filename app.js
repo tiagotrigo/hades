@@ -35,7 +35,7 @@ class Hades {
         console.log('Error 1: getBalance');
         return;
       }
-      if (parseInt(brl.Balance) > 5) {
+      if (parseInt(brl.Balance) > 20) {
         await Bitrecife.getOrderBook('USDT_BRL', 'ALL', 1, async function(er, book) {
           if (!er) {
             console.log('Error 1: getOrderBook');
@@ -97,7 +97,7 @@ class Hades {
               return;
             }
             if (orders.Status === 'OPEN') {
-              console.log('Cancelando ordem');
+              console.log(`Cancelando ordem ${orders.OrderID}`);
               await Bleutrade.setOrderCancel(orders.OrderID, async function(er, cancel) {
                 if (!er) {
                   console.log('Erro 2: setOrderCancel');

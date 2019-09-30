@@ -90,14 +90,36 @@ class Hades {
           const qnt_BTC = (usd.Balance / ticker.Ask) * (1 - 0.0025);
           const qnt_BTC_int = parseInt((qnt_BTC * 100000000)) - 1;
           const qnt_BTC_float = qnt_BTC_int / 100000000;
-
           // Compra de BTC ( Ask )
-          await Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false, async function(er, buy) {
+          await Bleutrade.getOpenOrders('BTC_USDT', async function(er, orders) {
             if (!er) {
-              console.log('Error 2: setBuyLimit');
-              return
+              console.log('Erro 2: getOpenOrders');
+              return;
             }
-            console.log('Troca de USDT para BTC');
+            if (orders.Status === 'OPEN') {
+              console.log('Cancelando ordem');
+              await Bleutrade.setOrderCancel(orders.OrderID, async function(er, cancel) {
+                if (!er) {
+                  console.log('Erro 2: setOrderCancel');
+                  return;
+                }
+                await Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false, async function(er, buy) {
+                  if (!er) {
+                    console.log('Error 2: setBuyLimit');
+                    return
+                  }
+                  console.log('Reativando troca de USDT para BTC');
+                });
+              })
+            } else {
+              await Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false, async function(er, buy) {
+                if (!er) {
+                  console.log('Error 2: setBuyLimit');
+                  return
+                }
+                console.log('Troca de USDT para BTC');
+              });
+            }
           });
         });
       }

@@ -451,7 +451,7 @@ const Bleutrade = {
         orderid: options.params.orderId
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data)
+      callback(resp.data.success, resp.data.result)
     })
   },
   getOpenOrders: function(market, callback) {
@@ -483,7 +483,7 @@ const Bleutrade = {
         market: options.params.market
       }
     }).then(function(resp) {
-      callback(resp.data.success, resp.data)
+      callback(resp.data.success, resp.data.result)
     })
   },
   getDepositAddress: function(asset, callback) {

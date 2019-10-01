@@ -35,7 +35,7 @@ class Hades {
         console.log('Error 1: getBalance');
         return;
       }
-      if (parseInt(brl.Balance) > 20) {
+      if (parseInt(brl.Balance) > 0) {
         await Bitrecife.getOrderBook('USDT_BRL', 'ALL', 1, async function(er, book) {
           if (!er) {
             console.log('Error 1: getOrderBook');
@@ -56,7 +56,7 @@ class Hades {
                 console.log('Error 1: getBalance');
                 return;
               }
-              if (parseInt(usd.Balance) > 5) {
+              if (parseInt(usd.Balance) > 0) {
                 // Direct Transfer
                 await Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com', async function(er, direct) {
                   if (!er) {
@@ -69,6 +69,24 @@ class Hades {
             });
           });
         });
+      } else {
+        // USDT
+        await Bitrecife.getBalance('USDT', async function(er, usd) {
+          if (!er) {
+            console.log('Error 1: getBalance');
+            return;
+          }
+          if (parseInt(usd.Balance) > 0) {
+            // Direct Transfer
+            await Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com', async function(er, direct) {
+              if (!er) {
+                console.log('Error 1: setDirectTransfer');
+                return;
+              }
+              console.log('Transferindo USDT para Bleutrade');
+            })
+          }
+        });
       }
     });    
   }
@@ -80,7 +98,7 @@ class Hades {
         return;
       }
       // USDT
-      if (parseInt(usd.Balance) > 5) {
+      if (parseInt(usd.Balance) > 0) {
         await Bleutrade.getTicker('BTC_USDT', async function(er, ticker) {
           if (!er) {
             console.log('Error 2: getTicker');
@@ -96,7 +114,7 @@ class Hades {
               console.log('Erro 2: getOpenOrders');
               return;
             }
-            if (orders.Status === 'OPEN') {
+            if (orders && orders.Status === 'OPEN') {
               console.log(`Cancelando ordem ${orders.OrderID}`);
               await Bleutrade.setOrderCancel(orders.OrderID, async function(er, cancel) {
                 if (!er) {

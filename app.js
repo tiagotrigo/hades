@@ -48,17 +48,17 @@ class Hades {
                 Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com').then((data) => {
                   console.log('Transferindo USDT para Bleutrade');
                 }).catch((er) => {
-                  console.log(er);
+                  console.log(er.data.message);
                 });
               }
             }).catch((er) => {
-              console.log(er);
+              console.log(er.data.message);
             });
           }).catch((er) => {
-            console.log(er);
+            console.log(er.data.message);
           });
         }).catch((er) => {
-          console.log(er);
+          console.log(er.data.message);
         });
       } else {
         Bitrecife.getBalance('USDT').then((data) => {
@@ -68,13 +68,13 @@ class Hades {
             Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com').then((data) => {
               console.log('Transferindo USDT para Bleutrade');
             }).catch((er) => {
-              console.log(er);
+              console.log(er.data.message);
             });
           }
         });
       }
     }).catch((er) => {
-      console.log(er);
+      console.log(er.data.message);
     });    
   }
 
@@ -98,18 +98,18 @@ class Hades {
               Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false).then((data) => {
                 console.log('Troca de USDT para BTC');
               }).catch((er) => {
-                console.log(er);
+                console.log(er.data.message);
               });
             }
           }).catch((er) => {
-            console.log(er);
+            console.log(er.data.message);
           });
         }).catch((er) => {
-          console.log(er);
+          console.log(er.data.message);
         });
       }
     }).catch((er) => {
-      console.log(er);
+      console.log(er.data.message);
     });
   }
 
@@ -132,23 +132,23 @@ class Hades {
                 Bitrecife.setSellLimit('BTC_BRL', ticker.Bid, bitBTC.Balance, false).then((data) => {
                   console.log('Troca de BTC por BRL');
                 }).catch((er) => {
-                  console.log(er);
+                  console.log(er.data.message);
                 });
               }).catch((er) => {
-                console.log(er);
+                console.log(er.data.message);
               });
             }).catch((er) => {
-              console.log(er)
+              console.log(er.data.message);
             });
           } else {
             console.log(profit);
           }
         }).catch((er) => {
-          console.log(er);
+          console.log(er.data.message);
         });
       } 
     }).catch((er) => {
-      console.log(er);
+      console.log(er.data.message);
     })
   }
 

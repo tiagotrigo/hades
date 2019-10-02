@@ -1,11 +1,7 @@
 'use stricts';
 
-const R = require('ramda');
-const await = require('await');
-const colors = require('colors/safe');
 const Bitrecife = require('./bitrecife.js');
 const Bleutrade = require('./bleutrade.js');
-const sprintf = require("sprintf-js").sprintf;
 
 class Hades {
   
@@ -85,6 +81,7 @@ class Hades {
       if (parseInt(usd.Balance) > 0) {
         Bleutrade.getTicker('BTC_USDT').then((data) => {
           let ticker = data.data.result[0];
+          // Calculando a quantidade em Bitcoins
           let qnt_BTC = (usd.Balance / ticker.Ask) * (1 - 0.0025);
           let qnt_BTC_int = parseInt((qnt_BTC * 100000000)) - 1;
           let qnt_BTC_float = qnt_BTC_int / 100000000;
@@ -126,6 +123,7 @@ class Hades {
           if (Math.sign(profit) === 1 && profit >= 0.01) {
             Bleutrade.setDirectTransfer('BTC', bleuBTC.Balance, 3, 'tiago.a.trigo@gmail.com').then((data) => {
               console.log('Transferindo BTC para Bitrecife');
+              
               Bitrecife.getBalance('BTC').then((data) => {
                 let bitBTC = data.data.result[0];
 

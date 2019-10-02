@@ -28,156 +28,131 @@ class Hades {
     ));
   }
 
-  async primeiroCiclo() {
-    // BRL
-    await Bitrecife.getBalance('BRL', async function(er, brl) {
-      if (er === false) {
-        console.log('Error 1: getBalance');
-        return;
-      }
+  primeiroCiclo() {
+    Bitrecife.getBalance('BRL').then((data) => {
+      let brl = data.data.result[0];
+      
       if (parseInt(brl.Balance) > 0) {
-        await Bitrecife.getOrderBook('USDT_BRL', 'ALL', 1, async function(er, book) {
-          if (er === false) {
-            console.log('Error 1: getOrderBook');
-            return;
-          }
-          // Compra de USDT ( ASK )
-          const qnt_usd = (21.60 / book.sell[0].Rate) * (1 - 0.0040);
-          // Ordem de compra ( ASK )
-          await Bitrecife.setBuyLimit('USDT_BRL', book.sell[0].Rate, qnt_usd, false, async function(er, buy) {
-            if (er === false) {
-              console.log('Error 1: setBuyLimit');
-              return;
-            }
+        Bitrecife.getOrderBook('USDT_BRL', 'ALL', 1).then((data) => {
+          let book = data.data.result;
+          let ask = book.sell[0].Rate;
+          let qnt = (21.60 / ask) * (1 - 0.0040);
+          
+          Bitrecife.setBuyLimit('USDT_BRL', ask, qnt, false).then((data) => {
             console.log('Troca de BRL para USDT');
-            // USDT
-            await Bitrecife.getBalance('USDT', async function(er, usd) {
-              if (er === false) {
-                console.log('Error 1: getBalance');
-                return;
-              }
+            
+            Bitrecife.getBalance('USDT').then((data) => {
+              let usd = data.data.result[0]; 
+              
               if (parseInt(usd.Balance) > 0) {
-                // Direct Transfer
-                await Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com', async function(er, direct) {
-                  if (!er) {
-                    console.log('Error 1: setDirectTransfer');
-                    return;
-                  }
+                Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com').then((data) => {
                   console.log('Transferindo USDT para Bleutrade');
-                })
+                }).catch((er) => {
+                  console.log(er);
+                });
               }
+            }).catch((er) => {
+              console.log(er);
             });
+          }).catch((er) => {
+            console.log(er);
           });
+        }).catch((er) => {
+          console.log(er);
         });
       } else {
-        // USDT
-        await Bitrecife.getBalance('USDT', async function(er, usd) {
-          if (er === false) {
-            console.log('Error 1: getBalance');
-            return;
-          }
+        Bitrecife.getBalance('USDT').then((data) => {
+          let usd = data.data.result[0];
+          
           if (parseInt(usd.Balance) > 0) {
-            // Direct Transfer
-            await Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com', async function(er, direct) {
-              if (er === false) {
-                console.log('Error 1: setDirectTransfer');
-                return;
-              }
+            Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com').then((data) => {
               console.log('Transferindo USDT para Bleutrade');
-            })
+            }).catch((er) => {
+              console.log(er);
+            });
           }
         });
       }
+    }).catch((er) => {
+      console.log(er);
     });    
   }
 
-  async segundoCiclo() {
-    await Bleutrade.getBalance('USDT', async function(er, usd) {
-      if (er === false) {
-        console.log('Error 2: getBalance');
-        return;
-      }
-      // USDT
+  segundoCiclo() {
+    Bleutrade.getBalance('USDT').then((data) => {
+      let usd = data.data.result[0];
+
       if (parseInt(usd.Balance) > 0) {
-        await Bleutrade.getTicker('BTC_USDT', async function(er, ticker) {
-          if (er === false) {
-            console.log('Error 2: getTicker');
-            return;
-          }
-          // Calculando fee
-          const qnt_BTC = (usd.Balance / ticker.Ask) * (1 - 0.0025);
-          const qnt_BTC_int = parseInt((qnt_BTC * 100000000)) - 1;
-          const qnt_BTC_float = qnt_BTC_int / 100000000;
-          // Compra de BTC ( Ask )
-          await Bleutrade.getOpenOrders('BTC_USDT', async function(er, orders) {
-            if (er === false) {
-              console.log('Erro 2: getOpenOrders');
-              return;
-            }
+        Bleutrade.getTicker('BTC_USDT').then((data) => {
+          let ticker = data.data.result[0];
+          let qnt_BTC = (usd.Balance / ticker.Ask) * (1 - 0.0025);
+          let qnt_BTC_int = parseInt((qnt_BTC * 100000000)) - 1;
+          let qnt_BTC_float = qnt_BTC_int / 100000000;
+
+          Bleutrade.getOpenOrders('BTC_USDT').then((data) => {
+            let orders = data.data.result;
+            
             if (orders && orders.Status === 'OPEN') {
-              console.log('Aguardando ordem ser executada');
+              console.log('Ordem de compra aberta');
             } else {
-              await Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false, async function(er, buy) {
-                if (er === false) {
-                  console.log('Error 2: setBuyLimit');
-                  return
-                }
+              Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false).then((data) => {
                 console.log('Troca de USDT para BTC');
+              }).catch((er) => {
+                console.log(er);
               });
             }
+          }).catch((er) => {
+            console.log(er);
           });
+        }).catch((er) => {
+          console.log(er);
         });
       }
+    }).catch((er) => {
+      console.log(er);
     });
   }
 
-  async terceiroCiclo() {
-    await Bleutrade.getBalance('BTC', async function(er, bleuBTC) {
-      if (er === false) {
-        console.log('Error 3: getBalance');
-        return;
-      }
+  terceiroCiclo() {
+    Bleutrade.getBalance('BTC').then((data) => {
+      let bleuBTC = data.data.result[0];
+
       if (bleuBTC.Balance > 0.0005) {
-        await Bitrecife.getTicker('BTC_BRL', async function(er, ticker) {
-          if (er === false) {
-            console.log('Error 3: getTicker')
-            return;
-          }
-          // Calculo do fee
-          const qnt_BRL = (bleuBTC.Balance * ticker.Bid) * (1 - 0.0040);
-          // Lucro
-          const profit = ((qnt_BRL - 21.60) * 100) / qnt_BRL;
-          // Procurando oportunidade
+        Bitrecife.getTicker('BTC_BRL').then((data) => {
+          let ticker = data.data.result[0];
+          let qnt = (bleuBTC.Balance * ticker.Bid) * (1 - 0.0040);
+          let profit = ((qnt - 21.60) * 100) / qnt;
+
           if (Math.sign(profit) === 1 && profit >= 0.01) {
-            await Bleutrade.setDirectTransfer('BTC', bleuBTC.Balance, 3, 'tiago.a.trigo@gmail.com', async function(er, direct) {
-              if (er === false) {
-                console.log('Error 3: setDirectTransfer');
-                return;
-              }
+            Bleutrade.setDirectTransfer('BTC', bleuBTC.Balance, 3, 'tiago.a.trigo@gmail.com').then((data) => {
               console.log('Transferindo BTC para Bitrecife');
-              await Bitrecife.getBalance('BTC', async function(er, bitBTC) {
-                if (er === false) {
-                  console.log('Error 3: getBalance');
-                  return;
-                }
-                await Bitrecife.setSellLimit('BTC_BRL', ticker.Bid, bitBTC.Balance, false, async function(er, sell) {
-                  if (er === false) {
-                    console.log('Error: setSellLimit');
-                    return;
-                  }
+              Bitrecife.getBalance('BTC').then((data) => {
+                let bitBTC = data.data.result[0];
+
+                Bitrecife.setSellLimit('BTC_BRL', ticker.Bid, bitBTC.Balance, false).then((data) => {
                   console.log('Troca de BTC por BRL');
+                }).catch((er) => {
+                  console.log(er);
                 });
+              }).catch((er) => {
+                console.log(er);
               });
+            }).catch((er) => {
+              console.log(er)
             });
           } else {
             console.log(profit);
           }
+        }).catch((er) => {
+          console.log(er);
         });
       } 
-    });
+    }).catch((er) => {
+      console.log(er);
+    })
   }
 
-  async iniciar() {
+  iniciar() {
     this.repetir(5000, () => Promise.all([
       this.primeiroCiclo(),
       this.segundoCiclo(),

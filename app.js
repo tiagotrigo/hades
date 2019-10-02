@@ -44,17 +44,17 @@ class Hades {
                 Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com').then((data) => {
                   console.log('Transferindo USDT para Bleutrade');
                 }).catch((er) => {
-                  console.log(er.data.message);
+                  console.log(er.message);
                 });
               }
             }).catch((er) => {
-              console.log(er.data.message);
+              console.log(er.message);
             });
           }).catch((er) => {
-            console.log(er.data.message);
+            console.log(er.message);
           });
         }).catch((er) => {
-          console.log(er.data.message);
+          console.log(er.message);
         });
       } else {
         Bitrecife.getBalance('USDT').then((data) => {
@@ -64,13 +64,15 @@ class Hades {
             Bitrecife.setDirectTransfer('USDT', usd.Balance, 1, 'tiago.a.trigo@gmail.com').then((data) => {
               console.log('Transferindo USDT para Bleutrade');
             }).catch((er) => {
-              console.log(er.data.message);
+              console.log(er.message);
             });
           }
+        }).catch((er) => {
+          console.log(er.message)
         });
       }
     }).catch((er) => {
-      console.log(er.data.message);
+      console.log(er.message);
     });    
   }
 
@@ -95,18 +97,18 @@ class Hades {
               Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false).then((data) => {
                 console.log('Troca de USDT para BTC');
               }).catch((er) => {
-                console.log(er.data.message);
+                console.log(er.message);
               });
             }
           }).catch((er) => {
-            console.log(er.data.message);
+            console.log(er.message);
           });
         }).catch((er) => {
-          console.log(er.data.message);
+          console.log(er.message);
         });
       }
     }).catch((er) => {
-      console.log(er.data.message);
+      console.log(er.message);
     });
   }
 
@@ -130,32 +132,34 @@ class Hades {
                 Bitrecife.setSellLimit('BTC_BRL', ticker.Bid, bitBTC.Balance, false).then((data) => {
                   console.log('Troca de BTC por BRL');
                 }).catch((er) => {
-                  console.log(er.data.message);
+                  console.log(er.message);
                 });
               }).catch((er) => {
-                console.log(er.data.message);
+                console.log(er.message);
               });
             }).catch((er) => {
-              console.log(er.data.message);
+              console.log(er.message);
             });
           } else {
             console.log(profit);
           }
         }).catch((er) => {
-          console.log(er.data.message);
+          console.log(er.message);
         });
       } 
     }).catch((er) => {
-      console.log(er.data.message);
+      console.log(er.message);
     })
   }
 
   iniciar() {
-    this.repetir(5000, () => Promise.all([
-      this.primeiroCiclo(),
-      this.segundoCiclo(),
-      this.terceiroCiclo()
-    ]))
+    this.repetir(5000, 
+      () => Promise.all([
+        this.primeiroCiclo(),
+        this.segundoCiclo(),
+        this.terceiroCiclo()
+      ])
+    )
   }
 }
 

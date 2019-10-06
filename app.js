@@ -24,15 +24,20 @@ class Hades {
     ));
   }
 
+  toFix(num, precision) {
+    const output = Math.pow(10, precision);
+    return Math.floor((num * output)) / output;
+  }
+
   primeiroCiclo() {
     Bitrecife.getBalance('BRL').then((data) => {
       let brl = data.data.result[0];
       
       if (parseInt(brl.Balance) > 0) {
-        Bitrecife.getOrderBook('USDT_BRL', 'ALL', 1).then((data) => {
+        Bitrecife.getOrderBook('USDT_BRL', 'ALL', 10).then((data) => {
           let book = data.data.result;
           let ask = book.sell[0].Rate;
-          let qnt = (21.60 / ask) * (1 - 0.0040);
+          let qnt = (19.62 / ask) * (1 - 0.0040);
           
           Bitrecife.setBuyLimit('USDT_BRL', ask, qnt, false).then((data) => {
             console.log('Troca de BRL para USDT');
@@ -83,25 +88,34 @@ class Hades {
       if (parseInt(usd.Balance) > 0) {
         Bleutrade.getTicker('BTC_USDT').then((data) => {
           let ticker = data.data.result[0];
-          // Calculando a quantidade em Bitcoins
-          let qnt_BTC = (usd.Balance / ticker.Ask) * (1 - 0.0025);
-          let qnt_BTC_int = parseInt((qnt_BTC * 100000000)) - 1;
-          let qnt_BTC_float = qnt_BTC_int / 100000000;
 
-          Bleutrade.getOpenOrders('BTC_USDT').then((data) => {
-            let orders = data.data.result;
-            
-            if (orders && orders.Status === 'OPEN') {
-              console.log('Ordem de compra aberta');
-            } else {
-              Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false).then((data) => {
-                console.log('Troca de USDT para BTC');
+          Bleutrade.getOrderBook('BTC_USDT', 'ALL', 10).then((book) => {
+            // Calculando a quantidade em Bitcoins
+            let qnt_BTC = (usd.Balance / ticker.Ask) * (1 - 0.0025);
+            let qnt_BTC_int = parseInt((qnt_BTC * 100000000)) - 1;
+            let qnt_BTC_float = qnt_BTC_int / 100000000;
+
+            if ((book.data.result.buy[0].Quantity * book.data.result.buy[0].Rate) >= usd.Balance) {
+              Bleutrade.getOpenOrders('BTC_USDT').then((data) => {
+                let orders = data.data.result;
+
+                if (orders && orders[0].Status === 'OPEN') {
+                  console.log('Ordem de compra aberta');
+                } else {
+                  Bleutrade.setBuyLimit('BTC_USDT', ticker.Ask, qnt_BTC_float, false).then((data) => {
+                    console.log('Troca de USDT para BTC');
+                  }).catch((er) => {
+                    console.log(er.message);
+                  });
+                }
               }).catch((er) => {
                 console.log(er.message);
               });
+            } else {
+              console.log('A primeira ordem é menor que seu saldo');
             }
           }).catch((er) => {
-            console.log(er.message);
+            console.log(er.message)
           });
         }).catch((er) => {
           console.log(er.message);
@@ -120,7 +134,7 @@ class Hades {
         Bitrecife.getTicker('BTC_BRL').then((data) => {
           let ticker = data.data.result[0];
           let qnt = (bleuBTC.Balance * ticker.Bid) * (1 - 0.0040);
-          let profit = ((qnt - 21.60) * 100) / qnt;
+          let profit = ((qnt - 19.62) / 19.62) * 100;
 
           if (Math.sign(profit) === 1 && profit >= 0.01) {
             Bleutrade.setDirectTransfer('BTC', bleuBTC.Balance, 3, 'tiago.a.trigo@gmail.com').then((data) => {

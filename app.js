@@ -37,7 +37,7 @@ class Hades {
         Bitrecife.getOrderBook('USDT_BRL', 'ALL', 10).then((data) => {
           let book = data.data.result;
           let ask = book.sell[0].Rate;
-          let qnt = (brl.Balance / ask) * (1 - 0.0040);
+          let qnt = (50.06 / ask) * (1 - 0.0040);
           
           Bitrecife.setBuyLimit('USDT_BRL', ask, qnt, false).then((data) => {
             console.log('Troca de BRL para USDT');
@@ -136,10 +136,9 @@ class Hades {
           let qnt = (bleuBTC.Balance * bookBleu.buy[0].Rate) * (1 - 0.0040);
           
           Bitrecife.getTicker('USDT_BRL').then((data) => {
-            let brl = qnt * data.data.result[0].Bid;
-            let profit = brl - 50.06;
+            let brl = qnt * data.data.result[0].Bid;            
 
-            if (Math.sign(profit) === 1 && profit >= 0.01) {
+            if (brl > 50.06) {
               Bleutrade.setDirectTransfer('BTC', bleuBTC.Balance, 3, 'tiago.a.trigo@gmail.com').then((data) => {
                 console.log('Transferindo BTC para Bitrecife');
 
@@ -158,7 +157,7 @@ class Hades {
                 console.log(er.message);
               });
             } else {
-              console.log(profit);
+              console.log(brl);
             }
           }).catch((er) => {
             console.log(er.message)

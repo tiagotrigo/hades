@@ -140,18 +140,18 @@ class Hades {
               let bookBitcoinBitrecife = data.data.result;
               let qntRealBitrecife = (saldoBitcoinBitrecife.Balance * bookBitcoinBitrecife.buy[0].Rate) * (1 - 0.004);
               // Verifica se a ordem é maior ou igual ao meu saldo
-              if (bookBitcoinBitrecife.buy[0].Quantity >= saldoBitcoinBitrecife.Balance) {
-                if (this.toFix(qntRealBitrecife, 2) > 49) {
-                  Bitrecife.setSellLimit('BTC_BRL', bookBitcoinBitrecife.buy[0].Rate, saldoBitcoinBitrecife.Balance, false).then((data) => {
-                    console.log('Troca de BTC por BRL');
-                  }).catch((er) => {
-                    console.log(er.message);
-                  });
-                }
+              if (bookBitcoinBitrecife.buy[0].Quantity >= saldoBitcoinBitrecife.Balance && this.toFix(qntRealBitrecife, 2) > 50) {
+                Bitrecife.setSellLimit('BTC_BRL', bookBitcoinBitrecife.buy[0].Rate, saldoBitcoinBitrecife.Balance, false).then((data) => {
+                  console.log('Troca de BTC por BRL');
+                }).catch((er) => {
+                  console.log(er.message);
+                });
               } else {
-                console.log(qntRealBitrecife)
+                console.log('R$', this.toFix(qntRealBitrecife - 50, 2));
               }
             });
+          } else {
+            console.log('Sem saldo em Bitcoin na Bitrecife')
           }
         }).catch((er) => {
           console.log(er.message);

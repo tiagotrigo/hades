@@ -147,7 +147,7 @@ class Hades {
                   console.log(er.message);
                 });
               } else {
-                console.log('R$', this.toFix(qntRealBitrecife - 50, 2));
+                console.log(this.toFix(qntRealBitrecife - 50, 2));
               }
             });
           } else {
@@ -159,6 +159,46 @@ class Hades {
       }
     }).catch((er) => {
       console.log(er.message)
+    });
+  }
+
+  all() {
+    Bitrecife.getBalance('BRL').then((real) => {
+      const saldoBRLBitrecife = real.data.result[0].Balance;
+      Bitrecife.getBalance('USDT').then((dolar) => {
+        const saldoUSDTBitrecife = dolar.data.result[0].Balance;
+        Bleutrade.getBalance('BTC').then((bitcoin) => {
+          const saldoBTCBleutrade = bitcoin.data.result[0].Balance;
+          Bitrecife.getBalance('BTC').then((bitcoin) => {
+            const saldoBTCBitrecife = bitcoin.data.result[0].Balance;
+            Bleutrade.getBalance('USDT').then((dolar) => {
+              const saldoUSDTBleutrade = dolar.data.result[0].Balance;
+              // BRL para USDT
+              Bitrecife.getOrderBook('USDT_BRL', 'ALL', 10).then((book) => {
+                const qntAskUSDTBitrecife = (50 * (1 - 0.004)) / book.data.result.sell[0].Rate;
+                // USDT para BTC
+                Bleutrade.getOrderBook('BTC_USDT', 'ALL', 10).then((book) => {
+                  const qntAskBTCBleutrade = (saldoUSDTBleutrade / book.data.result.sell[0].Rate) * (1 - 0.0025);
+                  const qntAskBTCBleutrade_int = parseInt((qntAskBTCBleutrade * 100000000)) - 1;
+                  const qntAskBTCBleutrade_float = qntAskBTCBleutrade_int / 100000000;
+                  // BTC para BRL
+                  Bitrecife.getOrderBook('BTC_BRL', 'ALL', 10).then((book) => {
+                    const qntBidBTCBitrecife = (saldoBTCBitrecife * book.data.result.buy[0].Rate) * (1 - 0.004);
+                    // Verificando a oportunidade
+                    if (this.toFix(qntBidBTCBitrecife, 2) > 50) {
+                      console.log(' ');
+                      console.log('Oportunidade', qntBidBTCBitrecife);
+                      console.log(' ');
+                    } else {
+                      console.log(this.toFix(qntBidBTCBitrecife, 2))
+                    }
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
     });
   }
 

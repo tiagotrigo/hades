@@ -135,24 +135,20 @@ class Hades {
         Bitrecife.getBalance('BTC').then((data) => {
           let saldoBitcoinBitrecife = data.data.result[0];
           
-          if (parseFloat(saldoBitcoinBitrecife.Balance) > 0.0005) {
-            Bitrecife.getOrderBook('BTC_BRL', 'ALL', 10).then((data) => {
-              let bookBitcoinBitrecife = data.data.result;
-              let qntRealBitrecife = (saldoBitcoinBitrecife.Balance * bookBitcoinBitrecife.buy[0].Rate) * (1 - 0.004);
-              // Verifica se a ordem é maior ou igual ao meu saldo
-              if (bookBitcoinBitrecife.buy[0].Quantity >= saldoBitcoinBitrecife.Balance && this.toFix(qntRealBitrecife, 2) > 50) {
-                Bitrecife.setSellLimit('BTC_BRL', bookBitcoinBitrecife.buy[0].Rate, saldoBitcoinBitrecife.Balance, false).then((data) => {
-                  console.log('Troca de BTC por BRL');
-                }).catch((er) => {
-                  console.log(er.message);
-                });
-              } else {
-                console.log(this.toFix(qntRealBitrecife - 50, 2));
-              }
-            });
-          } else {
-            console.log('Sem saldo em Bitcoin na Bitrecife')
-          }
+          Bitrecife.getOrderBook('BTC_BRL', 'ALL', 10).then((data) => {
+            let bookBitcoinBitrecife = data.data.result;
+            let qntRealBitrecife = (saldoBitcoinBitrecife.Balance * bookBitcoinBitrecife.buy[0].Rate) * (1 - 0.004);
+            // Verifica se a ordem é maior ou igual ao meu saldo
+            if (bookBitcoinBitrecife.buy[0].Quantity >= saldoBitcoinBitrecife.Balance && this.toFix(qntRealBitrecife, 2) > 50) {
+              Bitrecife.setSellLimit('BTC_BRL', bookBitcoinBitrecife.buy[0].Rate, saldoBitcoinBitrecife.Balance, false).then((data) => {
+                console.log('Troca de BTC por BRL');
+              }).catch((er) => {
+                console.log(er.message);
+              });
+            } else {
+              console.log(this.toFix(qntRealBitrecife - 50, 2));
+            }
+          });
         }).catch((er) => {
           console.log(er.message);
         });
@@ -173,24 +169,26 @@ class Hades {
             const saldoBTCBitrecife = bitcoin.data.result[0].Balance;
             Bleutrade.getBalance('USDT').then((dolar) => {
               const saldoUSDTBleutrade = dolar.data.result[0].Balance;
+              
               // BRL para USDT
               Bitrecife.getOrderBook('USDT_BRL', 'ALL', 10).then((book) => {
                 const qntAskUSDTBitrecife = (50 * (1 - 0.004)) / book.data.result.sell[0].Rate;
+                
                 // USDT para BTC
                 Bleutrade.getOrderBook('BTC_USDT', 'ALL', 10).then((book) => {
-                  const qntAskBTCBleutrade = (saldoUSDTBleutrade / book.data.result.sell[0].Rate) * (1 - 0.0025);
+                  const qntAskBTCBleutrade = (qntAskUSDTBitrecife / book.data.result.sell[0].Rate) * (1 - 0.0025);
                   const qntAskBTCBleutrade_int = parseInt((qntAskBTCBleutrade * 100000000)) - 1;
                   const qntAskBTCBleutrade_float = qntAskBTCBleutrade_int / 100000000;
+
                   // BTC para BRL
                   Bitrecife.getOrderBook('BTC_BRL', 'ALL', 10).then((book) => {
-                    const qntBidBTCBitrecife = (saldoBTCBitrecife * book.data.result.buy[0].Rate) * (1 - 0.004);
+                    const qntBidBTCBitrecife = (qntAskBTCBleutrade_float * book.data.result.buy[0].Rate) * (1 - 0.004);
+                    const profit = ((qntBidBTCBitrecife - 50) / 50) * 100;
                     // Verificando a oportunidade
-                    if (this.toFix(qntBidBTCBitrecife, 2) > 50) {
-                      console.log(' ');
-                      console.log('Oportunidade', qntBidBTCBitrecife);
-                      console.log(' ');
+                    if (Math.sign(profit) === 1 && this.toFix(profit, 2) > 0.01) {
+                      console.log('Lucro', profit);
                     } else {
-                      console.log(this.toFix(qntBidBTCBitrecife, 2))
+                      console.log(this.toFix(profit, 2)+'%')
                     }
                   });
                 });
@@ -205,9 +203,7 @@ class Hades {
   iniciar() {
     this.repetir(5000, 
       () => Promise.all([
-        this.primeiroCiclo(),
-        this.segundoCiclo(),
-        this.terceiroCiclo()
+        this.all()
       ])
     )
   }

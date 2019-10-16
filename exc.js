@@ -235,7 +235,7 @@ const Exc = {
     })
   },
   setDirectTransfer: function(asset, quantity, exchangeto, accountto) {
-    // 1 - Bleutrade, 2 - ExCripto, 3 - bleutrade
+    // 1 - Bleutrade, 2 - ExCripto, 3 - Bitrecife
     const options = {
       uri: Endpoints.api.exc,
       private: '/private/directtransfer',

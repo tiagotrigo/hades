@@ -30,7 +30,10 @@ class Hades {
   setup() {
     if (this.count >= Coins.length) this.count = 0;
 
-    const { symbol } = Coins[this.count];
+    const { 
+      symbol,
+      dividend
+    } = Coins[this.count];
     // Saldo em USDT Exc
     Exc.getBalance('USDT').then((usdt) => {
       const saldoUSDTExc = usdt.data.result[0].Balance;
@@ -54,10 +57,31 @@ class Hades {
             } else {
               console.log('['+ symbol +']:', profit);
             }
-            // Transferir USDT para Bleu
-            // Comprar LTC na Bleu
-            // Transferir LTC para Exc
-            // Vender LTC por USDT na Exc
+            // // Transferir USDT para Bleu
+            // Exc.setDirectTransfer('USDT', saldoUSDTExc, 1, 'tiago.a.trigo@gmail.com').then((data) => {
+            //   console.log('Enviando USDT para Bleutrade');
+            //   // Comprar na Bleu
+            //   Bleutrade.setBuyLimit(symbol, bookLTCBleu.data.result.sell[0].Rate, qntAskLTCBleu_float, false).then((data) => {
+            //     console.log(`Troca de USDT por ${dividend}`);
+            //     // Transferir para Exc
+            //     Bleutrade.getBalance(dividend).then((data) => {
+            //       const balance = data.data.result[0].Balance;
+
+            //       Exc.setDirectTransfer(dividend, balance, 2, 'tiago.a.trigo@gmail.com').then((data) => {
+            //         console.log(`Enviando ${dividend} para Exc`);
+
+            //         // Vender na Exc
+            //         Exc.getBalance(dividend).then((data) => {
+            //           const balance = data.data.result[0].Balance;
+
+            //           Bleutrade.setSellLimit(symbol, bookLTCExc.data.result.buy[0].Rate, qntBidUSDTExc, false).then((data) => {
+            //             console.log(`Trocar de ${dividend} por USDT`);
+            //           });
+            //         });
+            //       });
+            //     });
+            //   });
+            // });
           });
         });
       });

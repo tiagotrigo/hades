@@ -1,15 +1,17 @@
 'use stricts';
 
+const Exc = require('./exc.js');
 const Bitrecife = require('./bitrecife.js');
 const Bleutrade = require('./bleutrade.js');
+const Coins = require('./coins.js');
 
 class Hades {
   
   constructor() {
-    this.entry = 20.00,
     this.fee_bl = 0.0025,
     this.fee_bt = 0.0040,
-    this.balance = 0
+    this.fee_exc = 0.0025,
+    this.count = 0
   }
 
   atraso(ms) {
@@ -25,85 +27,49 @@ class Hades {
     ));
   }
 
-  all() {
-    Bitrecife.getBalance('BRL').then((real) => {
-      const saldoBRLBitrecife = real.data.result[0].Balance;
-      Bitrecife.getBalance('USDT').then((dolar) => {
-        const saldoUSDTBitrecife = dolar.data.result[0].Balance;
-        Bleutrade.getBalance('BTC').then((bitcoin) => {
-          const saldoBTCBleutrade = bitcoin.data.result[0].Balance;
-          Bitrecife.getBalance('BTC').then((bitcoin) => {
-            const saldoBTCBitrecife = bitcoin.data.result[0].Balance;
-            Bleutrade.getBalance('USDT').then((dolar) => {
-              const saldoUSDTBleutrade = dolar.data.result[0].Balance;
-              
-              // BRL para USDT
-              Bitrecife.getOrderBook('USDT_BRL', 'ALL', 10).then((bookUSDTBitrecife) => {
-                const qntAskUSDTBitrecife = (48.47 * (1 - 0.004)) / bookUSDTBitrecife.data.result.sell[0].Rate;
-                
-                // USDT para BTC
-                Bleutrade.getOrderBook('BTC_USDT', 'ALL', 10).then((bookBTCBleutrade) => {
-                  const qntAskBTCBleutrade = (qntAskUSDTBitrecife / bookBTCBleutrade.data.result.sell[0].Rate) * (1 - 0.0025);
-                  const qntAskBTCBleutrade_int = parseInt((qntAskBTCBleutrade * 100000000)) - 1;
-                  const qntAskBTCBleutrade_float = qntAskBTCBleutrade_int / 100000000;
+  setup() {
+    if (this.count >= Coins.length) this.count = 0;
 
-                  // BTC para BRL
-                  Bitrecife.getOrderBook('BTC_BRL', 'ALL', 10).then((bookBRLBitrecife) => {
-                    const qntBidBTCBitrecife = (qntAskBTCBleutrade_float * bookBRLBitrecife.data.result.buy[0].Rate) * (1 - 0.004);
-                    const profit = ((qntBidBTCBitrecife - 48.47) / 48.47) * 100;
-                    // Verificando a oportunidade
-                    if (Math.sign(profit) === 1 && profit > 0.01) {
-                      if (bookBTCBleutrade.data.result.sell[0].Quantity >= qntAskBTCBleutrade_float) {
-                        // Comprando USDT
-                        Bitrecife.setBuyLimit('USDT_BRL', bookUSDTBitrecife.data.result.sell[0].Rate, qntAskUSDTBitrecife, false).then((data) => {
-                          console.log('Troca de BRL por USDT');
-                          // Enviando USDT para Bleutrade
-                          Bitrecife.setDirectTransfer('USDT', saldoUSDTBitrecife, 1, 'tiago.a.trigo@gmail.com').then((data) => {
-                            console.log('Enviando USDT para Bleutrade');
-                            // Comprando BTC
-                            Bleutrade.setBuyLimit('BTC_USDT', bookBTCBleutrade.data.result.sell[0].Rate, qntAskBTCBleutrade_float, false).then((data) => {
-                              console.log('Troca de USDT para BTC');
-                              // Enviando BTC para Bitrecife
-                              Bleutrade.setDirectTransfer('BTC', saldoBTCBleutrade, 3, 'tiago.a.trigo@gmail.com').then((data) => {
-                                console.log('Enviando BTC para Bitrecife');
-                                // Comprando BRL
-                                Bitrecife.setSellLimit('BTC_BRL', bookBRLBitrecife.data.result.buy[0].Rate, saldoBTCBitrecife, false).then((data) => {
-                                  console.log('Troca de BTC por BRL');
-                                }).catch((er) => {
-                                  console.log('Oops!');
-                                });
-                              }).catch((er) => {
-                                console.log('Oops!');
-                              });
-                            }).catch((er) => {
-                              console.log('Oops!');
-                            });
-                          }).catch((er) => {
-                            console.log('Oops!');
-                          });
-                        }).catch((er) => {
-                          console.log('Oops!');
-                        });
-                      } else {
-                        console.log("Book inferior ao meu saldo");
-                      }
-                    } else {
-                      console.log(profit + '%');
-                    }
-                  });
-                });
-              });
-            });
+    const { symbol } = Coins[this.count];
+    // Saldo em USDT Exc
+    Exc.getBalance('USDT').then((usdt) => {
+      const saldoUSDTExc = usdt.data.result[0].Balance;
+      // Saldo em USDT Bleu
+      Bleutrade.getBalance('USDT').then((usdt) => {
+        const saldoUSDTBleu = usdt.data.result[0].Balance;
+        // Trocar USDT por LTC
+        Bleutrade.getOrderBook(symbol, 'ALL', 5).then((bookLTCBleu) => {
+          const qntAskLTCBleu = (10 / bookLTCBleu.data.result.sell[0].Rate) * (1 - 0.0025);
+          const qntAskLTCBleu_int = parseInt((qntAskLTCBleu * 100000000)) - 1;
+          const qntAskLTCBleu_float = qntAskLTCBleu_int / 100000000;
+          // Vender LTC por USDT
+          Exc.getOrderBook(symbol, 'ALL', 5).then((bookLTCExc) => {
+            const qntBidUSDTExc = (qntAskLTCBleu_float * bookLTCExc.data.result.buy[0].Rate) * (1 - 0.0025);
+            const profit = ((qntBidUSDTExc - 10) / 10) * 100;
+
+            if (Math.sign(profit) === 1 && profit > 0.01) {
+              console.log(' ');
+              console.log('['+ symbol +']:', profit, 'OK');
+              console.log(' ');
+            } else {
+              console.log('['+ symbol +']:', profit);
+            }
+            // Transferir USDT para Bleu
+            // Comprar LTC na Bleu
+            // Transferir LTC para Exc
+            // Vender LTC por USDT na Exc
           });
         });
       });
     });
+
+    this.count += 1;
   }
 
   iniciar() {
     this.repetir(5000, 
       () => Promise.all([
-        this.all()
+        this.setup()
       ])
     )
   }

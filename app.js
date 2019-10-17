@@ -34,6 +34,7 @@ class Hades {
       symbol,
       dividend
     } = Coins[this.count];
+
     // Saldo em USDT Exc
     Exc.getBalance('USDT').then((usdt) => {
       const saldoUSDTExc = usdt.data.result[0].Balance;
@@ -41,47 +42,51 @@ class Hades {
       Bleutrade.getBalance('USDT').then((usdt) => {
         const saldoUSDTBleu = usdt.data.result[0].Balance;
         // Trocar USDT por LTC
-        Bleutrade.getOrderBook(symbol, 'ALL', 5).then((bookLTCBleu) => {
-          const qntAskLTCBleu = (10 / bookLTCBleu.data.result.sell[0].Rate) * (1 - 0.0025);
-          const qntAskLTCBleu_int = parseInt((qntAskLTCBleu * 100000000)) - 1;
-          const qntAskLTCBleu_float = qntAskLTCBleu_int / 100000000;
+        Bleutrade.getOrderBook(symbol, 'ALL', 5).then((bookBleu) => {
+          const qntAskBleu = (10 / bookBleu.data.result.sell[0].Rate) * (1 - 0.0025);
+          const qntAskBleu_int = parseInt((qntAskBleu * 100000000)) - 1;
+          const qntAskBleu_float = qntAskBleu_int / 100000000;
           // Vender LTC por USDT
-          Exc.getOrderBook(symbol, 'ALL', 5).then((bookLTCExc) => {
-            const qntBidUSDTExc = (qntAskLTCBleu_float * bookLTCExc.data.result.buy[0].Rate) * (1 - 0.0025);
+          Exc.getOrderBook(symbol, 'ALL', 5).then((bookExc) => {
+            const qntBidUSDTExc = (qntAskBleu_float * bookExc.data.result.buy[0].Rate) * (1 - 0.0025);
             const profit = ((qntBidUSDTExc - 10) / 10) * 100;
 
             if (Math.sign(profit) === 1 && profit > 0.01) {
               console.log(' ');
-              console.log('['+ symbol +']:', profit, 'OK');
+              if (bookBleu.data.result.sell[0].Quantity >= qntAskBleu_float) {
+                // Transferir USDT para Bleu
+                Exc.setDirectTransfer('USDT', saldoUSDTExc, 1, 'tiago.a.trigo@gmail.com').then((data) => {
+                  console.log('Enviando USDT para Bleutrade');
+                  // Comprar na Bleu
+                  Bleutrade.setBuyLimit(symbol, bookBleu.data.result.sell[0].Rate, qntAskBleu_float, false).then((data) => {
+                    console.log(`Troca de USDT por ${dividend}`);
+                    // Transferir para Exc
+                    Bleutrade.getBalance(dividend).then((data) => {
+                      const balanceBleu = data.data.result[0].Balance;
+
+                      Exc.setDirectTransfer(dividend, balanceBleu, 2, 'tiago.a.trigo@gmail.com').then((data) => {
+                        console.log(`Enviando ${dividend} para Exc`);
+
+                        // Vender na Exc
+                        Exc.getBalance(dividend).then((data) => {
+                          const balanceExc = data.data.result[0].Balance;
+
+                          Bleutrade.setSellLimit(symbol, bookExc.data.result.buy[0].Rate, balanceExc, false).then((data) => {
+                            console.log(`Trocar de ${dividend} por USDT`);
+                            process.exit();
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              } else {
+                console.log('A primeira ordem no livro é menor do que seu saldo')
+              }
               console.log(' ');
             } else {
               console.log('['+ symbol +']:', profit);
             }
-            // // Transferir USDT para Bleu
-            // Exc.setDirectTransfer('USDT', saldoUSDTExc, 1, 'tiago.a.trigo@gmail.com').then((data) => {
-            //   console.log('Enviando USDT para Bleutrade');
-            //   // Comprar na Bleu
-            //   Bleutrade.setBuyLimit(symbol, bookLTCBleu.data.result.sell[0].Rate, qntAskLTCBleu_float, false).then((data) => {
-            //     console.log(`Troca de USDT por ${dividend}`);
-            //     // Transferir para Exc
-            //     Bleutrade.getBalance(dividend).then((data) => {
-            //       const balance = data.data.result[0].Balance;
-
-            //       Exc.setDirectTransfer(dividend, balance, 2, 'tiago.a.trigo@gmail.com').then((data) => {
-            //         console.log(`Enviando ${dividend} para Exc`);
-
-            //         // Vender na Exc
-            //         Exc.getBalance(dividend).then((data) => {
-            //           const balance = data.data.result[0].Balance;
-
-            //           Bleutrade.setSellLimit(symbol, bookLTCExc.data.result.buy[0].Rate, qntBidUSDTExc, false).then((data) => {
-            //             console.log(`Trocar de ${dividend} por USDT`);
-            //           });
-            //         });
-            //       });
-            //     });
-            //   });
-            // });
           });
         });
       });

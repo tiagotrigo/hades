@@ -53,46 +53,46 @@ class Hades {
             const profit = ((qntBidUSDTExc - this.entry) / this.entry) * 100;
 
             if (Math.sign(profit) === 1 && profit > 0.01) {
-              console.log(' ');
-              console.log(this.entry);
-              console.log(qntBidUSDTExc);
-              console.log(' ');
-              // if (bookBleu.data.result.sell[0].Quantity >= qntAskBleu_float) {
-              //   console.log(' ');
-              //   // Transferir Exc para Bleu
-              //   Exc.setDirectTransfer('USDT', saldoUSDTExc, 1, 'tiago.a.trigo@gmail.com').then((data) => {
-              //     console.log('Enviando USDT para Bleutrade');
-              //     // Comprar na Bleu
-              //     Bleutrade.setBuyLimit(symbol, bookBleu.data.result.sell[0].Rate, qntAskBleu_float, false).then((data) => {
-              //       console.log(`Troca de USDT por ${dividend}`);
+              if (bookBleu.data.result.sell[0].Quantity >= qntAskBleu_float) {
+                console.log(' ');
+                console.log(this.entry)
+                console.log(qntBidUSDTExc)
+                console.log(profit)
+                process.exit();
+                // Transferir Exc para Bleu
+                // Exc.setDirectTransfer('USDT', saldoUSDTExc, 1, 'tiago.a.trigo@gmail.com').then((data) => {
+                //   console.log('Enviando USDT para Bleutrade');
+                //   // Comprar na Bleu
+                //   Bleutrade.setBuyLimit(symbol, bookBleu.data.result.sell[0].Rate, qntAskBleu_float, false).then((data) => {
+                //     console.log(`Troca de USDT por ${dividend}`);
                     
-              //       Bleutrade.getBalance(dividend).then((data) => {
-              //         const balanceBleu = data.data.result[0].Balance;
-              //         // Transferir Bleu para Exc
-              //         Bleutrade.setDirectTransfer(dividend, balanceBleu, 2, 'tiago.a.trigo@gmail.com').then((data) => {
-              //           console.log(`Enviando ${dividend} para Exc`);
-              //           // Vender na Exc
-              //           Exc.getBalance(dividend).then((data) => {
-              //             const balanceExc = data.data.result[0].Balance;
+                //     Bleutrade.getBalance(dividend).then((data) => {
+                //       const balanceBleu = data.data.result[0].Balance;
+                //       // Transferir Bleu para Exc
+                //       Bleutrade.setDirectTransfer(dividend, balanceBleu, 2, 'tiago.a.trigo@gmail.com').then((data) => {
+                //         console.log(`Enviando ${dividend} para Exc`);
+                //         // Vender na Exc
+                //         Exc.getBalance(dividend).then((data) => {
+                //           const balanceExc = data.data.result[0].Balance;
 
-              //             Exc.setSellLimit(symbol, bookExc.data.result.buy[0].Rate, balanceExc, false).then((data) => {
-              //               console.log(`Trocar de ${dividend} por USDT`);
-              //               process.exit();
-              //             });
-              //           });
-              //         });
-              //       });
-              //     });
-              //   });
-              //   //
-              //   console.log(' ');
-              // } else {
-              //   console.log(' ');
-              //   console.log('A primeira ordem do livro está inferior ao meu saldo');
-              //   console.log('Book:', bookBleu.data.result.sell[0].Quantity);
-              //   console.log('Balance:', qntAskBleu_float);
-              //   console.log(' ');
-              // }
+                //           Exc.setSellLimit(symbol, bookExc.data.result.buy[0].Rate, balanceExc, false).then((data) => {
+                //             console.log(`Trocar de ${dividend} por USDT`);
+                //             process.exit();
+                //           });
+                //         });
+                //       });
+                //     });
+                //   });
+                // });
+                //
+                console.log(' ');
+              } else {
+                console.log(' ');
+                console.log('A primeira ordem do livro está inferior ao meu saldo');
+                console.log('Livro de Ofertas:', bookBleu.data.result.sell[0].Quantity);
+                console.log('Minha Balança:', qntAskBleu_float);
+                console.log(' ');
+              }
             } else {
               console.log('['+ symbol +']:', profit);
             }

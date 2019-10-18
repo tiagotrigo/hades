@@ -6,12 +6,12 @@ const Coins = [
 		dividend: 'BTC'        
 	},
 	{
-		symbol: 'LTC_USDT',
-		dividend: 'LTC'
-	},
-	{
 		symbol: 'ETH_USDT',
 		dividend: 'ETH'
+	},
+	{
+		symbol: 'LTC_USDT',
+		dividend: 'LTC'
 	}
 ];
 

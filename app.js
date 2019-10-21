@@ -91,7 +91,6 @@ class Hades {
                 console.log('A primeira ordem do livro está inferior ao meu saldo');
                 console.log('Moeda:', symbol)
                 console.log('Ganho:', this.formatNumber(qntBidUSDTExc, 8));
-                console.log('Balança:', this.entry)
                 console.log('Livro:', bookBleu.data.result.sell[0].Quantity);
                 console.log(' ');
               }

@@ -3,6 +3,7 @@
 require('dotenv').config();
 const Axios = require('axios');
 const Crypto = require('crypto');
+const Nonce = require('nonce')();
 const Endpoints = require('./endpoints.js');
 
 const Bitrecife = {
@@ -69,7 +70,7 @@ const Bitrecife = {
       params: {
         apikey: process.env.BITRECIFE_APIKEY,
         apisecret: process.env.BITRECIFE_APISECRET,
-        nonce: Math.floor(new Date() / 1000),
+        nonce: Nonce(),
         asset
       }
     };
@@ -101,7 +102,7 @@ const Bitrecife = {
       params: {
         apikey: process.env.BITRECIFE_APIKEY,
         apisecret: process.env.BITRECIFE_APISECRET,
-        nonce: Math.floor(new Date() / 1000),
+        nonce: Nonce(),
         market,
         rate,
         quantity,
@@ -139,7 +140,7 @@ const Bitrecife = {
       params: {
         apikey: process.env.BITRECIFE_APIKEY,
         apisecret: process.env.BITRECIFE_APISECRET,
-        nonce: Math.floor(new Date() / 1000),
+        nonce: Nonce(),
         market,
         rate,
         quantity,
@@ -177,7 +178,7 @@ const Bitrecife = {
       params: {
         apikey: process.env.BITRECIFE_APIKEY,
         apisecret: process.env.BITRECIFE_APISECRET,
-        nonce: Math.floor(new Date() / 1000),
+        nonce: Nonce(),
         orderId
       }
     };
@@ -209,7 +210,7 @@ const Bitrecife = {
       params: {
         apikey: process.env.BITRECIFE_APIKEY,
         apisecret: process.env.BITRECIFE_APISECRET,
-        nonce: Math.floor(new Date() / 1000),
+        nonce: Nonce(),
         market
       }
     };
@@ -242,7 +243,7 @@ const Bitrecife = {
       params: {
         apikey: process.env.BITRECIFE_APIKEY,
         apisecret: process.env.BITRECIFE_APISECRET,
-        nonce: Math.floor(new Date() / 1000),
+        nonce: Nonce(),
         asset,
         quantity,
         exchangeto,

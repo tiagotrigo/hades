@@ -78,15 +78,15 @@ class Hades {
                   console.log(`Troca de BTC por ${dividend}`);                    
                   
                   Bleutrade.getBalance(dividend).then((data) => {
-                    const balanceBleu = data.data.result[0].Balance;
+                    const bleu = data.data.result[0].Balance;
                     // Transferir Bleu para Exc
-                    Bleutrade.setDirectTransfer(dividend, balanceBleu, 2, 'tiago.a.trigo@gmail.com').then((data) => {
-                      console.log(`Enviando ${dividend} para Exc`);
+                    Bleutrade.setDirectTransfer(dividend, bleu, 2, 'tiago.a.trigo@gmail.com').then((data) => {
+                      console.log(`Enviando ${dividend} para Excripto`);
                       // Vender na Exc
                       Exc.getBalance(dividend).then((data) => {
-                        const balanceExc = data.data.result[0].Balance;
+                        const exc = data.data.result[0].Balance;
 
-                        Exc.setSellLimit(symbol, bookExc.data.result.buy[0].Rate, balanceExc, false).then((data) => {
+                        Exc.setSellLimit(symbol, bookExc.data.result.buy[0].Rate, exc, false).then((data) => {
                           console.log(`Trocar de ${dividend} por BTC`);
                         });
                       });

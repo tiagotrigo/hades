@@ -11,9 +11,10 @@ class Hades {
   constructor() {
     this.count = 0,
     this.fee_bl = 0.0025,
-    this.fee_bt = 0.0040,
     this.fee_exc = 0.0025,
-    this.entry = 0.00252383
+    this.entry = 0.00020000,
+    this.min = 0.00020000,
+    this.profit = null
   }
 
   atraso(ms) {
@@ -44,30 +45,40 @@ class Hades {
 
     // Saldo em USDT Exc
     Exc.getBalance('BTC').then((data) => {
-      const saldoUSDTExc = data.data.result[0].Balance;
+      this.entry = data.data.result[0].Balance;
       // Saldo em USDT Bleu
       Bleutrade.getBalance('BTC').then((data) => {
-        const saldoUSDTBleu = data.data.result[0].Balance;
         // Trocar USDT por outra moeda
         Bleutrade.getOrderBook(symbol, 'ALL', 5).then((bookBleu) => {
-          const qntAskBleu = this.entry * 0.9975;
-          const qntAskFee = this.formatNumber(qntAskBleu, 8) / bookBleu.data.result.sell[0].Rate;
-          const qntAskBleu_float = this.formatNumber(qntAskFee, 8);
+          let qnt = 0;
+          let qntAskBleu;
+          let qntAskFee;
+          let qntAskBleu_float;
+          
+          if ((bookBleu.data.result.sell[0].Quantity * bookBleu.data.result.sell[0].Rate) >= this.entry) {
+            this.profit = this.entry;
+            qntAskBleu = this.profit * 0.9975;
+            qntAskFee = this.formatNumber(qntAskBleu, 8) / bookBleu.data.result.sell[0].Rate;
+            qntAskBleu_float = this.formatNumber(qntAskFee, 8);
+          } else {
+            this.profit = this.min;
+            qntAskBleu = this.min * 0.9975;
+            qntAskFee = this.formatNumber(qntAskBleu, 8) / bookBleu.data.result.sell[0].Rate;
+            qntAskBleu_float = this.formatNumber(qntAskFee, 8);
+          }
 
           // Vender moeda qualquer por USDT
           Exc.getOrderBook(symbol, 'ALL', 5).then((bookExc) => {
-            const qntBidUSDTExc = (qntAskBleu_float * bookExc.data.result.buy[0].Rate) * (1 - 0.0025);
-            // const profit = ((qntBidUSDTExc - this.entry) / this.entry) * 100;
+            const qntBidUSDTExc = this.formatNumber((qntAskBleu_float * bookExc.data.result.buy[0].Rate) * (1 - 0.0025), 8);
             
-            if (this.formatNumber(qntBidUSDTExc, 8) > this.entry) {
-              if (bookBleu.data.result.sell[0].Quantity >= qntAskBleu_float) {
+            if (qntBidUSDTExc > this.profit) {
+              if (bookBleu.data.result.sell[0].Quantity >= qntAskBleu_float && bookExc.data.result.buy[0].Quantity >= qntAskBleu_float) {
                 //Transferir Exc para Bleu
-                Exc.setDirectTransfer('BTC', saldoUSDTExc, 1, 'tiago.a.trigo@gmail.com').then((data) => {
+                Exc.setDirectTransfer('BTC', this.min, 1, 'tiago.a.trigo@gmail.com').then((data) => {
                   console.log('Enviando BTC para Bleutrade');
                   // Comprar na Bleu
                   Bleutrade.setBuyLimit(symbol, bookBleu.data.result.sell[0].Rate, qntAskBleu_float, false).then((data) => {
-                    console.log(`Troca de BTC por ${dividend}`);
-                    // process.exit();
+                    console.log(`Troca de BTC por ${dividend}`);                    
                     
                     Bleutrade.getBalance(dividend).then((data) => {
                       const balanceBleu = data.data.result[0].Balance;
@@ -79,6 +90,7 @@ class Hades {
                           const balanceExc = data.data.result[0].Balance;
 
                           Exc.setSellLimit(symbol, bookExc.data.result.buy[0].Rate, balanceExc, false).then((data) => {
+                            console.log(data)
                             console.log(`Trocar de ${dividend} por BTC`);
                             process.exit();
                           });
@@ -93,12 +105,13 @@ class Hades {
                 console.log(' ');
                 console.log('A primeira ordem do livro está inferior ao meu saldo');
                 console.log('Moeda:', symbol)
-                console.log('Ganho:', this.formatNumber(qntBidUSDTExc, 8));
-                console.log('Livro:', bookBleu.data.result.sell[0].Quantity);
+                console.log('Ganho:', qntBidUSDTExc);
+                console.log('Livro Exc:', this.formatNumber((bookExc.data.result.buy[0].Quantity * bookExc.data.result.buy[0].Rate), 8));
+                console.log('Livro Bleutrade:', this.formatNumber((bookBleu.data.result.sell[0].Quantity * bookBleu.data.result.sell[0].Rate), 8));
                 console.log(' ');
               }
             } else {
-              console.log('['+ symbol +']:', this.formatNumber(qntBidUSDTExc, 8));
+              console.log('['+ symbol +']:', qntBidUSDTExc);
             }
           });
         });

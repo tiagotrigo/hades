@@ -52,17 +52,22 @@ class Hades {
         let qntAskFee;
         let qntAskBleu_float;
         
-        if ((bookBleu.data.result.sell[0].Quantity * bookBleu.data.result.sell[0].Rate) >= this.entry) {
-          this.gain = this.entry;
-          qntAskBleu = this.gain * 0.9975;
-          qntAskFee = this.formatNumber(qntAskBleu, 8) / bookBleu.data.result.sell[0].Rate;
-          qntAskBleu_float = this.formatNumber(qntAskFee, 8);
-        } else {
-          this.gain = this.min;
-          qntAskBleu = this.gain * 0.9975;
-          qntAskFee = this.formatNumber(qntAskBleu, 8) / bookBleu.data.result.sell[0].Rate;
-          qntAskBleu_float = this.formatNumber(qntAskFee, 8);
-        }
+        // if ((bookBleu.data.result.sell[0].Quantity * bookBleu.data.result.sell[0].Rate) >= this.entry) {
+        //   this.gain = this.entry;
+        //   qntAskBleu = this.gain * 0.9975;
+        //   qntAskFee = this.formatNumber(qntAskBleu, 8) / bookBleu.data.result.sell[0].Rate;
+        //   qntAskBleu_float = this.formatNumber(qntAskFee, 8);
+        // } else {
+        //   this.gain = this.min;
+        //   qntAskBleu = this.gain * 0.9975;
+        //   qntAskFee = this.formatNumber(qntAskBleu, 8) / bookBleu.data.result.sell[0].Rate;
+        //   qntAskBleu_float = this.formatNumber(qntAskFee, 8);
+        // }
+
+        this.gain = this.min;
+        qntAskBleu = this.gain * 0.9975;
+        qntAskFee = this.formatNumber(qntAskBleu, 8) / bookBleu.data.result.sell[0].Rate;
+        qntAskBleu_float = this.formatNumber(qntAskFee, 8);
 
         // Vender moeda qualquer por USDT
         Exc.getOrderBook(symbol, 'ALL', 3).then((bookExc) => {
@@ -81,7 +86,7 @@ class Hades {
                     const bleu = data.data.result[0].Balance;
                     // Transferir Bleu para Exc
                     Bleutrade.setDirectTransfer(dividend, bleu, 2, 'tiago.a.trigo@gmail.com').then((data) => {
-                      console.log(`Enviando ${dividend} para Excripto`);
+                      console.log(`Enviando ${dividend} para Exccripto`);
                       // Vender na Exc
                       Exc.getBalance(dividend).then((data) => {
                         const exc = data.data.result[0].Balance;

@@ -50,8 +50,10 @@ class Hades {
         const saldoUSDTBleu = data.data.result[0].Balance;
         // Trocar USDT por outra moeda
         Bleutrade.getOrderBook(symbol, 'ALL', 5).then((bookBleu) => {
-          const qntAskBleu = (this.entry / bookBleu.data.result.sell[0].Rate) / (1 + 0.0025);
-          const qntAskBleu_float = this.formatNumber(qntAskBleu, 8) - 0.00000001;
+          const qntAskBleu = this.entry * 0.9975;
+          const qntAskFee = this.formatNumber(qntAskBleu, 8) / bookBleu.data.result.sell[0].Rate;
+          const qntAskBleu_float = this.formatNumber(qntAskFee, 8);
+
           // Vender moeda qualquer por USDT
           Exc.getOrderBook(symbol, 'ALL', 5).then((bookExc) => {
             const qntBidUSDTExc = (qntAskBleu_float * bookExc.data.result.buy[0].Rate) * (1 - 0.0025);
@@ -65,6 +67,7 @@ class Hades {
                   // Comprar na Bleu
                   Bleutrade.setBuyLimit(symbol, bookBleu.data.result.sell[0].Rate, qntAskBleu_float, false).then((data) => {
                     console.log(`Troca de BTC por ${dividend}`);
+                    // process.exit();
                     
                     Bleutrade.getBalance(dividend).then((data) => {
                       const balanceBleu = data.data.result[0].Balance;

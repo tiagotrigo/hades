@@ -153,13 +153,13 @@ class Hades {
             const qntBidBTC = this.formatNumber((qntAskETHBleu_float * bookBleuBTC.data.result.buy[0].Rate) * (1 - 0.0025), 8);
             
             if (qntBidBTC > this.gain) {
-              if (bookBleu.data.result.sell[0].Quantity >= qntAskBleu_float) {
+              if (bookBleu.data.result.sell[0].Quantity >= qntAskBleu_float && bookBleuETH.data.result.sell[0].Quantity >= qntAskETHBleu_float) {
                 //Transferir Exc para Bleu
                 console.log(qntBidBTC)
                 // Exc.setDirectTransfer('BTC', this.gain, 1, 'tiago.a.trigo@gmail.com').then((data) => {
                 //   console.log('Enviando BTC para Bleutrade');
                 //   // Comprar na Bleu
-                //   Bleutrade.setBuyLimit('BTC_ETH', bookBleu.data.result.sell[0].Rate, qntAskBleu_float, false).then((data) => {
+                //   Bleutrade.setBuyLimit('ETH_BTC', bookBleu.data.result.sell[0].Rate, qntAskBleu_float, false).then((data) => {
                 //     console.log(`Troca de BTC por ${dividend}`);                    
                     
                 //     Bleutrade.setBuyLimit(symbol, bookBleuETH.data.result.sell[0].Rate, qntAskETHBleu_float, false).then((data) => {
@@ -214,10 +214,10 @@ class Hades {
 
     if (Coins[this.count].market === 'BTC') {
       this.marketBTC(symbol, dividend);
-    } else if (Coins[this.count].market === 'USDT') {
-      this.marketUSDT(symbol, dividend);
     } else if (Coins[this.count].market === 'ETH') {
       this.marketETH(symbol, dividend);
+    } else if (Coins[this.count].market === 'USDT') {
+      this.marketUSDT(symbol, dividend);
     }
 
     this.count += 1;

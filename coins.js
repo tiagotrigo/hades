@@ -22,6 +22,11 @@ const Coins = [
 		market: 'USDT'
 	},
 	{
+		symbol: 'BCH_USDT', 
+		dividend: 'BCH',
+		market: 'USDT'
+	},
+	{
 		symbol: 'NBC_USDT', 
 		dividend: 'NBC',
 		market: 'USDT'

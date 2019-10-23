@@ -156,33 +156,34 @@ class Hades {
               if (bookBleu.data.result.sell[0].Quantity >= qntAskBleu_float && bookBleuETH.data.result.sell[0].Quantity >= qntAskETHBleu_float) {
                 //Transferir Exc para Bleu
                 console.log(qntBidBTC)
-                // Exc.setDirectTransfer('BTC', this.gain, 1, 'tiago.a.trigo@gmail.com').then((data) => {
-                //   console.log('Enviando BTC para Bleutrade');
-                //   // Comprar na Bleu
-                //   Bleutrade.setBuyLimit('ETH_BTC', bookBleu.data.result.sell[0].Rate, qntAskBleu_float, false).then((data) => {
-                //     console.log(`Troca de BTC por ${dividend}`);                    
+                Exc.setDirectTransfer('BTC', this.gain, 1, 'tiago.a.trigo@gmail.com').then((data) => {
+                  console.log('Enviando BTC para Bleutrade');
+                  // Comprar na Bleu
+                  Bleutrade.setBuyLimit('ETH_BTC', bookBleu.data.result.sell[0].Rate, qntAskBleu_float, false).then((data) => {
+                    console.log(`Troca de BTC por ${dividend}`);                    
                     
-                //     Bleutrade.setBuyLimit(symbol, bookBleuETH.data.result.sell[0].Rate, qntAskETHBleu_float, false).then((data) => {
-                //       console.log(`Troca de ETH por ${dividend}`);
-                //       // Vender na Exc
-                //       Bleutrade.getBalance(dividend).then((data) => {
-                //         const balance_1 = data.data.result[0].Balance;
+                    Bleutrade.setBuyLimit(symbol, bookBleuETH.data.result.sell[0].Rate, qntAskETHBleu_float, false).then((data) => {
+                      console.log(`Troca de ETH por ${dividend}`);
+                      // Vender na Exc
+                      Bleutrade.getBalance(dividend).then((data) => {
+                        const balance_1 = data.data.result[0].Balance;
 
-                //         Bleutrade.setSellLimit(symbol, bookBleuBTC.data.result.buy[0].Rate, balance_1, false).then((data) => {
-                //           console.log(`Trocar de ${dividend} por BTC`);
+                        Bleutrade.setSellLimit(symbol, bookBleuBTC.data.result.buy[0].Rate, balance_1, false).then((data) => {
+                          console.log(`Trocar de ${dividend} por BTC`);
 
-                //           Bleutrade.getBalance('BTC').then((data) => {
-                //             const balance_2 = data.data.result[0].Balance;
+                          Bleutrade.getBalance('BTC').then((data) => {
+                            const balance_2 = data.data.result[0].Balance;
                             
-                //             Bleutrade.setDirectTransfer('BTC', balance_2, 2, 'tiago.a.trigo@gmail.com').then((data) => {
-                //               console.log('Enviando BTC para Exc');
-                //             });
-                //           });
-                //         });
-                //       });                      
-                //     }); 
-                //   })
-                // });
+                            Bleutrade.setDirectTransfer('BTC', balance_2, 2, 'tiago.a.trigo@gmail.com').then((data) => {
+                              console.log('Enviando BTC para Excripto');
+                              process.exit();
+                            });
+                          });
+                        });
+                      });                      
+                    }); 
+                  })
+                });
                 //
                 console.log(' ');
               } else {

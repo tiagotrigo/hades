@@ -7,7 +7,7 @@ const nonce = require('nonce')();
 const endpoints = require('./endpoints.js');
 
 const Novadax = {
-	getTickers: function() {
+  getTickers: function() {
     const options = {
       uri: endpoints.api.novadax,
       public: '/market/tickers'
@@ -63,64 +63,66 @@ const Novadax = {
   getBalance: function() {
     const options = {
       uri: endpoints.api.novadax,
-      public: '/account/getBalance',
+      private: '/account/getBalance',
       params: {
         apikey: process.env.NOVADAX_APIKEY,
-        apisecret: process.env.NOVADAX_APISECRET
+        apisecret: process.env.NOVADAX_APISECRET,
+        timestamp: new Date().getTime()
       }
     };
 
-    const hmacURL = `GET\n/v1/account/getBalance\n${new Date().getTime()}`;
-    const apisign = crypto.createHmac('sha256', options.params.apisecret);
+    const hmacURL = `GET\n/v1/account/getBalance\n\n${options.params.timestamp}`;
+    const apisign = crypto.createHmac('sha256', options.params.apisecret).update(hmacURL).digest('hex');
 
     return new Promise((resolve, reject) => {
       const data = axios({
         method: 'GET',
         headers: {
+          'Content-Type': 'application/json',
           'X-Nova-Access-Key': options.params.apikey,
           'X-Nova-Signature': apisign,
-          'X-Nova-Timestamp': new Date().getTime()
+          'X-Nova-Timestamp': options.params.timestamp
         },
-        url: options.uri + options.public
+        url: options.uri + options.private
       })
 
       resolve(data)
     })
   },
-  create: function(symbol, type, side, amount, price) {
+  order: function(symbol, type, side, amount, price) {
     const options = {
       uri: endpoints.api.novadax,
       private: '/orders/create',
       params: {
         apikey: process.env.NOVADAX_APIKEY,
         apisecret: process.env.NOVADAX_APISECRET,
-        symbol,
-        type,
-        side,
-        amount,
-        price
+        timestamp: new Date().getTime()
       }
     };
 
-    const hmacURL = `symbol=${options.params.symbol}&type=${options.params.type}&side=${options.params.side}&amount=${options.params.amount}&price=${options.params.price}`;
+    const body = {
+      symbol,
+      type,
+      side,
+      amount,
+      price
+    }
+
+    const md5 = crypto.createHash('md5').update(JSON.stringify(body)).digest('hex');
+    const hmacURL = `POST\n/v1/orders/create\n${md5}\n${options.params.timestamp}`;
     const apisign = crypto.createHmac('sha256', options.params.apisecret).update(hmacURL).digest('hex');
 
     return new Promise((resolve, reject) => {
       const data = axios({
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'X-Nova-Access-Key': options.params.apikey,
           'X-Nova-Signature': apisign,
-          'X-Nova-Timestamp': new Date().getTime()
+          'X-Nova-Timestamp': options.params.timestamp
         },
         url: options.uri + options.private,
-        data: {
-          symbol: options.params.symbol,
-          type: options.params.type,
-          side: options.params.side,
-          amount: options.params.amount,
-          price: options.params.price
-        }
+        data: JSON.stringify(body)
       })
 
       resolve(data)

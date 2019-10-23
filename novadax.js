@@ -41,19 +41,22 @@ const Novadax = {
       resolve(data)
     })
   },
-  getOrderBook: function(market, size) {
+  getOrderBook: function(market) {
     const options = {
-      uri: endpoints.api.novadax,
-      public: '/market/depth'
+      uri: endpoints.api.novadaxPro,
+      public: '/websocket/crypto2crypto/depth'
     };
 
     return new Promise((resolve, reject) => {
       const data = axios({
-        method: 'GET',
+        method: 'POST',
         url: options.uri + options.public,
         params: {
           symbol: market,
-          limit: size
+          precision: 6
+        },
+        forms: {
+          symbol: market
         }
       })
 

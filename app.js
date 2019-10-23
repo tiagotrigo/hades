@@ -34,19 +34,11 @@ class Hades {
   }
 
   getBalance() {
-    return Novadax.getBalance().then((balance) => {
-      return balance.data.data;
-    }).catch((er) => {
-      return er
-    });
+    return 
   }
 
-  getOrderBook(market, size) {
-    return Novadax.getOrderBook(market, size).then((order) => {
-      return order.data.data
-    }).catch((er) => {
-      return er
-    })
+  getOrderBook(market) {
+    return 
   }
 
   async setup() {
@@ -54,7 +46,11 @@ class Hades {
 
     const { symbol } = Coins[this.count];
 
-    console.log(await this.getOrderBook('LTC_BTC', 10))
+    Novadax.getOrderBook(symbol).then((book) => {
+      console.log(book.data.data)
+    }).catch((er) => {
+      return er
+    });
 
     this.count += 1;
   }

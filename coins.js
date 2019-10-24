@@ -26,6 +26,16 @@ const Coins = [
 		dividend: 'BTT',
 		market: 'BTC'     
 	},
+	{
+		symbol: 'IOTA_BTC', 
+		dividend: 'IOTA',
+		market: 'BTC'     
+	},
+	{
+		symbol: 'ADA_BTC', 
+		dividend: 'ADA',
+		market: 'BTC'     
+	},
 ];
 
 module.exports = Coins;

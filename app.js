@@ -99,7 +99,7 @@ class Hades {
 
     let { symbol, dividend, market } = Coins[this.count];
 
-    this.marketUSDT(symbol, dividend, market)
+    this.marketBTC(symbol, dividend, market)
 
     this.count += 1;
   }

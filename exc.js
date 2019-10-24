@@ -58,10 +58,10 @@ const Exc = {
           type,
           depth
         }
+      }).then((data) => {
+        resolve(data.data.result)
       })
-
-      resolve(data)
-    })
+    });
   },
   getBalance: function(asset) {
     const options = {

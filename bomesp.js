@@ -58,9 +58,9 @@ const Bitrecife = {
           type,
           depth
         }
-      })
-
-      resolve(data)
+      }).then((data) => {
+        resolve(data.data.result)
+      });
     })
   },
   getBalance: function(asset) {

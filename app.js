@@ -12,7 +12,7 @@ class Hades {
     this.count = 0,
     this.fee = 0.0025,
     this.entry = 0.00020000,
-    this.min = 0.00015,
+    this.min = 0.000125,
     this.email = 'tiago.a.trigo@gmail.com'
   }
 
@@ -108,6 +108,7 @@ class Hades {
         const qntExcFee = this.min * 0.9975;
         const qntExcAsk = this.formatNumber(qntExcFee, 8) / bookExccripto.sell[0].Rate;
         const qntExc = this.formatNumber(qntExcAsk, 8);
+
         // Oferta(s) na Bleutrade
         Bleutrade.getOrderBook(symbol, 'ALL', 3).then((bookBleutrade) => {
           // Calculando venda
@@ -166,24 +167,18 @@ class Hades {
       dividend
     } = Coins[this.count];
 
-    // Saldo em bitcoin na Exccripo
-    Exc.getBalance('BTC').then((data) => {
-      // Saldo em bitcoin na Bleutrade
-      Bleutrade.getBalance('BTC').then((data) => {
-        // Oferta(s) na Exccripto
-        Exc.getOrderBook(symbol, 'ALL', 3).then((data) => {
-          let book_exccripto = data.sell[0].Rate;
-          // Oferta(s) na Bleutrade
-          Bleutrade.getOrderBook(symbol, 'ALL', 3).then((data) => {
-            let book_bleutrade = data.sell[0].Rate;
-            // Verifica qual a menor compra, para possivel virada de exchange
-            if (book_exccripto > book_bleutrade) {
-              this.exchangeA(symbol, dividend, divisor);
-            } else {
-              this.exchangeB(symbol, dividend, divisor);
-            }
-          });
-        });
+    // Oferta(s) na Exccripto
+    Exc.getOrderBook(symbol, 'ALL', 3).then((data) => {
+      let book_exccripto = data.sell[0].Rate;
+      // Oferta(s) na Bleutrade
+      Bleutrade.getOrderBook(symbol, 'ALL', 3).then((data) => {
+        let book_bleutrade = data.sell[0].Rate;
+        // Verifica qual a menor compra, para possivel virada de exchange
+        if (book_exccripto > book_bleutrade) {
+          this.exchangeA(symbol, dividend, divisor);
+        } else {
+          this.exchangeB(symbol, dividend, divisor);
+        }
       });
     });
 

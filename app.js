@@ -12,7 +12,7 @@ class Hades {
     this.count = 0,
     this.fee_nvx = 0.9980,
     this.fee_exc = 0.9975,
-    this.entry = 0.00125,
+    this.entry = 0.0015,
     this.withdraw_exc = 0.00050000,
     this.withdraw_nvx = 0.00200000
   }
@@ -159,7 +159,7 @@ class Hades {
             if (qntBidFee > saldoExcBTC) {
               console.log('Lucro', qntBidFee)
             } else {
-              console.log(`[BTC > ${dividend} > ETH > BTC]:`, this.formatNumber(qntBidFee, 8), '('+this.formatNumber(profit, 2)+'%)')
+              console.log(`[${dividend}]:`, this.formatNumber(qntBidFee, 8), '('+this.formatNumber(profit, 2)+'%)')
             }
           });
         });

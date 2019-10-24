@@ -35,107 +35,7 @@ class Hades {
     return Math.floor((num * output)) / output;
   }
 
-  marketBTC(symbol, dividend, market) {
-    // BTC - ETH
-    Novadax.getOrderBook('ETH_BTC').then((data) => {
-      let buy_1 = data.data.data.sell[0][0];
-      
-      let qnt_1 = this.entry * 0.9980;
-      let qnt_1_fee = qnt_1 / buy_1;
-
-      // ETH - MOEDA
-      Novadax.getOrderBook(`${dividend}_ETH`).then((data) => {
-        let buy_2 = data.data.data.sell[0][0];
-        
-        let qnt_2 = qnt_1_fee * 0.9980;
-        let qnt_2_fee = qnt_2 / buy_2;
-
-        // MOEDA - BTC
-        Novadax.getOrderBook(`${dividend}_BTC`).then((data) => {
-          
-          let sell = data.data.data.buy[0][0];
-          
-          let profit = this.formatNumber((qnt_2_fee * sell) * (1 - 0.002), 8);
-
-          if (profit > this.entry) {
-            console.log('Lucro')
-          } else {
-            console.log(`[${symbol}]:`, profit);
-          }
-        });
-      });
-    });
-  }
-
-  marketUSDTtoBTC(symbol, dividend, market) {
-    // BTC - USDT
-    Novadax.getOrderBook('BTC_USDT').then((data) => {
-      let buy_1 = data.data.data.sell[0][0];
-      
-      let qnt_1 = this.entry * 0.9980;
-      let qnt_1_fee = qnt_1 * buy_1;
-
-      // USDT - MOEDA
-      Novadax.getOrderBook(`${dividend}_USDT`).then((data) => {
-        let buy_2 = data.data.data.sell[0][0];
-        
-        let qnt_2 = qnt_1_fee * 0.9980;
-        let qnt_2_fee = qnt_2 / buy_2;
-
-        // MOEDA - BTC
-        Novadax.getOrderBook(`${dividend}_BTC`).then((data) => {
-          let sell = data.data.data.buy[0][0];
-          
-          let profit = this.formatNumber((qnt_2_fee * sell) * (1 - 0.002), 8);
-
-          if (profit > this.entry) {
-            console.log('Lucro')
-          } else {
-            console.log(`[${symbol}]:`, profit);
-          }
-        });
-      });
-    });
-  }
-
-  marketUSDTtoETH(symbol, dividend, market) {
-    // BTC - USDT
-    Novadax.getOrderBook('BTC_USDT').then((data) => {
-      let buy_1 = data.data.data.sell[0][0];
-      
-      let qnt_1 = this.entry * 0.9980;
-      let qnt_1_fee = qnt_1 * buy_1;
-
-      // USDT - MOEDA
-      Novadax.getOrderBook(`ETH_USDT`).then((data) => {
-        let buy_2 = data.data.data.sell[0][0];
-        
-        let qnt_2 = qnt_1_fee * 0.9980;
-        let qnt_2_fee = qnt_2 / buy_2;
-
-        // MOEDA - ETH
-        Novadax.getOrderBook(`${dividend}_ETH`).then((data) => {
-          let buy_3 = data.data.data.sell[0][0];
-          
-          let qnt_3 = qnt_2_fee * 0.9980;
-          let qnt_3_fee = qnt_3 / buy_3;
-          
-          Novadax.getOrderBook(`${dividend}_BTC`).then((data) => {
-            let sell = data.data.data.buy[0][0];
-            let profit = this.formatNumber((qnt_3_fee * sell) * (1 - 0.002), 8);
-
-            if (profit > this.entry) {
-              console.log('Lucro')
-            } else {
-              console.log(`[${symbol}]:`, profit);
-            }
-          });
-        });
-      });
-    });
-  }
-
-  marketTESTE(symbol, dividend) {
+  market(symbol, dividend) {
     // BTC
     Exc.getBalance('BTC').then((data) => {      
       const saldoExcBTC = this.entry + this.withdraw_exc;
@@ -172,7 +72,7 @@ class Hades {
 
     let { symbol, dividend, market } = Coins[this.count];
 
-    this.marketTESTE(symbol, dividend)
+    this.market(symbol, dividend)
 
     this.count += 1;
   }

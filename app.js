@@ -12,7 +12,7 @@ class Hades {
     this.count = 0,
     this.fee = 0.0025,
     this.entry = 0.00020000,
-    this.min = 0.00150000,
+    this.min = 0.00015,
     this.email = 'tiago.a.trigo@gmail.com'
   }
 
@@ -52,38 +52,40 @@ class Hades {
           if (qntExcBid > this.min) {
             // Validando se é possível executar as ordens
             if (bookBleutrade.sell[0].Quantity >= qntBleu && bookExccripto.buy[0].Quantity >= qntExcBid) {
-              console.log('Lucro')
+              console.log(' ');        
               //Transferir Exccripto para Bleutrade
-              // Exc.setDirectTransfer('BTC', this.min, 1, this.email).then((data) => {
-              //   console.log('Enviando BTC para Bleutrade');
-              //   // Comprar na Bleutrade
-              //   Bleutrade.setBuyLimit(symbol, bookBleutrade.sell[0].Rate, qntBleu, false).then((data) => {
-              //     console.log(`Troca de BTC por ${dividend}`);                    
-              //     // Verificando a quantidade da moeda comprada
-              //     Bleutrade.getBalance(dividend).then((data) => {
-              //       const amountBleutrade = data.data.result[0].Balance;
-              //       // Transferir Bleutrade para Exccripto
-              //       Bleutrade.setDirectTransfer(dividend, amountBleutrade, 2, this.email).then((data) => {
-              //         console.log(`Enviando ${dividend} para Exccripto`);
-              //         // Verificando a quantidade da moeda para vender
-              //         Exc.getBalance(dividend).then((data) => {
-              //           const amountExccripto = data.data.result[0].Balance;
-              //           // Vender na Exccripto  
-              //           Exc.setSellLimit(symbol, bookExccripto.buy[0].Rate, amountExccripto, false).then((data) => {
-              //             console.log(`Trocar de ${dividend} por BTC`);
-              //           });
-              //         });
-              //       });
-              //     });
-              //   })
-              // });
+              Exc.setDirectTransfer('BTC', this.min, 1, this.email).then((data) => {
+                console.log('Enviando BTC para Bleutrade');
+                // Comprar na Bleutrade
+                Bleutrade.setBuyLimit(symbol, bookBleutrade.sell[0].Rate, qntBleu, false).then((data) => {
+                  console.log(`Troca de BTC por ${dividend}`);                    
+                  // Verificando a quantidade da moeda comprada
+                  Bleutrade.getBalance(dividend).then((data) => {
+                    const amountBleutrade = data.data.result[0].Balance;
+                    // Transferir Bleutrade para Exccripto
+                    Bleutrade.setDirectTransfer(dividend, amountBleutrade, 2, this.email).then((data) => {
+                      console.log(`Enviando ${dividend} para Exccripto`);
+                      // Verificando a quantidade da moeda para vender
+                      Exc.getBalance(dividend).then((data) => {
+                        const amountExccripto = data.data.result[0].Balance;
+                        // Vender na Exccripto  
+                        Exc.setSellLimit(symbol, bookExccripto.buy[0].Rate, amountExccripto, false).then((data) => {
+                          console.log(`Trocar de ${dividend} por BTC`);
+                        });
+                      });
+                    });
+                  });
+                })
+              });
               //
               console.log(' ');
             } else {
               console.log(' ');
+              console.log('Exchange: Bleutrade / Exccripto');
               console.log('Status: Ordem inferior ao meu saldo');
               console.log('Moeda:', symbol)
               console.log('Ganho:', qntExcBid);
+              console.log('Quantidade:', qntBleu);
               console.log('Livro Exc:', this.formatNumber((bookExccripto.buy[0].Quantity * bookExccripto.buy[0].Rate), 8));
               console.log('Livro Bleutrade:', this.formatNumber((bookBleutrade.sell[0].Quantity * bookBleutrade.sell[0].Rate), 8));
               console.log(' ');
@@ -114,6 +116,7 @@ class Hades {
           if (qntBleuBid > this.min) {
             // Validando se é possível executar as ordens
             if (bookExccripto.sell[0].Quantity >= qntExc && bookBleutrade.buy[0].Quantity >= qntBleuBid) {
+              console.log(' ');
               // Comprar na Exccripto
               Exc.setBuyLimit(symbol, bookExccripto.sell[0].Rate, qntExc, false).then((data) => {
                 console.log(`Troca de BTC por ${dividend}`);
@@ -122,23 +125,28 @@ class Hades {
                   console.log(`Enviando ${dividend} para Bleutrade`);
                   // Vender moeda
                   Bleutrade.setSellLimit(symbol, bookBleutrade.buy[0].Rate, qntExc, false).then((data) => {
-                    console.log(`Trocar de ${dividend} por BTC`);                      
-                    // Transferir Bleutrade para Exccripto
-                    Bleutrade.setDirectTransfer('BTC', qntBleuBid, 2, 'tiago.a.trigo@gmail.com').then((data) => {
-                      console.log(data)
-                      console.log(`Enviando BTC para Exccripto`);
-                      process.exit();
-                    });
+                    console.log(`Trocar de ${dividend} por BTC`);
+                    // Transferir Bleutrade para Exccripto                     
+                    setTimeout(() => {
+                      Bleutrade.getBalance('BTC').then((data) => {
+                        Bleutrade.setDirectTransfer('BTC', data.data.result[0].Balance, 2, this.email).then((data) => {
+                          console.log(`Enviando BTC para Exccripto`);
+                          console.log(' ');
+                        });
+                      })
+                    }, 400);
                   });
                 });
               });
             } else {
               console.log(' ');
+              console.log('Exchange: Exccripto / Bleutrade');
               console.log('Status: Ordem inferior ao meu saldo');
               console.log('Moeda:', symbol)
               console.log('Ganho:', qntBleuBid);
-              console.log('Livro Exc:', this.formatNumber((bookExccripto.buy[0].Quantity * bookExccripto.buy[0].Rate), 8));
+              console.log('Quantidade:', qntExc);
               console.log('Livro Bleutrade:', this.formatNumber((bookBleutrade.sell[0].Quantity * bookBleutrade.sell[0].Rate), 8));
+              console.log('Livro Exc:', this.formatNumber((bookExccripto.buy[0].Quantity * bookExccripto.buy[0].Rate), 8));
               console.log(' ');
             }
           } else {
@@ -183,7 +191,7 @@ class Hades {
   }
 
   iniciar() {
-    this.repetir(5000, 
+    this.repetir(10000, 
       () => Promise.all([
         this.setup()
       ])

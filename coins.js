@@ -2,14 +2,9 @@
 
 const Coins = [
 	{
-		symbol: 'XLM_BTC', 
-		dividend: 'XLM',
-		market: 'BTC'    
-	},
-	{
 		symbol: 'EOS_BTC', 
 		dividend: 'EOS',
-		market: 'BTC'     
+		market: 'BTC'    
 	},
 	{
 		symbol: 'DOGE_BTC', 
@@ -17,13 +12,8 @@ const Coins = [
 		market: 'BTC'     
 	},
 	{
-		symbol: 'TRX_BTC', 
-		dividend: 'TRX',
-		market: 'BTC'     
-	},
-	{
-		symbol: 'BTT_BTC', 
-		dividend: 'BTT',
+		symbol: 'XLM_BTC', 
+		dividend: 'XLM',
 		market: 'BTC'     
 	},
 	{
@@ -36,6 +26,16 @@ const Coins = [
 		dividend: 'ADA',
 		market: 'BTC'     
 	},
+	{
+		symbol: 'TRX_BTC', 
+		dividend: 'TRX',
+		market: 'BTC'     
+	},
+	{
+		symbol: 'BTT_BTC', 
+		dividend: 'XLM',
+		market: 'BTC'     
+	}
 ];
 
 module.exports = Coins;

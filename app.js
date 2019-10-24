@@ -12,9 +12,8 @@ class Hades {
     this.count = 0,
     this.fee_bl = 0.0025,
     this.fee_exc = 0.0025,
-    this.entry = 0.00100000,
-    this.min = 0.00020000,
-    this.profit = null
+    this.entry = 0.00020000,
+    this.min = 0.00020000
   }
 
   atraso(ms) {
@@ -33,10 +32,6 @@ class Hades {
   formatNumber(num, precision) {
     const output = Math.pow(10, precision); 
     return Math.floor((num * output)) / output;
-  }
-
-  marketBTC(symbol, dividend) {
-    
   }
 
   setup() {

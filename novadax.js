@@ -53,7 +53,7 @@ const Novadax = {
         url: options.uri + options.public,
         params: {
           symbol: market,
-          precision: 6
+          precision: 8
         },
         forms: {
           symbol: market

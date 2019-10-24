@@ -1,6 +1,7 @@
 'use stricts';
 
 const R = require('ramda');
+const sprintf = require('sprintf-js').sprintf;
 const Coins = require('./coins.js');
 const Novadax = require('./novadax.js');
 
@@ -8,11 +9,8 @@ class Hades {
   
   constructor() {
     this.count = 0,
-    this.fee_bl = 0.0025,
-    this.fee_exc = 0.0025,
-    this.entry = 0.00100000,
-    this.min = 0.00020000,
-    this.profit = null
+    this.fee = 0.9980,
+    this.entry = 0.0012
   }
 
   atraso(ms) {
@@ -33,24 +31,69 @@ class Hades {
     return Math.floor((num * output)) / output;
   }
 
-  getBalance() {
-    return 
+  marketBTC(symbol, dividend, market) {
+    Novadax.getOrderBook(`${dividend}_${market}`).then((data) => {
+      let buy_1 = data.data.data.sell[0][0];
+      
+      // Primeira compra
+      let qnt_1 = this.entry * 0.9980;
+      let qnt_1_fee = qnt_1 / buy_1;
+
+      Novadax.getOrderBook(`${dividend}_ETH`).then((data) => {
+        let buy_2 = data.data.data.buy[0][0];
+        let qnt_2_fee = (this.formatNumber(qnt_1_fee, 2) * buy_2) * (1 - 0.002);
+
+        Novadax.getOrderBook(`ETH_BTC`).then((data) => {
+          // Retorno ao BTC
+          let sell = data.data.data.buy[0][0];
+          // Lucro
+          let profit = this.formatNumber((qnt_2_fee * sell) * (1 - 0.002), 8);
+
+          if (profit > this.entry) {
+            console.log('Lucro')
+          } else {
+            console.log(symbol, profit)
+          }
+        });
+      });
+    });
   }
 
-  getOrderBook(market) {
-    return 
+  marketUSDT(symbol, dividend, market) {
+    Novadax.getOrderBook(`${dividend}_${market}`).then((data) => {
+      let buy_1 = data.data.data.sell[0][0];
+      
+      // Primeira compra
+      let qnt_1 = this.entry * 0.9980;
+      let qnt_1_fee = qnt_1 / buy_1;
+
+      Novadax.getOrderBook(`${dividend}_USDT`).then((data) => {
+        let buy_2 = data.data.data.buy[0][0];
+        let qnt_2_fee = (this.formatNumber(qnt_1_fee, 2) * buy_2) * (1 - 0.002);
+
+        Novadax.getOrderBook(`BTC_USDT`).then((data) => {
+          // Retorno ao BTC
+          let buy_3 = data.data.data.sell[0][0];
+          // Lucro
+          let q = qnt_2_fee * 0.9980
+          let profit = q / buy_3
+
+          if (profit > this.entry) {
+            console.log('Lucro')
+          } else {
+            console.log(symbol, profit)
+          }
+        });
+      });
+    });
   }
 
-  async setup() {
+  setup() {
     if (this.count >= Coins.length) this.count = 0;
 
-    const { symbol } = Coins[this.count];
+    let { symbol, dividend, market } = Coins[this.count];
 
-    Novadax.getOrderBook(symbol).then((book) => {
-      console.log(book.data.data)
-    }).catch((er) => {
-      return er
-    });
+    this.marketUSDT(symbol, dividend, market)
 
     this.count += 1;
   }

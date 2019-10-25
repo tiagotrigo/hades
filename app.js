@@ -47,35 +47,43 @@ class Hades {
         // Oferta(s) na Exccripto
         Exc.getOrderBook(symbol, 'ALL', 3).then((bookExccripto) => {
           // Calculando venda
-          const qntExcBid = this.formatNumber((qntBleu * bookExccripto.buy[0].Rate) * (1 - this.fee), 8);
+          const qntExcBid = this.formatNumber((qntBleu * bookExccripto.buy[0].Rate) * (1 - 0.0025), 8);
           // Validando se existe lucro 
           if (qntExcBid > this.min) {
             // Validando se é possível executar as ordens
             if (bookBleutrade.sell[0].Quantity >= qntBleu && bookExccripto.buy[0].Quantity >= qntExcBid) {
-              console.log(' ');        
-              //Transferir Exccripto para Bleutrade
-              Exc.setDirectTransfer('BTC', this.min, 1, this.email).then((data) => {
-                console.log('Enviando BTC para Bleutrade');
-                // Comprar na Bleutrade
-                Bleutrade.setBuyLimit(symbol, bookBleutrade.sell[0].Rate, qntBleu, false).then((data) => {
-                  console.log(`Troca de BTC por ${dividend}`);                    
-                  // Verificando a quantidade da moeda comprada
-                  Bleutrade.getBalance(dividend).then((data) => {
-                    const amountBleutrade = data.data.result[0].Balance;
-                    // Transferir Bleutrade para Exccripto
-                    Bleutrade.setDirectTransfer(dividend, amountBleutrade, 2, this.email).then((data) => {
-                      console.log(`Enviando ${dividend} para Exccripto`);
-                      // Verificando a quantidade da moeda para vender
-                      Exc.getBalance(dividend).then((data) => {
-                        const amountExccripto = data.data.result[0].Balance;
-                        // Vender na Exccripto  
-                        Exc.setSellLimit(symbol, bookExccripto.buy[0].Rate, amountExccripto, false).then((data) => {
-                          console.log(`Trocar de ${dividend} por BTC`);
+              Exc.getOpenOrders(symbol).then((data) => {
+                if (data.data.result === null) {
+                  //Transferir Exccripto para Bleutrade
+                  Exc.setDirectTransfer('BTC', this.min, 1, this.email).then((data) => {
+                    console.log('Enviando BTC para Bleutrade');
+                    // Comprar na Bleutrade
+                    Bleutrade.setBuyLimit(symbol, bookBleutrade.sell[0].Rate, qntBleu, false).then((data) => {
+                      console.log(`Troca de BTC por ${dividend}`);
+                      setTimeout(() => {
+                        // Verificando a quantidade da moeda comprada
+                        Bleutrade.getBalance(dividend).then((data) => {
+                          const amountBleutrade = data.data.result[0].Balance;
+                          // Transferir Bleutrade para Exccripto
+                          Bleutrade.setDirectTransfer(dividend, amountBleutrade, 2, this.email).then((data) => {
+                            console.log(`Enviando ${dividend} para Exccripto`);
+                            // Verificando a quantidade da moeda para vender
+                            Exc.getBalance(dividend).then((data) => {
+                              const amountExccripto = data.data.result[0].Balance;
+                              // Vender na Exccripto  
+                              Exc.setSellLimit(symbol, bookExccripto.buy[0].Rate, amountExccripto, false).then((data) => {
+                                console.log(`Trocar de ${dividend} por BTC`);                                
+                              });
+                            });
+                          });
                         });
-                      });
-                    });
+                      }, 400);
+                    })
                   });
-                })
+                } else {
+                  console.log(`Moeda ${symbol} está com ordem aberta`);
+                  console.log(' ');
+                }
               });
               //
               console.log(' ');
@@ -120,7 +128,7 @@ class Hades {
               console.log(' ');
               // Verificando se existe alguma ordem aberta
               Bleutrade.getOpenOrders(symbol).then((data) => {
-                if (data.data.result.length === 0) {
+                if (data.data.result === null) {
                   // Comprar na Exccripto
                   Exc.setBuyLimit(symbol, bookExccripto.sell[0].Rate, qntExc, false).then((data) => {
                     console.log(`Troca de BTC por ${dividend}`);
@@ -143,7 +151,7 @@ class Hades {
                     });
                   });
                 } else {
-                  console.log('Aguardando a ordem ser executada');
+                  console.log(`Moeda ${symbol} está com ordem aberta`);
                   console.log(' ');
                 }
               });

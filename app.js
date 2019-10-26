@@ -12,7 +12,7 @@ class Hades {
     this.count = 0,
     this.fee = 0.0025,
     this.entry = 0.00020000,
-    this.min = 0.000125,
+    this.min = 0.0001202,
     this.email = 'tiago.a.trigo@gmail.com'
   }
 
@@ -107,17 +107,16 @@ class Hades {
   }
 
   exchangeB(symbol, dividend, divisor) {
-    // Saldo em bitcoins na Exccripto
+    // Saldo
     Exc.getBalance('BTC').then((data) => {
-      // Salvando o saldo em bitcoins
+      // Salvando o saldo
       this.entry = data.data.result[0].Balance;
-      // Oferta(s) na Bleutrade
+      // Oferta(s)
       Exc.getOrderBook(symbol, 'ALL', 3).then((bookExccripto) => {
-        const qntExcFee = this.min * 0.9975;
+        const qntExcFee = (bookExccripto.sell[0].Rate * bookExccripto.sell[0].Quantity) > this.min ? (this.formatNumber((bookExccripto.sell[0].Rate * bookExccripto.sell[0].Quantity) * 0.9975), 8) : (this.min * 0.9975);
         const qntExcAsk = this.formatNumber(qntExcFee, 8) / bookExccripto.sell[0].Rate;
         const qntExc = this.formatNumber(qntExcAsk, 8);
-
-        // Oferta(s) na Bleutrade
+        // Oferta(s)
         Bleutrade.getOrderBook(symbol, 'ALL', 3).then((bookBleutrade) => {
           // Calculando venda
           const qntBleuBid = this.formatNumber((qntExc * bookBleutrade.buy[0].Rate) * (1 - 0.0025), 8);
@@ -144,6 +143,7 @@ class Hades {
                             Bleutrade.setDirectTransfer('BTC', data.data.result[0].Balance, 2, this.email).then((data) => {
                               console.log(`Enviando BTC para Exccripto`);
                               console.log(' ');
+                              process.exit();
                             });
                           })
                         }, 400);

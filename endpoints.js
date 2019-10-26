@@ -7,7 +7,8 @@ const Endpoints = {
 		novadax: 'https://api.novadax.com/v1',
 		mercado: 'https://www.mercadobitcoin.net/api',
 		exc: 'https://trade.exccripto.com/api/v3',
-		bomesp: 'https://exchange.bomesp.com.br'
+		bomesp: 'https://exchange.bomesp.com.br',
+		awesomeapi: 'https://economia.awesomeapi.com.br'
 	}
 };
 

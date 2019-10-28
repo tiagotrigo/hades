@@ -12,7 +12,7 @@ class Hades {
     this.count = 0,
     this.fee = 0.0025,
     this.entry = 0.00020000,
-    this.min = 0.0001202,
+    this.min = 0.000125,
     this.email = 'tiago.a.trigo@gmail.com'
   }
 
@@ -34,6 +34,7 @@ class Hades {
     return Math.floor((num * output)) / output;
   }
 
+  // Bleutrade
   exchangeA(symbol, dividend, divisor) {
     // Saldo em bitcoins na Exccripto
     Exc.getBalance('BTC').then((data) => {
@@ -106,6 +107,7 @@ class Hades {
     });
   }
 
+  // Exccripto
   exchangeB(symbol, dividend, divisor) {
     // Saldo
     Exc.getBalance('BTC').then((data) => {
@@ -113,7 +115,7 @@ class Hades {
       this.entry = data.data.result[0].Balance;
       // Oferta(s)
       Exc.getOrderBook(symbol, 'ALL', 3).then((bookExccripto) => {
-        const qntExcFee = (bookExccripto.sell[0].Rate * bookExccripto.sell[0].Quantity) > this.min ? (this.formatNumber((bookExccripto.sell[0].Rate * bookExccripto.sell[0].Quantity) * 0.9975), 8) : (this.min * 0.9975);
+        const qntExcFee = this.min * 0.9975;
         const qntExcAsk = this.formatNumber(qntExcFee, 8) / bookExccripto.sell[0].Rate;
         const qntExc = this.formatNumber(qntExcAsk, 8);
         // Oferta(s)

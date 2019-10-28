@@ -10,7 +10,6 @@ class Hades {
   
   constructor() {
     this.count = 0,
-    this.fee = 0.0025,
     this.entry = 0.00020000,
     this.min = 0.000125,
     this.email = 'tiago.a.trigo@gmail.com'
@@ -41,12 +40,12 @@ class Hades {
       // Salvando o saldo em bitcoins
       this.entry = data.data.result[0].Balance;
       // Oferta(s) na Bleutrade
-      Bleutrade.getOrderBook(symbol, 'ALL', 3).then((bookBleutrade) => {
-        const qntBleuFee = this.min * 0.9975;
+      Bleutrade.getOrderBook(symbol, 'ALL', 15).then((bookBleutrade) => {
+        const qntBleuFee = this.min * 0.9985;
         const qntBleuAsk = this.formatNumber(qntBleuFee, 8) / bookBleutrade.sell[0].Rate;
         const qntBleu = this.formatNumber(qntBleuAsk, 8);
         // Oferta(s) na Exccripto
-        Exc.getOrderBook(symbol, 'ALL', 3).then((bookExccripto) => {
+        Exc.getOrderBook(symbol, 'ALL', 15).then((bookExccripto) => {
           // Calculando venda
           const qntExcBid = this.formatNumber((qntBleu * bookExccripto.buy[0].Rate) * (1 - 0.0025), 8);
           // Validando se existe lucro 
@@ -73,7 +72,8 @@ class Hades {
                               const amountExccripto = data.data.result[0].Balance;
                               // Vender na Exccripto  
                               Exc.setSellLimit(symbol, bookExccripto.buy[0].Rate, amountExccripto, false).then((data) => {
-                                console.log(`Trocar de ${dividend} por BTC`);                                
+                                console.log(`Trocar de ${dividend} por BTC`);  
+                                process.exit();                              
                               });
                             });
                           });
@@ -114,14 +114,14 @@ class Hades {
       // Salvando o saldo
       this.entry = data.data.result[0].Balance;
       // Oferta(s)
-      Exc.getOrderBook(symbol, 'ALL', 3).then((bookExccripto) => {
+      Exc.getOrderBook(symbol, 'ALL', 15).then((bookExccripto) => {
         const qntExcFee = this.min * 0.9975;
         const qntExcAsk = this.formatNumber(qntExcFee, 8) / bookExccripto.sell[0].Rate;
         const qntExc = this.formatNumber(qntExcAsk, 8);
         // Oferta(s)
-        Bleutrade.getOrderBook(symbol, 'ALL', 3).then((bookBleutrade) => {
+        Bleutrade.getOrderBook(symbol, 'ALL', 15).then((bookBleutrade) => {
           // Calculando venda
-          const qntBleuBid = this.formatNumber((qntExc * bookBleutrade.buy[0].Rate) * (1 - 0.0025), 8);
+          const qntBleuBid = this.formatNumber((qntExc * bookBleutrade.buy[0].Rate) * (1 - 0.0015), 8);
           // Validando se existe lucro
           if (qntBleuBid > this.min) {
             // Validando se é possível executar as ordens

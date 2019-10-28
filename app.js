@@ -33,6 +33,24 @@ class Hades {
     return Math.floor((num * output)) / output;
   }
 
+  sum(entry, book, type) {
+    let i = 0;
+    let sum = 0;
+    let orders = R.map((n) => this.formatNumber(n.Quantity * n.Rate, 8), type === 'buy' ? book.sell : book.buy);
+    let ordersSum = R.map((item) => {
+      i++;
+      sum = sum + item;
+      return {
+        id: i - 1,
+        rate: type === 'buy' ? book.sell[i - 1].Rate : book.buy[i - 1].Rate,
+        quantity: item,
+        sum: this.formatNumber(sum, 8)
+      }
+    }, orders);
+
+    return R.filter((n) => n.sum >= entry, ordersSum);
+  }
+
   // Bleutrade
   exchangeA(symbol, dividend, divisor) {
     // Saldo em bitcoins na Exccripto

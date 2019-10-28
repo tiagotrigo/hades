@@ -9,24 +9,7 @@ class Hades {
   
   constructor() {
     this.count = 0,
-    this.email = 'tiago.a.trigo@gmail.com',
-    this.coins = [
-      {
-        symbol: 'BTC_USDT', 
-        dividend: 'BTC',
-        market: 'USDT'
-      },
-      {
-        symbol: 'ETH_USDT', 
-        dividend: 'ETH',
-        market: 'USDT'
-      },
-      {
-        symbol: 'LTC_USDT', 
-        dividend: 'LTC',
-        market: 'USDT'     
-      }
-    ]
+    this.email = 'tiago.a.trigo@gmail.com'
   }
 
   atraso(ms) {
@@ -80,9 +63,9 @@ class Hades {
         Bitrecife.getOrderBook('BTC_BRL', 'ALL', 15).then((book) => {
           const ordersBuyBitrecife = this.sum(qntSellBitrecife, book, 'buy');
           
-          const qntAskFee = qntSellBitrecife * 0.9985;
-          const qntAskProfit = this.formatNumber(qntAskFee, 8) / ordersBuyBitrecife[0].rate;
-          const qntBuyBitrecife = this.formatNumber(qntAskProfit, 8); 
+          const qntBidFee = qntSellBitrecife * 0.9985;
+          const qntBidProfit = this.formatNumber(qntBidFee, 8) / ordersBuyBitrecife[0].rate;
+          const qntBuyBitrecife = this.formatNumber(qntBidProfit, 8); 
 
           if (qntBuyBitrecife > this.entry) {
             // Validando se é possível executar as ordens
@@ -95,20 +78,20 @@ class Hades {
                 if (data.data.result === null) {
                   // Venda
                   Bleutrade.setSellLimit('BTC_USDT', ordersSellBleutrade[0].rate, qntSellBleutrade, false).then((data) => {
-                    console.log(`Troca de BTC por USDT`);
+                    console.log('Troca de BTC por USDT');
                     setTimeout(() => {
                       //Transferir Bleutrade para Bitrecife
                       Bleutrade.setDirectTransfer('USDT', qntSellBleutrade, 3, this.email).then((data) => {
-                        console.log(`Enviando USDT para Bitrecife`);
+                        console.log('Enviando USDT para Bitrecife');
                         // Venda
                         Bitrecife.setSellLimit('USDT_BRL', ordersSellBitrecife[0].rate, qntSellBitrecife, false).then((data) => {
-                          console.log(`Troca de USDT por BRL`);
+                          console.log('Troca de USDT por BRL');
                           // Compra
                           Bitrecife.setBuyLimit('BTC_BRL', ordersBuyBitrecife[0].rate, qntBuyBitrecife, false).then((data) => {
-                            console.log(`Troca de BRL por BTC`);  
+                            console.log('Troca de BRL por BTC');  
                             //Transferir Bitrecife para Bleutrade
                             Bitrecife.setDirectTransfer('BTC', qntBuyBitrecife, 1, this.email).then((data) => {
-                              console.log(`Enviando BTC para Bleutrade`);
+                              console.log('Enviando BTC para Bleutrade');
                               process.exit()
                             });
                           });  
@@ -117,7 +100,7 @@ class Hades {
                     }, 400);
                   })
                 } else {
-                  console.log(`Moeda BTC_USDT está com ordem aberta`);
+                  console.log('Moeda BTC_USDT está com ordem aberta');
                   console.log(' ');
                 }
               });
@@ -135,7 +118,7 @@ class Hades {
               console.log(' ');
             }
           } else {
-            console.log(`[BTC_USDT]:`, this.formatNumber(qntBuyBitrecife, 8))
+            console.log('[BTC_USDT]:', this.formatNumber(qntBuyBitrecife, 8))
           }
         });
       });

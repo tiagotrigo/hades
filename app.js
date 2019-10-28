@@ -59,7 +59,7 @@ class Hades {
       this.entry = data.data.result[0].Balance;
       // Oferta(s) na Bleutrade
       Bleutrade.getOrderBook(symbol, 'ALL', 15).then((bookBleutrade) => {
-        const qntBleuFee = this.min * 0.9985;
+        const qntBleuFee = this.min * 0.9975;
         const qntBleuAsk = this.formatNumber(qntBleuFee, 8) / bookBleutrade.sell[0].Rate;
         const qntBleu = this.formatNumber(qntBleuAsk, 8);
         // Oferta(s) na Exccripto
@@ -139,7 +139,7 @@ class Hades {
         // Oferta(s)
         Bleutrade.getOrderBook(symbol, 'ALL', 15).then((bookBleutrade) => {
           // Calculando venda
-          const qntBleuBid = this.formatNumber((qntExc * bookBleutrade.buy[0].Rate) * (1 - 0.0015), 8);
+          const qntBleuBid = this.formatNumber((qntExc * bookBleutrade.buy[0].Rate) * (1 - 0.0025), 8);
           // Validando se existe lucro
           if (qntBleuBid > this.min) {
             // Validando se é possível executar as ordens

@@ -7,6 +7,21 @@ const Nonce = require('nonce')();
 const Endpoints = require('./endpoints.js');
 
 const Bleutrade = {
+   getMarkets: function() {
+    const options = {
+      uri: Endpoints.api.bleutrade,
+      public: '/public/getmarkets'
+    };
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'GET',
+        url: options.uri + options.public
+      })
+
+      resolve(data)
+    })
+  },
 	 getTicker: function(market) {
     const options = {
       uri: Endpoints.api.bleutrade,

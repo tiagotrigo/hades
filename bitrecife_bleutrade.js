@@ -8,13 +8,7 @@ class Hades {
   constructor() {
     this.i = 0,
     this.email = 'tiago.a.trigo@gmail.com',
-    this.orders = [],
-    this.calc_1 = 0,
-    this.calc_2 = 0,
-    this.calc_3 = 0,
-    this.qnt_1 = 0,
-    this.qnt_2 = 0,
-    this.qnt_3 = 0
+    this.walks = []
   }
 
   atraso(ms) {
@@ -122,8 +116,8 @@ class Hades {
   setup() {
     
     let i = 0;
-    let qnt_1, qnt_2, qnt_3 = 0;
-    let orders_1, orders_2, orders_3 = [];
+    let qnt = 0;
+    let orders = [];
 
     do {
       const {
@@ -132,53 +126,26 @@ class Hades {
       } = Arbitration[i];
 
       Arbitration[i].walks.map((item, index) => {
-        if (index === 0) {
-          // Calculando a quantidade de moedas
-          item.exchange.getOrderBook(item.market).then((book) => {
-            if (item.action === 'sell') {
-              orders_1 = this.qntSum(entry, book, 'sell');
-              qnt_1 = this.qntSell(entry, orders_1[0].rate, item.fee);
-              item = R.assoc('price', orders_1[0].rate, item);
-              item = R.assoc('quantity', qnt_1, item);
-            } else {
-              orders_1 = this.qntSum(entry, book, 'sell');  
-              qnt_1 = this.qntBuy(entry, orders_1[0].rate, item.fee);
-              item = R.assoc('price', orders_1[0].rate, item);
-              item = R.assoc('quantity', qnt_1, item);
+        item.exchange.getOrderBook(item.market).then((book) => {
+          if (book) {
+            if (index === 0) {
+              orders = this.qntSum(entry, book, 'sell');
+              item.price = orders[0].rate;
+              item.quantity = this.qntSell(entry, orders[0].rate, item.fee);
+            } else if (index === 1) {
+              orders = this.qntSum(Arbitration[i - 1].walks[0].quantity, book, 'sell');
+              item.price = orders[0].rate;
+              item.quantity = this.qntSell(Arbitration[i - 1].walks[0].quantity, orders[0].rate, item.fee);
+            } else if (index === 2) {
+              orders = this.qntSum(Arbitration[i - 1].walks[1].quantity, book, 'buy');
+              item.price = orders[0].rate;
+              item.quantity = this.qntBuy(Arbitration[i - 1].walks[1].quantity, orders[0].rate, item.fee);
             }
-            console.log(item)
-          })
-        } else if (index === 1) {
-          item.exchange.getOrderBook(item.market).then((book) => {
-            if (item.action === 'sell') {
-              orders_2 = this.qntSum(qnt_1, book, 'sell');
-              qnt_2 = this.qntSell(qnt_1, orders_2[0].rate, item.fee);
-              item = R.assoc('price', orders_2[0].rate, item);
-              item = R.assoc('quantity', qnt_2, item);
-            } else {
-              orders_2 = this.qntSum(qnt_1, book, 'sell');  
-              qnt_2 = this.qntBuy(qnt_1, orders_2[0].rate, item.fee);
-              item = R.assoc('price', orders_2[0].rate, item);
-              item = R.assoc('quantity', qnt_2, item);
-            }
-            console.log(item)
-          })
-        } else if (index === 2) {
-          item.exchange.getOrderBook(item.market).then((book) => {
-            if (item.action === 'sell') {
-              orders_3 = this.qntSum(qnt_2, book, 'sell');
-              qnt_3 = this.qntSell(qnt_2, orders_3[0].rate, item.fee);
-              item = R.assoc('price', orders_3[0].rate, item);
-              item = R.assoc('quantity', qnt_2, item);
-            } else {
-              orders_3 = this.qntSum(qnt_1, book, 'sell');  
-              qnt_3 = this.qntBuy(qnt_1, orders_3[0].rate, item.fee);
-              item = R.assoc('price', orders_3[0].rate, item);
-              item = R.assoc('quantity', qnt_2, item);
-            }
-          })
-        }
-        console.log(item)
+            console.log(Arbitration[i - 1].walks[0].quantity, Arbitration[i - 1].walks[1].quantity, index)
+          }
+          
+          
+        });
       });
       
       i++;

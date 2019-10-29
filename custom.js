@@ -21,12 +21,12 @@ class Hades {
       }
     ],
     this.coins = [
-      { walk: 'BTC_USDT-LTC_BTC' },
-      { walk: 'BTC_USDT-ETH_BTC' },
-      { walk: 'USDT_BTC-ETH_USDT' },
-      { walk: 'USDT_BTC-LTC_USDT' },
-      { walk: 'USDT_LTC-BTC_USDT' },
-      { walk: 'USDT_ETH-BTC_USDT' }
+      { walk: 'BTC-USDT-LTC-BTC' },
+      { walk: 'BTC-USDT-ETH-BTC' },
+      { walk: 'USDT-BTC-ETH-USDT' },
+      { walk: 'USDT-BTC-LTC-USDT' },
+      { walk: 'USDT-LTC-BTC-USDT' },
+      { walk: 'USDT-ETH-BTC-USDT' }
     ]
   }
 

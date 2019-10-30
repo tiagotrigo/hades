@@ -116,10 +116,18 @@ class Hades {
         process.exit();
       }
     }
-    if (Arb[this.i].walks[Arb[this.i].walks.length - 1].quantity > Arb[this.i].entry) {
-      console.log(`[${Arb[this.i].name}]:`, Arb[this.i].walks[Arb[this.i].walks.length - 1].quantity, 'OK');
+
+    const {
+      name,
+      entry,
+      walks,
+      quantity
+    } = Arb[this.i];   
+
+    if (walks[walks.length - 1].quantity > entry) {
+      console.log(`[${name}]:`, walks[walks.length - 1].quantity, 'OK');
     } else {
-      console.log(`[${Arb[this.i].name}]:`, Arb[this.i].walks[Arb[this.i].walks.length - 1].quantity);
+      console.log(`[${name}]:`, walks[walks.length - 1].quantity);
     }
 
     this.i += 1;

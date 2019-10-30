@@ -103,7 +103,7 @@ class Hades {
     if (this.i >= Arb.length) {
       this.i = 0;
     }
-    
+        
     for (let [y, walk] of Arb[this.i].walks.entries()) {
       let book = await walk.exchange.getOrderBook(walk.market);
       if (book) {

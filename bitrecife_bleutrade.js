@@ -14,16 +14,16 @@ class Hades {
     this.email = 'tiago.a.trigo@gmail.com'
   }
 
-  atraso(ms) {
+  wait(ms) {
     return new Promise((resolve) => {
       setTimeout(resolve, ms);
     });
   }
 
-  repetir(ms, func) {
+  repeat(ms, func) {
     return new Promise((resolve) => (
       setInterval(func, ms), 
-      this.atraso(ms).then(resolve)
+      this.wait(ms).then(resolve)
     ));
   }
 
@@ -32,62 +32,7 @@ class Hades {
     return Math.floor((num * output)) / output;
   }
 
-  t() {
-    Bleutrade.getOrderBook('BTC_USDT', 'ALL', 15).then((data) => {
-      const ordersSellBleutrade = this.sum(this.entry, data, 'sell');
-      const qntSellBleutrade = this.formatNumber((this.entry * ordersSellBleutrade[0].rate) * (1 - 0.0025), 8);
-      // Venda
-      Bitrecife.getOrderBook('USDT_BRL', 'ALL', 15).then((data) => {
-        const ordersSellBitrecife = this.sum(qntSellBleutrade, data, 'sell');
-        const qntSellBitrecife = this.formatNumber((qntSellBleutrade * ordersSellBitrecife[0].rate) * (1 - 0.0024), 8);
-        // Compra
-        Bitrecife.getOrderBook('BTC_BRL', 'ALL', 15).then((data) => {
-          const ordersBuyBitrecife = this.sum(qntSellBitrecife, data, 'buy');
-
-          const qntBidFee = qntSellBitrecife * 0.9976;
-          const qntBidProfit = this.formatNumber(qntBidFee, 8) / ordersBuyBitrecife[0].rate;
-          const qntBuyBitrecife = this.formatNumber(qntBidProfit, 8);
-          
-          if (qntBuyBitrecife > this.entry) {
-            Bleutrade.getOpenOrders('BTC_USDT').then((data) => {
-              if (data.data.result === null) {
-                // Venda
-                Bleutrade.setSellLimit('BTC_USDT', ordersSellBleutrade[0].rate, qntSellBleutrade, false).then((data) => {
-                  console.log('Troca de BTC por USDT');
-                  setTimeout(() => {
-                    // Transferir
-                    Bleutrade.setDirectTransfer('USDT', qntSellBleutrade, 3, this.email).then((data) => {
-                      console.log('Enviando USDT para Bitrecife');
-                      // Venda
-                      Bitrecife.setSellLimit('USDT_BRL', ordersSellBitrecife[0].Rate, qntSellBitrecife, false).then((data) => {
-                        console.log('Troca de USDT por BRL');
-                        // Compra
-                        Bitrecife.setBuyLimit('BTC_BRL', ordersBuyBitrecife[0].rate, qntBuyBitrecife, false).then((data) => {
-                          console.log('Troca de BRL por BTC');  
-                          //Transferir Bitrecife para Bleutrade
-                          Bitrecife.setDirectTransfer('BTC', qntBuyBitrecife, 1, this.email).then((data) => {
-                            console.log('Enviando BTC para Bleutrade');
-                            process.exit();
-                          });
-                        });  
-                      });
-                    });
-                  }, 400);
-                })
-              } else {
-                console.log('Moeda BTC_USDT está com ordem aberta');
-                console.log(' ');
-              }
-            });
-          } else {
-            console.log('[BTC_USDT]:', this.formatNumber(qntBuyBitrecife, 8))
-          }
-        });
-      });
-    });
-  }
-
-  qntSum(entry, book, type) {
+  calcQntSum(entry, book, type) {
     let i = 0;
     let sum = 0;
     let orders = R.map((n) => this.formatNumber(n.Quantity * n.Rate, 8), type === 'buy' ? book.sell : book.buy);
@@ -105,14 +50,14 @@ class Hades {
     return R.filter((n) => n.sum >= entry, ordersSum);
   }
 
-  qntBuy(entry, rate, fee) {
+  calcQntBuy(entry, rate, fee) {
     let f = entry * fee;
     let profit = this.formatNumber(f, 8) / rate;
 
     return this.formatNumber(profit, 8);
   }
 
-  qntSell(entry, rate, fee) {
+  calcQntSell(entry, rate, fee) {
     return this.formatNumber((entry * rate) * (1 - fee), 8);
   }
 
@@ -122,27 +67,27 @@ class Hades {
 
     if (index === 0) {
       if (walk.action === 'sell') {
-        order = this.qntSum(exchange.entry, book, 'sell');
-        qnt = this.qntSell(exchange.entry, order[0].rate, walk.fee);
+        order = this.calcQntSum(exchange.entry, book, 'sell');
+        qnt = this.calcQntSell(exchange.entry, order[0].rate, walk.fee);
       } else {
-        order = this.qntSum(exchange.entry, book, 'buy');
-        qnt = this.qntBuy(exchange.entry, order[0].rate, walk.fee);
+        order = this.calcQntSum(exchange.entry, book, 'buy');
+        qnt = this.calcQntBuy(exchange.entry, order[0].rate, walk.fee);
       }
     } else if (index === 1) {
       if (walk.action === 'sell') {
-        order = this.qntSum(exchange.walks[0].quantity, book, 'sell');
-        qnt = this.qntSell(exchange.walks[0].quantity, order[0].rate, walk.fee);
+        order = this.calcQntSum(exchange.walks[0].quantity, book, 'sell');
+        qnt = this.calcQntSell(exchange.walks[0].quantity, order[0].rate, walk.fee);
       } else {
-        order = this.qntSum(exchange.walks[0].quantity, book, 'buy');
-        qnt = this.qntBuy(exchange.walks[0].quantity, order[0].rate, walk.fee);
+        order = this.calcQntSum(exchange.walks[0].quantity, book, 'buy');
+        qnt = this.calcQntBuy(exchange.walks[0].quantity, order[0].rate, walk.fee);
       }
     } else if (index === 2) {
       if (walk.action === 'sell') {
-        order = this.qntSum(exchange.walks[1].quantity, book, 'sell');
-        qnt = this.qntSell(exchange.walks[1].quantity, order[0].rate, walk.fee);
+        order = this.calcQntSum(exchange.walks[1].quantity, book, 'sell');
+        qnt = this.calcQntSell(exchange.walks[1].quantity, order[0].rate, walk.fee);
       } else {
-        order = this.qntSum(exchange.walks[1].quantity, book, 'buy');
-        qnt = this.qntBuy(exchange.walks[1].quantity, order[0].rate, walk.fee);
+        order = this.calcQntSum(exchange.walks[1].quantity, book, 'buy');
+        qnt = this.calcQntBuy(exchange.walks[1].quantity, order[0].rate, walk.fee);
       }
     }
 
@@ -157,7 +102,7 @@ class Hades {
     }
   }
 
-  async setup() {
+  async main() {
     let Arb = [
       {
         id: 1,
@@ -222,13 +167,13 @@ class Hades {
     }
   }
 
-  iniciar() {
-    this.repetir(5000, 
+  run() {
+    this.repeat(5000, 
       () => Promise.all([
-        this.setup()
+        this.main()
       ])
     )
   }
 }
 
-new Hades().iniciar();
+new Hades().run();

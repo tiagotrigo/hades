@@ -329,8 +329,8 @@ const Arbitration = [
         price: 0,
         quantity: 0,
         action: 'sell',
-        market: 'LTC',
-        dividend: 'ETH',
+        market: 'LTC_USDT',
+        dividend: 'LTC',
         divisor: 'USDT'
       },
       {
@@ -358,8 +358,8 @@ const Arbitration = [
         price: 0,
         quantity: 0,
         action: 'sell',
-        market: 'LTC',
-        dividend: 'ETH',
+        market: 'LTC_USDT',
+        dividend: 'LTC',
         divisor: 'USDT'
       },
       {

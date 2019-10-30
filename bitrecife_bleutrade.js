@@ -2,12 +2,12 @@
 
 const R = require('ramda');
 const await = require('await');
-const Arbitration = require('./arbitration');
+const Arb = require('./arbitration');
 
 class Hades {
   
   constructor() {
-    this.count = 0,
+    this.i = 0,
     this.email = 'tiago.a.trigo@gmail.com'
   }
 
@@ -100,25 +100,29 @@ class Hades {
   }
 
   async main() {
-    for (let [x, exchange] of Arbitration.entries()) {
-      for (let [y, walk] of exchange.walks.entries()) {
-        let book = await walk.exchange.getOrderBook(walk.market);
-        if (book) {
-          let resp = this.calcDistributingValue(exchange, book, walk, y);
-          // Atualizando preço e quantidade
-          walk.price = resp.price;
-          walk.quantity = resp.quantity;
-        } else {
-          console.log('Erro para carregar o livro de oferta(s)');
-          process.exit();
-        }
-      }
-      if (exchange.walks[exchange.walks.length - 1].quantity > exchange.entry) {
-        console.log(`[${exchange.name}]:`, exchange.walks[exchange.walks.length - 1].quantity, 'OK');
+    if (this.i >= Arb.length) {
+      this.i = 0;
+    }
+    
+    for (let [y, walk] of Arb[this.i].walks.entries()) {
+      let book = await walk.exchange.getOrderBook(walk.market);
+      if (book) {
+        let resp = this.calcDistributingValue(Arb[this.i], book, walk, y);
+        // Atualizando preço e quantidade
+        walk.price = resp.price;
+        walk.quantity = resp.quantity;
       } else {
-        console.log(`[${exchange.name}]:`, exchange.walks[exchange.walks.length - 1].quantity);
+        console.log('Erro para carregar o livro de oferta(s)');
+        process.exit();
       }
     }
+    if (Arb[this.i].walks[Arb[this.i].walks.length - 1].quantity > Arb[this.i].entry) {
+      console.log(`[${Arb[this.i].name}]:`, Arb[this.i].walks[Arb[this.i].walks.length - 1].quantity, 'OK');
+    } else {
+      console.log(`[${Arb[this.i].name}]:`, Arb[this.i].walks[Arb[this.i].walks.length - 1].quantity);
+    }
+
+    this.i += 1;
   }
 
   run() {

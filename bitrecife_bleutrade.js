@@ -1,7 +1,11 @@
 'use stricts';
 
 const R = require('ramda');
-const Arbitration = require('./arbitration');
+const await = require('await');
+const Exc = require('./exc.js');
+const Bitrecife = require('./bitrecife.js');
+const Bleutrade = require('./bleutrade.js');
+// const Arbitration = require('./arbitration');
 
 class Hades {
   
@@ -112,69 +116,114 @@ class Hades {
     return this.formatNumber((entry * rate) * (1 - fee), 8);
   }
 
-  setup() {
-    
-    let i = 0;
-    let qnt_1, qnt_2, qnt_3 = 0;
-    let orders_1, orders_2, orders_3 = [];
+  calcDistributingValue(exchange, book, walk, index) {
+    let qnt = 0.0;
+    let order = [];
 
-    Arbitration.map((exchange, x) => {      
-      // Atualizando o objeto com os preços
-      exchange.walks.map((walk, y) => {
-        return Promise.all([
-          walk.exchange.getOrderBook(walk.market)
-        ]).then((book) => {
-          if (book) {
-            if (y === 0) {
-              if (walk.action === 'sell') {
-                orders_1 = this.qntSum(exchange.entry, book[0], 'sell');
-                qnt_1 = this.qntSell(exchange.entry, orders_1[0].rate, walk.fee);
-              } else {
-                orders_1 = this.qntSum(exchange.entry, book[0], 'buy');
-                qnt_1 = this.qntBuy(exchange.entry, orders_1[0].rate, walk.fee);
-              }
-              // Update
-              walk.price = orders_1[0].rate;
-              walk.quantity = qnt_1;
-            } else if (y === 1) {
-              if (walk.action === 'sell') {
-                orders_2 = this.qntSum(exchange.walks[0].quantity, book[0], 'sell');
-                qnt_2 = this.qntSell(exchange.walks[0].quantity, orders_2[0].rate, walk.fee);
-              } else {
-                orders_2 = this.qntSum(exchange.walks[0].quantity, book[0], 'buy');
-                qnt_2 = this.qntBuy(exchange.walks[0].quantity, orders_2[0].rate, walk.fee);
-              }
-              // Update
-              walk.price = orders_2[0].rate;
-              walk.quantity = qnt_2;
-            } else if (y === 2) {
-              if (walk.action === 'sell') {
-                orders_3 = this.qntSum(exchange.walks[1].quantity, book[0], 'sell');
-                qnt_3 = this.qntSell(exchange.walks[1].quantity, orders_3[0].rate, walk.fee);
-              } else {
-                orders_3 = this.qntSum(exchange.walks[1].quantity, book[0], 'buy');
-                qnt_3 = this.qntBuy(exchange.walks[1].quantity, orders_3[0].rate, walk.fee);
-              }
-              // Update
-              walk.price = orders_3[0].rate;
-              walk.quantity = qnt_3;
-            }
+    if (index === 0) {
+      if (walk.action === 'sell') {
+        order = this.qntSum(exchange.entry, book, 'sell');
+        qnt = this.qntSell(exchange.entry, order[0].rate, walk.fee);
+      } else {
+        order = this.qntSum(exchange.entry, book, 'buy');
+        qnt = this.qntBuy(exchange.entry, order[0].rate, walk.fee);
+      }
+    } else if (index === 1) {
+      if (walk.action === 'sell') {
+        order = this.qntSum(exchange.walks[0].quantity, book, 'sell');
+        qnt = this.qntSell(exchange.walks[0].quantity, order[0].rate, walk.fee);
+      } else {
+        order = this.qntSum(exchange.walks[0].quantity, book, 'buy');
+        qnt = this.qntBuy(exchange.walks[0].quantity, order[0].rate, walk.fee);
+      }
+    } else if (index === 2) {
+      if (walk.action === 'sell') {
+        order = this.qntSum(exchange.walks[1].quantity, book, 'sell');
+        qnt = this.qntSell(exchange.walks[1].quantity, order[0].rate, walk.fee);
+      } else {
+        order = this.qntSum(exchange.walks[1].quantity, book, 'buy');
+        qnt = this.qntBuy(exchange.walks[1].quantity, order[0].rate, walk.fee);
+      }
+    }
+
+    if (order && qnt) {
+      return {
+        price: order[0].rate,
+        quantity: qnt
+      }
+    } else {
+      console.log('Erro na distribuição de quantidade e preço');
+      process.exit();
+    }
+  }
+
+  async setup() {
+    let Arb = [
+      {
+        id: 1,
+        name: 'BTC_USDT_BRL_BTC',
+        entry: 0.0002,
+        walks: [
+          {
+            id: 1,
+            exchange: Bleutrade,
+            fee: 0.0015,
+            price: 0,
+            quantity: 0,
+            action: 'sell',
+            market: 'BTC_USDT',
+            dividend: 'BTC',
+            divisor: 'USDT'
+          },
+          {
+            id: 2,
+            exchange: Bitrecife,
+            fee: 0.0024,
+            price: 0,
+            quantity: 0,
+            action: 'sell',
+            market: 'USDT_BRL',
+            dividend: 'USDT',
+            divisor: 'BRL'
+          },
+          {
+            id: 3,
+            exchange: Bitrecife,        
+            fee: 0.9976,
+            price: 0,
+            quantity: 0,
+            action: 'buy',
+            market: 'BTC_BRL',
+            dividend: 'BTC',
+            divisor: 'BRL'
           }
-        })
-      });
-      // 
+        ]
+      }
+    ];
+
+    for (let [x, exchange] of Arb.entries()) {
+      for (let [y, walk] of exchange.walks.entries()) {
+        let book = await walk.exchange.getOrderBook(walk.market);
+        if (book) {
+          let resp = this.calcDistributingValue(exchange, book, walk, y);
+          // Atualizando preço e quantidade
+          walk.price = resp.price;
+          walk.quantity = resp.quantity;
+        } else {
+          console.log('Erro para carregar o livro de oferta(s)');
+          process.exit();
+        }
+      }
       if (exchange.walks[exchange.walks.length - 1].quantity > exchange.entry) {
         console.log(`[${exchange.name}]:`, exchange.walks[exchange.walks.length - 1].quantity, 'OK');
-      } else if (exchange.walks[exchange.walks.length - 1].quantity > 0) {
+      } else {
         console.log(`[${exchange.name}]:`, exchange.walks[exchange.walks.length - 1].quantity);
       }
-    });
-
-    this.count += 1;
+    }
   }
 
   iniciar() {
-    this.repetir(3000, 
+    this.repetir(5000, 
       () => Promise.all([
         this.setup()
       ])

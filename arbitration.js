@@ -51,6 +51,7 @@ const Arbitration = [
     entry: 0.0002,
     walks: [
       { 
+        id: 1,
         exchange: Bitrecife,
         fee: 0.0024,
         price: 0.0,
@@ -59,6 +60,7 @@ const Arbitration = [
         market: 'BTC_BRL'
       },
       {
+        id: 2,
         exchange: Bitrecife,
         fee: 0.0024,
         price: 0.0,
@@ -67,6 +69,7 @@ const Arbitration = [
         market: 'USDT_BRL'
       },
       {
+        id: 3,
         exchange: Bleutrade,
         fee: 0.0015,
         price: 0.0,

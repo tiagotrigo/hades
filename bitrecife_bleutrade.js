@@ -1,14 +1,13 @@
 'use stricts';
 
 const R = require('ramda');
-const Arbitration = require('./arbitration.js');
+const Arbitration = require('./arbitration');
 
 class Hades {
   
   constructor() {
     this.i = 0,
-    this.email = 'tiago.a.trigo@gmail.com',
-    this.walks = []
+    this.email = 'tiago.a.trigo@gmail.com'
   }
 
   atraso(ms) {
@@ -116,44 +115,64 @@ class Hades {
   setup() {
     
     let i = 0;
-    let qnt = 0;
-    let orders = [];
+    let qnt_1, qnt_2, qnt_3 = 0;
+    let orders_1, orders_2, orders_3 = [];
 
-    do {
-      const {
-        id,
-        entry
-      } = Arbitration[i];
-
-      Arbitration[i].walks.map((item, index) => {
-        item.exchange.getOrderBook(item.market).then((book) => {
+    Arbitration.map((exchange, x) => {
+      // Atualizando o objeto com os preços
+      exchange.walks.map((walk, y) => {
+        return Promise.all([
+          walk.exchange.getOrderBook(walk.market)
+        ]).then((book) => {
           if (book) {
-            if (index === 0) {
-              orders = this.qntSum(entry, book, 'sell');
-              item.price = orders[0].rate;
-              item.quantity = this.qntSell(entry, orders[0].rate, item.fee);
-            } else if (index === 1) {
-              orders = this.qntSum(Arbitration[i - 1].walks[0].quantity, book, 'sell');
-              item.price = orders[0].rate;
-              item.quantity = this.qntSell(Arbitration[i - 1].walks[0].quantity, orders[0].rate, item.fee);
-            } else if (index === 2) {
-              orders = this.qntSum(Arbitration[i - 1].walks[1].quantity, book, 'buy');
-              item.price = orders[0].rate;
-              item.quantity = this.qntBuy(Arbitration[i - 1].walks[1].quantity, orders[0].rate, item.fee);
+            if (y === 0) {
+              if (walk.action === 'sell') {
+                orders_1 = this.qntSum(exchange.entry, book[0], 'sell');
+                qnt_1 = this.qntSell(exchange.entry, orders_1[0].rate, walk.fee);
+              } else {
+                orders_1 = this.qntSum(exchange.entry, book[0], 'buy');
+                qnt_1 = this.qntBuy(exchange.entry, orders_1[0].rate, walk.fee);
+              }
+              // Update
+              walk.price = orders_1[0].rate;
+              walk.quantity = qnt_1;
+            } else if (y === 1) {
+              if (walk.action === 'sell') {
+                orders_2 = this.qntSum(exchange.walks[0].quantity, book[0], 'sell');
+                qnt_2 = this.qntSell(exchange.walks[0].quantity, orders_2[0].rate, walk.fee);
+              } else {
+                orders_2 = this.qntSum(exchange.walks[0].quantity, book[0], 'buy');
+                qnt_2 = this.qntBuy(exchange.walks[0].quantity, orders_2[0].rate, walk.fee);
+              }
+              // Update
+              walk.price = orders_2[0].rate;
+              walk.quantity = qnt_2;
+            } else if (y === 2) {
+              if (walk.action === 'sell') {
+                orders_3 = this.qntSum(exchange.walks[1].quantity, book[0], 'sell');
+                qnt_3 = this.qntSell(exchange.walks[1].quantity, orders_3[0].rate, walk.fee);
+              } else {
+                orders_3 = this.qntSum(exchange.walks[1].quantity, book[0], 'buy');
+                qnt_3 = this.qntBuy(exchange.walks[1].quantity, orders_3[0].rate, walk.fee);
+              }
+              // Update
+              walk.price = orders_3[0].rate;
+              walk.quantity = qnt_3;
             }
-            console.log(Arbitration[i - 1].walks[0].quantity, Arbitration[i - 1].walks[1].quantity, index)
           }
-          
-          
-        });
+        })
       });
-      
-      i++;
-    } while ((i - 1) === Arbitration.length)
+      // 
+      if (exchange.walks[exchange.walks.length - 1].quantity > exchange.entry) {
+        console.log(`[${exchange.name}]:`, exchange.walks[exchange.walks.length - 1].quantity, 'OK');
+      } else if (exchange.walks[exchange.walks.length - 1].quantity > 0) {
+        console.log(`[${exchange.name}]:`, exchange.walks[exchange.walks.length - 1].quantity);
+      }
+    });
   }
 
   iniciar() {
-    this.repetir(5000, 
+    this.repetir(10000, 
       () => Promise.all([
         this.setup()
       ])

@@ -7,6 +7,7 @@ const Bleutrade = require('./bleutrade.js');
 const Arbitration = [
   {
     id: 1,
+    name: 'BTC_USDT_BRL_BTC',
     entry: 0.0002,
     walks: [
       {

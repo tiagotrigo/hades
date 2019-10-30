@@ -86,6 +86,14 @@ class Hades {
         order = book.sell[0].Rate;
         qnt = this.calcQntBuy(exchange.walks[1].quantity, order, walk.fee);
       }
+    } else if (index === 3) {
+      if (walk.action === 'sell') {
+        order = book.buy[0].Rate;
+        qnt = this.calcQntSell(exchange.walks[2].quantity, order, walk.fee);
+      } else {
+        order = book.sell[0].Rate;
+        qnt = this.calcQntBuy(exchange.walks[2].quantity, order, walk.fee);
+      }
     }
 
     if (order && qnt) {

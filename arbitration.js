@@ -200,6 +200,180 @@ const Arbitration = [
         divisor: 'BTC'
       }
     ]
+  },
+  {
+    id: 7,
+    name: 'BTC_USDT',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
+        divisor: 'USDT'
+      },
+      {
+        id: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
+        divisor: 'USDT'
+      }
+    ]
+  },
+  {
+    id: 8,
+    name: 'BTC_USDT',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
+        divisor: 'USDT'
+      },
+      {
+        id: 2,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
+        divisor: 'USDT'
+      }
+    ]
+  },
+  {
+    id: 9,
+    name: 'ETH_USDT',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT'
+      },
+      {
+        id: 2,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT'
+      }
+    ]
+  },
+  {
+    id: 10,
+    name: 'ETH_USDT',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT'
+      },
+      {
+        id: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT'
+      }
+    ]
+  },
+  {
+    id: 11,
+    name: 'LTC_USDT',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'LTC',
+        dividend: 'ETH',
+        divisor: 'USDT'
+      },
+      {
+        id: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        market: 'LTC_USDT',
+        dividend: 'LTC',
+        divisor: 'USDT'
+      }
+    ]
+  },
+  {
+    id: 12,
+    name: 'LTC_USDT',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'LTC',
+        dividend: 'ETH',
+        divisor: 'USDT'
+      },
+      {
+        id: 2,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        market: 'LTC_USDT',
+        dividend: 'LTC',
+        divisor: 'USDT'
+      }
+    ]
   }
 ];
 

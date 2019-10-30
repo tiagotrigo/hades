@@ -87,29 +87,29 @@ const Arbitration = [
   },
   {
     id: 3,
-    name: 'ETH_BTC',
+    name: 'LTC_BTC',
     entry: 0.0002,
     walks: [
       {
         id: 1,
-        exchange: Exc,
-        fee: 0.9975,
+        exchange: Bleutrade,
+        fee: 0.9985,
         price: 0,
         quantity: 0,
         action: 'buy',
-        market: 'ETH_BTC',
-        dividend: 'ETH',
+        market: 'LTC_BTC',
+        dividend: 'LTC',
         divisor: 'BTC'
       },
       {
         id: 2,
-        exchange: Bleutrade,
-        fee: 0.0015,
+        exchange: Exc,
+        fee: 0.0025,
         price: 0,
         quantity: 0,
         action: 'sell',
-        market: 'ETH_BTC',
-        dividend: 'ETH',
+        market: 'LTC_BTC',
+        dividend: 'LTC',
         divisor: 'BTC'
       }
     ]

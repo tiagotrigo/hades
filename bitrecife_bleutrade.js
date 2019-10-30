@@ -64,33 +64,33 @@ class Hades {
 
     if (index === 0) {
       if (walk.action === 'sell') {
-        order = this.calcQntSum(exchange.entry, book, 'sell');
-        qnt = this.calcQntSell(exchange.entry, order[0].rate, walk.fee);
+        order = book.buy[0].Rate;
+        qnt = this.calcQntSell(exchange.entry, order, walk.fee);
       } else {
-        order = this.calcQntSum(exchange.entry, book, 'buy');
-        qnt = this.calcQntBuy(exchange.entry, order[0].rate, walk.fee);
+        order = book.sell[0].Rate;
+        qnt = this.calcQntBuy(exchange.entry, order, walk.fee);
       }
     } else if (index === 1) {
       if (walk.action === 'sell') {
-        order = this.calcQntSum(exchange.walks[0].quantity, book, 'sell');
-        qnt = this.calcQntSell(exchange.walks[0].quantity, order[0].rate, walk.fee);
+        order = book.buy[0].Rate;
+        qnt = this.calcQntSell(exchange.walks[0].quantity, order, walk.fee);
       } else {
-        order = this.calcQntSum(exchange.walks[0].quantity, book, 'buy');
-        qnt = this.calcQntBuy(exchange.walks[0].quantity, order[0].rate, walk.fee);
+        order = book.sell[0].Rate;
+        qnt = this.calcQntBuy(exchange.walks[0].quantity, order, walk.fee);
       }
     } else if (index === 2) {
       if (walk.action === 'sell') {
-        order = this.calcQntSum(exchange.walks[1].quantity, book, 'sell');
-        qnt = this.calcQntSell(exchange.walks[1].quantity, order[0].rate, walk.fee);
+        order = book.buy[0].Rate;
+        qnt = this.calcQntSell(exchange.walks[1].quantity, order, walk.fee);
       } else {
-        order = this.calcQntSum(exchange.walks[1].quantity, book, 'buy');
-        qnt = this.calcQntBuy(exchange.walks[1].quantity, order[0].rate, walk.fee);
+        order = book.sell[0].Rate;
+        qnt = this.calcQntBuy(exchange.walks[1].quantity, order, walk.fee);
       }
     }
 
     if (order && qnt) {
       return {
-        price: order[0].rate,
+        price: order,
         quantity: qnt
       }
     } else {
@@ -103,7 +103,7 @@ class Hades {
     if (this.i >= Arb.length) {
       this.i = 0;
     }
-        
+
     for (let [y, walk] of Arb[this.i].walks.entries()) {
       let book = await walk.exchange.getOrderBook(walk.market);
       if (book) {

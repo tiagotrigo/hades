@@ -44,37 +44,38 @@ const Arbitration = [
         divisor: 'BRL'
       }
     ]
+  },
+  {
+    id: 2,
+    name: 'BTC_BRL_USDT_BTC',
+    entry: 0.0002,
+    walks: [
+      { 
+        exchange: Bitrecife,
+        fee: 0.0024,
+        price: 0.0,
+        quantity: 0.0,
+        action: 'sell',
+        market: 'BTC_BRL'
+      },
+      {
+        exchange: Bitrecife,
+        fee: 0.0024,
+        price: 0.0,
+        quantity: 0.0,
+        action: 'buy',
+        market: 'USDT_BRL'
+      },
+      {
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0.0,
+        quantity: 0.0,
+        action: 'buy',
+        market: 'BTC_USDT'
+      }
+    ]
   }
-  // {
-  //   id: 2,
-  //   entry: 0.0002,
-  //   walks: [
-  //     { 
-  //       exchange: Bitrecife,
-  //       fee: 0.0024,
-  //       price: 0.0,
-  //       quantity: 0.0,
-  //       action: 'sell',
-  //       market: 'BTC_BRL'
-  //     },
-  //     {
-  //       exchange: Bitrecife,
-  //       fee: 0.0024,
-  //       price: 0.0,
-  //       quantity: 0.0,
-  //       action: 'buy',
-  //       market: 'USDT_BRL'
-  //     },
-  //     {
-  //       exchange: Bleutrade,
-  //       fee: 0.0015,
-  //       price: 0.0,
-  //       quantity: 0.0,
-  //       action: 'buy',
-  //       market: 'BTC_USDT'
-  //     }
-  //   ]
-  // }
 ];
 
 module.exports = Arbitration;

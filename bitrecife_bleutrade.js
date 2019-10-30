@@ -6,7 +6,7 @@ const Arbitration = require('./arbitration');
 class Hades {
   
   constructor() {
-    this.i = 0,
+    this.count = 0,
     this.email = 'tiago.a.trigo@gmail.com'
   }
 
@@ -118,7 +118,7 @@ class Hades {
     let qnt_1, qnt_2, qnt_3 = 0;
     let orders_1, orders_2, orders_3 = [];
 
-    Arbitration.map((exchange, x) => {
+    Arbitration.map((exchange, x) => {      
       // Atualizando o objeto com os preços
       exchange.walks.map((walk, y) => {
         return Promise.all([
@@ -169,10 +169,12 @@ class Hades {
         console.log(`[${exchange.name}]:`, exchange.walks[exchange.walks.length - 1].quantity);
       }
     });
+
+    this.count += 1;
   }
 
   iniciar() {
-    this.repetir(10000, 
+    this.repetir(3000, 
       () => Promise.all([
         this.setup()
       ])

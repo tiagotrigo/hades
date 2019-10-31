@@ -1,8 +1,8 @@
 'use stricts';
 
 const R = require('ramda');
-const await = require('await');
 const Arb = require('./arbitration');
+const await = require('await');
 
 class Hades {
   
@@ -50,13 +50,13 @@ class Hades {
   calcQntBuy(entry, rate, fee) {
     let f = entry * fee;
     let profit = this.formatNumber(f, 8) / rate;
-
-    return this.formatNumber(profit, 8);
+    
+    return this.formatNumber(profit, 8);    
   }
 
   calcQntSell(entry, rate, fee) {
     return this.formatNumber((entry * rate) * (1 - fee), 8);
-  }
+  } 
 
   calcDistributingValue(exchange, book, walk, index) {
     let qnt = 0.0;
@@ -113,7 +113,7 @@ class Hades {
     }
 
     for (let [y, walk] of Arb[this.i].walks.entries()) {
-      let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 3);
+      let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 15);
       if (book) {
         let resp = this.calcDistributingValue(Arb[this.i], book, walk, y);
         // Atualizando o preço
@@ -134,45 +134,48 @@ class Hades {
     } = Arb[this.i];   
 
     if (walks[walks.length - 1].quantity > entry) {
-      //
-      console.log('>>', walks[walks.length - 1].market, walks[walks.length - 1].quantity, 'OK')
       for (let [z, walk] of walks.entries()) {
-        // Compra ou venda
-        if (walk.action === 'sell') {
-          let sell = await walk.exchange.setSellLimit(walk.market, walk.price, walk.quantity, false);
-          if (sell) {
-            console.log(`Troca de ${dividend} por ${divisor}`);
-            // Transferência direta
-            if (walk.go != 0) {
-              let transfer = await walk.exchange.setDirectTransfer(walk.divisor, walk.quantity, walk.go, this.email);
-              if (transfer) {
-                console.log(`Enviando ${walk.divisor} para ${walk.go}`);
-              } else {
-                console.log(`Erro ao tentar enviar para exchange ${walk.go}`);
-                process.exit();
-              }
+        if (z === 0) {
+          // Se for Bleutrade, executar ação de compra e venda e depois a transferencia
+          if (walk.exchangeto === 1) {
+            console.log(`Executando ação de ${walk.action}`);
+            if (walk.transfer) {
+              console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
             }
           } else {
-            console.log(`Erro ao realizar uma venda na moeda ${walk.market}`);
-            process.exit();
+            // Se for Exc ou Bitrecife
+            if (walk.transfer) {
+              // Tire BTC ou USDT da Bleutrade para a próxima exchange
+              console.log(`Recebendo BTC ou USDT da exchange Bleutrade`);
+              // Execute ação de compra  e venda
+              console.log(`Executando ação de ${walk.action}`);
+              // Transferir para próxima exchange
+              console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
+            } else {
+              // Tire BTC ou USDT da Bleutrade para a próxima exchange
+              console.log(`Recebendo BTC ou USDT da exchange Bleutrade`);
+              //
+              console.log(`Executando ação de ${walk.action}`);
+            }            
           }
         } else {
-          let buy = await walk.exchange.setBuyLimit(walk.market, walk.price, walk.quantity, false);
-          if (buy) {
-            console.log(`Troca de ${divisor} por ${dividend}`);
-            // Transferência direta
-            if (walk.go != 0) {
-              let transfer = await walk.exchange.setDirectTransfer(walk.dividend, walk.quantity, walk.go, this.email);
-              if (transfer) {
-                console.log(`Enviando ${walk.dividend} para ${walk.go}`);
-              } else {
-                console.log(`Erro ao tentar enviar para exchange ${walk.go}`);
-                process.exit();
-              }
+          // Se for Bleutrade, executar ação de compra e venda, depois a transferencia se exitir
+          if (walk.exchangeto === 1) {
+            console.log(`Executando ação de ${walk.action}`);
+            if (walk.transfer) {
+              console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
             }
           } else {
-            console.log(`Erro ao realizar uma compra na moeda ${walk.market}`);
-            process.exit();
+            // Se for Exc ou Bitrecife
+            if (walk.transfer) {
+              // Execute ação de compra  e venda
+              console.log(`Executando ação de ${walk.action}`);
+              // Transferir para próxima exchange
+              console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
+            } else {
+              //
+              console.log(`Executando ação de ${walk.action}`);
+            }            
           }
         }
       }

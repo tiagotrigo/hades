@@ -3,6 +3,7 @@
 const R = require('ramda');
 const Arb = require('./arbitration');
 const await = require('await');
+const Telegram = require('./telegram');
 
 class Hades {
   
@@ -135,7 +136,6 @@ class Hades {
     } = Arb[this.i];   
 
     if (walks[walks.length - 1].quantity > entry) {
-      console.log(`[${name}]:`, walks[walks.length - 1].quantity, 'OK');
       // for (let [z, walk] of walks.entries()) {
       //   if (z === 0) {
       //     // Se for Bleutrade, executar ação de compra e venda e depois a transferencia

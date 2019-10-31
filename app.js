@@ -5,6 +5,7 @@ const Exc = require('./exc.js');
 const Coins = require('./coins.js');
 const Bitrecife = require('./bitrecife.js');
 const Bleutrade = require('./bleutrade.js');
+const Telegram = require('./telegram');
 
 class Hades {
   
@@ -91,6 +92,7 @@ class Hades {
                               Exc.getBalance('BTC').then((data) => {
                                 Exc.setDirectTransfer('BTC', data.data.result[0].Balance, 1, this.email).then((data) => {
                                   console.log(`Enviando BTC para Bleutrade`);
+                                  Telegram.sendMessage(`[${symbol}]: ${qntExcBid}`);
                                 });
                               });
                             }, 400);
@@ -150,8 +152,7 @@ class Hades {
                           Bleutrade.getBalance('BTC').then((data) => {
                             Bleutrade.setDirectTransfer('BTC', data.data.result[0].Balance, 2, this.email).then((data) => {
                               console.log(`Enviando BTC para Exccripto`);
-                              console.log(' ');
-                              process.exit();
+                              Telegram.sendMessage(`[${symbol}]: ${qntBleuBid}`);
                             });
                           })
                         }, 400);

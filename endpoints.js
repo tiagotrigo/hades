@@ -8,7 +8,8 @@ const Endpoints = {
 		mercado: 'https://www.mercadobitcoin.net/api',
 		exc: 'https://trade.exccripto.com/api/v3',
 		bomesp: 'https://exchange.bomesp.com.br',
-		awesomeapi: 'https://economia.awesomeapi.com.br'
+		awesomeapi: 'https://economia.awesomeapi.com.br',
+		telegram: 'https://api.telegram.org/bot964920676:AAHv6HXV2CgHT4he7NOSTYuxYQmtB3PKkTw'
 	}
 };
 

@@ -136,46 +136,46 @@ class Hades {
     if (walks[walks.length - 1].quantity > entry) {
       //
       console.log('>>', walks[walks.length - 1].market, walks[walks.length - 1].quantity, 'OK')
-      // for (let [z, walk] of walks.entries()) {
-      //   // Compra ou venda
-      //   if (walk.action === 'sell') {
-      //     let sell = await walk.exchange.setSellLimit(walk.market, walk.price, walk.quantity, false);
-      //     if (sell) {
-      //       console.log(`Troca de ${dividend} por ${divisor}`);
-      //       // Transferência direta
-      //       if (walk.go != 0) {
-      //         let transfer = await walk.exchange.setDirectTransfer(walk.divisor, walk.quantity, walk.go, this.email);
-      //         if (transfer) {
-      //           console.log(`Enviando ${walk.divisor} para ${walk.go}`);
-      //         } else {
-      //           console.log(`Erro ao tentar enviar para exchange ${walk.go}`);
-      //           process.exit();
-      //         }
-      //       }
-      //     } else {
-      //       console.log(`Erro ao realizar uma venda na moeda ${walk.market}`);
-      //       process.exit();
-      //     }
-      //   } else {
-      //     let buy = await walk.exchange.setBuyLimit(walk.market, walk.price, walk.quantity, false);
-      //     if (buy) {
-      //       console.log(`Troca de ${divisor} por ${dividend}`);
-      //       // Transferência direta
-      //       if (walk.go != 0) {
-      //         let transfer = await walk.exchange.setDirectTransfer(walk.dividend, walk.quantity, walk.go, this.email);
-      //         if (transfer) {
-      //           console.log(`Enviando ${walk.dividend} para ${walk.go}`);
-      //         } else {
-      //           console.log(`Erro ao tentar enviar para exchange ${walk.go}`);
-      //           process.exit();
-      //         }
-      //       }
-      //     } else {
-      //       console.log(`Erro ao realizar uma compra na moeda ${walk.market}`);
-      //       process.exit();
-      //     }
-      //   }
-      // }
+      for (let [z, walk] of walks.entries()) {
+        // Compra ou venda
+        if (walk.action === 'sell') {
+          let sell = await walk.exchange.setSellLimit(walk.market, walk.price, walk.quantity, false);
+          if (sell) {
+            console.log(`Troca de ${dividend} por ${divisor}`);
+            // Transferência direta
+            if (walk.go != 0) {
+              let transfer = await walk.exchange.setDirectTransfer(walk.divisor, walk.quantity, walk.go, this.email);
+              if (transfer) {
+                console.log(`Enviando ${walk.divisor} para ${walk.go}`);
+              } else {
+                console.log(`Erro ao tentar enviar para exchange ${walk.go}`);
+                process.exit();
+              }
+            }
+          } else {
+            console.log(`Erro ao realizar uma venda na moeda ${walk.market}`);
+            process.exit();
+          }
+        } else {
+          let buy = await walk.exchange.setBuyLimit(walk.market, walk.price, walk.quantity, false);
+          if (buy) {
+            console.log(`Troca de ${divisor} por ${dividend}`);
+            // Transferência direta
+            if (walk.go != 0) {
+              let transfer = await walk.exchange.setDirectTransfer(walk.dividend, walk.quantity, walk.go, this.email);
+              if (transfer) {
+                console.log(`Enviando ${walk.dividend} para ${walk.go}`);
+              } else {
+                console.log(`Erro ao tentar enviar para exchange ${walk.go}`);
+                process.exit();
+              }
+            }
+          } else {
+            console.log(`Erro ao realizar uma compra na moeda ${walk.market}`);
+            process.exit();
+          }
+        }
+      }
     } else {
       console.log(`[${name}]:`, walks[walks.length - 1].quantity);
     }

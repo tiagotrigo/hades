@@ -99,11 +99,10 @@ class Hades {
     if (order && qnt) {
       return {
         price: order,
-        quantity: qnt
+        quantity: qnt        
       }
     } else {
-      console.log('Erro na distribuição de quantidade e preço');
-      process.exit();
+      console.log('Erro de quantidade e preço');
     }
   }
 
@@ -120,6 +119,8 @@ class Hades {
         walk.price = resp.price;
         // Atualizando a quantidade
         walk.quantity = resp.quantity;
+        // Preço de soma
+        walk.sum = this.calcQntSum(resp.quantity, book, walk.action);
       } else {
         console.log('Erro para carregar o livro de oferta(s)');
         process.exit();
@@ -134,51 +135,53 @@ class Hades {
     } = Arb[this.i];   
 
     if (walks[walks.length - 1].quantity > entry) {
-      for (let [z, walk] of walks.entries()) {
-        if (z === 0) {
-          // Se for Bleutrade, executar ação de compra e venda e depois a transferencia
-          if (walk.exchangeto === 1) {
-            console.log(`Executando ação de ${walk.action}`);
-            if (walk.transfer) {
-              console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
-            }
-          } else {
-            // Se for Exc ou Bitrecife
-            if (walk.transfer) {
-              // Tire BTC ou USDT da Bleutrade para a próxima exchange
-              console.log(`Recebendo BTC ou USDT da exchange Bleutrade`);
-              // Execute ação de compra  e venda
-              console.log(`Executando ação de ${walk.action}`);
-              // Transferir para próxima exchange
-              console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
-            } else {
-              // Tire BTC ou USDT da Bleutrade para a próxima exchange
-              console.log(`Recebendo BTC ou USDT da exchange Bleutrade`);
-              //
-              console.log(`Executando ação de ${walk.action}`);
-            }            
-          }
-        } else {
-          // Se for Bleutrade, executar ação de compra e venda, depois a transferencia se exitir
-          if (walk.exchangeto === 1) {
-            console.log(`Executando ação de ${walk.action}`);
-            if (walk.transfer) {
-              console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
-            }
-          } else {
-            // Se for Exc ou Bitrecife
-            if (walk.transfer) {
-              // Execute ação de compra  e venda
-              console.log(`Executando ação de ${walk.action}`);
-              // Transferir para próxima exchange
-              console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
-            } else {
-              //
-              console.log(`Executando ação de ${walk.action}`);
-            }            
-          }
-        }
-      }
+      console.log(`[${name}]:`, walks[walks.length - 1].quantity, 'OK');
+      // for (let [z, walk] of walks.entries()) {
+      //   if (z === 0) {
+      //     // Se for Bleutrade, executar ação de compra e venda e depois a transferencia
+      //     if (walk.exchangeto === 1) {
+      //       console.log(`Executando ação de ${walk.action}`);
+      //       if (walk.transfer) {
+      //         console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
+      //       }
+      //     } else {
+      //       // Se for Exc ou Bitrecife
+      //       if (walk.transfer) {
+      //         // Tire BTC ou USDT da Bleutrade para a próxima exchange
+      //         console.log(`Recebendo BTC ou USDT da exchange Bleutrade`);
+      //         // Execute ação de compra  e venda
+      //         console.log(`Executando ação de ${walk.action}`);
+      //         // Transferir para próxima exchange
+      //         console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
+      //       } else {
+      //         // Tire BTC ou USDT da Bleutrade para a próxima exchange
+      //         console.log(`Recebendo BTC ou USDT da exchange Bleutrade`);
+      //         //
+      //         console.log(`Executando ação de ${walk.action}`);
+      //       }            
+      //     }
+      //   } else {
+      //     // Se for Bleutrade, executar ação de compra e venda, depois a transferencia se exitir
+      //     if (walk.exchangeto === 1) {
+      //       console.log(`Executando ação de ${walk.action}`);
+      //       if (walk.transfer) {
+      //         console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
+      //       }
+      //     } else {
+      //       // Se for Exc ou Bitrecife
+      //       if (walk.transfer) {
+      //         // Execute ação de compra  e venda
+      //         console.log(`Executando ação de ${walk.action}`);
+      //         // Transferir para próxima exchange
+      //         console.log(`Enviando para exchange ${walk.transfer.exchangeto}`);
+      //       } else {
+      //         //
+      //         console.log(`Executando ação de ${walk.action}`);
+      //       }            
+      //     }
+      //   }
+        
+      // }
     } else {
       console.log(`[${name}]:`, walks[walks.length - 1].quantity);
     }

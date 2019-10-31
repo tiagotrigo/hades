@@ -13,6 +13,7 @@ const Arbitration = [
       {
         id: 1,
         exchange: Bleutrade,
+        go: 3,
         fee: 0.0015,
         price: 0,
         quantity: 0,
@@ -24,6 +25,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Bitrecife,
+        go: 0,
         fee: 0.0024,
         price: 0,
         quantity: 0,
@@ -34,7 +36,8 @@ const Arbitration = [
       },
       {
         id: 3,
-        exchange: Bitrecife,        
+        exchange: Bitrecife,
+        go: 1,   
         fee: 0.9976,
         price: 0,
         quantity: 0,
@@ -53,6 +56,7 @@ const Arbitration = [
       {
         id: 1,
         exchange: Bitrecife,
+        go: 0,       
         fee: 0.0024,
         price: 0,
         quantity: 0,
@@ -64,6 +68,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Bitrecife,
+        go: 0,
         fee: 0.9976,
         price: 0,
         quantity: 0,
@@ -74,7 +79,8 @@ const Arbitration = [
       },
       {
         id: 3,
-        exchange: Bleutrade,        
+        exchange: Bleutrade,
+        go: 1,        
         fee: 0.9985,
         price: 0,
         quantity: 0,
@@ -93,6 +99,7 @@ const Arbitration = [
       {
         id: 1,
         exchange: Bleutrade,
+        go: 2,
         fee: 0.9985,
         price: 0,
         quantity: 0,
@@ -104,6 +111,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Exc,
+        go: 1,
         fee: 0.0025,
         price: 0,
         quantity: 0,
@@ -122,6 +130,7 @@ const Arbitration = [
       {
         id: 1,
         exchange: Exc,
+        go: 1,
         fee: 0.9975,
         price: 0,
         quantity: 0,
@@ -133,6 +142,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Bleutrade,
+        go: 0,
         fee: 0.0015,
         price: 0,
         quantity: 0,
@@ -151,6 +161,7 @@ const Arbitration = [
       {
         id: 1,
         exchange: Bleutrade,
+        go: 2,
         fee: 0.9985,
         price: 0,
         quantity: 0,
@@ -162,6 +173,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Exc,
+        go: 1,
         fee: 0.0025,
         price: 0,
         quantity: 0,
@@ -180,6 +192,7 @@ const Arbitration = [
       {
         id: 1,
         exchange: Exc,
+        go: 1,
         fee: 0.9975,
         price: 0,
         quantity: 0,
@@ -191,6 +204,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Bleutrade,
+        go: 0,
         fee: 0.0015,
         price: 0,
         quantity: 0,
@@ -209,6 +223,7 @@ const Arbitration = [
       {
         id: 1,
         exchange: Bleutrade,
+        go: 2,
         fee: 0.0015,
         price: 0,
         quantity: 0,
@@ -220,6 +235,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Exc,
+        go: 1,
         fee: 0.9975,
         price: 0,
         quantity: 0,
@@ -238,6 +254,7 @@ const Arbitration = [
       {
         id: 1,
         exchange: Exc,
+        go: 1,
         fee: 0.0025,
         price: 0,
         quantity: 0,
@@ -249,6 +266,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Bleutrade,
+        go: 0,
         fee: 0.9985,
         price: 0,
         quantity: 0,
@@ -262,11 +280,12 @@ const Arbitration = [
   {
     id: 9,
     name: 'ETH_USDT',
-    entry: 0.0002,
+    entry: 1,
     walks: [
       {
         id: 1,
         exchange: Exc,
+        go: 1,
         fee: 0.0025,
         price: 0,
         quantity: 0,
@@ -278,6 +297,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Bleutrade,
+        go: 0,
         fee: 0.9985,
         price: 0,
         quantity: 0,
@@ -291,11 +311,12 @@ const Arbitration = [
   {
     id: 10,
     name: 'ETH_USDT',
-    entry: 0.0002,
+    entry: 1,
     walks: [
       {
         id: 1,
         exchange: Bleutrade,
+        go: 2,
         fee: 0.0015,
         price: 0,
         quantity: 0,
@@ -307,6 +328,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Exc,
+        go: 1,
         fee: 0.9975,
         price: 0,
         quantity: 0,
@@ -320,11 +342,12 @@ const Arbitration = [
   {
     id: 11,
     name: 'LTC_USDT',
-    entry: 0.0002,
+    entry: 1,
     walks: [
       {
         id: 1,
         exchange: Bleutrade,
+        go: 2,
         fee: 0.0015,
         price: 0,
         quantity: 0,
@@ -336,6 +359,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Exc,
+        go: 1,
         fee: 0.9975,
         price: 0,
         quantity: 0,
@@ -349,11 +373,12 @@ const Arbitration = [
   {
     id: 12,
     name: 'LTC_USDT',
-    entry: 0.0002,
+    entry: 1,
     walks: [
       {
         id: 1,
         exchange: Exc,
+        go: 1,
         fee: 0.0025,
         price: 0,
         quantity: 0,
@@ -365,6 +390,7 @@ const Arbitration = [
       {
         id: 2,
         exchange: Bleutrade,
+        go: 0,
         fee: 0.9985,
         price: 0,
         quantity: 0,
@@ -372,6 +398,92 @@ const Arbitration = [
         market: 'LTC_USDT',
         dividend: 'LTC',
         divisor: 'USDT'
+      }
+    ]
+  },
+  {
+    id: 13,
+    name: 'BTC_ETH_DOGE_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchange: Bleutrade,
+        go: 2,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        market: 'ETH_BTC',
+        dividend: 'ETH',
+        divisor: 'BTC'
+      },
+      {
+        id: 2,
+        exchange: Exc,
+        go: 0,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'ETH_DOGE',
+        dividend: 'ETH',
+        divisor: 'DOGE'
+      },
+      {
+        id: 3,
+        exchange: Exc,
+        go: 1,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'DOGE_BTC',
+        dividend: 'DOGE',
+        divisor: 'BTC'
+      }
+    ]
+  },
+  {
+    id: 14,
+    name: 'BTC_LTC_DOGE_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchange: Bleutrade,
+        go: 2,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        market: 'LTC_BTC',
+        dividend: 'LTC',
+        divisor: 'BTC'
+      },
+      {
+        id: 2,
+        exchange: Exc,
+        go: 0,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'LTC_DOGE',
+        dividend: 'LTC',
+        divisor: 'DOGE'
+      },
+      {
+        id: 3,
+        exchange: Exc,
+        go: 1,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        market: 'DOGE_BTC',
+        dividend: 'DOGE',
+        divisor: 'BTC'
       }
     ]
   }

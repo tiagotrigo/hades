@@ -80,8 +80,6 @@ class Hades {
         let bleu = await Bleutrade.getOrderBook(symbol, 'ALL', 5);
         let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
         let bleuOrderOpen = await Bleutrade.getOpenOrders(symbol);
-
-        console.log(excOpenOrder.data.result.length, bleuOpenOrder.data.result);
         // Lucro
         if (bleuCalcQnt > this.min) {
           if (

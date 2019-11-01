@@ -102,9 +102,11 @@ class Hades {
             await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');
             console.log(`Enviando ${divisor} para Exccripto`); 
 
+            await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
+
             console.log(' ');
           } else {
-            console.log(`${symbol} ordem aberta`);
+            console.log(`[Exccripto - ${symbol}]: Aguardando`);
           }        
         } else {
           console.log(`[Exccripto - ${symbol}]:`, bleuCalcQnt);

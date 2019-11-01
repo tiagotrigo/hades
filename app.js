@@ -89,7 +89,7 @@ class Hades {
             excOrderOpen.data.result === null
           ) {
             console.log(' ');
-          
+
             try {
               await Exc.setBuyLimit(symbol, excCalcSum[0].rate, excCalcQnt);
               console.log(`Troca de ${divisor} por ${dividend}`);
@@ -105,7 +105,7 @@ class Hades {
 
               await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
             } catch(e) {
-              console.log('Ooops!');
+              console.log('>> Ooops!');
             }
 
             console.log(' ');

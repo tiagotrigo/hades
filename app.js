@@ -91,8 +91,9 @@ class Hades {
                             setTimeout(() => {
                               Exc.getBalance('BTC').then((data) => {
                                 Exc.setDirectTransfer('BTC', data.data.result[0].Balance, 1, this.email).then((data) => {
-                                  console.log(`Enviando BTC para Bleutrade`);
-                                  Telegram.sendMessage(`[${symbol}]: ${qntExcBid}`);
+                                  Telegram.sendMessage(`[${symbol}]: ${qntExcBid}`).then((data) => {
+                                    console.log(`Enviando BTC para Bleutrade`);
+                                  });                                  
                                 });
                               });
                             }, 400);
@@ -146,16 +147,10 @@ class Hades {
                       console.log(`Enviando ${dividend} para Bleutrade`);
                       // Vender moeda
                       Bleutrade.setSellLimit(symbol, ordersBleu[0].rate, qntExc, false).then((data) => {
-                        console.log(`Trocar de ${dividend} por BTC`);
                         // Transferir Bleutrade para Exccripto                     
-                        setTimeout(() => {
-                          Bleutrade.getBalance('BTC').then((data) => {
-                            Bleutrade.setDirectTransfer('BTC', data.data.result[0].Balance, 2, this.email).then((data) => {
-                              console.log(`Enviando BTC para Exccripto`);
-                              Telegram.sendMessage(`[${symbol}]: ${qntBleuBid}`);
-                            });
-                          })
-                        }, 400);
+                        Telegram.sendMessage(`[${symbol}]: ${qntExcBid}`).then((data) => {
+                          console.log(`Trocar de ${dividend} por BTC`);
+                        });
                       });
                     });
                   });

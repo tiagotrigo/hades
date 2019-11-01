@@ -110,7 +110,7 @@ const Bleutrade = {
       resolve(data)
     })
   },
-  setBuyLimit: function(market, rate, quantity, postonly) {
+  setBuyLimit: function(market, rate, quantity) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/buylimit',
@@ -120,12 +120,11 @@ const Bleutrade = {
         nonce: Nonce(),
         market,
         rate,
-        quantity,
-        postonly
+        quantity
       }
     };
 
-    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}&postonly=${options.params.postonly}`;
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}`;
     const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');    
 
     return new Promise((resolve, reject) => {
@@ -140,15 +139,14 @@ const Bleutrade = {
           nonce: options.params.nonce,
           market: options.params.market,
           rate: options.params.rate,
-          quantity: options.params.quantity,
-          postonly: options.params.postonly
+          quantity: options.params.quantity
         }
       })
 
       resolve(data)
     })
   },
-  setSellLimit: function(market, rate, quantity, postonly) {
+  setSellLimit: function(market, rate, quantity) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/selllimit',
@@ -158,12 +156,11 @@ const Bleutrade = {
         nonce: Nonce(),
         market,
         rate,
-        quantity,
-        postonly
+        quantity
       }
     };
 
-    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}&postonly=${options.params.postonly}`;
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}`;
     const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');
 
     return new Promise((resolve, reject) => {
@@ -178,8 +175,7 @@ const Bleutrade = {
           nonce: options.params.nonce,
           market: options.params.market,
           rate: options.params.rate,
-          quantity: options.params.quantity,
-          postonly: options.params.postonly
+          quantity: options.params.quantity
         }
       })
 

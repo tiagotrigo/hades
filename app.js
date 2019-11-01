@@ -74,27 +74,29 @@ class Hades {
         } = coin;
         // Exccripto
         let exc = await Exc.getOrderBook(symbol, 'ALL', 5);
+        let excCalcSum = this.calcSum(this.min, exc, 'buy');
         let excCalcQnt = this.calcBuy(this.min, exc.sell[0].Rate, 0.9975);
         let excOrderOpen = await Exc.getOpenOrders(symbol);
         // Bleutrade
         let bleu = await Bleutrade.getOrderBook(symbol, 'ALL', 5);
+        let bleuCalcSum = this.calcSum(excCalcQnt, bleu, 'sell');
         let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
         let bleuOrderOpen = await Bleutrade.getOpenOrders(symbol);
         // Lucro
         if (bleuCalcQnt > this.min) {
           if (
-            bleuOrderOpen.data.result === null || 
+            bleuOrderOpen.data.result === null && 
             excOrderOpen.data.result === null
           ) {
             console.log(' ');
             
-            await Exc.setBuyLimit(symbol, exc.sell[0].Rate, excCalcQnt);
+            await Exc.setBuyLimit(symbol, excCalcSum[0].rate, excCalcQnt);
             console.log(`Troca de ${divisor} por ${dividend}`);
             
             await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
             console.log(`Enviando ${dividend} para Bleutrade`);
             
-            await Bleutrade.setSellLimit(symbol, bleu.buy[0].Rate, excCalcQnt);
+            await Bleutrade.setSellLimit(symbol, bleuCalcSum[0].rate, excCalcQnt);
             console.log(`Troca de ${dividend} por ${divisor}`);
             
             await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');

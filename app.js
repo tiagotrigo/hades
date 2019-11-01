@@ -89,20 +89,24 @@ class Hades {
             excOrderOpen.data.result === null
           ) {
             console.log(' ');
-            
-            await Exc.setBuyLimit(symbol, excCalcSum[0].rate, excCalcQnt);
-            console.log(`Troca de ${divisor} por ${dividend}`);
-            
-            await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
-            console.log(`Enviando ${dividend} para Bleutrade`);
-            
-            await Bleutrade.setSellLimit(symbol, bleuCalcSum[0].rate, excCalcQnt);
-            console.log(`Troca de ${dividend} por ${divisor}`);
-            
-            await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');
-            console.log(`Enviando ${divisor} para Exccripto`); 
+          
+            try {
+              await Exc.setBuyLimit(symbol, excCalcSum[0].rate, excCalcQnt);
+              console.log(`Troca de ${divisor} por ${dividend}`);
+              
+              await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
+              console.log(`Enviando ${dividend} para Bleutrade`);
+              
+              await Bleutrade.setSellLimit(symbol, bleuCalcSum[0].rate, excCalcQnt);
+              console.log(`Troca de ${dividend} por ${divisor}`);
+              
+              await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');
+              console.log(`Enviando ${divisor} para Exccripto`); 
 
-            await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
+              await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
+            } catch(e) {
+              console.log('Ooops!');
+            }
 
             console.log(' ');
           } else {

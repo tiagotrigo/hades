@@ -27,15 +27,15 @@ class Hades {
     ));
   }
 
-  formatNumber(num, precision) {
+  mask(num, precision) {
     const output = Math.pow(10, precision); 
     return Math.floor((num * output)) / output;
   }
 
-  calcSum(entry, book, type) {
+  calcSum(amount, book, type) {
     let i = 0;
     let sum = 0;
-    let orders = R.map((n) => this.formatNumber(n.Quantity * n.Rate, 8), type === 'buy' ? book.sell : book.buy);
+    let orders = R.map((n) => this.mask(n.Quantity * n.Rate, 8), type === 'buy' ? book.sell : book.buy);
     let ordersSum = R.map((item) => {
       i++;
       sum = sum + item;
@@ -43,11 +43,11 @@ class Hades {
         id: i - 1,
         rate: type === 'buy' ? book.sell[i - 1].Rate : book.buy[i - 1].Rate,
         quantity: item,
-        sum: this.formatNumber(sum, 8)
+        sum: this.mask(sum, 8)
       }
     }, orders);
 
-    return R.filter((n) => n.sum >= entry, ordersSum);
+    return R.filter((n) => n.sum >= amount, ordersSum);
   }
 
   // Buy
@@ -55,79 +55,83 @@ class Hades {
     const tax = amount * fee;
     const qnt = tax / rate;
 
-    return this.formatNumber(qnt, 8);
+    return this.mask(qnt, 8);
   }
 
   // Sell
   calcSell(amount, rate, fee) {
     const tax = (amount * rate) * (1 - fee);
-    return this.formatNumber(tax, 8);
+    return this.mask(tax, 8);
   }
 
   async run() {
     do {
-      for (let coin of Coins) {
-        const {
-          symbol,
-          divisor,
-          dividend
-        } = coin;
+      try {
+        for (let coin of Coins) {
+          const {
+            symbol,
+            divisor,
+            dividend
+          } = coin;
 
-        try {
-          // Exccripto
-          let exc = await Exc.getOrderBook(symbol, 'ALL', 5);
-          let excCalcSum = this.calcSum(this.min, exc, 'buy');
-          let excCalcQnt = this.calcBuy(this.min, exc.sell[0].Rate, 0.9975);
-          let excOrderOpen = await Exc.getOpenOrders(symbol);
-          // Bleutrade
-          let bleu = await Bleutrade.getOrderBook(symbol, 'ALL', 5);
-          let bleuCalcSum = this.calcSum(excCalcQnt, bleu, 'sell');
-          let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
-          let bleuOrderOpen = await Bleutrade.getOpenOrders(symbol);
-          // Lucro
-          if (bleuCalcQnt > this.min) {
-            if (
-              bleuOrderOpen.data.result === null && 
-              excOrderOpen.data.result === null
-            ) {
-              console.log(' ');
+          try {
+            // Exccripto
+            let exc = await Exc.getOrderBook(symbol, 'ALL', 5);
+            let excCalcSum = this.calcSum(this.min, exc, 'buy');
+            let excCalcQnt = this.calcBuy(this.min, exc.sell[0].Rate, 0.9975);
+            let excOrderOpen = await Exc.getOpenOrders(symbol);
+            // Bleutrade
+            let bleu = await Bleutrade.getOrderBook(symbol, 'ALL', 5);
+            let bleuCalcSum = this.calcSum(excCalcQnt, bleu, 'sell');
+            let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
+            let bleuOrderOpen = await Bleutrade.getOpenOrders(symbol);
+            // Lucro
+            if (bleuCalcQnt > this.min) {
+              if (
+                bleuOrderOpen.data.result === null && 
+                excOrderOpen.data.result === null
+              ) {
+                console.log(' ');
 
-              try {
-                await Exc.setBuyLimit(symbol, excCalcSum[0].rate, excCalcQnt);
-                console.log(`Troca de ${divisor} por ${dividend}`);
+                try {
+                  await Exc.setBuyLimit(symbol, excCalcSum[0].rate, excCalcQnt);
+                  console.log(`Troca de ${divisor} por ${dividend}`);
 
-                await this.wait(1000);
-                
-                await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
-                console.log(`Enviando ${dividend} para Bleutrade`);
+                  await this.wait(1000);
+                  
+                  await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
+                  console.log(`Enviando ${dividend} para Bleutrade`);
 
-                await this.wait(1000);
-                
-                await Bleutrade.setSellLimit(symbol, bleuCalcSum[0].rate, excCalcQnt);
-                console.log(`Troca de ${dividend} por ${divisor}`);
+                  await this.wait(1000);
+                  
+                  await Bleutrade.setSellLimit(symbol, bleuCalcSum[0].rate, excCalcQnt);
+                  console.log(`Troca de ${dividend} por ${divisor}`);
 
-                await this.wait(1000);
-                
-                await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');
-                console.log(`Enviando ${divisor} para Exccripto`); 
+                  await this.wait(1000);
+                  
+                  await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');
+                  console.log(`Enviando ${divisor} para Exccripto`); 
 
-                await this.wait(1000);
+                  await this.wait(1000);
 
-                await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
-              } catch(e) {
-                console.log('>> Ooops!');
-              }
+                  await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
+                } catch(e) {
+                  console.log('>> Ooops!');
+                }
 
-              console.log(' ');
+                console.log(' ');
+              } else {
+                console.log(`[Exccripto - ${symbol}]: Ordem aberta`);
+              }        
             } else {
-              console.log(`[Exccripto - ${symbol}]: Ordem aberta`);
-            }        
-          } else {
-            console.log(`[Exccripto - ${symbol}]:`, bleuCalcQnt);
+              console.log(`[Exccripto - ${symbol}]:`, bleuCalcQnt);
+            }
+          } catch(e) {
+            console.log('>> Ooops!');
           }
-        } catch(e) {
-          console.log('>> Ooops!');
         }
+      } catch(e) {
+        console.log('Ooops!');
       }
     } while (true)
   }

@@ -72,56 +72,61 @@ class Hades {
           divisor,
           dividend
         } = coin;
-        // Exccripto
-        let exc = await Exc.getOrderBook(symbol, 'ALL', 5);
-        let excCalcSum = this.calcSum(this.min, exc, 'buy');
-        let excCalcQnt = this.calcBuy(this.min, exc.sell[0].Rate, 0.9975);
-        let excOrderOpen = await Exc.getOpenOrders(symbol);
-        // Bleutrade
-        let bleu = await Bleutrade.getOrderBook(symbol, 'ALL', 5);
-        let bleuCalcSum = this.calcSum(excCalcQnt, bleu, 'sell');
-        let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
-        let bleuOrderOpen = await Bleutrade.getOpenOrders(symbol);
-        // Lucro
-        if (bleuCalcQnt > this.min) {
-          if (
-            bleuOrderOpen.data.result === null && 
-            excOrderOpen.data.result === null
-          ) {
-            console.log(' ');
 
-            try {
-              await Exc.setBuyLimit(symbol, excCalcSum[0].rate, excCalcQnt);
-              console.log(`Troca de ${divisor} por ${dividend}`);
+        try {
+          // Exccripto
+          let exc = await Exc.getOrderBook(symbol, 'ALL', 5);
+          let excCalcSum = this.calcSum(this.min, exc, 'buy');
+          let excCalcQnt = this.calcBuy(this.min, exc.sell[0].Rate, 0.9975);
+          let excOrderOpen = await Exc.getOpenOrders(symbol);
+          // Bleutrade
+          let bleu = await Bleutrade.getOrderBook(symbol, 'ALL', 5);
+          let bleuCalcSum = this.calcSum(excCalcQnt, bleu, 'sell');
+          let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
+          let bleuOrderOpen = await Bleutrade.getOpenOrders(symbol);
+          // Lucro
+          if (bleuCalcQnt > this.min) {
+            if (
+              bleuOrderOpen.data.result === null && 
+              excOrderOpen.data.result === null
+            ) {
+              console.log(' ');
 
-              await this.wait(1000);
-              
-              await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
-              console.log(`Enviando ${dividend} para Bleutrade`);
+              try {
+                await Exc.setBuyLimit(symbol, excCalcSum[0].rate, excCalcQnt);
+                console.log(`Troca de ${divisor} por ${dividend}`);
 
-              await this.wait(1000);
-              
-              await Bleutrade.setSellLimit(symbol, bleuCalcSum[0].rate, excCalcQnt);
-              console.log(`Troca de ${dividend} por ${divisor}`);
+                await this.wait(1000);
+                
+                await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
+                console.log(`Enviando ${dividend} para Bleutrade`);
 
-              await this.wait(1000);
-              
-              await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');
-              console.log(`Enviando ${divisor} para Exccripto`); 
+                await this.wait(1000);
+                
+                await Bleutrade.setSellLimit(symbol, bleuCalcSum[0].rate, excCalcQnt);
+                console.log(`Troca de ${dividend} por ${divisor}`);
 
-              await this.wait(1000);
+                await this.wait(1000);
+                
+                await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');
+                console.log(`Enviando ${divisor} para Exccripto`); 
 
-              await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
-            } catch(e) {
-              console.log('>> Ooops!');
-            }
+                await this.wait(1000);
 
-            console.log(' ');
+                await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
+              } catch(e) {
+                console.log('>> Ooops!');
+              }
+
+              console.log(' ');
+            } else {
+              console.log(`[Exccripto - ${symbol}]: Ordem aberta`);
+            }        
           } else {
-            console.log(`[Exccripto - ${symbol}]: Ordem aberta`);
-          }        
-        } else {
-          console.log(`[Exccripto - ${symbol}]:`, bleuCalcQnt);
+            console.log(`[Exccripto - ${symbol}]:`, bleuCalcQnt);
+          }
+        } catch(e) {
+          console.log('>> Ooops!');
         }
       }
     } while (true)

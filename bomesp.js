@@ -7,6 +7,23 @@ const Nonce = require('nonce')();
 const Endpoints = require('./endpoints.js');
 
 const Bitrecife = {
+  getMarkets: function() {
+    const options = {
+      uri: Endpoints.api.bomesp,
+      public: '/public/getmarkets'
+    };
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'GET',
+        url: options.uri + options.public
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
+      })
+    })
+  },
   getTicker: function(market) {
     const options = {
       uri: Endpoints.api.bomesp,
@@ -20,27 +37,11 @@ const Bitrecife = {
         params: {
           market
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
-    })
-  },
-  getMarketSummary: function(market) {
-    const options = {
-      uri: Endpoints.api.bomesp,
-      public: '/public/getmarketsummary'
-    };
-
-    return new Promise((resolve, reject) => {
-      const data = Axios({
-        method: 'GET',
-        url: options.uri + options.public,
-        params: {
-          market
-        }
-      })
-
-      resolve(data)
     })
   },
   getOrderBook: function(market, type, depth) {
@@ -59,8 +60,10 @@ const Bitrecife = {
           depth
         }
       }).then((data) => {
-        resolve(data.data.result)
-      });
+        resolve(data.data.result)  
+      }).catch((er) => {
+        console.log('Ooops!');
+      })
     })
   },
   getBalance: function(asset) {
@@ -90,12 +93,14 @@ const Bitrecife = {
           nonce: options.params.nonce,
           asset: options.params.asset
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   },
-  setBuyLimit: function(market, rate, quantity, postonly) {
+  setBuyLimit: function(market, rate, quantity) {
     const options = {
       uri: Endpoints.api.bomesp,
       private: '/private/buylimit',
@@ -105,12 +110,11 @@ const Bitrecife = {
         nonce: Nonce(),
         market,
         rate,
-        quantity,
-        postonly
+        quantity
       }
     };
 
-    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}&postonly=${options.params.postonly}`;
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}`;
     const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');
 
     return new Promise((resolve, reject) => {
@@ -125,15 +129,16 @@ const Bitrecife = {
           nonce: options.params.nonce,
           market: options.params.market,
           rate: options.params.rate,
-          quantity: options.params.quantity,
-          postonly: options.params.postonly
+          quantity: options.params.quantity
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   },
-  setSellLimit: function(market, rate, quantity, postonly) {
+  setSellLimit: function(market, rate, quantity) {
     const options = {
       uri: Endpoints.api.bomesp,
       private: '/private/selllimit',
@@ -143,12 +148,11 @@ const Bitrecife = {
         nonce: Nonce(),
         market,
         rate,
-        quantity,
-        postonly
+        quantity
       }
     };
 
-    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}&postonly=${options.params.postonly}`;
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}`;
     const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');
 
     return new Promise((resolve, reject) => {
@@ -166,9 +170,11 @@ const Bitrecife = {
           quantity: options.params.quantity,
           postonly: options.params.postonly
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   },
   setOrderCancel: function(orderId) {
@@ -198,9 +204,11 @@ const Bitrecife = {
           nonce: options.params.nonce,
           orderid: options.params.orderId
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   },
   getOpenOrders: function(market) {
@@ -230,9 +238,11 @@ const Bitrecife = {
           nonce: options.params.nonce,
           market: options.params.market
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   },
   setDirectTransfer: function(asset, quantity, exchangeto, accountto) {
@@ -269,9 +279,11 @@ const Bitrecife = {
           exchangeto: options.params.exchangeto,
           accountto: options.params.accountto
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   }
 };

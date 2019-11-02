@@ -22,9 +22,11 @@ const Telegram = {
           chat_id: process.env.CHAT_ID,
           text: `${message}`
         }
-      })
-
-      resolve(data)
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
+      })      
     })
   }
 };

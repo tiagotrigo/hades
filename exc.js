@@ -17,9 +17,11 @@ const Exc = {
       const data = Axios({
         method: 'GET',
         url: options.uri + options.public
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   },
 	 getTicker: function(market) {
@@ -35,27 +37,11 @@ const Exc = {
         params: {
           market
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
-    })
-  },
-  getMarketSummary: function(market) {
-    const options = {
-      uri: Endpoints.api.exc,
-      public: '/public/getmarketsummary'
-    };
-
-    return new Promise((resolve, reject) => {
-      const data = Axios({
-        method: 'GET',
-        url: options.uri + options.public,
-        params: {
-          market
-        }
-      })
-
-      resolve(data)
     })
   },
   getOrderBook: function(market, type, depth) {
@@ -75,6 +61,8 @@ const Exc = {
         }
       }).then((data) => {
         resolve(data.data.result)
+      }).catch((er) => {
+        console.log('Ooops!');
       })
     });
   },
@@ -105,9 +93,11 @@ const Exc = {
           nonce: options.params.nonce,
           asset: options.params.asset
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   },
   setBuyLimit: function(market, rate, quantity) {
@@ -141,9 +131,11 @@ const Exc = {
           rate: options.params.rate,
           quantity: options.params.quantity
         }
-      })
-
-      resolve(data)
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
+      })      
     })
   },
   setSellLimit: function(market, rate, quantity) {
@@ -177,9 +169,11 @@ const Exc = {
           rate: options.params.rate,
           quantity: options.params.quantity
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   },
   setOrderCancel: function(orderId) {
@@ -209,9 +203,11 @@ const Exc = {
           nonce: options.params.nonce,
           orderid: options.params.orderId
         }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
       })
-
-      resolve(data)
     })
   },
   getOpenOrders: function(market) {
@@ -241,9 +237,11 @@ const Exc = {
           nonce: options.params.nonce,
           market: options.params.market
         }
-      })
-
-      resolve(data)
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops!');
+      });      
     })
   },
   setDirectTransfer: function(asset, quantity, exchangeto, accountto) {
@@ -280,9 +278,11 @@ const Exc = {
           exchangeto: options.params.exchangeto,
           accountto: options.params.accountto
         }
-      })
-
-      resolve(data)
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        console.log('Ooops');
+      })      
     })
   }
 };

@@ -20,7 +20,7 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
@@ -60,7 +60,7 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data.data.result)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     });
   },
@@ -94,7 +94,7 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
@@ -132,7 +132,7 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
@@ -170,7 +170,7 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
@@ -236,7 +236,7 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
@@ -277,7 +277,7 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   }

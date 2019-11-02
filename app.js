@@ -127,7 +127,7 @@ class Hades {
               console.log(`[Exccripto - ${symbol}]:`, bleuCalcQnt);
             }
           } catch(e) {
-            console.log('>> Ooops!');
+            console.log('Ooops!');
           }
         }
       } catch(e) {

@@ -94,7 +94,187 @@ const Arbitration = [
         transfer: null
       },
     ]
-  }
+  },
+  {
+    id: 3,
+    name: 'ETH_USDT',
+    entry: 1,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        sum: [],
+        action: 'sell',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        id: 2,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: [],
+        action: 'buy',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    id: 4,
+    name: 'ETH_USDT',
+    entry: 1,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: [],
+        action: 'buy',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        id: 2,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        sum: [],
+        action: 'sell',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    id: 5,
+    name: 'BTC_USDT',
+    entry: 1,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: [],
+        action: 'buy',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
+        divisor: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        id: 2,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        sum: [],
+        action: 'sell',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
+        divisor: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    id: 6,
+    name: 'BTC_USDT',
+    entry: 1,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        sum: [],
+        action: 'sell',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
+        divisor: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        id: 2,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: [],
+        action: 'buy',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
+        divisor: 'USDT',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
 ];
 
 module.exports = Arbitration;

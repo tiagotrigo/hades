@@ -20,7 +20,7 @@ const Bleutrade = {
       }).then((data) => { 
         resolve(data)
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })      
     })
   },
@@ -40,7 +40,7 @@ const Bleutrade = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })      
     })
   },
@@ -62,7 +62,7 @@ const Bleutrade = {
       }).then((data) => {
         resolve(data.data.result)
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     });
   },
@@ -96,11 +96,12 @@ const Bleutrade = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
   setBuyLimit: function(market, rate, quantity) {
+
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/buylimit',
@@ -134,7 +135,7 @@ const Bleutrade = {
       }).then((data) => {
         resolve(data)
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })      
     })
   },
@@ -172,7 +173,7 @@ const Bleutrade = {
       }).then((data) => {
         resolve(data)
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })      
     })
   },
@@ -206,7 +207,7 @@ const Bleutrade = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })      
     })
   },
@@ -240,7 +241,7 @@ const Bleutrade = {
       }).then((data) => {
         resolve(data)
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       });      
     })
   },
@@ -281,7 +282,7 @@ const Bleutrade = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })      
     })
   }

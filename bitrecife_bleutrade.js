@@ -304,7 +304,6 @@ class Hades {
                 }
               } else {
                 console.log(`[${name}]:`, 'Ordem aberta');
-                return;
               }
             }            
             //process.exit();

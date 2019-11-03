@@ -296,10 +296,17 @@ class Hades {
                     }            
                   }
                 }
+                // Notificando por telegram
+                if (z === (walks.length - 1)) {
+                  await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
+                  console.log('Notificando por telegram');
+                  await this.wait(1000);
+                }
               } else {
                 console.log(`[${name}]:`, 'Ordem aberta');
+                return;
               }
-            }
+            }            
             //process.exit();
           } catch(e) {
             console.log(e);

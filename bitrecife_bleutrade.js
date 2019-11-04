@@ -144,9 +144,11 @@ class Hades {
                     if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, walk.quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                    
                     } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, walk.quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                    
                     } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, walk.quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
@@ -161,9 +163,11 @@ class Hades {
                     if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, walk.quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                    
                     } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, walk.quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                    
                     } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, walk.quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
@@ -185,9 +189,11 @@ class Hades {
                       if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                       } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                       } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
@@ -202,9 +208,11 @@ class Hades {
                       if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                       } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                       } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
@@ -221,9 +229,11 @@ class Hades {
                       if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                       } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                       } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
@@ -238,9 +248,11 @@ class Hades {
                       if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                       } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                       } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
@@ -262,9 +274,11 @@ class Hades {
                     if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                    
                     } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                    
                     } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
@@ -279,9 +293,11 @@ class Hades {
                     if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                    
                     } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                    
                     } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
@@ -304,9 +320,11 @@ class Hades {
                       if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                       } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                       } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
@@ -321,9 +339,11 @@ class Hades {
                       if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                       } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                       } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
@@ -341,9 +361,11 @@ class Hades {
                       if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                       } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                       } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
@@ -358,9 +380,11 @@ class Hades {
                       if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                       } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                       } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);

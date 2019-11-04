@@ -91,6 +91,8 @@ class Hades {
   }
 
   async run() {
+    let sum = 0;
+
     do {
       for (let [x, arb] of Arb.entries()) {
         for (let [y, walk] of arb.walks.entries()) {
@@ -101,12 +103,12 @@ class Hades {
             walk.price = resp.price;
             walk.quantity = resp.quantity;
             // Soma do book
-            for (let item of walk.action === 'buy' ? book.sell : book.buy) {
-              if (item.Quantity > resp.quantity) {
+            for (let [i, item] of walk.action === 'buy' ? book.sell.entries() : book.buy.entries()) {
+              sum = sum + (item.Quantity * item.Rate);            
+              if (sum > arb.entry) {
                 walk.sum = R.append({
                   rate: item.Rate,
-                  quantity: item.Quantity,
-                  sum: item.Quantity * item.Rate
+                  quantity: item.Quantity
                 }, walk.sum);  
               }
             }            
@@ -128,13 +130,14 @@ class Hades {
             for (let [z, walk] of walks.entries()) {
               // Livro de ofertas
               let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 15);
-              // Sua ordem
+              // Ordem aberta
               let open = await walk.exchange.getOpenOrders(walk.market);
               // Verificando se existe ordem
-              if (open.data.result != null) {
-                console.log(`[${name}]:`, 'Ordem aberta');
-                break;
-              }  
+              // if (open.data.result != null) {
+              //   console.log(`[${name}]:`, 'Ordem aberta');
+              //   break;
+              // }
+              
               // Verificando o primeiro passo
               if (z === 0) {
                 // 1 - Se for Bleutrade
@@ -278,11 +281,11 @@ class Hades {
                   }            
                 }
               }
-              // Telegram
-              if (z === (walks.length - 1)) {
-                await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
-                console.log('Notificando por telegram');
-              }
+              // // // Telegram
+              // if (z === (walks.length - 1)) {
+              //   await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
+              //   console.log('Notificando por telegram');
+              // }
             }          
             //process.exit();
           } catch(e) {

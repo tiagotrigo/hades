@@ -127,7 +127,7 @@ class Hades {
             // Rotinas
             for (let [z, walk] of walks.entries()) {
               // Livro de ofertas
-              let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 6);
+              let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 15);
               // Sua ordem
               let open = await walk.exchange.getOpenOrders(walk.market);
               // Verificando se existe ordem
@@ -141,41 +141,45 @@ class Hades {
                 if (walk.exchangeto === 1) {
                   if (walk.action === 'sell') {
                     // 2 - Comprar ou vender
-                    if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
+                    if (walk.quantity > (book.buy[0].Quantity * book.buy[0].Rate)) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, walk.quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                    
-                    } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
+                      
+                    } else if (walk.quantity > (book.buy[1].Quantity * book.buy[1].Rate)) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, walk.quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                    
-                    } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
+                      
+                    } else if (walk.quantity > (book.buy[2].Quantity * book.buy[2].Rate)) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, walk.quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                     }                    
                     // 3 - Transfer caso precise
                     if (walk.transfer) {
                       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                       console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                      
                     }
                   } else {
                     // 2 - Comprar ou vender
-                    if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
+                    if (walk.quantity > (book.sell[0].Quantity * book.sell[0].Rate)) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, walk.quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                    
-                    } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
+                      
+                    } else if (walk.quantity > (book.sell[1].Quantity * book.sell[1].Rate)) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, walk.quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                    
-                    } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
+                      
+                    } else if (walk.quantity > (book.sell[2].Quantity * book.sell[2].Rate)) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, walk.quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                     }
                     // 3 - Transferir caso precise
                     if (walk.transfer) {
                       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                       console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                      
                     }
                   }
                 } else {
@@ -184,83 +188,92 @@ class Hades {
                     // Tire BTC ou USDT da Bleutrade para a próxima exchange
                     await Bleutrade.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
+                    
                     if (walk.action === 'sell') {
                       // 2 - Comprar ou vender
-                      if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
+                      if (walk.quantity > (book.buy[0].Quantity * book.buy[0].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                      
-                      } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
+                        
+                      } else if (walk.quantity > (book.buy[1].Quantity * book.buy[1].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                      
-                      } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
+                        
+                      } else if (walk.quantity > (book.buy[2].Quantity * book.buy[2].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                        
                       }                      
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                        
                       }
                     } else {
                       // 2 - Comprar ou vender
-                      if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
+                      if (walk.quantity > (book.sell[0].Quantity * book.sell[0].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                      
-                      } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
+                        
+                      } else if (walk.quantity > (book.sell[1].Quantity * book.sell[1].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                      
-                      } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
+                        
+                      } else if (walk.quantity > (book.sell[2].Quantity * book.sell[2].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                        
                       }                      
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                        
                       }
                     }
                   } else {
                     if (walk.action === 'sell') {
                       // 2 - Comprar ou vender
-                      if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
+                      if (walk.quantity > (book.buy[0].Quantity * book.buy[0].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                      
-                      } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
+                        
+                      } else if (walk.quantity > (book.buy[1].Quantity * book.buy[1].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                      
-                      } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
+                        
+                      } else if (walk.quantity > (book.buy[2].Quantity * book.buy[2].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, walk.quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                        
                       }
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                        
                       }
                     } else {
                       // 2 - Comprar ou vender
-                      if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
+                      if (walk.quantity > (book.sell[0].Quantity * book.sell[0].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                      
-                      } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
+                        
+                      } else if (walk.quantity > (book.sell[1].Quantity * book.sell[1].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                      
-                      } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
+                        
+                      } else if (walk.quantity > (book.sell[2].Quantity * book.sell[2].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, walk.quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                        
                       }
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                        
                       }
                     }
                   }         
@@ -271,41 +284,45 @@ class Hades {
                 if (walk.exchangeto === 1) {
                   if (walk.action === 'sell') {
                     // 2 - Comprar ou vender
-                    if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
+                    if (arb.walks[z - 1].quantity > (book.buy[0].Quantity * book.buy[0].Rate)) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                    
-                    } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
+                      
+                    } else if (arb.walks[z - 1].quantity > (book.buy[1].Quantity * book.buy[1].Rate)) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                    
-                    } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
+                      
+                    } else if (arb.walks[z - 1].quantity > (book.buy[2].Quantity * book.buy[2].Rate)) {
                       await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                      
                     }
                     // 3 - Transfer caso precise
                     if (walk.transfer) {
                       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                       console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                      
                     }
                   } else {
                     // 2 - Comprar ou vender
-                    if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
+                    if (arb.walks[z - 1].quantity > (book.sell[0].Quantity * book.sell[0].Rate)) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                    
-                    } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
+                      
+                    } else if (arb.walks[z - 1].quantity > (book.sell[1].Quantity * book.sell[1].Rate)) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                    
-                    } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
+                      
+                    } else if (arb.walks[z - 1].quantity > (book.sell[2].Quantity * book.sell[2].Rate)) {
                       await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
                     }
                     // 3 - Transferir caso precise
                     if (walk.transfer) {
                       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                       console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                      
                     }
                   }
                 } else {
@@ -317,82 +334,90 @@ class Hades {
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
                     if (walk.action === 'sell') {
                       // 2 - Comprar ou vender
-                      if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
+                      if (arb.walks[z - 1].quantity > (book.buy[0].Quantity * book.buy[0].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                      
-                      } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
+                        
+                      } else if (arb.walks[z - 1].quantity > (book.buy[1].Quantity * book.buy[1].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                      
-                      } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
+                        
+                      } else if (arb.walks[z - 1].quantity > (book.buy[2].Quantity * book.buy[2].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                        
                       }
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                        
                       }
                     } else {
                       // 2 - Comprar ou vender
-                      if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
+                      if (arb.walks[z - 1].quantity > (book.sell[0].Quantity * book.sell[0].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                      
-                      } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
+                        
+                      } else if (arb.walks[z - 1].quantity > (book.sell[1].Quantity * book.sell[1].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                      
-                      } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
+                        
+                      } else if (arb.walks[z - 1].quantity > (book.sell[2].Quantity * book.sell[2].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                        
                       }
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                        
                       }
                     }
                   } else {
                     // 2 - Comprar ou vender
                     if (walk.action === 'sell') {
                       // 2 - Comprar ou vender
-                      if ((book.buy[0].Quantity * book.buy[0].Rate) > walk.quantity) {
+                      if (arb.walks[z - 1].quantity > (book.buy[0].Quantity * book.buy[0].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[0].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                      
-                      } else if ((book.buy[1].Quantity * book.buy[1].Rate) > walk.quantity) {
+                        
+                      } else if (arb.walks[z - 1].quantity > (book.buy[1].Quantity * book.buy[1].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[1].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
-                      
-                      } else if ((book.buy[2].Quantity * book.buy[2].Rate) > walk.quantity) {
+                        
+                      } else if (arb.walks[z - 1].quantity > (book.buy[2].Quantity * book.buy[2].Rate)) {
                         await walk.exchange.setSellLimit(walk.market, book.buy[2].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                        
                       }
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                        
                       }
                     } else {
                       // 2 - Comprar ou vender
-                      if ((book.sell[0].Quantity * book.sell[0].Rate) > walk.quantity) {
+                      if (arb.walks[z - 1].quantity > (book.sell[0].Quantity * book.sell[0].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[0].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                      
-                      } else if ((book.sell[1].Quantity * book.sell[1].Rate) > walk.quantity) {
+                        
+                      } else if (arb.walks[z - 1].quantity > (book.sell[1].Quantity * book.sell[1].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[1].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
-                      
-                      } else if ((book.sell[2].Quantity * book.sell[2].Rate) > walk.quantity) {
+                        
+                      } else if (arb.walks[z - 1].quantity > (book.sell[2].Quantity * book.sell[2].Rate)) {
                         await walk.exchange.setBuyLimit(walk.market, book.sell[2].Rate, arb.walks[z - 1].quantity);
                         console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                        
                       }
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                        
                       }
                     }
                   }            
@@ -402,6 +427,7 @@ class Hades {
               if (z === (walks.length - 1)) {
                 await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
                 console.log('Notificando por telegram');
+                
               }
             }          
             //process.exit();

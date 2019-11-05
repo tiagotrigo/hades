@@ -10,7 +10,7 @@ const Telegram = require('./telegram');
 class Hades {
   
   constructor() {
-    this.min = 0.0002,
+    this.min = 0.0004,
     this.mail = 'tiago.a.trigo@gmail.com'
   }
 
@@ -42,12 +42,11 @@ class Hades {
       return {
         id: i - 1,
         rate: type === 'buy' ? book.sell[i - 1].Rate : book.buy[i - 1].Rate,
-        quantity: item,
-        sum: this.mask(sum, 8)
+        quantity: item
       }
     }, orders);
 
-    return R.filter((n) => n.sum >= amount, ordersSum);
+    return R.filter((n) => n.quantity >= amount, ordersSum);
   }
 
   // Buy

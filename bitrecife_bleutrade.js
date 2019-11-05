@@ -9,6 +9,7 @@ const Bleutrade = require('./bleutrade.js');
 class Hades {
   
   constructor() {
+    this.sum = null,
     this.mail = 'tiago.a.trigo@gmail.com'
   }
 
@@ -91,27 +92,27 @@ class Hades {
   }
 
   async run() {
-    let sum = 0;
+    let collection, sum = [];
 
     do {
       for (let [x, arb] of Arb.entries()) {
         for (let [y, walk] of arb.walks.entries()) {
           try {
-            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 15);
+            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 6);
             let resp = this.calcDistributingValue(arb, book, walk, y);
-            // Atualizando o preço
+            //
             walk.price = resp.price;
-            walk.quantity = resp.quantity;
-            // Soma do book
-            for (let [i, item] of walk.action === 'buy' ? book.sell.entries() : book.buy.entries()) {
-              sum = sum + (item.Quantity * item.Rate);            
-              if (sum > arb.entry) {
-                walk.sum = R.append({
-                  rate: item.Rate,
-                  quantity: item.Quantity
-                }, walk.sum);  
-              }
-            }            
+            walk.quantity = resp.quantity; 
+
+            for (let item of walk.action === 'buy' ? book.sell : book.buy) {
+              walk.sum = R.append({
+                rate: item.Rate,
+                quantity: item.Quantity,
+                sum: item.Rate * item.Quantity
+              }, walk.sum);
+            }
+
+            walk.sum = R.filter((n) => n.sum > arb.entry, walk.sum);
           } catch(e) {
             console.log(e);
           }
@@ -128,16 +129,23 @@ class Hades {
           try {
             // Rotinas
             for (let [z, walk] of walks.entries()) {
-              // Livro de ofertas
-              let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 15);
               // Ordem aberta
               let open = await walk.exchange.getOpenOrders(walk.market);
               // Verificando se existe ordem
-              // if (open.data.result != null) {
-              //   console.log(`[${name}]:`, 'Ordem aberta');
-              //   break;
-              // }
-              
+              if (open.data.result != null) {
+                // if (open.data.result[0].Type === 'SELL') {
+                //   await walk.exchange.setOrderCancel(open.data.result[0].OrderId);
+                //   console.log(`Cancelando a ordem e enviando para exchange ${walk.exchangeto}`);
+
+                //   await walk.exchange.setSellLimit(walk.market, walk.sum[0].rate, walk.quantity);
+                //   console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);  
+                // }
+                console.log(' ');
+                console.log(`[${name}]:`);
+                console.log(open.data.result);
+                console.log(' ');
+                break;
+              }
               // Verificando o primeiro passo
               if (z === 0) {
                 // 1 - Se for Bleutrade
@@ -281,12 +289,15 @@ class Hades {
                   }            
                 }
               }
-              // // // Telegram
-              // if (z === (walks.length - 1)) {
-              //   await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
-              //   console.log('Notificando por telegram');
-              // }
-            }          
+              // Telegram
+              if (z === (walks.length - 1)) {
+                await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
+                console.log('Notificando por telegram');
+              }
+
+              console.log(walk.sum[0])
+            }       
+
             //process.exit();
           } catch(e) {
             console.log(e);

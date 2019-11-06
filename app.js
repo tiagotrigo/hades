@@ -95,23 +95,15 @@ class Hades {
                 try {
                   await Exc.setBuyLimit(symbol, excCalcSum[0].rate, excCalcQnt);
                   console.log(`Troca de ${divisor} por ${dividend}`);
-
-                  await this.wait(1000);
-                  
+                                    
                   await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
                   console.log(`Enviando ${dividend} para Bleutrade`);
-
-                  await this.wait(1000);
                   
                   await Bleutrade.setSellLimit(symbol, bleuCalcSum[0].rate, excCalcQnt);
                   console.log(`Troca de ${dividend} por ${divisor}`);
-
-                  await this.wait(1000);
                   
                   await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');
                   console.log(`Enviando ${divisor} para Exccripto`); 
-
-                  await this.wait(1000);
 
                   await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
                 } catch(e) {

@@ -80,7 +80,7 @@ class Hades {
       for (let [x, arb] of Arb.entries()) {
         for (let [y, walk] of arb.walks.entries()) {
           try {
-            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 6);
+            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 15);
             let resp = this.calcDistributingValue(arb, book, walk, y);
             //
             walk.price = resp.price;
@@ -97,31 +97,57 @@ class Hades {
           walks
         } = arb;
 
-        let book = []
-        let order = [];
+        let book, order, wallet, amount = [];
 
         if (walks[walks.length - 1].quantity > entry) {          
           try {
             // Rotinas
             for (let [z, walk] of walks.entries()) {
-              if (walk.receive != null) {
-                // Tire BTC ou USDT da Bleutrade para a próxima exchange
-                await Bleutrade.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
-                console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
-              }
               // Verificando o livro de ofertas
-              book = await walk.exchange.getOrderBook(walk.market, walk.action === 'buy' ? 'SELL' : 'BUY', 6);
+              book = await walk.exchange.getOrderBook(walk.market, walk.action === 'buy' ? 'SELL' : 'BUY', 15);
               // Verificando a ação 
               order = walk.action === 'buy' ? book.sell : book.buy;
               // Olhando o book pra melhor oportunidade
+              console.log('ANTIGO', walk.price)
+
               if (order[0].Quantity > walk.quantity) {
                 walk.price = order[1].Rate;
               } else if (order[1].Quantity > walk.quantity) {
                 walk.price = order[2].Rate;
               } else if (order[2].Quantity > walk.quantity) {
                 walk.price = order[3].Rate;
+              } else if (order[3].Quantity > walk.quantity) {
+                walk.price = order[4].Rate;
+              } else if (order[4].Quantity > walk.quantity) {
+                walk.price = order[4].Rate;
+              } else if (order[5].Quantity > walk.quantity) {
+                walk.price = order[6].Rate;
+              } else if (order[6].Quantity > walk.quantity) {
+                walk.price = order[7].Rate;
+              } else if (order[7].Quantity > walk.quantity) {
+                walk.price = order[8].Rate;
+              } else if (order[8].Quantity > walk.quantity) {
+                walk.price = order[9].Rate;
+              } else if (order[9].Quantity > walk.quantity) {
+                walk.price = order[10].Rate;
+              } else if (order[10].Quantity > walk.quantity) {
+                walk.price = order[11].Rate;
+              } else if (order[11].Quantity > walk.quantity) {
+                walk.price = order[12].Rate;
+              } else if (order[12].Quantity > walk.quantity) {
+                walk.price = order[13].Rate;
+              } else if (order[13].Quantity > walk.quantity) {
+                walk.price = order[14].Rate;
+              } else if (order[14].Quantity > walk.quantity) {
+                walk.price = order[15].Rate;
               }
 
+              console.log('NOVO', walk.price)
+              // Tire BTC ou USDT da Bleutrade para a próxima exchange
+              if (walk.receive != null) {
+                await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.005, walk.receive.exchangeto, walk.receive.mail);
+                console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
+              }
               //Verificando o primeiro passo
               if (z === 0) {
                 // 1 - Se for Bleutrade
@@ -258,13 +284,22 @@ class Hades {
                     }
                   }            
                 }
-              }             
+              }
+              //  Rebalanceado saldo
+              // wallet = await walk.exchange.getBalances();
+              // amount = R.filter((n) => n.Balance >= 0.0001 && (n.Asset === 'BTC' || n.Asset === 'USDT'), wallet.data.result);
+
+              // if (amount.data.result[0].Balance >= 0.0001) {
+              //   await walk.exchange.setDirectTransfer(walk.divisor, amount[0].Balance, 1, 'tiago.a.trigo@gmail.com');
+              //   console.log(`Rebalanceado saldo em ${walk.divisor}`);
+              // }
               // Telegram
               if (z === (walks.length - 1)) {
                 await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
-                console.log('Notificando por telegram');
+                console.log('Notificando tiago.a.trigo@gmail.com por telegram');
               }              
             }
+            // process.exit();
           } catch(e) {
             console.log(e);
           }

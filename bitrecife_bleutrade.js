@@ -285,17 +285,16 @@ class Hades {
               wallet = await walk.exchange.getBalances();
               amount = R.filter((n) => n.Balance >= 0.0001 && (n.Asset === 'BTC' || n.Asset === 'USDT'), wallet.data.result);
 
-              if (amount[0].Balance >= 0.0001 && walk.exchange != 1) {
+              if (amount[0].Balance >= 0.0001 && walk.exchangeto != 1) {
                 await walk.exchange.setDirectTransfer(walk.divisor, amount[0].Balance, 1, 'tiago.a.trigo@gmail.com');
                 console.log(`Rebalanceado saldo em ${walk.divisor}`);
               }
               // Telegram
-              // if (z === (walks.length - 1)) {
-              //   await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
-              //   console.log('Notificando tiago.a.trigo@gmail.com por telegram');
-              // }              
+              if (z === (walks.length - 1)) {
+                await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
+                console.log('Notificando tiago.a.trigo@gmail.com por telegram');
+              }              
             }
-            process.exit();
           } catch(e) {
             console.log(e);
           }

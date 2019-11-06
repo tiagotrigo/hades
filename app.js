@@ -10,7 +10,7 @@ const Telegram = require('./telegram');
 class Hades {
   
   constructor() {
-    this.min = 0.0004,
+    this.min = 0.0002,
     this.mail = 'tiago.a.trigo@gmail.com'
   }
 

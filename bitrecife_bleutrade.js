@@ -288,7 +288,7 @@ class Hades {
               // wallet = await walk.exchange.getBalances();
               // amount = R.filter((n) => n.Balance >= 0.0001 && (n.Asset === 'BTC' || n.Asset === 'USDT'), wallet.data.result);
 
-              // if (amount[0].Balance >= 0.0001 && walk.exchangeto != 1) {
+              // if (amount[0].Balance >= 0.0001 && walk.exchangeto != 1 && z === (walks.length - 1)) {
               //   await walk.exchange.setDirectTransfer(walk.divisor, amount[0].Balance, 1, 'tiago.a.trigo@gmail.com');
               //   console.log(`Rebalanceado saldo em ${walk.divisor}`);
               // }

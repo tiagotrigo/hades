@@ -108,8 +108,6 @@ class Hades {
               // Verificando a ação 
               order = walk.action === 'buy' ? book.sell : book.buy;
               // Olhando o book pra melhor oportunidade
-              console.log('ANTIGO', walk.price)
-
               if (order[0].Quantity > walk.quantity) {
                 walk.price = order[1].Rate;
               } else if (order[1].Quantity > walk.quantity) {
@@ -141,8 +139,6 @@ class Hades {
               } else if (order[14].Quantity > walk.quantity) {
                 walk.price = order[15].Rate;
               }
-
-              console.log('NOVO', walk.price)
               // Tire BTC ou USDT da Bleutrade para a próxima exchange
               if (walk.receive != null) {
                 await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.005, walk.receive.exchangeto, walk.receive.mail);
@@ -285,21 +281,21 @@ class Hades {
                   }            
                 }
               }
-              //  Rebalanceado saldo
-              // wallet = await walk.exchange.getBalances();
-              // amount = R.filter((n) => n.Balance >= 0.0001 && (n.Asset === 'BTC' || n.Asset === 'USDT'), wallet.data.result);
+              // Rebalanceado saldo
+              wallet = await walk.exchange.getBalances();
+              amount = R.filter((n) => n.Balance >= 0.0001 && (n.Asset === 'BTC' || n.Asset === 'USDT'), wallet.data.result);
 
-              // if (amount.data.result[0].Balance >= 0.0001) {
-              //   await walk.exchange.setDirectTransfer(walk.divisor, amount[0].Balance, 1, 'tiago.a.trigo@gmail.com');
-              //   console.log(`Rebalanceado saldo em ${walk.divisor}`);
-              // }
+              if (amount[0].Balance >= 0.0001 && walk.exchange != 1) {
+                await walk.exchange.setDirectTransfer(walk.divisor, amount[0].Balance, 1, 'tiago.a.trigo@gmail.com');
+                console.log(`Rebalanceado saldo em ${walk.divisor}`);
+              }
               // Telegram
-              if (z === (walks.length - 1)) {
-                await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
-                console.log('Notificando tiago.a.trigo@gmail.com por telegram');
-              }              
+              // if (z === (walks.length - 1)) {
+              //   await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
+              //   console.log('Notificando tiago.a.trigo@gmail.com por telegram');
+              // }              
             }
-            // process.exit();
+            process.exit();
           } catch(e) {
             console.log(e);
           }

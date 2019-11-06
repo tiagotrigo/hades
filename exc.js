@@ -100,6 +100,38 @@ const Exc = {
       })
     })
   },
+  getBalances: function() {
+    const options = {
+      uri: Endpoints.api.exc,
+      private: '/private/getbalances',
+      params: {
+        apikey: process.env.EXC_APIKEY,
+        apisecret: process.env.EXC_APISECRET,
+        nonce: Nonce()
+      }
+    };
+
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}`;
+    const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'POST',
+        headers: {
+          apisign
+        },
+        url: options.uri + options.private,
+        params: {
+          apikey: options.params.apikey,
+          nonce: options.params.nonce
+        }
+      }).then((data) => {
+        resolve(data)  
+      }).catch((er) => {
+        reject(er)
+      })
+    })
+  },
   setBuyLimit: function(market, rate, quantity) {
     const options = {
       uri: Endpoints.api.exc,

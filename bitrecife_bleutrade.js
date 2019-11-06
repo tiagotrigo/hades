@@ -139,11 +139,6 @@ class Hades {
               } else if (order[14].Quantity > walk.quantity) {
                 walk.price = order[15].Rate;
               }
-              // Tire BTC ou USDT da Bleutrade para a próxima exchange
-              if (walk.receive != null) {
-                await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.005, walk.receive.exchangeto, walk.receive.mail);
-                console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
-              }
               //Verificando o primeiro passo
               if (z === 0) {
                 // 1 - Se for Bleutrade
@@ -171,6 +166,8 @@ class Hades {
                   // Se o primeiro passo não for Bleutrade
                   if (walk.receive != null) {
                     if (walk.action === 'sell') {
+                      await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.005, walk.receive.exchangeto, walk.receive.mail);
+                      console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, walk.quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);                      
@@ -180,6 +177,8 @@ class Hades {
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }
                     } else {
+                      await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.005, walk.receive.exchangeto, walk.receive.mail);
+                      console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, walk.quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);                     
@@ -239,6 +238,8 @@ class Hades {
                   // Ele precisa receber BTC ou USDT ? Se sim, enviar
                   if (walk.receive != null) {
                     if (walk.action === 'sell') {
+                      await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.005, walk.receive.exchangeto, walk.receive.mail);
+                      console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
@@ -248,6 +249,8 @@ class Hades {
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }
                     } else {
+                      await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.005, walk.receive.exchangeto, walk.receive.mail);
+                      console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, arb.walks[z - 1].quantity);
                       console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);

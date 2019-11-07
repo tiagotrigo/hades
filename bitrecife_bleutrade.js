@@ -322,12 +322,106 @@ class Hades {
                   }
                 }
               }
+
+              if (z === 2) {
+                // Se for bleutrade
+                if (walk.exchangeto === 1) {
+                  if (walk.action === 'sell') {
+                    walk.price = await this.updateRate(walk, walk.quantity);
+
+                    // 2 - Comprar ou vender
+                    await walk.exchange.setSellLimit(walk.market, walk.price, walks[1].quantity);
+                    console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);                   
+                    
+                    // 3 - Transfer caso precise
+                    if (walk.transfer) {
+                      await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
+                      console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                    }
+                  }
+
+                  if (walk.action === 'buy') {
+                    walk.price = await this.updateRate(walk, walk.quantity);
+
+                    // 2 - Comprar ou vender
+                    await walk.exchange.setBuyLimit(walk.market, walk.price, walks[1].quantity);
+                    console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                    
+                    // 3 - Transferir caso precise
+                    if (walk.transfer) {
+                      await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
+                      console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                    }
+                  }
+                } else {
+                  if (walk.receive === null) {
+                    if (walk.action === 'sell') {
+                      walk.price = await this.updateRate(walk, walk.quantity);
+
+                      // 2 - Comprar ou vender
+                      await walk.exchange.setSellLimit(walk.market, walk.price, walks[1].quantity);
+                      console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);                   
+                      
+                      // 3 - Transfer caso precise
+                      if (walk.transfer) {
+                        await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
+                        console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                      }
+                    }
+
+                    if (walk.action === 'buy') {
+                      walk.price = await this.updateRate(walk, walk.quantity);
+
+                      // 2 - Comprar ou vender
+                      await walk.exchange.setBuyLimit(walk.market, walk.price, walks[1].quantity);
+                      console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
+                      // 3 - Transferir caso precise
+                      if (walk.transfer) {
+                        await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
+                        console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                      }
+                    }
+                  } else {
+                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.01, walk.receive.exchangeto, walk.receive.mail);
+                    console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
+
+                    if (walk.action === 'sell') {
+                      walk.price = await this.updateRate(walk, walk.quantity);
+
+                      // 2 - Comprar ou vender
+                      await walk.exchange.setSellLimit(walk.market, walk.price, walks[1].quantity);
+                      console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);                   
+                      
+                      // 3 - Transfer caso precise
+                      if (walk.transfer) {
+                        await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
+                        console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                      }
+                    }
+
+                    if (walk.action === 'buy') {
+                      walk.price = await this.updateRate(walk, walk.quantity);
+
+                      // 2 - Comprar ou vender
+                      await walk.exchange.setBuyLimit(walk.market, walk.price, walks[1].quantity);
+                      console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      
+                      // 3 - Transferir caso precise
+                      if (walk.transfer) {
+                        await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
+                        console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+                      }
+                    }
+                  }
+                }
+              }
               
               // Telegram
-              // if (z === (walks.length - 1)) {
-              //   await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
-              //   console.log('Notificando @tiagotrigo por telegram');
-              // } 
+              if (z === (walks.length - 1)) {
+                await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
+                console.log('Notificando @tiagotrigo por telegram');
+              } 
             }
             process.exit();
           } catch(e) {

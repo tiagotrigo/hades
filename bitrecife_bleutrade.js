@@ -91,34 +91,14 @@ class Hades {
 
     if (order[0].Quantity > quantity) {
       walk.price = order[1].Rate;
-    } else if (order[1].Quantity > quantity) {
+    } else if ((order[0].Quantity + order[1].Quantity) > quantity) {
       walk.price = order[2].Rate;
-    } else if (order[2].Quantity > quantity) {
+    } else if ((order[0].Quantity + order[1].Quantity + order[2].Quantity) > quantity) {
       walk.price = order[3].Rate;
-    } else if (order[3].Quantity > quantity) {
+    } else if ((order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity) > quantity) {
       walk.price = order[4].Rate;
-    } else if (order[4].Quantity > quantity) {
-      walk.price = order[4].Rate;
-    } else if (order[5].Quantity > quantity) {
-      walk.price = order[6].Rate;
-    } else if (order[6].Quantity > quantity) {
-      walk.price = order[7].Rate;
-    } else if (order[7].Quantity > quantity) {
-      walk.price = order[8].Rate;
-    } else if (order[8].Quantity > quantity) {
-      walk.price = order[9].Rate;
-    } else if (order[9].Quantity > quantity) {
-      walk.price = order[10].Rate;
-    } else if (order[10].Quantity > quantity) {
-      walk.price = order[11].Rate;
-    } else if (order[11].Quantity > quantity) {
-      walk.price = order[12].Rate;
-    } else if (order[12].Quantity > quantity) {
-      walk.price = order[13].Rate;
-    } else if (order[13].Quantity > quantity) {
-      walk.price = order[14].Rate;
-    } else if (order[14].Quantity > quantity) {
-      walk.price = order[15].Rate;
+    } else if ((order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity + order[4].Quantity) > quantity) {
+      walk.price = order[5].Rate;
     }
 
     return walk.price;
@@ -213,7 +193,7 @@ class Hades {
                       }
                     }
                   } else {
-                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.005, walk.receive.exchangeto, walk.receive.mail);
+                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.01, walk.receive.exchangeto, walk.receive.mail);
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
 
                     if (walk.action === 'sell') {
@@ -251,7 +231,7 @@ class Hades {
                 // Se for bleutrade
                 if (walk.exchangeto === 1) {
                   if (walk.action === 'sell') {
-                    //walk.price = await this.updateRate(walk, walks[0].quantity);
+                    walk.price = await this.updateRate(walk, walk.quantity);
 
                     // 2 - Comprar ou vender
                     await walk.exchange.setSellLimit(walk.market, walk.price, walks[0].quantity);
@@ -265,7 +245,7 @@ class Hades {
                   }
 
                   if (walk.action === 'buy') {
-                    //walk.price = await this.updateRate(walk, walks[0].quantity);
+                    walk.price = await this.updateRate(walk, walk.quantity);
 
                     // 2 - Comprar ou vender
                     await walk.exchange.setBuyLimit(walk.market, walk.price, walks[0].quantity);
@@ -280,7 +260,7 @@ class Hades {
                 } else {
                   if (walk.receive === null) {
                     if (walk.action === 'sell') {
-                      walk.price = await this.updateRate(walk, walks[0].quantity);
+                      walk.price = await this.updateRate(walk, walk.quantity);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, walks[0].quantity);
@@ -294,7 +274,7 @@ class Hades {
                     }
 
                     if (walk.action === 'buy') {
-                      walk.price = await this.updateRate(walk, walks[0].quantity);
+                      walk.price = await this.updateRate(walk, walk.quantity);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, walks[0].quantity);
@@ -307,11 +287,11 @@ class Hades {
                       }
                     }
                   } else {
-                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.005, walk.receive.exchangeto, walk.receive.mail);
+                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.01, walk.receive.exchangeto, walk.receive.mail);
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
 
                     if (walk.action === 'sell') {
-                      walk.price = await this.updateRate(walk, walks[0].quantity);
+                      walk.price = await this.updateRate(walk, walk.quantity);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, walks[0].quantity);
@@ -325,7 +305,7 @@ class Hades {
                     }
 
                     if (walk.action === 'buy') {
-                      walk.price = await this.updateRate(walk, walks[0].quantity);
+                      walk.price = await this.updateRate(walk, walk.quantity);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, walks[0].quantity);
@@ -342,11 +322,12 @@ class Hades {
               }
               
               // Telegram
-              if (z === (walks.length - 1)) {
-                await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
-                console.log('Notificando @tiagotrigo por telegram');
-              } 
+              // if (z === (walks.length - 1)) {
+              //   await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
+              //   console.log('Notificando @tiagotrigo por telegram');
+              // } 
             }
+            process.exit();
           } catch(e) {
             console.log(e);
           }

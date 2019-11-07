@@ -89,16 +89,18 @@ class Hades {
     // Verificando a ação 
     let order = walk.action === 'buy' ? book.sell : book.buy;
 
-    if (order[0].Quantity > quantity) {
+    if (quantity > order[0].Quantity) {
       walk.price = order[1].Rate;
-    } else if ((order[0].Quantity + order[1].Quantity) > quantity) {
+    } else if (quantity > (order[0].Quantity + order[1].Quantity)) {
       walk.price = order[2].Rate;
-    } else if ((order[0].Quantity + order[1].Quantity + order[2].Quantity) > quantity) {
+    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity)) {
       walk.price = order[3].Rate;
-    } else if ((order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity) > quantity) {
+    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity)) {
       walk.price = order[4].Rate;
-    } else if ((order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity + order[4].Quantity) > quantity) {
+    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity + order[4].Quantity)) {
       walk.price = order[5].Rate;
+    } else {
+      walk.price = order[0].Rate;
     }
 
     return walk.price;

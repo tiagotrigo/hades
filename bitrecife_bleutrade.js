@@ -352,11 +352,11 @@ class Hades {
           }
         } else {
           if (walks[walks.length - 1].exchangeto === 1) {
-            console.log(`[Bleutrade ${name}]:`, walks[walks.length - 1].quantity);  
+            console.log(`[Bleutrade][${name}]:`, walks[walks.length - 1].quantity);  
           } else if (walks[walks.length - 1].exchangeto === 2) {
-            console.log(`[Exccripto ${name}]:`, walks[walks.length - 1].quantity);  
+            console.log(`[Exccripto][${name}]:`, walks[walks.length - 1].quantity);  
           } else {
-            console.log(`[Bitrecife ${name}]:`, walks[walks.length - 1].quantity);  
+            console.log(`[Bitrecife][${name}]:`, walks[walks.length - 1].quantity);  
           }          
         }
       }

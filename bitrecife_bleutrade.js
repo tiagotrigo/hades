@@ -326,10 +326,10 @@ class Hades {
               // Telegram
               if (z === (walks.length - 1)) {
                 await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
-                console.log('Notificando @tiagotrigo por telegram');
+                console.log('Notificando @tiagotrigo');
               } 
             }
-            //process.exit();
+            process.exit();
           } catch(e) {
             console.log(e);
           }

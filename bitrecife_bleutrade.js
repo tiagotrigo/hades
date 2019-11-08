@@ -187,7 +187,7 @@ class Hades {
                       }
                     }
                   } else {
-                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.01, walk.receive.exchangeto, walk.receive.mail);
+                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.0005, walk.receive.exchangeto, walk.receive.mail);
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
 
                     if (walk.action === 'sell') {
@@ -281,7 +281,7 @@ class Hades {
                       }
                     }
                   } else {
-                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.01, walk.receive.exchangeto, walk.receive.mail);
+                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.0005, walk.receive.exchangeto, walk.receive.mail);
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
 
                     if (walk.action === 'sell') {

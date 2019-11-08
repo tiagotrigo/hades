@@ -23,6 +23,80 @@ const Arbitration = [
         dividend: 'ETH',
         divisor: 'BTC',
         receive: null,
+        transfer: null
+      },
+      {
+        id: 2,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'sell',
+        market: 'ETH_BTC',
+        dividend: 'ETH',
+        divisor: 'BTC',
+        receive: null,
+        transfer: null
+      }
+    ]
+  },
+  {
+    id: 1,
+    name: 'LTC_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'buy',
+        market: 'LTC_BTC',
+        dividend: 'LTC',
+        divisor: 'BTC',
+        receive: null,
+        transfer: null
+      },
+      {
+        id: 2,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'sell',
+        market: 'LTC_BTC',
+        dividend: 'LTC',
+        divisor: 'BTC',
+        receive: null,
+        transfer: null
+      }
+    ]
+  },
+  {
+    id: 1,
+    name: 'ETH_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'buy',
+        market: 'ETH_BTC',
+        dividend: 'ETH',
+        divisor: 'BTC',
+        receive: null,
         transfer: {
           asset: 'ETH',
           exchangeto: 2,
@@ -53,7 +127,7 @@ const Arbitration = [
   {
     id: 2,
     name: 'ETH_USDT',
-    entry: 1.2,
+    entry: 0.02,
     walks: [
       {
         id: 1,
@@ -143,7 +217,7 @@ const Arbitration = [
   {
     id: 4,
     name: 'ETH_USDT',
-    entry: 1.2,
+    entry: 0.02,
     walks: [
       {
         id: 1,
@@ -278,7 +352,7 @@ const Arbitration = [
   {
     id: 7,
     name: 'LTC_USDT',
-    entry: 1.2,
+    entry: 0.02,
     walks: [
       {
         id: 1,
@@ -323,7 +397,7 @@ const Arbitration = [
   {
     id: 8,
     name: 'LTC_USDT',
-    entry: 1.2,
+    entry: 0.02,
     walks: [
       {
         id: 1,
@@ -368,7 +442,7 @@ const Arbitration = [
   {
     id: 9,
     name: 'BTC_USDT',
-    entry: 1.2,
+    entry: 0.99,
     walks: [
       {
         id: 1,
@@ -413,7 +487,7 @@ const Arbitration = [
   {
     id: 10,
     name: 'BTC_USDT',
-    entry: 1.2,
+    entry: 0.99,
     walks: [
       {
         id: 1,
@@ -452,6 +526,43 @@ const Arbitration = [
           exchangeto: 1,
           mail: 'tiago.a.trigo@gmail.com'
         }
+      },
+    ]
+  },
+  {
+    id: 12,
+    name: 'BTC_NBC',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'buy',
+        market: 'NBC_BTC',
+        dividend: 'NBC',
+        divisor: 'BTC',
+        receive: null,
+        transfer: null
+      },
+      {
+        id: 2,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'sell',
+        market: 'NBC_BTC',
+        dividend: 'NBC',
+        divisor: 'BTC',
+        receive: null,
+        transfer: null
       },
     ]
   },

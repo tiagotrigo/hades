@@ -317,7 +317,85 @@ const Bleutrade = {
         reject(er)
       })      
     })
-  }
+  },
+  setBuyAmi: function(market, rate, quantity) {
+    const options = {
+      uri: Endpoints.api.bleutrade,
+      private: '/private/buylimitami',
+      params: {
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
+        nonce: Nonce(),
+        market,
+        rate,
+        quantity
+      }
+    };
+
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}`;
+    const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'POST',
+        headers: {
+          apisign
+        },
+        url: options.uri + options.private,
+        params: {
+          apikey: options.params.apikey,
+          nonce: options.params.nonce,
+          market: options.params.market,
+          rate: options.params.rate,
+          quantity: options.params.quantity
+        }
+      }).then((data) => {
+        console.log(data)
+        resolve(data)  
+      }).catch((er) => {
+        reject(er)
+      })
+    })
+  },
+  setSellAmi: function(market, rate, quantity) {
+    const options = {
+      uri: Endpoints.api.bleutrade,
+      private: '/private/selllimitami',
+      params: {
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
+        nonce: Nonce(),
+        market,
+        rate,
+        quantity
+      }
+    };
+
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}`;
+    const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'POST',
+        headers: {
+          apisign
+        },
+        url: options.uri + options.private,
+        params: {
+          apikey: options.params.apikey,
+          nonce: options.params.nonce,
+          market: options.params.market,
+          rate: options.params.rate,
+          quantity: options.params.quantity
+        }
+      }).then((data) => {
+        console.log(data)
+        resolve(data)  
+      }).catch((er) => {
+        reject(er)
+      })
+    })
+  },
 };
 
 module.exports = Bleutrade;

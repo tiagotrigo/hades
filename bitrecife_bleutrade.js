@@ -33,14 +33,14 @@ class Hades {
 
   calcQntBuy(amount, rate, fee) {
     let tax = amount * fee;
-    let profit = this.mask(tax, 8) / rate;   
+    let calc = this.mask(tax, 8) / rate;   
 
-    return this.mask(profit, 8);    
+    return this.mask(((calc * 100000000) - 1) / 100000000, 8);    
   }
 
   calcQntSell(amount, rate, fee) {
-    let tax = (amount * rate) * (1 - fee);
-    return this.mask(tax, 8);
+    let calc = (amount * rate) * (1 - fee);
+    return this.mask(((calc * 100000000) - 1) / 100000000, 8);
   } 
 
   calcDistributingValue(exchange, book, walk, index) {
@@ -187,7 +187,7 @@ class Hades {
                       }
                     }
                   } else {
-                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.0005, walk.receive.exchangeto, walk.receive.mail);
+                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
 
                     if (walk.action === 'sell') {
@@ -285,7 +285,7 @@ class Hades {
                       }
                     }
                   } else {
-                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry * 1.0005, walk.receive.exchangeto, walk.receive.mail);
+                    await Bleutrade.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
 
                     if (walk.action === 'sell') {

@@ -2,7 +2,7 @@
 
 const Coins = [
 	{
-		symbol: 'ETH_BTC', 
+		market: 'ETH_BTC', 
 		dividend: 'ETH',
 		divisor: 'BTC'
 	}

@@ -80,39 +80,32 @@ class Hades {
             dividend
           } = coin;
 
-          let exc = await Exc.getOrderBook(market, 'SELL', 3);
-          let rateExc = ((exc.sell[0].Rate * 100000000) - 1) / 100000000;
-          let qntExc = this.calcBuy(0.0002, rateExc);
-          // Bleu
-          let bleu = await Bleutrade.getOrderBook(market, 'BUY', 3);
-          let rateBleu = ((bleu.buy[0].Rate * 100000000) - 1) / 100000000
-          let qntBleu = this.calcSell(qntExc, rateBleu);
+          // let exc = await Exc.getOrderBook(market, 'SELL', 3);
+          
+          // let rateExc = ((exc.sell[0].Rate * 100000000) - 1) / 100000000;
+          // let amirateExc = ((exc.sell[0].Rate * 100000000) + 3) / 100000000;
 
-          if (qntBleu > 0.0002) {
-            await Exc.setBuyAmi(market, rateExc, qntExc);
-            console.log(`Troca de ${divisor} por ${dividend}`);
+          // let qntExc = this.calcBuy(0.0002, rateExc);
 
-            process.exit()
-            // let order = await Exc.getOpenOrders(market);
+          // Exc (Compra)
+          let exc   = await Exc.getOrderBook(market, 'ALL', 3);
+          let rateE = ((exc.buy[0].Rate * 100000000) + 1) / 100000000;
+          let amiE  = ((exc.sell[0].Rate * 100000000) + 1) / 100000000;
+          let qntE  = this.calcBuy(0.0002, amiE);
 
-            // if (order.data.result === null) {
-            //   await Exc.setDirectTransfer(dividend, qntExc, 1, 'tiago.a.trigo@gmail.com');
-            //   console.log(`Enviando ${dividend} para Bleutrade`);
+          // Bleu (Venda)
+          // let bleu = await Bleutrade.getOrderBook(market, 'ALL', 1);
+          // let rateB = ((bleu.sell[0].Rate * 100000000) - 1) / 100000000;
+          // let amiB = ((bleu.buy[0].Rate * 100000000) + 1) / 100000000;
+          // let qntB = this.calcSell(0.0004, amiB);
 
-            //   await Bleutrade.setSellAmi(market, rateBleu, qntExc);
-            //   console.log(`Troca de ${dividend} por ${divisor}`);
-
-            //   await Bleutrade.setDirectTransfer(divisor, qntBleu, 2, 'tiago.a.trigo@gmail.com');
-            //   console.log(`Enviando ${divisor} para Exccripto`);
-            // } else {
-            //   console.log('AMI de venda aberta');
-            // }
-          } else {
-            console.log(`[${market}]`, qntBleu);
-          }
+          // console.log(rateE, amiE, qntE)
+          await Exc.setBuyAmi(market, rateE, amiE, qntE);
+          process.exit()
+          // console.log(`Troca de ${divisor} por ${dividend}`);
         }
       } catch(e) {
-        console.log('>> Ooops!');
+        console.log(e);
       }
     } while (true)
   }

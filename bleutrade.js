@@ -318,7 +318,7 @@ const Bleutrade = {
       })      
     })
   },
-  setBuyAmi: function(market, rate, quantity) {
+  setBuyAmi: function(market, rate, amirate, quantity) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/buylimitami',
@@ -328,11 +328,12 @@ const Bleutrade = {
         nonce: Nonce(),
         market,
         rate,
-        quantity
+        amirate,
+        quantity        
       }
     };
 
-    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}`;
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&amirate=${options.params.amirate}&quantity=${options.params.quantity}`;
     const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');
 
     return new Promise((resolve, reject) => {
@@ -347,6 +348,7 @@ const Bleutrade = {
           nonce: options.params.nonce,
           market: options.params.market,
           rate: options.params.rate,
+          amirate: options.params.amirate,
           quantity: options.params.quantity
         }
       }).then((data) => {
@@ -357,7 +359,7 @@ const Bleutrade = {
       })
     })
   },
-  setSellAmi: function(market, rate, quantity) {
+  setSellAmi: function(market, rate, amirate, quantity) {
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/selllimitami',
@@ -367,11 +369,12 @@ const Bleutrade = {
         nonce: Nonce(),
         market,
         rate,
+        amirate,
         quantity
       }
     };
 
-    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&quantity=${options.params.quantity}`;
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&rate=${options.params.rate}&amirate=${options.params.amirate}&quantity=${options.params.quantity}`;
     const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');
 
     return new Promise((resolve, reject) => {
@@ -386,6 +389,7 @@ const Bleutrade = {
           nonce: options.params.nonce,
           market: options.params.market,
           rate: options.params.rate,
+          amirate: options.params.amirate,
           quantity: options.params.quantity
         }
       }).then((data) => {

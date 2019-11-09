@@ -78,7 +78,7 @@ class Hades {
   async updateRate(walk, quantity) {
     let sum = 0;
     // Verificando o livro de ofertas
-    let book = await walk.exchange.getOrderBook(walk.market, walk.action === 'buy' ? 'SELL' : 'BUY', 7);
+    let book = await walk.exchange.getOrderBook(walk.market, walk.action === 'buy' ? 'SELL' : 'BUY', 15);
     // Verificando a ação 
     let orders = walk.action === 'buy' ? book.sell : book.buy;
 
@@ -98,7 +98,7 @@ class Hades {
       for (let [x, arb] of Arb.entries()) {
         for (let [y, walk] of arb.walks.entries()) {
           try {
-            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 7);
+            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 15);
             let resp = this.calcDistributingValue(arb, book, walk, y);
             //
             walk.price = resp.price;
@@ -115,7 +115,7 @@ class Hades {
           walks
         } = arb;
 
-        let wallet, amount = [];
+        let wallet = [];
 
         if (walks[walks.length - 1].quantity > entry) {          
           try {
@@ -341,7 +341,7 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
 
                 if (walks[walks.length - 1].exchangeto != 1) {
-                  wallet = await walks[walks.length - 1].exchange.getBalance(walk.transfer.asset);
+                  wallet = await walks[walks.length - 1].exchange.getBalance(walks[walks.length - 1].transfer.asset);
                   
                   if (wallet.data.result[0].Available > 0.0001) {                  
                     await walk.exchange.setDirectTransfer(walks[walks.length - 1].transfer.asset, wallet.data.result[0].Available, 1, walks[walks.length - 1].transfer.mail);

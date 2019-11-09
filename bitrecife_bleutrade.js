@@ -77,7 +77,7 @@ class Hades {
 
   async updateRate(walk, quantity) {
     // Verificando o livro de ofertas
-    let book = await walk.exchange.getOrderBook(walk.market, walk.action === 'buy' ? 'SELL' : 'BUY', 5);
+    let book = await walk.exchange.getOrderBook(walk.market, walk.action === 'buy' ? 'SELL' : 'BUY', 6);
     // Verificando a ação 
     let order = walk.action === 'buy' ? book.sell : book.buy;
 
@@ -91,6 +91,8 @@ class Hades {
       walk.price = order[4].Rate;
     } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity + order[4].Quantity)) {
       walk.price = order[5].Rate;
+    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity + order[4].Quantity + order[5].Quantity)) {
+      walk.price = order[6].Rate;
     } else {
       walk.price = order[0].Rate;
     }
@@ -103,7 +105,7 @@ class Hades {
       for (let [x, arb] of Arb.entries()) {
         for (let [y, walk] of arb.walks.entries()) {
           try {
-            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 5);
+            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 6);
             let resp = this.calcDistributingValue(arb, book, walk, y);
             //
             walk.price = resp.price;
@@ -322,14 +324,14 @@ class Hades {
                   }
                 }
               }
-              
+
               // Telegram
               if (z === (walks.length - 1)) {
                 await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
                 console.log('Notificando @tiagotrigo');
               } 
             }
-            process.exit();
+            // process.exit();
           } catch(e) {
             console.log(e);
           }

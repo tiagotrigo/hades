@@ -23,13 +23,17 @@ const Arbitration = [
         dividend: 'ETH',
         divisor: 'BTC',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
       {
         id: 2,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
         price: 0,
         quantity: 0,
         sum: null,
@@ -38,14 +42,18 @@ const Arbitration = [
         dividend: 'ETH',
         divisor: 'BTC',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       }
     ]
   },
   {
     id: 2,
-    name: 'LTC_BTC',
-    entry: 0.0002,
+    name: 'ETH_USDT',
+    entry: 0.02,
     walks: [
       {
         id: 1,
@@ -56,27 +64,35 @@ const Arbitration = [
         quantity: 0,
         sum: null,
         action: 'buy',
-        market: 'LTC_BTC',
-        dividend: 'LTC',
-        divisor: 'BTC',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
       {
         id: 2,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
         price: 0,
         quantity: 0,
         sum: null,
         action: 'sell',
-        market: 'LTC_BTC',
-        dividend: 'LTC',
-        divisor: 'BTC',
+        market: 'ETH_USDT',
+        dividend: 'ETH',
+        divisor: 'USDT',
         receive: null,
-        transfer: null
-      }
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
     ]
   },
   {
@@ -86,9 +102,9 @@ const Arbitration = [
     walks: [
       {
         id: 1,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
         price: 0,
         quantity: 0,
         sum: null,
@@ -96,18 +112,22 @@ const Arbitration = [
         market: 'ETH_BTC',
         dividend: 'ETH',
         divisor: 'BTC',
-        receive: null,
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
         transfer: {
           asset: 'ETH',
-          exchangeto: 2,
+          exchangeto: 1,
           mail: 'tiago.a.trigo@gmail.com'
         }
       },
       {
         id: 2,
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.0025,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
         price: 0,
         quantity: 0,
         sum: null,
@@ -116,12 +136,8 @@ const Arbitration = [
         dividend: 'ETH',
         divisor: 'BTC',
         receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      }
+        transfer: null
+      },
     ]
   },
   {
@@ -131,51 +147,6 @@ const Arbitration = [
     walks: [
       {
         id: 1,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'buy',
-        market: 'ETH_USDT',
-        dividend: 'ETH',
-        divisor: 'USDT',
-        receive: null,
-        transfer: {
-          asset: 'ETH',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        id: 2,
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.0025,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'sell',
-        market: 'ETH_USDT',
-        dividend: 'ETH',
-        divisor: 'USDT',
-        receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
-  {
-    id: 5,
-    name: 'ETH_BTC',
-    entry: 0.0002,
-    walks: [
-      {
-        id: 1,
         exchangeto: 2,
         exchange: Exc,
         fee: 0.9975,
@@ -183,11 +154,11 @@ const Arbitration = [
         quantity: 0,
         sum: null,
         action: 'buy',
-        market: 'ETH_BTC',
+        market: 'ETH_USDT',
         dividend: 'ETH',
-        divisor: 'BTC',
+        divisor: 'USDT',
         receive: {
-          asset: 'BTC',
+          asset: 'USDT',
           exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         },
@@ -206,8 +177,53 @@ const Arbitration = [
         quantity: 0,
         sum: null,
         action: 'sell',
-        market: 'ETH_BTC',
+        market: 'ETH_USDT',
         dividend: 'ETH',
+        divisor: 'USDT',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    id: 5,
+    name: 'LTC_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'buy',
+        market: 'LTC_BTC',
+        dividend: 'LTC',
+        divisor: 'BTC',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'LTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        id: 2,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'sell',
+        market: 'LTC_BTC',
+        dividend: 'LTC',
         divisor: 'BTC',
         receive: null,
         transfer: null
@@ -216,278 +232,188 @@ const Arbitration = [
   },
   {
     id: 6,
-    name: 'ETH_USDT',
-    entry: 0.02,
+    name: 'LTC_BTC',
+    entry: 0.0002,
     walks: [
       {
         id: 1,
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
         price: 0,
         quantity: 0,
         sum: null,
         action: 'buy',
-        market: 'ETH_USDT',
-        dividend: 'ETH',
-        divisor: 'USDT',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
+        market: 'LTC_BTC',
+        dividend: 'LTC',
+        divisor: 'BTC',
+        receive: null,
         transfer: {
-          asset: 'ETH',
-          exchangeto: 1,
+          asset: 'LTC',
+          exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         }
       },
       {
         id: 2,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
         price: 0,
         quantity: 0,
         sum: null,
         action: 'sell',
-        market: 'ETH_USDT',
-        dividend: 'ETH',
-        divisor: 'USDT',
+        market: 'LTC_BTC',
+        dividend: 'LTC',
+        divisor: 'BTC',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
     ]
   },
   {
     id: 7,
-    name: 'LTC_BTC',
-    entry: 0.0002,
+    name: 'LTC_USDT',
+    entry: 0.02,
     walks: [
       {
         id: 1,
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
         price: 0,
         quantity: 0,
         sum: null,
         action: 'buy',
-        market: 'LTC_BTC',
+        market: 'LTC_USDT',
         dividend: 'LTC',
-        divisor: 'BTC',
-        receive: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
+        divisor: 'USDT',
+        receive: null,
         transfer: {
           asset: 'LTC',
-          exchangeto: 1,
+          exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         }
       },
       {
         id: 2,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
         price: 0,
         quantity: 0,
         sum: null,
         action: 'sell',
-        market: 'LTC_BTC',
+        market: 'LTC_USDT',
         dividend: 'LTC',
-        divisor: 'BTC',
+        divisor: 'USDT',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
     ]
   },
   {
     id: 8,
-    name: 'LTC_BTC',
-    entry: 0.0002,
+    name: 'LTC_USDT',
+    entry: 0.02,
     walks: [
       {
         id: 1,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
         price: 0,
         quantity: 0,
         sum: null,
         action: 'buy',
-        market: 'LTC_BTC',
+        market: 'LTC_USDT',
         dividend: 'LTC',
-        divisor: 'BTC',
-        receive: null,
+        divisor: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
         transfer: {
           asset: 'LTC',
-          exchangeto: 2,
+          exchangeto: 1,
           mail: 'tiago.a.trigo@gmail.com'
         }
       },
       {
         id: 2,
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.0025,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
         price: 0,
         quantity: 0,
         sum: null,
         action: 'sell',
-        market: 'LTC_BTC',
+        market: 'LTC_USDT',
         dividend: 'LTC',
-        divisor: 'BTC',
+        divisor: 'USDT',
         receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
+        transfer: null
       },
     ]
   },
   {
     id: 9,
-    name: 'LTC_USDT',
+    name: 'BTC_USDT',
     entry: 0.02,
     walks: [
       {
         id: 1,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
         price: 0,
         quantity: 0,
         sum: null,
         action: 'buy',
-        market: 'LTC_USDT',
-        dividend: 'LTC',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
         divisor: 'USDT',
-        receive: null,
-        transfer: {
-          asset: 'LTC',
+        receive: {
+          asset: 'USDT',
           exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
           mail: 'tiago.a.trigo@gmail.com'
         }
       },
       {
         id: 2,
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.0025,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
         price: 0,
         quantity: 0,
         sum: null,
         action: 'sell',
-        market: 'LTC_USDT',
-        dividend: 'LTC',
+        market: 'BTC_USDT',
+        dividend: 'BTC',
         divisor: 'USDT',
         receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
+        transfer: null
       },
     ]
   },
   {
     id: 10,
-    name: 'LTC_USDT',
+    name: 'BTC_USDT',
     entry: 0.02,
-    walks: [
-      {
-        id: 1,
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'buy',
-        market: 'LTC_USDT',
-        dividend: 'LTC',
-        divisor: 'USDT',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'LTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        id: 2,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'sell',
-        market: 'LTC_USDT',
-        dividend: 'LTC',
-        divisor: 'USDT',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },
-  {
-    id: 11,
-    name: 'BTC_USDT',
-    entry: 0.99,
-    walks: [
-      {
-        id: 1,
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'buy',
-        market: 'BTC_USDT',
-        dividend: 'BTC',
-        divisor: 'USDT',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        id: 2,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'sell',
-        market: 'BTC_USDT',
-        dividend: 'BTC',
-        divisor: 'USDT',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },
-  {
-    id: 11,
-    name: 'BTC_USDT',
-    entry: 0.99,
     walks: [
       {
         id: 1,
@@ -526,43 +452,6 @@ const Arbitration = [
           exchangeto: 1,
           mail: 'tiago.a.trigo@gmail.com'
         }
-      },
-    ]
-  },
-  {
-    id: 13,
-    name: 'BTC_NBC',
-    entry: 0.0002,
-    walks: [
-      {
-        id: 1,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'buy',
-        market: 'NBC_BTC',
-        dividend: 'NBC',
-        divisor: 'BTC',
-        receive: null,
-        transfer: null
-      },
-      {
-        id: 2,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'sell',
-        market: 'NBC_BTC',
-        dividend: 'NBC',
-        divisor: 'BTC',
-        receive: null,
-        transfer: null
       },
     ]
   },

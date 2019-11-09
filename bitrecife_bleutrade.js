@@ -339,6 +339,13 @@ class Hades {
               if (z === (walks.length - 1)) {
                 await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
                 console.log('Notificando @tiagotrigo');
+
+                if (walks[walks.length - 1].exchangeto != 1) {
+                  wallet = await walks[walks.length - 1].exchange.getBalance(walk.transfer.asset);
+
+                  await walk.exchange.setDirectTransfer(walks[walks.length - 1].transfer.asset, wallet.data.result[0].Available, 1, walks[walks.length - 1].transfer.mail);
+                  console.log(`Reenviando o restinho de ${walks[walks.length - 1].transfer.asset} para Bleutrade`);
+                }
               } 
             }
           } catch(e) {

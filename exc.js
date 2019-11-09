@@ -164,6 +164,7 @@ const Exc = {
           quantity: options.params.quantity
         }
       }).then((data) => {
+        console.log(data.data)
         resolve(data)  
       }).catch((er) => {
         reject(er)
@@ -311,6 +312,7 @@ const Exc = {
           accountto: options.params.accountto
         }
       }).then((data) => {
+        console.log(data.data)
         resolve(data)  
       }).catch((er) => {
         reject(er)

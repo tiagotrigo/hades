@@ -10,7 +10,7 @@ const Telegram = require('./telegram');
 class Hades {
   
   constructor() {
-    this.min = 0.0002,
+    this.min = 150,
     this.mail = 'tiago.a.trigo@gmail.com'
   }
 
@@ -36,20 +36,20 @@ class Hades {
     // Preço
     let price = 0;
     // Verificando o livro de ofertas
-    let book = await exchange.getOrderBook(coin.market, side === 'buy' ? 'SELL' : 'BUY', 5);
+    let book = await exchange.getOrderBook(coin.market, side === 'buy' ? 'SELL' : 'BUY', 6);
     // Verificando a ação 
     let order = walk.action === 'buy' ? book.sell : book.buy;
 
     if (quantity > order[0].Quantity) {
       price = order[1].Rate;
     } else if (quantity > (order[0].Quantity + order[1].Quantity)) {
-      price = order[2].Rate;
-    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity)) {
       price = order[3].Rate;
-    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity)) {
+    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity)) {
       price = order[4].Rate;
-    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity + order[4].Quantity)) {
+    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity)) {
       price = order[5].Rate;
+    } else if (quantity > (order[0].Quantity + order[1].Quantity + order[2].Quantity + order[3].Quantity + order[4].Quantity)) {
+      price = order[6].Rate;
     } else {
       price = order[0].Rate;
     }
@@ -61,13 +61,40 @@ class Hades {
   calcBuy(amount, rate) {
     const qnt = amount / rate;
 
-    return this.mask(qnt, 8);
+    return qnt;
   }
 
   // Sell
   calcSell(amount, rate, fee) {
     const qnt = (amount * rate);
-    return this.mask(qnt, 8);
+
+    return qnt;
+  }
+
+  async exchangeCompra(exchange, entry, market) {
+    let ex   = await exchange.getOrderBook(market, 'ALL', 3);
+    let rate = ex.buy[0].Rate + 1;
+    let ami  = ex.sell[0].Rate + 1;
+    let qnt  = this.calcBuy(entry, ami);
+
+    return {
+      rate,
+      ami,
+      qnt
+    }
+  }
+
+  async exchangeVenda(exchange, entry, market) {
+    let ex   = await exchange.getOrderBook(market, 'ALL', 3);
+    let rate = ex.sell[0].Rate - 1
+    let ami  = ex.buy[0].Rate + 1;
+    let qnt  = this.calcSell(entry, ami);
+
+    return {
+      rate,
+      ami,
+      qnt
+    }
   }
 
   async run() {
@@ -80,29 +107,15 @@ class Hades {
             dividend
           } = coin;
 
-          // let exc = await Exc.getOrderBook(market, 'SELL', 3);
-          
-          // let rateExc = ((exc.sell[0].Rate * 100000000) - 1) / 100000000;
-          // let amirateExc = ((exc.sell[0].Rate * 100000000) + 3) / 100000000;
+          let compra = await this.exchangeCompra(Bitrecife, this.min, market);
+          let venda  = await this.exchangeVenda(Bitrecife, compra.qnt, market);
 
-          // let qntExc = this.calcBuy(0.0002, rateExc);
-
-          // Exc (Compra)
-          let exc   = await Exc.getOrderBook(market, 'ALL', 3);
-          let rateE = ((exc.buy[0].Rate * 100000000) + 1) / 100000000;
-          let amiE  = ((exc.sell[0].Rate * 100000000) + 1) / 100000000;
-          let qntE  = this.calcBuy(0.0002, amiE);
-
-          // Bleu (Venda)
-          // let bleu = await Bleutrade.getOrderBook(market, 'ALL', 1);
-          // let rateB = ((bleu.sell[0].Rate * 100000000) - 1) / 100000000;
-          // let amiB = ((bleu.buy[0].Rate * 100000000) + 1) / 100000000;
-          // let qntB = this.calcSell(0.0004, amiB);
-
-          // console.log(rateE, amiE, qntE)
-          await Exc.setBuyAmi(market, rateE, amiE, qntE);
-          process.exit()
-          // console.log(`Troca de ${divisor} por ${dividend}`);
+          if (venda.qnt > this.min) {
+            console.log(market, venda.qnt, 'ok')
+            console.log(' ');
+          } else {
+            console.log(market, venda.qnt)
+          }
         }
       } catch(e) {
         console.log(e);

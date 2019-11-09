@@ -2,9 +2,9 @@
 
 const Coins = [
 	{
-		market: 'ETH_BTC', 
-		dividend: 'ETH',
-		divisor: 'BTC'
+		market: 'BTC_BRL', 
+		dividend: 'BTC',
+		divisor: 'BRL'
 	}
 ];
 

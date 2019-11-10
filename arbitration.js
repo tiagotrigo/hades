@@ -368,7 +368,7 @@ const Arbitration = [
   {
     id: 9,
     name: 'BTC_USDT',
-    entry: 0.02,
+    entry: 2.7,
     walks: [
       {
         id: 1,
@@ -413,7 +413,7 @@ const Arbitration = [
   {
     id: 10,
     name: 'BTC_USDT',
-    entry: 0.02,
+    entry: 2.7,
     walks: [
       {
         id: 1,
@@ -452,6 +452,58 @@ const Arbitration = [
           exchangeto: 1,
           mail: 'tiago.a.trigo@gmail.com'
         }
+      },
+    ]
+  },
+  {
+    id: 11,
+    name: 'BTC_ETH_NBC_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'buy',
+        market: 'ETH_BTC',
+        dividend: 'USDT',
+        divisor: 'BTC',
+        receive: null,
+        transfer: null
+      },
+      {
+        id: 2,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'buy',
+        market: 'NBC_ETH',
+        dividend: 'NBC',
+        divisor: 'ETH',
+        receive: null,
+        transfer: null
+      },
+      {
+        id: 3,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'sell',
+        market: 'NBC_BTC',
+        dividend: 'NBC',
+        divisor: 'BTC',
+        receive: null,
+        transfer: null
       },
     ]
   },

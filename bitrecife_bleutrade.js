@@ -9,6 +9,7 @@ const Bleutrade = require('./bleutrade.js');
 class Hades {
   
   constructor() {
+    this.sum = null,
     this.mail = 'tiago.a.trigo@gmail.com'
   }
 
@@ -342,11 +343,9 @@ class Hades {
                 if (walks[walks.length - 1].exchangeto != 1) {
                   wallet = await walks[walks.length - 1].exchange.getBalance(walks[walks.length - 1].transfer.asset);
                   
-                  for (let amount of wallet.data.result) {
-                    if (amount.Available > 0.0001) {
-                      await walks[walks.length - 1].exchange.setDirectTransfer(amount.Asset, amount.Available, 1, this.mail);
-                      console.log(`Reenviando o restinho de ${amount.Asset} para Bleutrade`);
-                    }
+                  if (wallet.data.result[0].Available > 0.0001) {                  
+                    await walks[walks.length - 1].exchange.setDirectTransfer(walks[walks.length - 1].transfer.asset, wallet.data.result[0].Available, 1, walks[walks.length - 1].transfer.mail);
+                    console.log(`Reenviando o restinho de ${walks[walks.length - 1].transfer.asset} para Bleutrade`);
                   }
                 }
               } 

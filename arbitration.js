@@ -53,7 +53,7 @@ const Arbitration = [
   {
     id: 2,
     name: 'ETH_USDT',
-    entry: 2.7,
+    entry: 5,
     walks: [
       {
         id: 1,
@@ -143,7 +143,7 @@ const Arbitration = [
   {
     id: 4,
     name: 'ETH_USDT',
-    entry: 2.7,
+    entry: 5,
     walks: [
       {
         id: 1,
@@ -368,7 +368,7 @@ const Arbitration = [
   {
     id: 9,
     name: 'BTC_USDT',
-    entry: 2.7,
+    entry: 5,
     walks: [
       {
         id: 1,
@@ -413,7 +413,7 @@ const Arbitration = [
   {
     id: 10,
     name: 'BTC_USDT',
-    entry: 2.7,
+    entry: 5,
     walks: [
       {
         id: 1,

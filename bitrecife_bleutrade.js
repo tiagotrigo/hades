@@ -121,8 +121,7 @@ class Hades {
           entry,
           walks
         } = arb;
-
-        let i = 0.00000001;
+        
         let wallet, sell, buy = [];
 
         if (walks[walks.length - 1].quantity > entry) {          

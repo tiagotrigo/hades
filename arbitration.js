@@ -8,7 +8,7 @@ const Arbitration = [
   {
     id: 1,
     name: 'ETH_BTC',
-    entry: 0.001,
+    entry: 0.0002,
     walks: [
       {
         id: 1,
@@ -53,7 +53,7 @@ const Arbitration = [
   {
     id: 2,
     name: 'ETH_BTC',
-    entry: 0.001,
+    entry: 0.0002,
     walks: [
       {
         id: 1,
@@ -98,7 +98,7 @@ const Arbitration = [
   {
     id: 5,
     name: 'LTC_BTC',
-    entry: 0.001,
+    entry: 0.0002,
     walks: [
       {
         id: 1,
@@ -143,7 +143,7 @@ const Arbitration = [
   {
     id: 6,
     name: 'LTC_BTC',
-    entry: 0.001,
+    entry: 0.0002,
     walks: [
       {
         id: 1,
@@ -188,7 +188,7 @@ const Arbitration = [
   {
     id: 11,
     name: 'BTC_ETH_NBC_BTC',
-    entry: 0.001,
+    entry: 0.0002,
     walks: [
       {
         id: 1,
@@ -240,7 +240,7 @@ const Arbitration = [
   {
     id: 12,
     name: 'BTC_ETH_NBC_BTC',
-    entry: 0.001,
+    entry: 0.0002,
     walks: [
       {
         id: 1,
@@ -300,7 +300,7 @@ const Arbitration = [
   {
     id: 13,
     name: 'BTC_NBC_ETH_BTC',
-    entry: 0.001,
+    entry: 0.0002,
     walks: [
       {
         id: 1,
@@ -352,7 +352,7 @@ const Arbitration = [
   {
     id: 14,
     name: 'BTC_NBC_ETH_BTC',
-    entry: 0.001,
+    entry: 0.0002,
     walks: [
       {
         id: 1,

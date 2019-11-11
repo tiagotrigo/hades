@@ -448,7 +448,7 @@ class Hades {
                 }
               }
 
-              // Verificando se ficou saldo de alguma moeda na EXC
+              // Verificando se ficou saldo de alguma moeda na Exccripto
               if (walk.exchangeto === 2) {
                 wallet = await walk.exchange.getBalances();
 
@@ -473,7 +473,7 @@ class Hades {
               }           
               // Telegram
               if (z === (walks.length - 1)) {
-                await Telegram.sendMessage(`[${name}]: ${walks[walks.length - 1].quantity}`);
+                await Telegram.sendMessage(`[${name}]: ${this.mask(walks[walks.length - 1].quantity, 8)}`);
                 console.log('Notificando @tiagotrigo');
               } 
             }

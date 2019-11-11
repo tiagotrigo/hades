@@ -483,7 +483,6 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
               } 
             }
-            process.exit();
           } catch(e) {
             console.log(e);
           }

@@ -447,7 +447,7 @@ class Hades {
                 wallet = await walk.exchange.getBalances();
 
                 for (let balance of wallet.data.result) {
-                  if (balance.Available >= 0.0001 && (balance.Asset === 'USDT' || balance.Asset === 'BTC')) {
+                  if (balance.Available >= 0.00001 && (balance.Asset === 'USDT' || balance.Asset === 'BTC')) {
                     await walk.exchange.setDirectTransfer(balance.Asset, balance.Available, 1, 'tiago.a.trigo@gmail.com');
                     console.log(`Reenviando o restinho de ${balance.Asset} para Bleutrade`); 
                   }
@@ -459,7 +459,7 @@ class Hades {
                 wallet = await walk.exchange.getBalances();
 
                 for (let balance of wallet.data.result) {
-                  if (balance.Available >= 0.0001 && (balance.Asset === 'USDT' || balance.Asset === 'BTC')) {
+                  if (balance.Available >= 0.00001 && (balance.Asset === 'USDT' || balance.Asset === 'BTC')) {
                     await walk.exchange.setDirectTransfer(balance.Asset, balance.Available, 1, 'tiago.a.trigo@gmail.com');
                     console.log(`Reenviando o restinho de ${balance.Asset} para Bleutrade`); 
                   }

@@ -122,7 +122,8 @@ class Hades {
           walks
         } = arb;
 
-        let wallet = [];
+        let i = 0.00000001;
+        let wallet, sell, buy = [];
 
         if (walks[walks.length - 1].quantity > entry) {          
           try {
@@ -346,11 +347,12 @@ class Hades {
                 // Se for bleutrade
                 if (walk.exchangeto === 1) {
                   if (walk.action === 'sell') {
-                    walk.price = await this.updateRate(walk, walks[1].quantity);
-
-                    // 2 - Comprar ou vender
-                    await walk.exchange.setSellLimit(walk.market, walk.price, walks[1].quantity);
-                    console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);                   
+                    do {
+                      walk.price = await this.updateRate(walk, walks[1].quantity);
+                      // 2 - Comprar ou vender
+                      sell = await walk.exchange.setSellLimit(walk.market, walk.price, walks[1].quantity);
+                      console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);
+                    } while (sell.data.success === false);
                     
                     // 3 - Transfer caso precise
                     if (walk.transfer) {
@@ -362,11 +364,12 @@ class Hades {
                   }
 
                   if (walk.action === 'buy') {
-                    walk.price = await this.updateRate(walk, walks[1].quantity);
-
-                    // 2 - Comprar ou vender
-                    await walk.exchange.setBuyLimit(walk.market, walk.price, walks[1].quantity);
-                    console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                    do {
+                      walk.price = await this.updateRate(walk, walks[1].quantity);
+                      // 2 - Comprar ou vender
+                      buy = await walk.exchange.setBuyLimit(walk.market, walk.price, walks[1].quantity);
+                      console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                    } while (buy.data.success === false);
                     
                     // 3 - Transferir caso precise
                     if (walk.transfer) {
@@ -379,11 +382,12 @@ class Hades {
                 } else {
                   if (walk.receive === null) {
                     if (walk.action === 'sell') {
-                      walk.price = await this.updateRate(walk, walks[1].quantity);
-
-                      // 2 - Comprar ou vender
-                      await walk.exchange.setSellLimit(walk.market, walk.price, walks[1].quantity);
-                      console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);                   
+                      do {
+                        walk.price = await this.updateRate(walk, walks[1].quantity);
+                        // 2 - Comprar ou vender
+                        sell = await walk.exchange.setSellLimit(walk.market, walk.price, walks[1].quantity);
+                        console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);                   
+                      } while (sell.data.success === false);
                       
                       // 3 - Transfer caso precise
                       if (walk.transfer) {
@@ -395,11 +399,12 @@ class Hades {
                     }
 
                     if (walk.action === 'buy') {
-                      walk.price = await this.updateRate(walk, walks[1].quantity);
-
-                      // 2 - Comprar ou vender
-                      await walk.exchange.setBuyLimit(walk.market, walk.price, walks[1].quantity);
-                      console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      do {
+                        walk.price = await this.updateRate(walk, walks[1].quantity);
+                        // 2 - Comprar ou vender
+                        buy = await walk.exchange.setBuyLimit(walk.market, walk.price, walks[1].quantity);
+                        console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      } while (buy.data.success === false);
                       
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
@@ -414,11 +419,12 @@ class Hades {
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
 
                     if (walk.action === 'sell') {
-                      walk.price = await this.updateRate(walk, walks[1].quantity);
-
-                      // 2 - Comprar ou vender
-                      await walk.exchange.setSellLimit(walk.market, walk.price, walks[1].quantity);
-                      console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);                   
+                      do {
+                        walk.price = await this.updateRate(walk, walks[1].quantity);
+                        // 2 - Comprar ou vender
+                        sell = await walk.exchange.setSellLimit(walk.market, walk.price, walks[1].quantity);
+                        console.log(`Troca de ${walk.dividend} por ${walk.divisor}`);                   
+                      } while (sell.data.success === false);
                       
                       // 3 - Transfer caso precise
                       if (walk.transfer) {
@@ -430,11 +436,12 @@ class Hades {
                     }
 
                     if (walk.action === 'buy') {
-                      walk.price = await this.updateRate(walk, walks[1].quantity);
-
-                      // 2 - Comprar ou vender
-                      await walk.exchange.setBuyLimit(walk.market, walk.price, walks[1].quantity);
-                      console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      do {
+                        walk.price = await this.updateRate(walk, walks[1].quantity);
+                        // 2 - Comprar ou vender
+                        buy = await walk.exchange.setBuyLimit(walk.market, walk.price, walks[1].quantity);
+                        console.log(`Troca de ${walk.divisor} por ${walk.dividend}`);
+                      } while (buy.data.success === false);
                       
                       // 3 - Transferir caso precise
                       if (walk.transfer) {   
@@ -477,7 +484,7 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
               } 
             }
-            // process.exit();
+            process.exit();
           } catch(e) {
             console.log(e);
           }

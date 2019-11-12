@@ -15,6 +15,11 @@ axios@^0.19.0:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
 
+ccxt@^1.19.26:
+  version "1.19.26"
+  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-1.19.26.tgz#e543e9616c095b157d587bc21fd6988050039dbc"
+  integrity sha512-FoNB2IK7BeEXmlJQ0Ub0b8vmgO4jZBmls8RPO6b79cRTToM2NnH6eNp4md3sh63HWjkIHx7XqGaGJGC2bxogJA==
+
 colors@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"

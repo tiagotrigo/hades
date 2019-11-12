@@ -77,7 +77,7 @@ class Hades {
   async updateRate(walk, quantity) {
     let sum = 0;
     // Verificando o livro de ofertas
-    let book = await walk.exchange.getOrderBook(walk.market, walk.action === 'buy' ? 'SELL' : 'BUY', 15);
+    let book = await walk.exchange.getOrderBook(walk.market, walk.action === 'buy' ? 'SELL' : 'BUY', 5);
     // Verificando a ação 
     let orders = walk.action === 'buy' ? book.sell : book.buy;
 
@@ -97,7 +97,7 @@ class Hades {
       for (let [x, arb] of Arb.entries()) {
         for (let [y, walk] of arb.walks.entries()) {
           try {
-            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 15);
+            let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 5);
             let resp = this.calcDistributingValue(arb, book, walk, y);
             //
             walk.price = resp.price;
@@ -113,8 +113,6 @@ class Hades {
           entry,
           walks
         } = arb;
-
-        let wallet, sell, buy = [];
 
         if (walks[walks.length - 1].quantity > entry) {          
           try {

@@ -69,7 +69,7 @@ class Hades {
           let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
           let bleuOpenOrder = await Bleutrade.getOpenOrders(symbol);
           // // Lucro
-          if (bleuCalcQnt > this.min && exc.sell[0].Quantity > excCalcQnt && bleu.buy[0].Rate > bleuCalcQnt) {
+          if (bleuCalcQnt > this.min && exc.sell[0].Quantity > excCalcQnt && bleu.buy[0].Quantity > bleuCalcQnt) {
             await Exc.setBuyLimit(symbol, exc.sell[0].Rate, excCalcQnt);
             console.log(`Troca de ${divisor} por ${dividend}`);
                               

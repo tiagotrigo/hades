@@ -2,9 +2,14 @@
 
 const Coins = [
 	{
-		market: 'BTC_BRL', 
-		dividend: 'BTC',
-		divisor: 'BRL'
+		symbol: 'ETH_BTC', 
+		dividend: 'ETH',
+		divisor: 'BTC'
+	},
+	{
+		symbol: 'LTC_BTC', 
+		dividend: 'LTC',
+		divisor: 'BTC'
 	}
 ];
 

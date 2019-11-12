@@ -54,7 +54,7 @@ class Hades {
         order = book.sell[0].Rate;
         qnt = this.calcQntBuy(exchange.entry, order, walk.fee);
       }
-    } else if (index === 1) {
+    } else {
       if (walk.action === 'sell') {
         order = book.buy[0].Rate;
         qnt = this.calcQntSell(exchange.walks[0].quantity, order, walk.fee);

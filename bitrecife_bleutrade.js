@@ -363,7 +363,7 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
               } 
             }
-            process.exit();
+            //process.exit();
           } catch(e) {
             console.log(e);
           }

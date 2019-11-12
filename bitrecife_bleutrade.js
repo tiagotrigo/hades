@@ -321,16 +321,16 @@ class Hades {
               }
 
               // Verificando se ficou saldo de alguma moeda na Bitrecife
-              if (walk.exchangeto === 3) {
-                wallet = await walk.exchange.getBalances();
+              // if (walk.exchangeto === 3) {
+              //   wallet = await walk.exchange.getBalances();
 
-                for (let balance of wallet.data.result) {
-                  if (balance.Available >= 0.00001 && (balance.Asset === 'USDT' || balance.Asset === 'BTC')) {
-                    await walk.exchange.setDirectTransfer(balance.Asset, balance.Available, 1, 'tiago.a.trigo@gmail.com');
-                    console.log(`Reenviando o restinho de ${balance.Asset} para Bleutrade`); 
-                  }
-                }
-              }           
+              //   for (let balance of wallet.data.result) {
+              //     if (balance.Available >= 0.00001 && (balance.Asset === 'USDT' || balance.Asset === 'BTC')) {
+              //       await walk.exchange.setDirectTransfer(balance.Asset, balance.Available, 1, 'tiago.a.trigo@gmail.com');
+              //       console.log(`Reenviando o restinho de ${balance.Asset} para Bleutrade`); 
+              //     }
+              //   }
+              // }           
               // Telegram
               if (z === (walks.length - 1)) {
                 await Telegram.sendMessage(`[${name}]: ${this.mask(walks[walks.length - 1].quantity, 8)}`);

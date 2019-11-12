@@ -133,9 +133,7 @@ class Hades {
                     
                     // 3 - Transfer caso precise
                     if (walk.transfer) {
-                      wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
-                      await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+                      await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                       console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                     }
                   }
@@ -149,9 +147,7 @@ class Hades {
                     
                     // 3 - Transferir caso precise
                     if (walk.transfer) {
-                      wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
-                      await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+                      await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                       console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                     }
                   }
@@ -166,9 +162,7 @@ class Hades {
                       
                       // 3 - Transfer caso precise
                       if (walk.transfer) {
-                        wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
-                        await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+                        await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }
                     }
@@ -182,9 +176,7 @@ class Hades {
                       
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
-                        wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
-                        await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+                        await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }
                     }
@@ -202,9 +194,7 @@ class Hades {
                       
                       // 3 - Transfer caso precise
                       if (walk.transfer) {
-                        wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
-                        await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+                        await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }
                     }
@@ -218,9 +208,7 @@ class Hades {
                       
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
-                        wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
-                        await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+                        await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }
                     }
@@ -240,8 +228,6 @@ class Hades {
                     
                     // 3 - Transfer caso precise
                     if (walk.transfer) {
-                      wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
                       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                       console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                     }
@@ -256,8 +242,6 @@ class Hades {
                     
                     // 3 - Transferir caso precise
                     if (walk.transfer) {
-                      wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
                       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                       console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                     }
@@ -273,8 +257,6 @@ class Hades {
                       
                       // 3 - Transfer caso precise
                       if (walk.transfer) {
-                        wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }
@@ -289,8 +271,6 @@ class Hades {
                       
                       // 3 - Transferir caso precise
                       if (walk.transfer) {
-                        wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }
@@ -308,8 +288,6 @@ class Hades {
                       
                       // 3 - Transfer caso precise
                       if (walk.transfer) {
-                        wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }
@@ -324,8 +302,6 @@ class Hades {
                       
                       // 3 - Transferir caso precise
                       if (walk.transfer) {   
-                        wallet = await walk.exchange.getBalance(walk.transfer.asset);
-
                         await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
                         console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
                       }

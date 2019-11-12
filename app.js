@@ -17,7 +17,7 @@ class Hades {
     let sum = 0;
     let price = 0;
     // Verificando o livro de ofertas
-    let book = await exchange.getOrderBook(market, type === 'buy' ? 'SELL' : 'BUY', 5);
+    let book = await exchange.getOrderBook(market, type === 'buy' ? 'SELL' : 'BUY', 3);
     // Verificando a ação 
     let orders = type === 'buy' ? book.sell : book.buy;
 
@@ -62,22 +62,21 @@ class Hades {
 
         try {
           // Exccripto
-          let exc = await Exc.getOrderBook(symbol, 'ALL', 5);
+          let exc = await Exc.getOrderBook(symbol, 'ALL', 3);
           let excCalcQnt = this.calcBuy(this.min, exc.sell[0].Rate, 0.9975);
-          let excCalcRate = await this.updateRate(Exc, symbol, excCalcQnt, 'buy');
           // // Bleutrade
-          let bleu = await Bleutrade.getOrderBook(symbol, 'ALL', 5);
+          let bleu = await Bleutrade.getOrderBook(symbol, 'ALL', 3);
           let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
-          let bleuCalcRate = await this.updateRate(Bleutrade, symbol, bleuCalcQnt, 'sell');
+          let bleuOpenOrder = await Bleutrade.getOpenOrders(symbol);
           // // Lucro
-          if (bleuCalcQnt > this.min) {
-            await Exc.setBuyLimit(symbol, excCalcRate, excCalcQnt);
+          if (bleuCalcQnt > this.min && exc.sell[0].Quantity > excCalcQnt && bleu.buy[0].Rate > bleuCalcQnt) {
+            await Exc.setBuyLimit(symbol, exc.sell[0].Rate, excCalcQnt);
             console.log(`Troca de ${divisor} por ${dividend}`);
                               
             await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
             console.log(`Enviando ${dividend} para Bleutrade`);
             
-            await Bleutrade.setSellLimit(symbol, bleuCalcRate, excCalcQnt);
+            await Bleutrade.setSellLimit(symbol, bleu.buy[0].Rate, excCalcQnt);
             console.log(`Troca de ${dividend} por ${divisor}`);
             
             await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');

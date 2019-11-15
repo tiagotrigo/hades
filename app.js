@@ -17,7 +17,7 @@ class Hades {
     let sum = 0;
     let price = 0;
     // Verificando o livro de ofertas
-    let book = await exchange.getOrderBook(market, type === 'buy' ? 'SELL' : 'BUY', 3);
+    let book = await exchange.getOrderBook(market, 'ALL', 3);
     // Verificando a ação 
     let orders = type === 'buy' ? book.sell : book.buy;
 
@@ -62,24 +62,29 @@ class Hades {
 
         try {
           // Exccripto
-          let exc = await Exc.getOrderBook(symbol, 'ALL', 3);
+          let exc = await Exc.getOrderBook(symbol, 'SELL', 3);
           let excCalcQnt = this.calcBuy(this.min, exc.sell[0].Rate, 0.9975);
+          let excCalcSum = this.updateRate(Exc, symbol, excCalcQnt, 'buy');
           // // Bleutrade
-          let bleu = await Bleutrade.getOrderBook(symbol, 'ALL', 3);
+          let bleu = await Bleutrade.getOrderBook(symbol, 'BUY', 3);
           let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
-          let bleuOpenOrder = await Bleutrade.getOpenOrders(symbol);
           // // Lucro
-          if (bleuCalcQnt > this.min && exc.sell[0].Quantity > excCalcQnt && bleu.buy[0].Quantity > bleuCalcQnt) {
-            await Exc.setBuyLimit(symbol, exc.sell[0].Rate, excCalcQnt);
+          if (bleuCalcQnt > this.min) {
+            await Exc.setBuyLimit(symbol, excCalcSum, excCalcQnt);
             console.log(`Troca de ${divisor} por ${dividend}`);
                               
             await Exc.setDirectTransfer(dividend, excCalcQnt, 1, 'tiago.a.trigo@gmail.com');
             console.log(`Enviando ${dividend} para Bleutrade`);
+
+            let balance_dividend = await Bleutrade.getBalance(dividend);
+            let bleuCalcSum = this.updateRate(Bleutrade, symbol, balance_dividend.data.result[0].Available, 'sell');
             
-            await Bleutrade.setSellLimit(symbol, bleu.buy[0].Rate, excCalcQnt);
+            await Bleutrade.setSellLimit(symbol, bleuCalcSum, balance_dividend.data.result[0].Available);
             console.log(`Troca de ${dividend} por ${divisor}`);
+
+            let balance_divisor = await Bleutrade.getBalance(divisor);
             
-            await Bleutrade.setDirectTransfer(divisor, bleuCalcQnt, 2, 'tiago.a.trigo@gmail.com');
+            await Bleutrade.setDirectTransfer(divisor, balance_divisor.data.result[0].Available, 2, 'tiago.a.trigo@gmail.com');
             console.log(`Enviando ${divisor} para Exccripto`); 
 
             await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);       

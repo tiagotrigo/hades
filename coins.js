@@ -28,7 +28,7 @@ const Coins = [
 	{
 		symbol: 'LTC_BTC', 
 		dividend: 'LTC',
-		divisor: 'BTC'.
+		divisor: 'BTC',
 		entry: 0.00020015
 	}
 ];

@@ -63,19 +63,20 @@ class Hades {
         const {
           symbol,
           divisor,
-          dividend
+          dividend,
+          entry
         } = coin;
 
         try {
           // Exccripto
           let exc = await Exc.getOrderBook(symbol, 'SELL', 3);
-          let excCalcQnt = this.calcBuy(this.min, exc.sell[0].Rate, 0.9975);
+          let excCalcQnt = this.calcBuy(entry, exc.sell[0].Rate, 0.9975);
           let excCalcSum = await this.updateRate(Exc, symbol, excCalcQnt, 'buy');
           // Bleutrade
           let bleu = await Bleutrade.getOrderBook(symbol, 'BUY', 3);
           let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
           // Lucro
-          if (bleuCalcQnt >= this.min) {
+          if (bleuCalcQnt > entry) {
             await Exc.setBuyLimit(symbol, excCalcSum, excCalcQnt);
             console.log(`Troca de ${divisor} por ${dividend}`);
                               

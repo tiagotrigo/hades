@@ -76,7 +76,7 @@ class Hades {
           let bleu = await Bleutrade.getOrderBook(symbol, 'BUY', 3);
           let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
           // Lucro
-          if (bleuCalcQnt > entry) {
+          if (bleuCalcQnt > (divisor === 'USDT' ? entry : 0.00020015)) {
             await Exc.setBuyLimit(symbol, excCalcSum, excCalcQnt);
             console.log(`Troca de ${divisor} por ${dividend}`);
                               

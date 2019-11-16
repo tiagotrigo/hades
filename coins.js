@@ -23,13 +23,13 @@ const Coins = [
 		symbol: 'ETH_BTC', 
 		dividend: 'ETH',
 		divisor: 'BTC',
-		entry: 0.00020015
+		entry: 0.0002
 	},
 	{
 		symbol: 'LTC_BTC', 
 		dividend: 'LTC',
 		divisor: 'BTC',
-		entry: 0.00020015
+		entry: 0.0002
 	}
 ];
 

@@ -51,6 +51,12 @@ class Hades {
     return this.mask(tax, 8);
   }
 
+  wait(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
+
   async run() {
     do {
       for (let coin of Coins) {
@@ -64,12 +70,12 @@ class Hades {
           // Exccripto
           let exc = await Exc.getOrderBook(symbol, 'SELL', 3);
           let excCalcQnt = this.calcBuy(this.min, exc.sell[0].Rate, 0.9975);
-          let excCalcSum = this.updateRate(Exc, symbol, excCalcQnt, 'buy');
-          // // Bleutrade
+          let excCalcSum = await this.updateRate(Exc, symbol, excCalcQnt, 'buy');
+          // Bleutrade
           let bleu = await Bleutrade.getOrderBook(symbol, 'BUY', 3);
           let bleuCalcQnt = this.calcSell(excCalcQnt, bleu.buy[0].Rate, 0.0015);
-          // // Lucro
-          if (bleuCalcQnt > this.min) {
+          // Lucro
+          if (bleuCalcQnt >= 0.00020010) {
             await Exc.setBuyLimit(symbol, excCalcSum, excCalcQnt);
             console.log(`Troca de ${divisor} por ${dividend}`);
                               
@@ -77,7 +83,7 @@ class Hades {
             console.log(`Enviando ${dividend} para Bleutrade`);
 
             let balance_dividend = await Bleutrade.getBalance(dividend);
-            let bleuCalcSum = this.updateRate(Bleutrade, symbol, balance_dividend.data.result[0].Available, 'sell');
+            let bleuCalcSum = await this.updateRate(Bleutrade, symbol, balance_dividend.data.result[0].Available, 'sell');
             
             await Bleutrade.setSellLimit(symbol, bleuCalcSum, balance_dividend.data.result[0].Available);
             console.log(`Troca de ${dividend} por ${divisor}`);
@@ -87,7 +93,7 @@ class Hades {
             await Bleutrade.setDirectTransfer(divisor, balance_divisor.data.result[0].Available, 2, 'tiago.a.trigo@gmail.com');
             console.log(`Enviando ${divisor} para Exccripto`); 
 
-            await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);       
+            await Telegram.sendMessage(`[${symbol}]: ${bleuCalcQnt}`);
           } else {
             console.log(`[Exccripto - ${symbol}]:`, bleuCalcQnt);
           }

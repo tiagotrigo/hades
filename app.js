@@ -3,6 +3,7 @@
 const R = require('ramda');
 const ccxt = require('ccxt');
 const await = require('await');
+const walks = require('./walks');
 const exchanges = require('./exchanges');
 
 class Hades {
@@ -16,6 +17,11 @@ class Hades {
 
   searchQuote(quote, payload) {
     return R.filter((n) => n.split('/')[1] === quote, payload);
+  }
+
+  mask(num, precision) {
+    const output = Math.pow(10, precision); 
+    return Math.floor((num * output)) / output;
   }
 
   async run() {
@@ -38,20 +44,28 @@ class Hades {
           // Market
           let markets = await exchange.loadMarkets();
           let market = this.searchMarket(markets);
-          // Filtrando mercado
-          let btcs = this.searchQuote('BTC', market);
-          let bnbs = this.searchQuote('BNB', market);
-          // Verificando igualdade entre os 2 mercados
-          let btc_bnb = R.map((item, index) => {
-            return R.filter((n) => n.split('/')[0] === item.split('/')[0], bnbs);
-          }, btcs);
-          // Limpando array
-          btc_bnb = R.reject(R.isEmpty, btc_bnb);
-          //
-          
-          console.log(btc_bnb, bnb_btc)
+          for (let m of walks) {
+            // Filtrando mercado
+            let mkt = this.searchQuote(m.market, market);
+            //
+            for (let item of mkt) {
+              let o1 = await exchange.fetchOrderBook(`${m.market}/BTC`);
+              let o2 = await exchange.fetchOrderBook(item);
+              let o3 = await exchange.fetchOrderBook(`${item.split('/')[0]}/BTC`);
 
-          process.exit()
+              if (o1.asks.length > 0 && o2.asks.length > 0 && o3.bids.length) {
+                let c1 = (0.002 * 0.9990) / o1.asks[0][0];
+                let c2 = (this.mask(c1, 8) * 0.9990) / o2.asks[0][0];
+                let c3 = (this.mask(c2, 8) * o3.bids[0][0]) * (1 - 0.001);
+
+                if (this.mask(c3, 8) > 0.002) {
+                  console.log(`[${item.split('/')[0]}] =>`, this.mask(c3, 8), 'OK');
+                } else {
+                  console.log(`[${item.split('/')[0]}] =>`, this.mask(c3, 8));
+                }
+              }
+            }
+          }
         }
       } catch(e) {
         console.log(e)

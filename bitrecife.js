@@ -162,6 +162,7 @@ const Bitrecife = {
           quantity: options.params.quantity
         }
       }).then((data) => {
+        console.log(data)
         resolve(data)  
       }).catch((er) => {
         reject(er)
@@ -200,6 +201,7 @@ const Bitrecife = {
           quantity: options.params.quantity
         }
       }).then((data) => {
+        console.log(data)
         resolve(data)  
       }).catch((er) => {
         reject(er)

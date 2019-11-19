@@ -8,7 +8,7 @@ const Arbitration = [
   {
     id: 1,
     name: 'ETH_BTC',
-    entry: 0.0002,
+    entry: 0.0008,
     walks: [
       {
         id: 1,
@@ -53,7 +53,7 @@ const Arbitration = [
   {
     id: 2,
     name: 'ETH_BTC',
-    entry: 0.0002,
+    entry: 0.0008,
     walks: [
       {
         id: 1,

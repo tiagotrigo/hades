@@ -368,7 +368,7 @@ const Arbitration = [
   {
     id: 15,
     name: 'BRL_BTC_NBC_BTC',
-    entry: 0.0004
+    entry: 0.0004,
     walks: [
       {
         id: 1,

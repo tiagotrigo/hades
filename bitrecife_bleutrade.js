@@ -43,17 +43,39 @@ class Hades {
   } 
 
   calcDistributingValue(exchange, book, walk, index) {
+    let qnt = 0;
     let order = 0;
 
-    if (walk.action === 'sell') {
-      order = book.buy[0].Rate;
-    } else {
-      order = book.sell[0].Rate;
+    if (index === 0) {
+      if (walk.action === 'sell') {
+        order = book.buy[0].Rate;
+        qnt = this.calcQntSell(exchange.entry, order, walk.fee);
+      } else {
+        order = book.sell[0].Rate;
+        qnt = this.calcQntBuy(exchange.entry, order, walk.fee);
+      }
+    } else if (index === 1) {
+      if (walk.action === 'sell') {
+        order = book.buy[0].Rate;
+        qnt = this.calcQntSell(exchange.walks[0].quantity, order, walk.fee);
+      } else {
+        order = book.sell[0].Rate;
+        qnt = this.calcQntBuy(exchange.walks[0].quantity, order, walk.fee);
+      }
+    } else if (index === 2) {
+      if (walk.action === 'sell') {
+        order = book.buy[0].Rate;
+        qnt = this.calcQntSell(exchange.walks[1].quantity, order, walk.fee);
+      } else {
+        order = book.sell[0].Rate;
+        qnt = this.calcQntBuy(exchange.walks[1].quantity, order, walk.fee);
+      }
     }
 
-    if (order) {
+    if (order && qnt) {
       return {
-        price: order     
+        price: order,
+        quantity: qnt     
       }
     } else {
       console.log('Erro de quantidade e preço');
@@ -86,6 +108,7 @@ class Hades {
             let resp = this.calcDistributingValue(arb, book, walk, y);
             //
             walk.price = resp.price;
+            walk.quantity = resp.quantity;
           } catch(e) {
             console.log(e);
           }
@@ -100,7 +123,7 @@ class Hades {
 
         let wallet, buy, sell = []
 
-        if (this.mask(walks[walks.length - 1].quantity, 8) < this.mask(entry, 8)) {          
+        if (this.mask(walks[walks.length - 1].quantity, 8) > this.mask(entry, 8)) {          
           try {
             // Rotinas
             for (let [z, walk] of walks.entries()) {
@@ -446,7 +469,7 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
               } 
             }
-            process.exit();
+            // process.exit();
           } catch(e) {
             console.log(e);
           }

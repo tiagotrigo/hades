@@ -121,7 +121,9 @@ class Hades {
           walks
         } = arb;
 
-        let wallet, buy, sell = []
+        let wallet, 
+            buy,
+            sell = [];
 
         if (this.mask(walks[walks.length - 1].quantity, 8) > this.mask(entry, 8)) {          
           try {
@@ -132,7 +134,7 @@ class Hades {
                 // Se for bleutrade
                 if (walk.exchangeto === 1) {
                   if (walk.action === 'sell') {
-                    sell = walk.dividend === 'BTC' ? entry : this.calcQntSell(entry, walk.price, walk.fee);
+                    sell = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntSell(entry, walk.price, walk.fee);
                     walk.price = await this.updateRate(walk, sell);
 
                     // 2 - Comprar ou vender
@@ -149,7 +151,7 @@ class Hades {
                   }
 
                   if (walk.action === 'buy') {
-                    buy = walk.dividend === 'BTC' ? entry : this.calcQntBuy(entry, walk.price, walk.fee);
+                    buy = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntBuy(entry, walk.price, walk.fee);
                     walk.price = await this.updateRate(walk, buy);
 
                     // 2 - Comprar ou vender
@@ -167,7 +169,7 @@ class Hades {
                 } else {
                   if (walk.receive === null) {
                     if (walk.action === 'sell') {
-                      sell = walk.dividend === 'BTC' ? entry : this.calcQntSell(entry, walk.price, walk.fee);
+                      sell = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntSell(entry, walk.price, walk.fee);
                       walk.price = await this.updateRate(walk, sell);
 
                       // 2 - Comprar ou vender
@@ -184,7 +186,7 @@ class Hades {
                     }
 
                     if (walk.action === 'buy') {
-                      buy = walk.dividend === 'BTC' ? entry : this.calcQntBuy(entry, walk.price, walk.fee);
+                      buy = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntBuy(entry, walk.price, walk.fee);
                       walk.price = await this.updateRate(walk, buy);
 
                       // 2 - Comprar ou vender
@@ -204,7 +206,7 @@ class Hades {
                     console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
 
                     if (walk.action === 'sell') {
-                      sell = walk.dividend === 'BTC' ? entry : this.calcQntSell(entry, walk.price, walk.fee);
+                      sell = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntSell(entry, walk.price, walk.fee);
                       walk.price = await this.updateRate(walk, sell);
 
                       // 2 - Comprar ou vender
@@ -221,7 +223,7 @@ class Hades {
                     }
 
                     if (walk.action === 'buy') {
-                      buy = walk.dividend === 'BTC' ? entry : this.calcQntBuy(entry, walk.price, walk.fee);
+                      buy = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntBuy(entry, walk.price, walk.fee);
                       walk.price = await this.updateRate(walk, buy);
 
                       // 2 - Comprar ou vender
@@ -469,7 +471,7 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
               } 
             }
-            // process.exit();
+            process.exit();
           } catch(e) {
             console.log(e);
           }

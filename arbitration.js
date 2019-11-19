@@ -368,7 +368,7 @@ const Arbitration = [
   {
     id: 15,
     name: 'BRL_BTC_NBC_BTC',
-    entry: 0.0002,
+    entry: 0.0004
     walks: [
       {
         id: 1,
@@ -428,7 +428,7 @@ const Arbitration = [
   {
     id: 11,
     name: 'BTC_ETH_NBC_BTC',
-    entry: 0.0002,
+    entry: 0.0004,
     walks: [
       {
         id: 1,
@@ -472,190 +472,6 @@ const Arbitration = [
         market: 'NBC_BTC',
         dividend: 'NBC',
         divisor: 'BTC',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },
-  {
-    id: 16,
-    name: 'BRL_BTC_USDT_BTC',
-    entry: 0.0002,
-    walks: [
-      {
-        id: 1,
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.0024,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'sell',
-        market: 'BTC_BRL',
-        dividend: 'BTC',
-        divisor: 'BRL',
-        receive: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: null
-      },
-      {
-        id: 2,
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'buy',
-        market: 'USDT_BRL',
-        dividend: 'USDT',
-        divisor: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        id: 3,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'buy',
-        market: 'BTC_USDT',
-        dividend: 'BTC',
-        divisor: 'USDT',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },
-  {
-    id: 17,
-    name: 'BRL_BTC_USDT_BTC',
-    entry: 0.0002,
-    walks: [
-      {
-        id: 1,
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.0024,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'sell',
-        market: 'BTC_BRL',
-        dividend: 'BTC',
-        divisor: 'BRL',
-        receive: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: null
-      },
-      {
-        id: 2,
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'buy',
-        market: 'USDT_BRL',
-        dividend: 'USDT',
-        divisor: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        id: 3,
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'buy',
-        market: 'BTC_USDT',
-        dividend: 'BTC',
-        divisor: 'USDT',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
-  {
-    id: 17,
-    name: 'BRL_USDT_NBC_USDT',
-    entry: 0.2,
-    walks: [
-      {
-        id: 1,
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.0024,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'sell',
-        market: 'USDT_BRL',
-        dividend: 'USDT',
-        divisor: 'BRL',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: null
-      },
-      {
-        id: 2,
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'buy',
-        market: 'NBC_BRL',
-        dividend: 'NBC',
-        divisor: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'NBC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        id: 3,
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
-        price: 0,
-        quantity: 0,
-        sum: null,
-        action: 'sell',
-        market: 'NBC_USDT',
-        dividend: 'NBC',
-        divisor: 'USDT',
         receive: null,
         transfer: null
       },

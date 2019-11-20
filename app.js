@@ -82,9 +82,32 @@ class Hades {
     return this.mask(output, 8);
   }
 
+  exchangetoNameSelected(exchange) {
+    let exchangeto = '';
+    
+    switch (exchange) {
+      case 1:
+        exchangeto = 'Bleutrade';
+        break;
+      case 2:
+        exchangeto = 'Exccripto';
+        break;
+      case 3:
+        exchangeto = 'Bitrecife';
+        break;
+      default:
+        exchangeto = 'Exchange';
+        break;
+    }
+    
+    return exchangeto;
+  }
+
   async rebalancingBalance(walk, entry) {
+    let exchangeto = this.exchangetoNameSelected(walk.receive.exchangeto);
+
     await Bleutrade.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
-    console.log(`Enviando ${walk.receive.asset}(${entry}) da Bleutrade para ${walk.exchangeto}`);
+    console.log(`Enviando ${walk.receive.asset} (${entry}) da Bleutrade para ${exchangeto}`);
   }
 
   async opportunityTakerBuy(walk, entry) {
@@ -94,8 +117,10 @@ class Hades {
     console.log(`Troca de ${walk.base} por ${walk.quote}(${walk.quantity})`);
     // É preciso transferir ?
     if (walk.transfer) {
+      let exchangeto = this.exchangetoNameSelected(walk.transfer.exchangeto);
+
       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
-      console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+      console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
     }
   }
 
@@ -106,8 +131,10 @@ class Hades {
     console.log(`Troca de ${walk.quote}(${walk.quantity}) por ${walk.base}`);                   
     // É preciso transferir ?
     if (walk.transfer) {
+      let exchangeto = this.exchangetoNameSelected(walk.transfer.exchangeto);
+
       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
-      console.log(`Enviando ${walk.transfer.asset} para exchange ${walk.transfer.exchangeto}`);
+      console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
     }
   }
 
@@ -121,8 +148,8 @@ class Hades {
           // Verificando se a lucro
           const profit = this.calcProfitOutput(arbitration);
 
-          if (profit > arbitration.entry) {
-            const watch = R.filter((n) => n.opportunity === false, walks);
+          if (profit < arbitration.entry) {
+            const watch = []
             if (watch.length > 0) {
               console.log('Ordem inferior');
             } else {   
@@ -170,7 +197,7 @@ class Hades {
             console.log(profit);
           }
         }  
-        // process.exit();      
+        process.exit();      
       } catch(e) {
         console.log(e.message)
       }

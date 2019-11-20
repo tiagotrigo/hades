@@ -197,7 +197,7 @@ class Hades {
             console.log(profit);
           }
         }  
-        process.exit();      
+        // process.exit();      
       } catch(e) {
         console.log(e.message)
       }

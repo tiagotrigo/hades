@@ -84,14 +84,14 @@ class Hades {
 
   async rebalancingBalance(walk, entry) {
     await Bleutrade.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
-    console.log(`Enviando ${walk.receive.asset} da Bleutrade para ${walk.exchangeto}`);
+    console.log(`Enviando ${walk.receive.asset}(${entry}) da Bleutrade para ${walk.exchangeto}`);
   }
 
   async opportunityTakerBuy(walk, entry) {
     let quote = walk.quote === 'BTC' || walk.quote === 'USDT';
     // Comprar
     await walk.exchange.setBuyLimit(walk.symbol, walk.price, quote ? entry : walk.quantity);
-    console.log(`Troca de ${walk.base} por ${walk.quote}`);
+    console.log(`Troca de ${walk.base} por ${walk.quote}(${walk.quantity})`);
     // É preciso transferir ?
     if (walk.transfer) {
       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
@@ -103,7 +103,7 @@ class Hades {
     let quote = walk.quote === 'BTC' || walk.quote === 'USDT';
     // Vender
     await walk.exchange.setSellLimit(walk.symbol, walk.price, quote ? entry : walk.quantity);
-    console.log(`Troca de ${walk.quote} por ${walk.base}`);                   
+    console.log(`Troca de ${walk.quote}(${walk.quantity}) por ${walk.base}`);                   
     // É preciso transferir ?
     if (walk.transfer) {
       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
@@ -165,7 +165,7 @@ class Hades {
             console.log(profit);
           }
         }  
-        process.exit();      
+        // process.exit();      
       } catch(e) {
         console.log(e.message)
       }

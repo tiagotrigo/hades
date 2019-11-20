@@ -126,7 +126,7 @@ class Hades {
             if (watch.length > 0) {
               console.log('Ordem inferior');
             } else {   
-              for (const walk of walks) {
+              for (let [c, walk] of walks.entries()) {
                 // Se for Bleutrade
                 if (walk.exchangeto === 1) {
                   if (walk.action === 'sell') {
@@ -162,7 +162,7 @@ class Hades {
                 // Notificação
                 if (c === (walks.length - 1)) {
                   await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(walks[walks.length - 1].quantity, 8)}`);
-                  console.log('Notificando @tiagotrigo')
+                  console.log('Notificando @tiagotrigo');
                 } 
               } 
             }

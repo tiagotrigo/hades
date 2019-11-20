@@ -121,8 +121,8 @@ class Hades {
           // Verificando se a lucro
           const profit = this.calcProfitOutput(arbitration);
 
-          if (profit < arbitration.entry) {
-            const watch = [];
+          if (profit > arbitration.entry) {
+            const watch = R.filter((n) => n.opportunity === false, walks);
             if (watch.length > 0) {
               console.log('Ordem inferior');
             } else {   

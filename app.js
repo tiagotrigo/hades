@@ -159,6 +159,11 @@ class Hades {
                     }
                   }
                 }
+                // Notificação
+                if (c === (walks.length - 1)) {
+                  await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(walks[walks.length - 1].quantity, 8)}`);
+                  console.log('Notificando @tiagotrigo')
+                } 
               } 
             }
           } else {

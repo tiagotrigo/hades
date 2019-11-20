@@ -7,7 +7,7 @@ const Bleutrade = require('./bleutrade.js');
 const Arbitration = [
   {
     name: 'ETH_BTC',
-    entry: 0.0002,
+    entry: 0.00025,
     walks: [
       {
         exchangeto: 2,

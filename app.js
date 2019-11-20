@@ -107,8 +107,12 @@ class Hades {
             let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 5);
             let resp = this.calcDistributingValue(arb, book, walk, y);
             //
+            walk.book = {
+              rate: walk.action === 'buy' ? book.sell[0].Rate : book.buy[0].Rate,
+              quantity: walk.action === 'buy' ? book.sell[0].Quantity : book.buy[0].Quantity
+            }
             walk.price = resp.price;
-            walk.quantity = resp.quantity;
+            walk.quantity = resp.quantity; 
           } catch(e) {
             console.log(e);
           }
@@ -121,11 +125,11 @@ class Hades {
           walks
         } = arb;
 
-        let wallet, 
-            buy,
-            sell = [];
+        let wallet = []; 
+        let buy = [];
+        let sell = [];
 
-        if (this.mask(walks[walks.length - 1].quantity, 8) > this.mask(entry, 8)) {          
+        if (this.mask(walks[walks.length - 1].quantity, 8) > this.mask(entry, 8) && walks[0].book.quantity > walks[0].quantity && walks[walks.length - 2].book.quantity > walks[walks.length - 2].quantity) {          
           try {
             // Rotinas
             for (let [z, walk] of walks.entries()) {
@@ -135,7 +139,7 @@ class Hades {
                 if (walk.exchangeto === 1) {
                   if (walk.action === 'sell') {
                     sell = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntSell(entry, walk.price, walk.fee);
-                    walk.price = await this.updateRate(walk, sell);
+                    //walk.price = await this.updateRate(walk, sell);
 
                     // 2 - Comprar ou vender
                     await walk.exchange.setSellLimit(walk.market, walk.price, sell);
@@ -152,7 +156,7 @@ class Hades {
 
                   if (walk.action === 'buy') {
                     buy = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntBuy(entry, walk.price, walk.fee);
-                    walk.price = await this.updateRate(walk, buy);
+                    //walk.price = await this.updateRate(walk, buy);
 
                     // 2 - Comprar ou vender
                     await walk.exchange.setBuyLimit(walk.market, walk.price, buy);
@@ -170,7 +174,7 @@ class Hades {
                   if (walk.receive === null) {
                     if (walk.action === 'sell') {
                       sell = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntSell(entry, walk.price, walk.fee);
-                      walk.price = await this.updateRate(walk, sell);
+                      //walk.price = await this.updateRate(walk, sell);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, sell);
@@ -187,7 +191,7 @@ class Hades {
 
                     if (walk.action === 'buy') {
                       buy = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntBuy(entry, walk.price, walk.fee);
-                      walk.price = await this.updateRate(walk, buy);
+                      //walk.price = await this.updateRate(walk, buy);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, buy);
@@ -207,7 +211,7 @@ class Hades {
 
                     if (walk.action === 'sell') {
                       sell = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntSell(entry, walk.price, walk.fee);
-                      walk.price = await this.updateRate(walk, sell);
+                      //walk.price = await this.updateRate(walk, sell);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, sell);
@@ -224,7 +228,7 @@ class Hades {
 
                     if (walk.action === 'buy') {
                       buy = (walk.dividend === 'BTC' || walk.dividend === 'USDT' || walk.dividend === 'BRL') ? entry : this.calcQntBuy(entry, walk.price, walk.fee);
-                      walk.price = await this.updateRate(walk, buy);
+                      //walk.price = await this.updateRate(walk, buy);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, buy);
@@ -244,7 +248,7 @@ class Hades {
                 if (walk.exchangeto === 1) {
                   if (walk.action === 'sell') {
                     wallet = await walk.exchange.getBalance(walk.dividend);
-                    walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
+                    //walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
 
                     // 2 - Comprar ou vender
                     await walk.exchange.setSellLimit(walk.market, walk.price, wallet.data.result[0].Available);
@@ -261,7 +265,7 @@ class Hades {
 
                   if (walk.action === 'buy') {
                     wallet = await walk.exchange.getBalance(walk.divisor);
-                    walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
+                    //walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
 
                     // 2 - Comprar ou vender
                     await walk.exchange.setBuyLimit(walk.market, walk.price, wallet.data.result[0].Available);
@@ -279,7 +283,7 @@ class Hades {
                   if (walk.receive === null) {
                     if (walk.action === 'sell') {
                       wallet = await walk.exchange.getBalance(walk.dividend);
-                      walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
+                      //walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, wallet.data.result[0].Available);
@@ -296,7 +300,7 @@ class Hades {
 
                     if (walk.action === 'buy') {
                       wallet = await walk.exchange.getBalance(walk.divisor);
-                      walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
+                      //walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, wallet.data.result[0].Available);
@@ -316,7 +320,7 @@ class Hades {
 
                     if (walk.action === 'sell') {
                       wallet = await walk.exchange.getBalance(walk.dividend);
-                      walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
+                      //walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, wallet.data.result[0].Available);
@@ -333,7 +337,7 @@ class Hades {
 
                     if (walk.action === 'buy') {
                       wallet = await walk.exchange.getBalance(walk.divisor);
-                      walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
+                      //walk.price = await this.updateRate(walk, wallet.data.result[0].Available);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, wallet.data.result[0].Available);
@@ -354,7 +358,7 @@ class Hades {
                   if (walk.action === 'sell') {
                     wallet = await walk.exchange.getBalance(walk.dividend);
                     sell = this.calcQntSell(wallet.data.result[0].Available, walk.price, walk.fee);
-                    walk.price = await this.updateRate(walk, sell);
+                    //walk.price = await this.updateRate(walk, sell);
 
                     // 2 - Comprar ou vender
                     await walk.exchange.setSellLimit(walk.market, walk.price, sell);
@@ -372,7 +376,7 @@ class Hades {
                   if (walk.action === 'buy') {
                     wallet = await walk.exchange.getBalance(walk.divisor);
                     buy = this.calcQntBuy(wallet.data.result[0].Available, walk.price, walk.fee);
-                    walk.price = await this.updateRate(walk, buy);
+                    //walk.price = await this.updateRate(walk, buy);
 
                     // 2 - Comprar ou vender
                     await walk.exchange.setBuyLimit(walk.market, walk.price, buy);
@@ -391,7 +395,7 @@ class Hades {
                     if (walk.action === 'sell') {
                       wallet = await walk.exchange.getBalance(walk.dividend);
                       sell = this.calcQntSell(wallet.data.result[0].Available, walk.price, walk.fee);
-                      walk.price = await this.updateRate(walk, sell);
+                      //walk.price = await this.updateRate(walk, sell);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, sell);
@@ -409,7 +413,7 @@ class Hades {
                     if (walk.action === 'buy') {
                       wallet = await walk.exchange.getBalance(walk.divisor);
                       buy = this.calcQntBuy(wallet.data.result[0].Available, walk.price, walk.fee);
-                      walk.price = await this.updateRate(walk, buy);
+                      //walk.price = await this.updateRate(walk, buy);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, buy);
@@ -430,7 +434,7 @@ class Hades {
                     if (walk.action === 'sell') {
                       wallet = await walk.exchange.getBalance(walk.dividend);
                       sell = this.calcQntSell(wallet.data.result[0].Available, walk.price, walk.fee);
-                      walk.price = await this.updateRate(walk, sell);
+                      //walk.price = await this.updateRate(walk, sell);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setSellLimit(walk.market, walk.price, sell);
@@ -448,7 +452,7 @@ class Hades {
                     if (walk.action === 'buy') {
                       wallet = await walk.exchange.getBalance(walk.divisor);
                       buy = this.calcQntBuy(wallet.data.result[0].Available, walk.price, walk.fee);
-                      walk.price = await this.updateRate(walk, buy);
+                      //walk.price = await this.updateRate(walk, buy);
 
                       // 2 - Comprar ou vender
                       await walk.exchange.setBuyLimit(walk.market, walk.price, buy);

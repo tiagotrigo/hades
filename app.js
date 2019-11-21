@@ -324,12 +324,11 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
               } 
             } 
-            process.exit();
+            // process.exit();
           } else {
             console.log(arbitration.name, profit);
           }
         }  
-        // process.exit();
       } catch(e) {
         console.log(e.message)
       }

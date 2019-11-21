@@ -212,6 +212,7 @@ class Hades {
   }
 
   async routine(walk, arbitration) {
+    // Se for Bleutrade
     if (walk.exchangeto === 1) {
       if (walk.action === 'sell') {
         // Vender
@@ -266,7 +267,7 @@ class Hades {
               } 
             } 
           } else {
-            console.log(profit);
+            console.log(arbitration.name, profit);
           }
         }  
         // process.exit();      

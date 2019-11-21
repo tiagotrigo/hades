@@ -12,6 +12,12 @@ class Hades {
     this.mail = 'tiago.a.trigo@gmail.com'
   }
 
+  wait(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
+
   mask(num, precision) {
     const output = Math.pow(10, precision); 
     return Math.floor((num * output)) / output;
@@ -314,7 +320,7 @@ class Hades {
           // Verificando se a lucro
           const profit = await this.calcProfitOutput(arbitration);
 
-          if (profit < arbitration.entry) {
+          if (profit > arbitration.entry) {
             for (let [c, walk] of walks.entries()) {
               // Iniciando rotinas
               await this.routine(walk, arbitration);
@@ -328,6 +334,8 @@ class Hades {
           } else {
             console.log(arbitration.name, profit);
           }
+
+          await this.wait(1000);
         }  
       } catch(e) {
         console.log(e.message)

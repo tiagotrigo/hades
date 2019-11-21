@@ -27,24 +27,6 @@ class Hades {
     return this.mask(quantity, 8);
   }
 
-  async updateRate(walk, quantity) {
-    let sum = 0;
-    let price = 0;
-    // Verificando o livro de ofertas
-    let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 5);
-    // Verificando a ação 
-    let orders = walk.action === 'buy' ? book.sell : book.buy;
-
-    for (let [i, order] of orders.entries()) {
-      sum = sum + order.Quantity
-      if (quantity <= sum) {
-        price = order.Rate;
-        break;
-      }
-    }
-    return price;
-  }
-
   async calcQntOutput(arbitration) {
     let sum = 0;
     let price = 0;

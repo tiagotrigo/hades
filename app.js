@@ -169,7 +169,7 @@ class Hades {
     let quote = walk.quote === 'BTC' || walk.quote === 'USDT';
     // Comprar
     await walk.exchange.setBuyLimit(walk.symbol, walk.price, quote ? entry : walk.quantity);
-    console.log(`Troca de ${walk.base} por ${walk.quote}(${walk.quantity})`);
+    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
     // É preciso transferir ?
     if (walk.transfer) {
       let exchangeto = this.exchangeNameSelected(walk.transfer.exchangeto);
@@ -183,7 +183,7 @@ class Hades {
     let quote = walk.quote === 'BTC' || walk.quote === 'USDT';
     // Vender
     await walk.exchange.setSellLimit(walk.symbol, walk.price, quote ? entry : walk.quantity);
-    console.log(`Troca de ${walk.quote}(${walk.quantity}) por ${walk.base}`);                   
+    console.log(`Troca de ${walk.quote} (${walk.quantity}) por ${walk.base}`);                   
     // É preciso transferir ?
     if (walk.transfer) {
       let exchangeto = this.exchangeNameSelected(walk.transfer.exchangeto);

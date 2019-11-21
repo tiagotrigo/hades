@@ -27,62 +27,135 @@ class Hades {
     return this.mask(quantity, 8);
   }
 
-  async calcQntOutput(arbitration) {    
+  async updateRate(walk, quantity) {
+    let sum = 0;
+    let price = 0;
+    // Verificando o livro de ofertas
+    let book = await walk.exchange.getOrderBook(walk.market, 'ALL', 5);
+    // Verificando a ação 
+    let orders = walk.action === 'buy' ? book.sell : book.buy;
+
+    for (let [i, order] of orders.entries()) {
+      sum = sum + order.Quantity
+      if (quantity <= sum) {
+        price = order.Rate;
+        break;
+      }
+    }
+    return price;
+  }
+
+  async calcQntOutput(arbitration) {
+    let sum = 0;
+    let price = 0;
+
     for (const [i, walk] of arbitration.walks.entries()) {
       // Livro de ofertas
-      const book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 3);
-      
+      const book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
+      // Verificando a ação 
+      const orders = walk.action === 'buy' ? book.sell : book.buy;
+
       if (i === 0) {
         if (walk.action === 'sell') {
-          walk.price = book.buy[0].Rate;
-          walk.quantity = this.calcQntSell(arbitration.entry, walk.price, walk.fee);          
-          walk.opportunity = walk.quantity > book.buy[0].Quantity;
+          for (const order of orders) {
+            sum = sum + order.Quantity;
+            walk.quantity = this.calcQntSell(arbitration.entry, order.Rate, walk.fee);
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
+            }
+          }  
         } else {
-          walk.price = book.sell[0].Rate;
-          walk.quantity = this.calcQntBuy(arbitration.entry, walk.price, walk.fee);
-          walk.opportunity = walk.quantity > book.sell[0].Quantity;
-        }
+          for (const order of orders) {
+            sum = sum + order.Quantity;
+            walk.quantity = this.calcQntBuy(arbitration.entry, order.Rate, walk.fee);
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
+            }
+          }
+        } 
       } else if (i === (arbitration.walks.length - 1)) {
         if (walk.action === 'sell') {
-          walk.price = book.buy[0].Rate;
-          walk.quantity = arbitration.walks[i - 1].quantity;
-          walk.book = walk.quantity > book.buy[0].Quantity;
+          for (const order of orders) {
+            sum = sum + order.Quantity;
+            walk.quantity = arbitration.walks[i - 1].quantity;
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
+            }
+          }  
         } else {
-          walk.price = book.sell[0].Rate;
-          walk.quantity = arbitration.walks[i - 1].quantity;
-          walk.opportunity = walk.quantity > book.sell[0].Quantity;
-        }                
+          for (const order of orders) {
+            sum = sum + order.Quantity;
+            walk.quantity = arbitration.walks[i - 1].quantity;
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
+            }
+          }
+        } 
       } else {
         if (walk.action === 'sell') {
-          walk.price = book.buy[0].Rate;
-          walk.quantity = this.calcQntSell(arbitration.walks[i - 1].quantity, walk.price, walk.fee);
-          walk.opportunity = walk.quantity > book.buy[0].Quantity;
+          for (const order of orders) {
+            sum = sum + order.Quantity;
+            walk.quantity = this.calcQntSell(arbitration.walks[i - 1].quantity, order.Rate, walk.fee);
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
+            }
+          }  
         } else {
-          walk.price = book.sell[0].Rate;
-          walk.quantity = this.calcQntBuy(arbitration.walks[i - 1].quantity, walk.price, walk.fee);
-          walk.opportunity = walk.quantity > book.sell[0].Quantity;
+          for (const order of orders) {
+            sum = sum + order.Quantity;
+            walk.quantity = this.calcQntBuy(arbitration.walks[i - 1].quantity, order.Rate, walk.fee);
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
+            }
+          }
         }
       }
     }
   }
 
-  calcProfitOutput(arbitration) {
+  async calcProfitOutput(arbitration) {
     const { 
       walks 
     } = arbitration;
 
+    let sum = 0;
     let output = 0;
 
+    // Livro de ofertas
+    const book = await walks[walks.length - 1].exchange.getOrderBook(walks[walks.length - 1].symbol, 'ALL', 5);
+    // Verificando a ação 
+    const orders = walks[walks.length - 1].action === 'buy' ? book.sell : book.buy;
+
     if (walks[walks.length - 1].action === 'sell') {
-      output = this.calcQntSell(walks[walks.length - 1].quantity, walks[walks.length - 1].price, walks[walks.length - 1].fee);
+      for (const order of orders) {
+        sum = sum + order.Quantity;
+        output = this.calcQntSell(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        if (output > arbitration.entry && output <= sum) {
+          walks[walks.length - 1].price = order.Rate; 
+          break;
+        }
+      }
     } else {
-      output = this.calcQntBuy(walks[walks.length - 1].quantity, walks[walks.length - 1].price, walks[walks.length - 1].fee);
+      for (const order of orders) {
+        sum = sum + order.Quantity;
+        output = this.calcQntBuy(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        if (output > arbitration.entry && output <= sum) {
+          walks[walks.length - 1].price = order.Rate; 
+          break;
+        }
+      }
     }
 
     return this.mask(output, 8);
   }
 
-  exchangetoNameSelected(exchange) {
+  exchangeNameSelected(exchange) {
     let exchangeto = '';
     
     switch (exchange) {
@@ -104,7 +177,7 @@ class Hades {
   }
 
   async rebalancingBalance(walk, entry) {
-    let exchangeto = this.exchangetoNameSelected(walk.receive.exchangeto);
+    let exchangeto = this.exchangeNameSelected(walk.receive.exchangeto);
 
     await Bleutrade.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
     console.log(`Enviando ${walk.receive.asset} (${entry}) da Bleutrade para ${exchangeto}`);
@@ -117,7 +190,7 @@ class Hades {
     console.log(`Troca de ${walk.base} por ${walk.quote}(${walk.quantity})`);
     // É preciso transferir ?
     if (walk.transfer) {
-      let exchangeto = this.exchangetoNameSelected(walk.transfer.exchangeto);
+      let exchangeto = this.exchangeNameSelected(walk.transfer.exchangeto);
 
       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
       console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
@@ -131,10 +204,44 @@ class Hades {
     console.log(`Troca de ${walk.quote}(${walk.quantity}) por ${walk.base}`);                   
     // É preciso transferir ?
     if (walk.transfer) {
-      let exchangeto = this.exchangetoNameSelected(walk.transfer.exchangeto);
+      let exchangeto = this.exchangeNameSelected(walk.transfer.exchangeto);
 
       await walk.exchange.setDirectTransfer(walk.transfer.asset, walk.quantity, walk.transfer.exchangeto, walk.transfer.mail);
       console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
+    }
+  }
+
+  async routine(walk, arbitration) {
+    if (walk.exchangeto === 1) {
+      if (walk.action === 'sell') {
+        // Vender
+        await this.opportunityTakerSell(walk, arbitration.entry);
+      } else if (walk.action === 'buy') {
+        // Comprar
+        await this.opportunityTakerBuy(walk, arbitration.entry);                    
+      }
+    } else {
+      // Se for diferente de Bleutrade
+      if (walk.receive === null) {
+        if (walk.action === 'sell') {
+          // Vender
+          await this.opportunityTakerSell(walk, arbitration.entry);
+        } else if (walk.action === 'buy') {
+          // Comprar
+          await this.opportunityTakerBuy(walk, arbitration.entry);                    
+        }
+      } else {
+        // Enviando BTC ou USDT para outras exchanges
+        await this.rebalancingBalance(walk, arbitration.entry);
+
+        if (walk.action === 'sell') {
+          // Vender
+          await this.opportunityTakerSell(walk, arbitration.entry);
+        } else if (walk.action === 'buy') {
+          // Comprar
+          await this.opportunityTakerBuy(walk, arbitration.entry);                    
+        }
+      }
     }
   }
 
@@ -146,53 +253,18 @@ class Hades {
           // Calculando a quantidade
           await this.calcQntOutput(arbitration);
           // Verificando se a lucro
-          const profit = this.calcProfitOutput(arbitration);
+          const profit = await this.calcProfitOutput(arbitration);
 
           if (profit > arbitration.entry) {
-            const watch = R.filter((n) => n.opportunity === false, walks);
-            if (watch.length > 0) {
-              console.log('Ordem inferior');
-            } else {   
-              for (let [c, walk] of walks.entries()) {
-                // Se for Bleutrade
-                if (walk.exchangeto === 1) {
-                  if (walk.action === 'sell') {
-                    // Vender
-                    await this.opportunityTakerSell(walk, arbitration.entry);
-                  } else if (walk.action === 'buy') {
-                    // Comprar
-                    await this.opportunityTakerBuy(walk, arbitration.entry);                    
-                  }
-                } else {
-                  // Se for diferente de Bleutrade
-                  if (walk.receive === null) {
-                    if (walk.action === 'sell') {
-                      // Vender
-                      await this.opportunityTakerSell(walk, arbitration.entry);
-                    } else if (walk.action === 'buy') {
-                      // Comprar
-                      await this.opportunityTakerBuy(walk, arbitration.entry);                    
-                    }
-                  } else {
-                    // Enviando BTC ou USDT para outras exchanges
-                    await this.rebalancingBalance(walk, arbitration.entry);
-
-                    if (walk.action === 'sell') {
-                      // Vender
-                      await this.opportunityTakerSell(walk, arbitration.entry);
-                    } else if (walk.action === 'buy') {
-                      // Comprar
-                      await this.opportunityTakerBuy(walk, arbitration.entry);                    
-                    }
-                  }
-                }
-                // Notificação
-                if (c === (walks.length - 1)) {
-                  await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(profit, 8)}`);
-                  console.log('Notificando @tiagotrigo');
-                } 
+            for (let [c, walk] of walks.entries()) {
+              // Iniciando rotinas
+              await this.routine(walk, arbitration);
+              // Notificação
+              if (c === (walks.length - 1)) {
+                await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(profit, 8)}`);
+                console.log('Notificando @tiagotrigo');
               } 
-            }
+            } 
           } else {
             console.log(profit);
           }

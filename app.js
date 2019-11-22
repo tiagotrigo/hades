@@ -228,7 +228,7 @@ class Hades {
       for (const order of orders) {
         sum = sum + order.Quantity;
         output = this.calcQntSell(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
-        if (output > arbitration.entry && output <= sum) {
+        if (output > arbitration.entry && walks[walks.length - 1].quantity <= sum) {
           walks[walks.length - 1].price = order.Rate;
           break;
         }
@@ -237,7 +237,7 @@ class Hades {
       for (const order of orders) {
         sum = sum + order.Quantity;
         output = this.calcQntBuy(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
-        if (output > arbitration.entry && output <= sum) {
+        if (output > arbitration.entry && walks[walks.length - 1].quantity <= sum) {
           walks[walks.length - 1].price = order.Rate;
           break;
         }

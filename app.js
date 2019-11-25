@@ -182,20 +182,12 @@ class Hades {
     if (transactions.data.result != null) {
       await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
       console.log('Cancelando ordem');
+      
+      let wallet = await walk.exchange.getBalance(walk.quote);
+      let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
 
-      if (walk.action === 'sell') {
-        let wallet = await walk.exchange.getBalance(walk.quote);
-        let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
-
-        await walk.exchange.setSellLimit(walk.symbol, rate, wallet.data.result[0].Available);
-        console.log('Forçando venda da ordem cancelada.');
-      } else {
-        let wallet = await walk.exchange.getBalance(walk.quote);
-        let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
-
-        await walk.exchange.setBuyLimit(walk.symbol, rate, wallet.data.result[0].Available);
-        console.log('Forçando compra da ordem cancelada.');
-      }
+      await walk.exchange.setBuyLimit(walk.symbol, rate, wallet.data.result[0].Available);
+      console.log('Forçando compra da ordem cancelada.');
     }
     // É preciso transferir ?
     if (walk.transfer) {
@@ -218,19 +210,11 @@ class Hades {
       await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
       console.log('Cancelando ordem');
 
-      if (walk.action === 'sell') {
-        let wallet = await walk.exchange.getBalance(walk.quote);
-        let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
+      let wallet = await walk.exchange.getBalance(walk.quote);
+      let rate = await this.calcUpdateRate(walk, wallet.data.result[0].Available)
 
-        await walk.exchange.setSellLimit(walk.symbol, rate, wallet.data.result[0].Available);
-        console.log('Forçando venda da ordem cancelada.');
-      } else {
-        let wallet = await walk.exchange.getBalance(walk.quote);
-        let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
-
-        await walk.exchange.setBuyLimit(walk.symbol, rate, wallet.data.result[0].Available);
-        console.log('Forçando compra da ordem cancelada.');
-      }
+      await walk.exchange.setSellLimit(walk.symbol, rate, wallet.data.result[0].Available);
+      console.log('Forçando venda da ordem cancelada.');
     }                   
     // É preciso transferir ?
     if (walk.transfer) {

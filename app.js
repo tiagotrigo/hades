@@ -173,9 +173,18 @@ class Hades {
   }  
 
   async opportunityTakerBuy(walk, entry) {
-    // Comprar
-    await walk.exchange.setBuyLimit(walk.symbol, walk.price, walk.quantity);
-    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
+    let amount = walk.exchange.getBalance(walk.quote);
+
+    if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
+      let update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
+      // Comprar
+      await walk.exchange.setBuyLimit(walk.symbol, update, amount.data.result[0].Available);
+      console.log(`Troca de ${walk.base} por ${walk.quote} (${amount.data.result[0].Available})`);
+    } else {
+      // Comprar
+      await walk.exchange.setBuyLimit(walk.symbol, walk.price, walk.quantity);
+      console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
+    }
     // Cancelando ordem
     let transactions = await walk.exchange.getOpenOrders(walk.symbol);
 
@@ -200,9 +209,19 @@ class Hades {
   }
 
   async opportunityTakerSell(walk, entry) {
-    // Vender
-    await walk.exchange.setSellLimit(walk.symbol, walk.price, walk.quantity);
-    console.log(`Troca de ${walk.quote} (${walk.quantity}) por ${walk.base}`);
+    let amount = walk.exchange.getBalance(walk.quote);
+
+    if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
+      let update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
+      // Vender
+      await walk.exchange.setSellLimit(walk.symbol, update, amount.data.result[0].Available);
+      console.log(`Troca de ${walk.quote} (${amount.data.result[0].Available}) por ${walk.base}`);
+    } else {
+      // Vender
+      await walk.exchange.setSellLimit(walk.symbol, walk.price, walk.quantity);
+      console.log(`Troca de ${walk.quote} (${walk.quantity}) por ${walk.base}`);  
+    }
+    
     // Cancelando ordem se for preciso
     let transactions = await walk.exchange.getOpenOrders(walk.symbol);
 

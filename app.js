@@ -280,8 +280,7 @@ class Hades {
                 await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(profit, 8)}`);
                 console.log('Notificando @tiagotrigo');
               } 
-            } 
-            process.exit();
+            }
           } else {
             console.log(arbitration.name, profit);
           }

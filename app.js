@@ -72,144 +72,69 @@ class Hades {
       // Verificando a ação 
       const orders = walk.action === 'buy' ? book.sell : book.buy;
 
-      if (arbitration.walks.length === 2) {
-        if (i === 0) {
-          if (walk.action === 'sell') {
-            for (const order of orders) {
-              sum = sum + order.Quantity;
-              walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') ? arbitration.entry : this.calcQntSell(arbitration.entry, order.Rate, walk.fee);
-              if (walk.quantity <= sum) {
-                walk.price = order.Rate;
-                break;
-              }
-            }  
-          } else {
-            for (const order of orders) {
-              sum = sum + order.Quantity;
-              walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') ? arbitration.entry : this.calcQntBuy(arbitration.entry, order.Rate, walk.fee);
-              if (walk.quantity <= sum) {
-                walk.price = order.Rate;
-                break;
-              }
+      if (i === 0) {
+        if (walk.action === 'sell') {
+          for (const order of orders) {
+            sum = sum + order.Quantity;
+            walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT') ? arbitration.entry : this.calcQntSell(arbitration.entry, order.Rate, walk.fee);
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
             }
-          }         
+          }  
         } else {
-          if (walk.action === 'sell') {
-            for (const order of orders) {
-              sum = sum + order.Quantity;              
-              walk.quantity = arbitration.walks[0].quantity;
-              if (walk.quantity <= sum) {
-                walk.price = order.Rate;
-                break;
-              }
-            }  
-          } else {
-            for (const order of orders) {
-              sum = sum + order.Quantity;
-              walk.quantity = arbitration.walks[0].quantity;
-              if (walk.quantity <= sum) {
-                walk.price = order.Rate;
-                break;
-              }
+          for (const order of orders) {
+            sum = sum + order.Quantity;
+            walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT') ? arbitration.entry : this.calcQntBuy(arbitration.entry, order.Rate, walk.fee);
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
+            }
+          }
+        }         
+      } else {
+        if (walk.action === 'sell') {
+          for (const order of orders) {
+            sum = sum + order.Quantity;              
+            walk.quantity = arbitration.walks[0].quantity;
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
+            }
+          }  
+        } else {
+          for (const order of orders) {
+            sum = sum + order.Quantity;
+            walk.quantity = arbitration.walks[0].quantity;
+            if (walk.quantity <= sum) {
+              walk.price = order.Rate;
+              break;
             }
           }
         }
       }
-
-      if (arbitration.walks.length === 3) {
-        if (i === 0) {
-          if (walk.action === 'sell') {
-            for (const order of orders) {
-              sum = sum + order.Quantity;
-              walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') ? arbitration.entry : this.calcQntSell(arbitration.entry, order.Rate, walk.fee);
-              if (walk.quantity <= sum) {
-                walk.price = order.Rate;
-                break;
-              }
-            }  
-          } else {
-            for (const order of orders) {
-              sum = sum + order.Quantity;
-              walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') ? arbitration.entry : this.calcQntBuy(arbitration.entry, order.Rate, walk.fee);
-              if (walk.quantity <= sum) {
-                walk.price = order.Rate;
-                break;
-              }
-            }
-          }         
-        }
-
-        if (i === 1) {
-          if (arbitration.walks[0].quote === 'BTC' || arbitration.walks[0].quote === 'USDT' || arbitration.walks[0].quote === 'BRL') {
-            if (walk.action === 'sell') {
-              for (const order of orders) {
-                sum = sum + order.Quantity; 
-                calc = (arbitration.entry * arbitration.walks[0].fee) / arbitration.walks[0].price;
-                walk.quantity = (calc * order.Rate) * (1 - walk.fee);
-                if (walk.quantity <= sum) {
-                  walk.price = order.Rate;
-                  break;
-                }
-              }
-            } else {
-              for (const order of orders) {
-                sum = sum + order.Quantity;
-                calc = (arbitration.entry * arbitration.walks[0].price) * (1 - arbitration.walks[0].fee);         
-                walk.quantity = (calc * walk.fee) / order.Rate;
-                if (walk.quantity <= sum) {
-                  walk.price = order.Rate;
-                  break;
-                }
-              }
-            }
-          } else {
-            if (walk.action === 'sell') {
-              for (const order of orders) {
-                sum = sum + order.Quantity;
-                walk.quantity = this.calcQntSell(arbitration.entry, order.Rate, walk.fee);
-                if (walk.quantity <= sum) {
-                  walk.price = order.Rate;
-                  break;
-                }
-              }  
-            } else {
-              for (const order of orders) {
-                sum = sum + order.Quantity;
-                walk.quantity = this.calcQntBuy(arbitration.entry, order.Rate, walk.fee);
-                if (walk.quantity <= sum) {
-                  walk.price = order.Rate;
-                  break;
-                }
-              }
-            }
-          }        
-        }
-
-        if (i === 2) {
-          if (walk.action === 'sell') {
-            for (const order of orders) {
-              sum = sum + order.Quantity;
-              walk.quantity = arbitration.walks[1].quantity;
-              if (walk.quantity <= sum) {
-                walk.price = order.Rate;
-                break;
-              }
-            }  
-          } else {
-            for (const order of orders) {
-              sum = sum + order.Quantity;
-              walk.quantity = arbitration.walks[1].quantity;
-              if (walk.quantity <= sum) {
-                walk.price = order.Rate;
-                break;
-              }
-            }
-          }
-        }
-      }
-
     }
   }
+
+  async calcUpdateRate(walk, quantity) {
+    let sum = 0;
+    let price = 0;
+
+    // Livro de ofertas
+    const book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
+    // Verificando a ação 
+    const orders = walk.action === 'buy' ? book.sell : book.buy;
+
+    for (const order of orders) {
+      sum = sum + order.Quantity;
+      if (quantity <= sum) {
+        price = order.Rate;
+        break;
+      }
+    }
+
+    return price;
+  }  
 
   async calcProfitOutput(arbitration) {
     const { 
@@ -251,6 +176,27 @@ class Hades {
     // Comprar
     await walk.exchange.setBuyLimit(walk.symbol, walk.price, walk.quantity);
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
+    // Cancelando ordem
+    let transactions = await walk.exchange.getOpenOrders(walk.symbol);
+
+    if (transactions.data.result != null) {
+      await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
+      console.log('Cancelando ordem');
+
+      if (walk.action === 'sell') {
+        let wallet = await walk.exchange.getBalance(walk.quote);
+        let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
+
+        await walk.exchange.setSellLimit(walk.symbol, rate, wallet.data.result[0].Available);
+        console.log('Forçando venda da ordem cancelada.');
+      } else {
+        let wallet = await walk.exchange.getBalance(walk.quote);
+        let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
+
+        await walk.exchange.setBuyLimit(walk.symbol, rate, wallet.data.result[0].Available);
+        console.log('Forçando compra da ordem cancelada.');
+      }
+    }
     // É preciso transferir ?
     if (walk.transfer) {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
@@ -264,7 +210,28 @@ class Hades {
   async opportunityTakerSell(walk, entry) {
     // Vender
     await walk.exchange.setSellLimit(walk.symbol, walk.price, walk.quantity);
-    console.log(`Troca de ${walk.quote} (${walk.quantity}) por ${walk.base}`);                   
+    console.log(`Troca de ${walk.quote} (${walk.quantity}) por ${walk.base}`);
+    // Cancelando ordem se for preciso
+    let transactions = await walk.exchange.getOpenOrders(walk.symbol);
+
+    if (transactions.data.result != null) {
+      await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
+      console.log('Cancelando ordem');
+
+      if (walk.action === 'sell') {
+        let wallet = await walk.exchange.getBalance(walk.quote);
+        let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
+
+        await walk.exchange.setSellLimit(walk.symbol, rate, wallet.data.result[0].Available);
+        console.log('Forçando venda da ordem cancelada.');
+      } else {
+        let wallet = await walk.exchange.getBalance(walk.quote);
+        let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
+
+        await walk.exchange.setBuyLimit(walk.symbol, rate, wallet.data.result[0].Available);
+        console.log('Forçando compra da ordem cancelada.');
+      }
+    }                   
     // É preciso transferir ?
     if (walk.transfer) {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);

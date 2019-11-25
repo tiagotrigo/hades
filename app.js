@@ -281,7 +281,7 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
               } 
             } 
-            // process.exit();
+            process.exit();
           } else {
             console.log(arbitration.name, profit);
           }

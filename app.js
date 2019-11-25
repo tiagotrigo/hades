@@ -173,7 +173,7 @@ class Hades {
   }  
 
   async opportunityTakerBuy(walk, entry) {
-    let amount = walk.exchange.getBalance(walk.quote);
+    let amount = await walk.exchange.getBalance(walk.quote);
 
     if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
       let update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
@@ -209,7 +209,7 @@ class Hades {
   }
 
   async opportunityTakerSell(walk, entry) {
-    let amount = walk.exchange.getBalance(walk.quote);
+    let amount = await walk.exchange.getBalance(walk.quote);
 
     if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
       let update = await this.calcUpdateRate(walk, amount.data.result[0].Available);

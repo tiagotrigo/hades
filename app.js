@@ -210,9 +210,11 @@ class Hades {
                   calc = this.calcQntBuyBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
                 }
               } else {
-                if (arbitration.walks[1].action === 'sell') {
-                  calc = arbitration.walks[1].quantity;
-                } else {
+                if (arbitration.walks[1].action === 'sell' && arbitration.walks[2].base === arbitration.walks[1].base) {
+                  calc = this.calcQntSell(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
+                } else if (arbitration.walks[1].action === 'buy' && arbitration.walks[2].base === arbitration.walks[1].base) {
+                  calc = this.calcQntBuy(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
+                } else if (arbitration.walks[2].base != arbitration.walks[1].base) {
                   calc = arbitration.walks[1].quantity;
                 }
               }
@@ -232,9 +234,11 @@ class Hades {
                   calc = this.calcQntBuyBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
                 }
               } else {
-                if (arbitration.walks[1].action === 'sell') {
-                  calc = arbitration.walks[1].quantity;
-                } else {
+                if (arbitration.walks[1].action === 'sell' && arbitration.walks[2].base === arbitration.walks[1].base) {
+                  calc = this.calcQntSell(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
+                } else if (arbitration.walks[1].action === 'buy' && arbitration.walks[2].base === arbitration.walks[1].base) {
+                  calc = this.calcQntBuy(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
+                } else if (arbitration.walks[2].base != arbitration.walks[1].base) {
                   calc = arbitration.walks[1].quantity;
                 }
               }
@@ -286,7 +290,11 @@ class Hades {
     if (walks[walks.length - 1].action === 'sell') {
       for (const order of orders) {
         sum = sum + order.Quantity;
-        output = this.calcQntSell(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
+          output = walks[walks.length - 1].quantity;
+        } else {
+          output = this.calcQntSell(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        }
         if (output > arbitration.entry && walks[walks.length - 1].quantity <= sum) {
           walks[walks.length - 1].price = order.Rate;
           break;
@@ -295,7 +303,11 @@ class Hades {
     } else {
       for (const order of orders) {
         sum = sum + order.Quantity;
-        output = this.calcQntBuy(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
+          output = walks[walks.length - 1].quantity;
+        } else {
+          output = this.calcQntBuy(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        }
         if (output > arbitration.entry && walks[walks.length - 1].quantity <= sum) {
           walks[walks.length - 1].price = order.Rate;
           break;
@@ -307,10 +319,11 @@ class Hades {
   }  
 
   async opportunityTakerBuy(walk, entry) {
+    let update = 0;
     let amount = await walk.exchange.getBalance(walk.quote);
 
     if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
-      let update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
+      update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
       // Comprar
       await walk.exchange.setBuyLimit(walk.symbol, update, amount.data.result[0].Available);
       console.log(`Troca de ${walk.base} por ${walk.quote} (${amount.data.result[0].Available})`);
@@ -343,10 +356,11 @@ class Hades {
   }
 
   async opportunityTakerSell(walk, entry) {
+    let update = 0;
     let amount = await walk.exchange.getBalance(walk.quote);
 
     if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
-      let update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
+      update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
       // Vender
       await walk.exchange.setSellLimit(walk.symbol, update, amount.data.result[0].Available);
       console.log(`Troca de ${walk.quote} (${amount.data.result[0].Available}) por ${walk.base}`);
@@ -425,16 +439,17 @@ class Hades {
           const profit = await this.calcProfitOutput(arbitration);
 
           if (profit > arbitration.entry) {
-            for (let [c, walk] of walks.entries()) {
-              // Iniciando rotinas
-              await this.routine(walk, arbitration);
-              // Notificação
-              if (c === (walks.length - 1)) {
-                await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(profit, 8)}`);
-                console.log('Notificando @tiagotrigo');
-              } 
-            }
-            // process.exit();
+            console.log(arbitration.walks)
+            // for (let [c, walk] of walks.entries()) {
+            //   // Iniciando rotinas
+            //   await this.routine(walk, arbitration);
+            //   // Notificação
+            //   if (c === (walks.length - 1)) {
+            //     await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(profit, 8)}`);
+            //     console.log('Notificando @tiagotrigo');
+            //   } 
+            // }
+            process.exit();
           } else {
             console.log(arbitration.name, profit);
           }

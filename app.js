@@ -105,7 +105,7 @@ class Hades {
       }
 
       if (i === 1) {
-        if (walk.quote === arbitration.walks[0].quote) {
+        if (arbitration.walks[1].quote === arbitration.walks[0].quote) {
           if (walk.action === 'sell') {
             for (const order of orders) {
               sum = sum + order.Quantity;              
@@ -136,7 +136,13 @@ class Hades {
                   calc = this.calcQntBuyBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
                 }
               } else {
-                calc = arbitration.walks[0].quantity;
+                if (arbitration.walks[0].action === 'sell' && arbitration.walks[1].base === arbitration.walks[0].base) {
+                  calc = this.calcQntSell(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
+                } else if (arbitration.walks[0].action === 'buy' && arbitration.walks[1].base === arbitration.walks[0].base) {
+                  calc = this.calcQntBuy(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
+                } else if (arbitration.walks[1].base != arbitration.walks[0].base) {
+                  calc = arbitration.walks[0].quantity;
+                }
               }
               walk.quantity = this.calcQntSell(this.mask(calc, 8), order.Rate, walk.fee);
               if (walk.quantity <= sum) {
@@ -154,7 +160,13 @@ class Hades {
                   calc = this.calcQntBuyBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
                 }
               } else {
-                calc = arbitration.walks[0].quantity;
+                if (arbitration.walks[0].action === 'sell' && arbitration.walks[1].base === arbitration.walks[0].base) {
+                  calc = this.calcQntSell(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
+                } else if (arbitration.walks[0].action === 'buy' && arbitration.walks[1].base === arbitration.walks[0].base) {
+                  calc = this.calcQntBuy(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
+                } else if (arbitration.walks[1].base != arbitration.walks[0].base) {
+                  calc = arbitration.walks[0].quantity;
+                }
               }
               walk.quantity = this.calcQntBuy(this.mask(calc, 8), order.Rate, walk.fee);
               if (walk.quantity <= sum) {
@@ -413,16 +425,17 @@ class Hades {
           const profit = await this.calcProfitOutput(arbitration);
 
           if (profit > arbitration.entry) {
-            for (let [c, walk] of walks.entries()) {
-              // Iniciando rotinas
-              await this.routine(walk, arbitration);
-              // Notificação
-              if (c === (walks.length - 1)) {
-                await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(profit, 8)}`);
-                console.log('Notificando @tiagotrigo');
-              } 
-            }
-            
+            console.log(arbitration.walks)
+            // for (let [c, walk] of walks.entries()) {
+            //   // Iniciando rotinas
+            //   await this.routine(walk, arbitration);
+            //   // Notificação
+            //   if (c === (walks.length - 1)) {
+            //     await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(profit, 8)}`);
+            //     console.log('Notificando @tiagotrigo');
+            //   } 
+            // }
+            process.exit();
           } else {
             console.log(arbitration.name, profit);
           }

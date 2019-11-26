@@ -170,13 +170,11 @@ const Arbitration = [
     entry: 0.0004,
     walks: [
       {
-        id: 1,
         exchangeto: 3,
         exchange: Bitrecife,
         fee: 0.0024,
         price: 0,
         quantity: 0,
-        sum: null,
         action: 'sell',
         symbol: 'BTC_BRL',
         quote: 'BTC',
@@ -189,13 +187,11 @@ const Arbitration = [
         transfer: null
       },
       {
-        id: 2,
         exchangeto: 3,
         exchange: Bitrecife,
         fee: 0.9976,
         price: 0,
         quantity: 0,
-        sum: null,
         action: 'buy',
         symbol: 'NBC_BRL',
         quote: 'NBC',
@@ -208,13 +204,11 @@ const Arbitration = [
         }
       },
       {
-        id: 3,
         exchangeto: 1,
         exchange: Bleutrade,
         fee: 0.0015,
         price: 0,
         quantity: 0,
-        sum: null,
         action: 'sell',
         symbol: 'NBC_BTC',
         quote: 'NBC',
@@ -229,13 +223,11 @@ const Arbitration = [
     entry: 0.0004,
     walks: [
       {
-        id: 1,
         exchangeto: 1,
         exchange: Bleutrade,
         fee: 0.9985,
         price: 0,
         quantity: 0,
-        sum: null,
         action: 'buy',
         symbol: 'ETH_BTC',
         quote: 'ETH',
@@ -244,13 +236,11 @@ const Arbitration = [
         transfer: null
       },
       {
-        id: 2,
         exchangeto: 1,
         exchange: Bleutrade,
         fee: 0.9985,
         price: 0,
         quantity: 0,
-        sum: null,
         action: 'buy',
         symbol: 'NBC_ETH',
         quote: 'NBC',
@@ -259,13 +249,64 @@ const Arbitration = [
         transfer: null
       },
       {
-        id: 3,
         exchangeto: 1,
         exchange: Bleutrade,
         fee: 0.0015,
         price: 0,
         quantity: 0,
-        sum: null,
+        action: 'sell',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    name: 'BTC_ETH_NBC_BTC',
+    entry: 0.0004,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'NBC_ETH',
+        quote: 'NBC',
+        base: 'ETH',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
         action: 'sell',
         symbol: 'NBC_BTC',
         quote: 'NBC',

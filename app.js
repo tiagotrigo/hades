@@ -322,6 +322,28 @@ class Hades {
     let update = 0;
     let amount = await walk.exchange.getBalance(walk.quote);
 
+    // Cancelando ordem
+    let transactions = await walk.exchange.getOpenOrders(walk.symbol);
+
+    if (transactions.data.result != null) {
+      await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
+      console.log('Cancelando ordem');
+      
+      let wallet = await walk.exchange.getBalance(walk.quote);
+
+      if (wallet.data.result[0].Available > 0.001) {
+        let rate = await this.calcUpdateRate(walk, wallet.data.result[0].Available)
+
+        await walk.exchange.setBuyLimit(walk.symbol, rate, wallet.data.result[0].Available);
+        console.log('Forçando compra da ordem cancelada.');
+      } else {
+        let rate = await this.calcUpdateRate(walk, walk.quantity)
+
+        await walk.exchange.setBuyLimit(walk.symbol, rate, walk.quantity);
+        console.log('Forçando compra da ordem cancelada.');
+      }
+    }
+
     if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
       update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
       // Comprar
@@ -332,19 +354,7 @@ class Hades {
       await walk.exchange.setBuyLimit(walk.symbol, walk.price, walk.quantity);
       console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
     }
-    // Cancelando ordem
-    let transactions = await walk.exchange.getOpenOrders(walk.symbol);
-
-    if (transactions.data.result != null) {
-      await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
-      console.log('Cancelando ordem');
-      
-      let wallet = await walk.exchange.getBalance(walk.quote);
-      let rate = await calcUpdateRate(walk, wallet.data.result[0].Available)
-
-      await walk.exchange.setBuyLimit(walk.symbol, rate, wallet.data.result[0].Available);
-      console.log('Forçando compra da ordem cancelada.');
-    }
+    
     // É preciso transferir ?
     if (walk.transfer) {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
@@ -358,6 +368,28 @@ class Hades {
   async opportunityTakerSell(walk, entry) {
     let update = 0;
     let amount = await walk.exchange.getBalance(walk.quote);
+    
+    // Cancelando ordem se for preciso
+    let transactions = await walk.exchange.getOpenOrders(walk.symbol);
+
+    if (transactions.data.result != null) {
+      await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
+      console.log('Cancelando ordem');
+
+      let wallet = await walk.exchange.getBalance(walk.quote);
+
+      if (wallet.data.result[0].Available > 0.001) {
+        let rate = await this.calcUpdateRate(walk, wallet.data.result[0].Available);
+
+        await walk.exchange.setSellLimit(walk.symbol, rate, wallet.data.result[0].Available);
+        console.log('Forçando venda da ordem cancelada.');
+      } else {
+        let rate = await this.calcUpdateRate(walk, walk.quantity);
+
+        await walk.exchange.setSellLimit(walk.symbol, rate, walk.quantity);
+        console.log('Forçando venda da ordem cancelada.');
+      }
+    }     
 
     if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
       update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
@@ -369,20 +401,7 @@ class Hades {
       await walk.exchange.setSellLimit(walk.symbol, walk.price, walk.quantity);
       console.log(`Troca de ${walk.quote} (${walk.quantity}) por ${walk.base}`);  
     }
-    
-    // Cancelando ordem se for preciso
-    let transactions = await walk.exchange.getOpenOrders(walk.symbol);
 
-    if (transactions.data.result != null) {
-      await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
-      console.log('Cancelando ordem');
-
-      let wallet = await walk.exchange.getBalance(walk.quote);
-      let rate = await this.calcUpdateRate(walk, wallet.data.result[0].Available)
-
-      await walk.exchange.setSellLimit(walk.symbol, rate, wallet.data.result[0].Available);
-      console.log('Forçando venda da ordem cancelada.');
-    }                   
     // É preciso transferir ?
     if (walk.transfer) {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
@@ -439,7 +458,7 @@ class Hades {
           const profit = await this.calcProfitOutput(arbitration);
 
           if (profit > arbitration.entry) {
-            console.log(arbitration.walks)
+            // //console.log(arbitration.walks)
             // for (let [c, walk] of walks.entries()) {
             //   // Iniciando rotinas
             //   await this.routine(walk, arbitration);
@@ -449,7 +468,6 @@ class Hades {
             //     console.log('Notificando @tiagotrigo');
             //   } 
             // }
-            process.exit();
           } else {
             console.log(arbitration.name, profit);
           }

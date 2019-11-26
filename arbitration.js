@@ -165,59 +165,116 @@ const Arbitration = [
       },
     ]
   },
-  // {
-  //   name: 'BRL_BTC_USDT_BTC',
-  //   entry: 0.0002,
-  //   walks: [
-  //     {
-  //       exchangeto: 3,
-  //       exchange: Bitrecife,
-  //       fee: 0.0024,
-  //       price: 0,
-  //       quantity: 0,
-  //       action: 'sell',
-  //       symbol: 'BTC_BRL',
-  //       quote: 'BTC',
-  //       base: 'BRL',
-  //       receive: {
-  //         asset: 'BTC',
-  //         exchangeto: 3,
-  //         mail: 'tiago.a.trigo@gmail.com'
-  //       },
-  //       transfer: null
-  //     },
-  //     {
-  //       exchangeto: 3,
-  //       exchange: Bitrecife,
-  //       fee: 0.9976,
-  //       price: 0,
-  //       quantity: 0,
-  //       action: 'buy',
-  //       symbol: 'USDT_BRL',
-  //       quote: 'NBC',
-  //       base: 'BRL',
-  //       receive: null,
-  //       transfer: {
-  //         asset: 'USDT',
-  //         exchangeto: 1,
-  //         mail: 'tiago.a.trigo@gmail.com'
-  //       }
-  //     },
-  //     {
-  //       exchangeto: 1,
-  //       exchange: Bleutrade,
-  //       fee: 0.9985,
-  //       price: 0,
-  //       quantity: 0,
-  //       action: 'buy',
-  //       symbol: 'BTC_USDT',
-  //       quote: 'BTC',
-  //       base: 'USDT',
-  //       receive: null,
-  //       transfer: null
-  //     },
-  //   ]
-  // }
+  {
+    name: 'BRL_BTC_NBC_BTC',
+    entry: 0.0004,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.0024,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        id: 2,
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'buy',
+        symbol: 'NBC_BRL',
+        quote: 'NBC',
+        base: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'NBC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        id: 3,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'sell',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    name: 'BTC_ETH_NBC_BTC',
+    entry: 0.0004,
+    walks: [
+      {
+        id: 1,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'buy',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        receive: null,
+        transfer: null
+      },
+      {
+        id: 2,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'buy',
+        symbol: 'NBC_ETH',
+        quote: 'NBC',
+        base: 'ETH',
+        receive: null,
+        transfer: null
+      },
+      {
+        id: 3,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        sum: null,
+        action: 'sell',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
 ];
 
 module.exports = Arbitration;

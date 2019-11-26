@@ -28,7 +28,17 @@ class Hades {
     return this.mask(quantity, 8); 
   }
 
+  calcQntBuyBRL(entry, price, fee) {
+    let quantity = (entry * fee) * price;
+    return this.mask(quantity, 8); 
+  }
+
   calcQntSell(entry, price, fee) {
+    let quantity = (entry * price) * (1 - fee);
+    return this.mask(quantity, 8);
+  }
+
+  calcQntSellBRL(entry, price, fee) {
     let quantity = (entry * price) * (1 - fee);
     return this.mask(quantity, 8);
   }
@@ -92,23 +102,135 @@ class Hades {
             }
           }
         }         
-      } else {
-        if (walk.action === 'sell') {
-          for (const order of orders) {
-            sum = sum + order.Quantity;              
-            walk.quantity = arbitration.walks[0].quantity;
-            if (walk.quantity <= sum) {
-              walk.price = order.Rate;
-              break;
+      }
+
+      if (i === 1) {
+        if (walk.quote === arbitration.walks[0].quote) {
+          if (walk.action === 'sell') {
+            for (const order of orders) {
+              sum = sum + order.Quantity;              
+              walk.quantity = arbitration.walks[0].quantity;
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
+            }  
+          } else {
+            for (const order of orders) {
+              sum = sum + order.Quantity;
+              walk.quantity = arbitration.walks[0].quantity;
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
             }
-          }  
+          }
         } else {
-          for (const order of orders) {
-            sum = sum + order.Quantity;
-            walk.quantity = arbitration.walks[0].quantity;
-            if (walk.quantity <= sum) {
-              walk.price = order.Rate;
-              break;
+          if (walk.action === 'sell') {
+            for (const order of orders) {
+              sum = sum + order.Quantity;
+              if (walk.base === 'BRL') {
+                if (arbitration.walks[0].action === 'sell') {
+                  calc = this.calcQntSellBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
+                } else {
+                  calc = this.calcQntBuyBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
+                }
+              } else {
+                calc = arbitration.walks[0].quantity;
+              }
+              walk.quantity = this.calcQntSell(this.mask(calc, 8), order.Rate, walk.fee);
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
+            }  
+          } else {
+            for (const order of orders) {
+              sum = sum + order.Quantity;   
+              if (walk.base === 'BRL') {
+                if (arbitration.walks[0].action === 'sell') {
+                  calc = this.calcQntSellBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
+                } else {
+                  calc = this.calcQntBuyBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
+                }
+              } else {
+                calc = arbitration.walks[0].quantity;
+              }
+              walk.quantity = this.calcQntBuy(this.mask(calc, 8), order.Rate, walk.fee);
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      if (i === 2) {
+        if (arbitration.walks[1].quote === arbitration.walks[2].quote) {
+          if (walk.action === 'sell') {
+            for (const order of orders) {
+              sum = sum + order.Quantity;              
+              walk.quantity = arbitration.walks[1].quantity;
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
+            }  
+          } else {
+            for (const order of orders) {
+              sum = sum + order.Quantity;
+              walk.quantity = arbitration.walks[1].quantity;
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
+            }
+          }
+        } else {
+          if (walk.action === 'sell') {
+            for (const order of orders) {
+              sum = sum + order.Quantity;
+              if (walk.base === 'BRL') {
+                if (arbitration.walks[1].action === 'sell') {
+                  calc = this.calcQntSellBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
+                } else {
+                  calc = this.calcQntBuyBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
+                }
+              } else {
+                if (arbitration.walks[1].action === 'sell') {
+                  calc = arbitration.walks[1].quantity;
+                } else {
+                  calc = arbitration.walks[1].quantity;
+                }
+              }
+              walk.quantity = this.calcQntSell(this.mask(calc, 8), order.Rate, walk.fee);
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
+            }  
+          } else {
+            for (const order of orders) {
+              sum = sum + order.Quantity;   
+              if (walk.base === 'BRL') {
+                if (arbitration.walks[1].action === 'sell') {
+                  calc = this.calcQntSellBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
+                } else {
+                  calc = this.calcQntBuyBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
+                }
+              } else {
+                if (arbitration.walks[1].action === 'sell') {
+                  calc = arbitration.walks[1].quantity;
+                } else {
+                  calc = arbitration.walks[1].quantity;
+                }
+              }
+              walk.quantity = this.calcQntBuy(this.mask(calc, 8), order.Rate, walk.fee);
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
             }
           }
         }
@@ -300,6 +422,7 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
               } 
             }
+            
           } else {
             console.log(arbitration.name, profit);
           }

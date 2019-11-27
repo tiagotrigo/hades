@@ -331,7 +331,7 @@ class Hades {
       
       let wallet = await walk.exchange.getBalance(walk.quote);
 
-      if (wallet.data.result[0].Available > 0.001) {
+      if (wallet.data.result[0].Available >= 0.001 && walk.quote != 'BTC') {
         let rate = await this.calcUpdateRate(walk, wallet.data.result[0].Available)
 
         await walk.exchange.setBuyLimit(walk.symbol, rate, wallet.data.result[0].Available);
@@ -344,7 +344,7 @@ class Hades {
       }
     }
 
-    if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
+    if ((amount.data.result[0].Available * walk.price) >= 0.001 && walk.quote != 'BTC') {
       update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
       // Comprar
       await walk.exchange.setBuyLimit(walk.symbol, update, amount.data.result[0].Available);
@@ -378,7 +378,7 @@ class Hades {
 
       let wallet = await walk.exchange.getBalance(walk.quote);
 
-      if (wallet.data.result[0].Available > 0.001) {
+      if (wallet.data.result[0].Available >= 0.001 && walk.quote != 'BTC') {
         let rate = await this.calcUpdateRate(walk, wallet.data.result[0].Available);
 
         await walk.exchange.setSellLimit(walk.symbol, rate, wallet.data.result[0].Available);
@@ -391,7 +391,7 @@ class Hades {
       }
     }     
 
-    if ((amount.data.result[0].Available * walk.price) >= 0.0001) {
+    if ((amount.data.result[0].Available * walk.price) >= 0.001 && walk.quote != 'BTC') {
       update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
       // Vender
       await walk.exchange.setSellLimit(walk.symbol, update, amount.data.result[0].Available);

@@ -1,10 +1,7 @@
 'use stricts';
 
 const R = require('ramda');
-const Exc = require('./exc.js');
-const Bitrecife = require('./bitrecife.js');
-const Bleutrade = require('./bleutrade.js');
-const coins = require('./coins.js');
+const Bleutrade = require('./bleutrade');
 const Telegram = require('./telegram');
 
 class Hades {
@@ -36,91 +33,73 @@ class Hades {
   calcBuy(amount, rate, fee) {   
     const qnt = (amount * fee) / rate;
 
-    return qnt;
+    return this.mask(qnt, 8);
   }
 
   // Sell
   calcSell(amount, rate, fee) {
-    const qnt = (amount * rate);
+    const qnt = (amount * rate) * (1 - fee);
 
-    return qnt;
+    return this.mask(qnt, 8);
   }
 
-  async amiBuy(exchange, entry, market, fee) {
-    let ex   = await exchange.getOrderBook(market, 'SELL', 3);
-    let rate  = ex.sell[0].Rate;
-    let qnt  = this.calcBuy(entry, rate, fee);
+  async calcUpdateRate(exchange, market, quantity, type) {
+    let sum = 0;
+    let price = 0;
 
-    return {
-      rate,
-      qnt
+    // Livro de ofertas
+    let book = await exchange.getOrderBook(market, 'ALL', 3);
+    // Verificando a ação 
+    let orders = type === 'buy' ? book.sell : book.buy;
+
+    for (let order of orders) {
+      sum = sum + order.Quantity;
+      if (quantity <= sum) {
+        price = order.Rate;
+        break;
+      }
     }
-  }
 
-  async amiSell(exchange, entry, market) {
-    let ex   = await exchange.getOrderBook(market, 'ALL', 3);
-    let rate = ex.sell[0].Rate - 0.00000001;
-    let ami  = ex.buy[0].Rate + 0.00000001;
-    let qnt  = this.calcSell(entry, ami);
-
-    return {
-      rate,
-      ami,
-      qnt
-    }
+    return price;
   }
 
   async run() {
     do {
       try {
-        for (let coin of coins) {
-          const {
-            symbol,
-            divisor,
-            dividend
-          } = coin;
+        let orderA = await Bleutrade.getOrderBook('NBC_BTC', 'ALL', 3);
+        let qntA = this.calcBuy(0.0002, orderA.sell[0].Rate, 0.9985);
+        let sumA = await this.calcUpdateRate(Bleutrade, 'NBC_BTC', qntA, 'buy');
 
-          let buy = await this.amiBuy(Bleutrade, this.min, 'ETH_USDT', 0.9985);
-          let sell = await this.amiSell(Exc, buy.qnt, 'ETH_USDT');
+        let orderB = await Bleutrade.getOrderBook('NBC_USDT', 'ALL', 3);
+        let qntB = this.calcSell(qntA, orderB.buy[0].Rate, 0.0015);
 
-          let book = await Exc.getOrderBook('ETH_USDT', 'SELL', 2);
-          let order = await Exc.getOpenOrders('ETH_USDT');
+        let orderC = await Bleutrade.getOrderBook('BTC_USDT', 'ALL', 3);
+        let qntC = this.calcBuy(qntB, orderC.sell[0].Rate, 0.9985);
+        let sumC = await this.calcUpdateRate(Bleutrade, 'BTC_USDT', qntC, 'buy');
 
-          if (sell.qnt > this.min && order.data.result === null) {
-            // Criando compra
-            await Bleutrade.setBuyLimit('ETH_USDT', buy.rate, buy.qnt);
-            console.log('Trocando USDT por ETH')
-            // Transferência
-            await Bleutrade.setDirectTransfer('ETH', buy.qnt, 2, 'tiago.a.trigo@gmail.com');
-            console.log('Enviando ETH para Exccrippto')
-            // Ativando AMI de venda
-            await Exc.setSellAmi('ETH_USDT', sell.rate, sell.ami, buy.qnt);
-            console.log('Ativando AMI de venda')
-          } else if (book.sell[0].Rate != (order.data.result && order.data.result[0].Price)) {
-            let qnt = order.data.result[0].Quantity;
-            let updateRate = await this.amiSell(Exc, qnt, 'ETH_USDT');
+        if (this.mask(qntC, 8) > 0.0002) {
+          await Bleutrade.setBuyLimit('NBC_BTC', sumA, qntA);
+          console.log('Trocando BTC por NBC');
 
-            // se ordem ami ativa, sempre deixando ela na primeira
-            await Exc.setOrderCancel(order.data.result[0].OrderID);
-            console.log('Realocando na primeira posição');
+          let walletA = await Bleutrade.getBalance('NBC');
+          let updateA = await this.calcUpdateRate(Bleutrade, 'NBC_USDT', walletA.data.result[0].Available, 'sell');
 
-            await Exc.setSellAmi('ETH_USDT', updateRate.rate, updateRate.ami, qnt);
-            console.log('Reabrindo ordem AMI de venda')
-          } else if (order.data.result && order.data.result[0].Type === 'BUY') {
-            // se ordem ami ativa, sempre deixando ela na primeira
-            await Exc.setOrderCancel(order.data.result[0].OrderID);
-            console.log('Cancelando ordem AMI de compra');
+          await Bleutrade.setSellLimit('NBC_USDT', updateA, walletA.data.result[0].Available);
+          console.log('Trocando NBC por USDT');
 
-            let balance = await Exc.getBalance('USDT');
+          let walletB = await Bleutrade.getBalance('USDT');
+          let calcB = this.calcBuy(walletB.data.result[0].Available, orderC.sell[0].Rate, 0.9985);
+          let updateB = await this.calcUpdateRate(Bleutrade, 'BTC_USDT', calcB, 'buy');
 
-            await Exc.setDirectTransfer('USDT', balance.data.result[0].Available, 1, 'tiago.a.trigo@gmail.com');
-            console.log('Enviando ETH para Bleutrade');
-          } else if (order.data.result != null) {
-            console.log(order.data.result[0]);
-            console.log(' ');
-          } else {
-            console.log('ETH_USDT', sell.qnt)
-          }
+          await Bleutrade.setBuyLimit('BTC_USDT', updateB, calcB);
+          console.log('Trocando USDT por BTC');
+
+          await Telegram.sendMessage(`[BTC_NBC_USDT_BTC]: ${this.mask(qntC, 8)}`);
+          console.log('Notificando @tiagotrigo');
+
+          await this.wait(1000)          
+        } else {
+          console.log(this.mask(qntC, 8));
         }
       } catch(e) {
         console.log(e);

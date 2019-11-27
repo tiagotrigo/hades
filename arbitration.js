@@ -316,149 +316,104 @@ const Arbitration = [
       },
     ]
   },
-  {
-    name: 'BTC_USDT_NBC_BTC',
-    entry: 0.0004,
-    walks: [
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.0025,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        receive: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'NBC_USDT',
-        quote: 'NBC',
-        base: 'USDT',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'NBC_BTC',
-        quote: 'NBC',
-        base: 'BTC',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },
-  {
-    name: 'BTC_USDT_NBC_BTC',
-    entry: 0.0004,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'NBC_USDT',
-        quote: 'NBC',
-        base: 'USDT',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'NBC_BTC',
-        quote: 'NBC',
-        base: 'BTC',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },
-  {
-    name: 'BTC_NBC_USDT_BTC',
-    entry: 0.0004,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'NBC_BTC',
-        quote: 'NBC',
-        base: 'BTC',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.0015,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'NBC_USDT',
-        quote: 'NBC',
-        base: 'USDT',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },
+  // {
+  //   name: 'BTC_USDT_NBC_BTC',
+  //   entry: 0.0004,
+  //   walks: [
+  //     {
+  //       exchangeto: 2,
+  //       exchange: Exc,
+  //       fee: 0.0025,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'BTC_USDT',
+  //       quote: 'BTC',
+  //       base: 'USDT',
+  //       receive: {
+  //         asset: 'BTC',
+  //         exchangeto: 2,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       },
+  //       transfer: {
+  //         asset: 'USDT',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'NBC_USDT',
+  //       quote: 'NBC',
+  //       base: 'USDT',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.0015,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'NBC_BTC',
+  //       quote: 'NBC',
+  //       base: 'BTC',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //   ]
+  // },
+  // {
+  //   name: 'BTC_USDT_NBC_BTC',
+  //   entry: 0.0004,
+  //   walks: [
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.0015,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'BTC_USDT',
+  //       quote: 'BTC',
+  //       base: 'USDT',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'NBC_USDT',
+  //       quote: 'NBC',
+  //       base: 'USDT',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.0015,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'NBC_BTC',
+  //       quote: 'NBC',
+  //       base: 'BTC',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //   ]
+  // },
 ];
 
 module.exports = Arbitration;

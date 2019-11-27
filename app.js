@@ -457,7 +457,7 @@ class Hades {
           // Verificando se a lucro
           const profit = await this.calcProfitOutput(arbitration);
 
-          if (profit < arbitration.entry) {
+          if (profit > arbitration.entry) {
             for (let [c, walk] of walks.entries()) {
               // Iniciando rotinas
               await this.routine(walk, arbitration);
@@ -467,7 +467,7 @@ class Hades {
                 console.log('Notificando @tiagotrigo');
               } 
             }
-            process.exit();
+            // process.exit();
           } else {
             console.log(arbitration.name, profit);
           }

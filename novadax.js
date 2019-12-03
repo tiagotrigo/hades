@@ -55,9 +55,11 @@ const Novadax = {
           symbol: market,
           limit: size
         }
-      })
-
-      resolve(data)
+      }).then((data) => {
+        resolve(data.data.data)  
+      }).catch((er) => {
+        reject(er)
+      })      
     })
   },
   getBalance: function() {

@@ -9,7 +9,8 @@ const Endpoints = {
 		exc: 'https://trade.exccripto.com/api/v3',
 		bomesp: 'https://exchange.bomesp.com.br',
 		awesomeapi: 'https://economia.awesomeapi.com.br',
-		telegram: 'https://api.telegram.org/bot964920676:AAHv6HXV2CgHT4he7NOSTYuxYQmtB3PKkTw'
+		telegram: 'https://api.telegram.org/bot964920676:AAHv6HXV2CgHT4he7NOSTYuxYQmtB3PKkTw',
+		bitpreco: 'https://api.bitpreco.com'
 	}
 };
 

@@ -7,7 +7,7 @@ const Bleutrade = require('./bleutrade.js');
 const Arbitration = [
   {
     name: 'ETH_BTC',
-    entry: 0.0004,
+    entry: 0.0035,
     walks: [
       {
         exchangeto: 1,
@@ -47,7 +47,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC',
-    entry: 0.0004,
+    entry: 0.0035,
     walks: [
       {
         exchangeto: 2,
@@ -167,7 +167,7 @@ const Arbitration = [
   },
   {
     name: 'BRL_BTC_NBC_BTC',
-    entry: 0.0004,
+    entry: 0.0035,
     walks: [
       {
         exchangeto: 3,
@@ -220,7 +220,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_ETH_NBC_BTC',
-    entry: 0.0004,
+    entry: 0.0035,
     walks: [
       {
         exchangeto: 1,
@@ -265,7 +265,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_ETH_NBC_BTC',
-    entry: 0.0004,
+    entry: 0.0035,
     walks: [
       {
         exchangeto: 2,

@@ -76,15 +76,15 @@ class Hades {
     let calc = 0;
     let price = 0;
 
-    for (const [i, walk] of arbitration.walks.entries()) {
+    for (let [i, walk] of arbitration.walks.entries()) {
       // Livro de ofertas
       const book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
       // Verificando a ação 
-      const orders = walk.action === 'buy' ? book.sell : book.buy;
+      let orders = walk.action === 'buy' ? book.sell : book.buy;
 
       if (i === 0) {
         if (walk.action === 'sell') {
-          for (const order of orders) {
+          for (let [index, order] of orders.entries()) {
             sum = sum + order.Quantity;
             walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT') ? arbitration.entry : this.calcQntSell(arbitration.entry, order.Rate, walk.fee);
             if (walk.quantity <= sum) {
@@ -93,7 +93,7 @@ class Hades {
             }
           }  
         } else {
-          for (const order of orders) {
+          for (let [index, order] of orders.entries()) {
             sum = sum + order.Quantity;
             walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT') ? arbitration.entry : this.calcQntBuy(arbitration.entry, order.Rate, walk.fee);
             if (walk.quantity <= sum) {
@@ -107,7 +107,7 @@ class Hades {
       if (i === 1) {
         if (arbitration.walks[1].quote === arbitration.walks[0].quote) {
           if (walk.action === 'sell') {
-            for (const order of orders) {
+            for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;              
               walk.quantity = arbitration.walks[0].quantity;
               if (walk.quantity <= sum) {
@@ -116,7 +116,7 @@ class Hades {
               }
             }  
           } else {
-            for (const order of orders) {
+            for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;
               walk.quantity = arbitration.walks[0].quantity;
               if (walk.quantity <= sum) {
@@ -127,7 +127,7 @@ class Hades {
           }
         } else {
           if (walk.action === 'sell') {
-            for (const order of orders) {
+            for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;
               if (walk.base === 'BRL') {
                 if (arbitration.walks[0].action === 'sell') {
@@ -151,7 +151,7 @@ class Hades {
               }
             }  
           } else {
-            for (const order of orders) {
+            for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;   
               if (walk.base === 'BRL') {
                 if (arbitration.walks[0].action === 'sell') {
@@ -181,7 +181,7 @@ class Hades {
       if (i === 2) {
         if (arbitration.walks[1].quote === arbitration.walks[2].quote) {
           if (walk.action === 'sell') {
-            for (const order of orders) {
+            for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;              
               walk.quantity = arbitration.walks[1].quantity;
               if (walk.quantity <= sum) {
@@ -190,7 +190,7 @@ class Hades {
               }
             }  
           } else {
-            for (const order of orders) {
+            for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;
               walk.quantity = arbitration.walks[1].quantity;
               if (walk.quantity <= sum) {
@@ -201,7 +201,7 @@ class Hades {
           }
         } else {
           if (walk.action === 'sell') {
-            for (const order of orders) {
+            for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;
               if (walk.base === 'BRL') {
                 if (arbitration.walks[1].action === 'sell') {
@@ -225,7 +225,7 @@ class Hades {
               }
             }  
           } else {
-            for (const order of orders) {
+            for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;   
               if (walk.base === 'BRL') {
                 if (arbitration.walks[1].action === 'sell') {
@@ -261,9 +261,9 @@ class Hades {
     // Livro de ofertas
     const book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
     // Verificando a ação 
-    const orders = walk.action === 'buy' ? book.sell : book.buy;
+    let orders = walk.action === 'buy' ? book.sell : book.buy;
 
-    for (const order of orders) {
+    for (let [index, order] of orders.entries()) {
       sum = sum + order.Quantity;
       if (quantity <= sum) {
         price = order.Rate;
@@ -285,10 +285,10 @@ class Hades {
     // Livro de ofertas
     const book = await walks[walks.length - 1].exchange.getOrderBook(walks[walks.length - 1].symbol, 'ALL', 5);
     // Verificando a ação 
-    const orders = walks[walks.length - 1].action === 'buy' ? book.sell : book.buy;
+    let orders = walks[walks.length - 1].action === 'buy' ? book.sell : book.buy;
 
     if (walks[walks.length - 1].action === 'sell') {
-      for (const order of orders) {
+      for (let [index, order] of orders.entries()) {
         sum = sum + order.Quantity;
         if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
           output = walks[walks.length - 1].quantity;
@@ -301,7 +301,7 @@ class Hades {
         }
       }
     } else {
-      for (const order of orders) {
+      for (let [index, order] of orders.entries()) {
         sum = sum + order.Quantity;
         if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
           output = walks[walks.length - 1].quantity;
@@ -457,7 +457,7 @@ class Hades {
           // Verificando se a lucro
           const profit = await this.calcProfitOutput(arbitration);
 
-          if (profit > arbitration.entry) {            
+          if (profit > arbitration.entry) {  
             for (let [c, walk] of walks.entries()) {
               // Iniciando rotinas
               await this.routine(walk, arbitration);

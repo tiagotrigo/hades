@@ -87,7 +87,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC',
-    entry: 0.001,
+    entry: 0.0002,
     walks: [
       {
         exchangeto: 2,
@@ -125,46 +125,46 @@ const Arbitration = [
       },
     ]
   },
-  // {
-  //   name: 'LTC_BTC',
-  //   entry: 0.001,
-  //   walks: [
-  //     {
-  //       exchangeto: 1,
-  //       exchange: Bleutrade,
-  //       fee: 0.9985,
-  //       price: 0,
-  //       quantity: 0,
-  //       action: 'buy',
-  //       symbol: 'LTC_BTC',
-  //       quote: 'LTC',
-  //       base: 'BTC',
-  //       receive: null,
-  //       transfer: {
-  //         asset: 'LTC',
-  //         exchangeto: 2,
-  //         mail: 'tiago.a.trigo@gmail.com'
-  //       }
-  //     },
-  //     {
-  //       exchangeto: 2,
-  //       exchange: Exc,
-  //       fee: 0.0025,
-  //       price: 0,
-  //       quantity: 0,
-  //       action: 'sell',
-  //       symbol: 'LTC_BTC',
-  //       quote: 'LTC',
-  //       base: 'BTC',
-  //       receive: null,
-  //       transfer: {
-  //         asset: 'BTC',
-  //         exchangeto: 1,
-  //         mail: 'tiago.a.trigo@gmail.com'
-  //       }
-  //     },
-  //   ]
-  // },
+  {
+    name: 'LTC_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'LTC_BTC',
+        quote: 'LTC',
+        base: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'LTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'LTC_BTC',
+        quote: 'LTC',
+        base: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
   {
     name: 'BRL_BTC_NBC_BTC',
     entry: 0.0035,

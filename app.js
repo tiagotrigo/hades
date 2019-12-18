@@ -78,7 +78,7 @@ class Hades {
 
     for (let [i, walk] of arbitration.walks.entries()) {
       // Livro de ofertas
-      const book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
+      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
       // Verificando a ação 
       let orders = walk.action === 'buy' ? book.sell : book.buy;
 
@@ -259,7 +259,7 @@ class Hades {
     let price = 0;
 
     // Livro de ofertas
-    const book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
+    let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
     // Verificando a ação 
     let orders = walk.action === 'buy' ? book.sell : book.buy;
 
@@ -283,12 +283,12 @@ class Hades {
     let output = 0;
 
     // Livro de ofertas
-    const book = await walks[walks.length - 1].exchange.getOrderBook(walks[walks.length - 1].symbol, 'ALL', 5);
+    let book = await walks[walks.length - 1].exchange.getOrderBook(walks[walks.length - 1].symbol, 'ALL', 5);
     // Verificando a ação 
     let orders = walks[walks.length - 1].action === 'buy' ? book.sell : book.buy;
 
     if (walks[walks.length - 1].action === 'sell') {
-      for (let [index, order] of orders.entries()) {
+      for (let [index, order] of orders) {
         sum = sum + order.Quantity;
         if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
           output = walks[walks.length - 1].quantity;
@@ -301,7 +301,7 @@ class Hades {
         }
       }
     } else {
-      for (let [index, order] of orders.entries()) {
+      for (let [index, order] of orders) {
         sum = sum + order.Quantity;
         if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
           output = walks[walks.length - 1].quantity;
@@ -450,7 +450,7 @@ class Hades {
   async run() {
     do {
       try {
-        for (const [i, arbitration] of Arbitrations.entries()) {
+        for (let [i, arbitration] of Arbitrations.entries()) {
           const { walks } = arbitration;
           // Calculando a quantidade
           await this.calcQntOutput(arbitration);

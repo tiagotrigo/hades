@@ -87,7 +87,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC',
-    entry: 0.0015,
+    entry: 0.0004,
     walks: [
       {
         exchangeto: 2,
@@ -127,7 +127,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC',
-    entry: 0.0015,
+    entry: 0.0004,
     walks: [
       {
         exchangeto: 1,

@@ -288,7 +288,7 @@ class Hades {
     let orders = walks[walks.length - 1].action === 'buy' ? book.sell : book.buy;
 
     if (walks[walks.length - 1].action === 'sell') {
-      for (let [index, order] of orders) {
+      for (let [index, order] of orders.entries()) {
         sum = sum + order.Quantity;
         if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
           output = walks[walks.length - 1].quantity;
@@ -301,7 +301,7 @@ class Hades {
         }
       }
     } else {
-      for (let [index, order] of orders) {
+      for (let [index, order] of orders.entries()) {
         sum = sum + order.Quantity;
         if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
           output = walks[walks.length - 1].quantity;
@@ -455,7 +455,7 @@ class Hades {
           // Calculando a quantidade
           await this.calcQntOutput(arbitration);
           // Verificando se a lucro
-          const profit = await this.calcProfitOutput(arbitration);
+          let profit = await this.calcProfitOutput(arbitration);
 
           if (profit > arbitration.entry) {  
             for (let [c, walk] of walks.entries()) {

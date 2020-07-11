@@ -3,7 +3,7 @@
 const R = require('ramda');
 const await = require('await');
 const Telegram = require('./telegram');
-const Bitrecife = require('./bitrecife');
+const Bullgain = require('./bullgain');
 const sprintf = require('sprintf-js').sprintf;
 const Arbitrations = require('./arbitration');
 
@@ -61,8 +61,8 @@ class Hades {
   async rebalancingBalance(walk, entry) {
     let exchangeto = this.exchangeNameSelected(walk.receive.exchangeto);
 
-    await Bitrecife.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
-    console.log(`Enviando ${walk.receive.asset} (${entry}) da Bitrecife para ${exchangeto}`);
+    await Bullgain.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
+    console.log(`Enviando ${walk.receive.asset} (${entry}) da Bullgain para ${exchangeto}`);
   }
 
   async calcQntOutput(arb) {
@@ -276,33 +276,15 @@ class Hades {
         }
       }
     }
-    
+
     return output;
   }  
 
   // Ação de compra
   async oppTakerBuy(walk, entry) {
-    let update = 0;
-    let amount = await walk.exchange.getBalance(walk.quote);
-    // Verificando se existe alguma ordem em aberto
-    let transactions = await walk.exchange.getOpenOrders(walk.symbol);
-    // Se existir
-    if (transactions.data.result != null) {
-      // Cancele ordem
-      await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
-      console.log('Cancelando ordem');
-      // Procurando a melhor oferta
-      let rate = await this.calcUpdateRate(walk, amount.data.result[0].Available);
-      // Realizando a compra forçada
-      await walk.exchange.setBuyLimit(walk.symbol, rate, amount.data.result[0].Available);
-      console.log('Forçando compra da ordem cancelada.');
-    }
-
-    update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
     // Comprar
-    await walk.exchange.setBuyLimit(walk.symbol, update, amount.data.result[0].Available);
-    console.log(`Troca de ${walk.base} por ${walk.quote} (${amount.data.result[0].Available})`);
-    
+    await walk.exchange.setBuyLimit(walk.symbol, walk.price, this.mask(walk.quantity, 8));
+    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
     // É preciso transferir ?
     if (walk.transfer) {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
@@ -315,26 +297,9 @@ class Hades {
 
   // Ação de venda
   async oppTakerSell(walk, entry) { 
-    let update = 0;
-    let amount = await walk.exchange.getBalance(walk.quote);
-    // Verificando se existe alguma ordem em aberto
-    let transactions = await walk.exchange.getOpenOrders(walk.symbol);
-    // Se existir
-    if (transactions.data.result != null) {
-      // Cancele ordem
-      await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
-      console.log('Cancelando ordem');
-      // Procurando a melhor oferta
-      let rate = await this.calcUpdateRate(walk, amount.data.result[0].Available);
-      // Realizando a venda forçada
-      await walk.exchange.setSellLimit(walk.symbol, rate, amount.data.result[0].Available);
-      console.log('Forçando venda da ordem cancelada.');
-    }
-
-    update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
     // Vender
-    await walk.exchange.setSellLimit(walk.symbol, update, amount.data.result[0].Available);
-    console.log(`Troca de ${walk.base} por ${walk.quote} (${amount.data.result[0].Available})`);
+    await walk.exchange.setSellLimit(walk.symbol, walk.price, this.mask(walk.quantity, 8));
+    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
     
     // É preciso transferir ?
     if (walk.transfer) {
@@ -392,17 +357,15 @@ class Hades {
           const profit = await this.calcProfitOutput(arb);
 
           if (profit > arb.entry) {  
-            console.log(arb.name, sprintf(`%.8f`, profit), 'OK');
-            // for (let [y, walk] of walks.entries()) {
-            //   // Iniciando rotinas
-            //   //await this.routine(walk, arbitration);
-              
-            //   // process.exit();
-            // }
+            for (let [y, walk] of walks.entries()) {
+              // Iniciando rotinas
+              await this.routine(walk, arb);
+            }            
           } else {
             console.log(arb.name, sprintf(`%.8f`, profit));
           }
           await this.wait(1000);
+          
         }  
       } catch(e) {
         console.log(e.message)

@@ -361,6 +361,8 @@ class Hades {
               // Iniciando rotinas
               await this.routine(walk, arb);
             }            
+            await Telegram.sendMessage(`[${arb.name}]: ${sprintf(`%.8f`, profit)}`)
+            console.log('Enviando notificação por telegram');
           } else {
             console.log(arb.name, sprintf(`%.8f`, profit));
           }

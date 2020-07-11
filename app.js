@@ -3,13 +3,14 @@
 const R = require('ramda');
 const await = require('await');
 const Telegram = require('./telegram');
-const Bleutrade = require('./bleutrade');
+const Bitrecife = require('./bitrecife');
+const sprintf = require('sprintf-js').sprintf;
 const Arbitrations = require('./arbitration');
 
 class Hades {
   
   constructor() {
-    this.mail = 'tiago.a.trigo@gmail.com'
+    this.mail = 'tiago.a.trigo@gmail.com';
   }
 
   wait(ms) {
@@ -19,28 +20,18 @@ class Hades {
   }
 
   mask(num, precision) {
-    const output = Math.pow(10, precision); 
+    let output = Math.pow(10, precision); 
     return Math.floor((num * output)) / output;
   }
 
   calcQntBuy(entry, price, fee) {
     let quantity = (entry * fee) / price;
-    return this.mask(quantity, 8); 
-  }
-
-  calcQntBuyBRL(entry, price, fee) {
-    let quantity = (entry * fee) * price;
-    return this.mask(quantity, 8); 
+    return quantity 
   }
 
   calcQntSell(entry, price, fee) {
     let quantity = (entry * price) * (1 - fee);
-    return this.mask(quantity, 8);
-  }
-
-  calcQntSellBRL(entry, price, fee) {
-    let quantity = (entry * price) * (1 - fee);
-    return this.mask(quantity, 8);
+    return quantity
   }
 
   exchangeNameSelected(exchange) {
@@ -56,8 +47,11 @@ class Hades {
       case 3:
         exchangeto = 'Bitrecife';
         break;
+      case 9:
+        exchangeto = 'Bullgain';
+        break;
       default:
-        exchangeto = 'Exchange';
+        process.exit();
         break;
     }
     
@@ -67,58 +61,82 @@ class Hades {
   async rebalancingBalance(walk, entry) {
     let exchangeto = this.exchangeNameSelected(walk.receive.exchangeto);
 
-    await Bleutrade.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
-    console.log(`Enviando ${walk.receive.asset} (${entry}) da Bleutrade para ${exchangeto}`);
+    await Bitrecife.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
+    console.log(`Enviando ${walk.receive.asset} (${entry}) da Bitrecife para ${exchangeto}`);
   }
 
-  async calcQntOutput(arbitration) {
+  async calcQntOutput(arb) {
     let sum = 0;
     let calc = 0;
     let price = 0;
 
-    for (let [i, walk] of arbitration.walks.entries()) {
+    for (let [i, walk] of arb.walks.entries()) {
       // Livro de ofertas
-      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
+      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 3);
       // Verificando a ação 
       let orders = walk.action === 'buy' ? book.sell : book.buy;
 
       if (i === 0) {
         if (walk.action === 'sell') {
-          for (let [index, order] of orders.entries()) {
-            sum = sum + order.Quantity;
-            walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT') ? arbitration.entry : this.calcQntSell(arbitration.entry, order.Rate, walk.fee);
-            if (walk.quantity <= sum) {
-              walk.price = order.Rate;
-              break;
+          if (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') {
+            // Iniciar com o valor de entrada
+            for (let [index, order] of orders.entries()) {
+              sum = sum + order.Quantity;
+              walk.quantity = arb.entry;
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
             }
-          }  
-        } else {
-          for (let [index, order] of orders.entries()) {
-            sum = sum + order.Quantity;
-            walk.quantity = (walk.quote === 'BTC' || walk.quote === 'USDT') ? arbitration.entry : this.calcQntBuy(arbitration.entry, order.Rate, walk.fee);
-            if (walk.quantity <= sum) {
-              walk.price = order.Rate;
-              break;
+          } else {
+            for (let [index, order] of orders.entries()) {
+              sum = sum + order.Quantity;
+              walk.quantity = this.calcQntSell(arb.entry, order.Rate, walk.fee);
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
             }
           }
-        }         
+        } else {
+          if (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') {
+            // Iniciar com o valor de entrada
+            for (let [index, order] of orders.entries()) {
+              sum = sum + order.Quantity;
+              walk.quantity = arb.entry;
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
+            }
+          } else {
+            for (let [index, order] of orders.entries()) {
+              sum = sum + order.Quantity;
+              walk.quantity = this.calcQntBuy(arb.entry, order.Rate, walk.fee);
+              if (walk.quantity <= sum) {
+                walk.price = order.Rate;
+                break;
+              }
+            }
+          }
+        }
       }
 
       if (i === 1) {
-        if (arbitration.walks[1].quote === arbitration.walks[0].quote) {
-          if (walk.action === 'sell') {
+        if (walk.action === 'sell') {
+          if (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') {
             for (let [index, order] of orders.entries()) {
-              sum = sum + order.Quantity;              
-              walk.quantity = arbitration.walks[0].quantity;
+              sum = sum + order.Quantity;
+              walk.quantity = this.calcQntSell(arb.walks[i - 1].quantity, order.Rate, walk.fee);
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
               }
-            }  
+            }
           } else {
             for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;
-              walk.quantity = arbitration.walks[0].quantity;
+              walk.quantity = arb.walks[i - 1].quantity;
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
@@ -126,49 +144,19 @@ class Hades {
             }
           }
         } else {
-          if (walk.action === 'sell') {
+          if (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') {
             for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;
-              if (walk.base === 'BRL') {
-                if (arbitration.walks[0].action === 'sell') {
-                  calc = this.calcQntSellBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
-                } else {
-                  calc = this.calcQntBuyBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
-                }
-              } else {
-                if (arbitration.walks[0].action === 'sell' && arbitration.walks[1].base === arbitration.walks[0].base) {
-                  calc = this.calcQntSell(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
-                } else if (arbitration.walks[0].action === 'buy' && arbitration.walks[1].base === arbitration.walks[0].base) {
-                  calc = this.calcQntBuy(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
-                } else if (arbitration.walks[1].base != arbitration.walks[0].base) {
-                  calc = arbitration.walks[0].quantity;
-                }
-              }
-              walk.quantity = this.calcQntSell(this.mask(calc, 8), order.Rate, walk.fee);
+              walk.quantity = this.calcQntBuy(arb.walks[i - 1].quantity, order.Rate, walk.fee);
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
               }
-            }  
+            }
           } else {
             for (let [index, order] of orders.entries()) {
-              sum = sum + order.Quantity;   
-              if (walk.base === 'BRL') {
-                if (arbitration.walks[0].action === 'sell') {
-                  calc = this.calcQntSellBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
-                } else {
-                  calc = this.calcQntBuyBRL(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
-                }
-              } else {
-                if (arbitration.walks[0].action === 'sell' && arbitration.walks[1].base === arbitration.walks[0].base) {
-                  calc = this.calcQntSell(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
-                } else if (arbitration.walks[0].action === 'buy' && arbitration.walks[1].base === arbitration.walks[0].base) {
-                  calc = this.calcQntBuy(arbitration.walks[0].quantity, arbitration.walks[0].price, arbitration.walks[0].fee);
-                } else if (arbitration.walks[1].base != arbitration.walks[0].base) {
-                  calc = arbitration.walks[0].quantity;
-                }
-              }
-              walk.quantity = this.calcQntBuy(this.mask(calc, 8), order.Rate, walk.fee);
+              sum = sum + order.Quantity;
+              walk.quantity = arb.walks[i - 1].quantity;
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
@@ -179,20 +167,24 @@ class Hades {
       }
 
       if (i === 2) {
-        if (arbitration.walks[1].quote === arbitration.walks[2].quote) {
-          if (walk.action === 'sell') {
+        if (walk.action === 'sell') {
+          if (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') {
             for (let [index, order] of orders.entries()) {
-              sum = sum + order.Quantity;              
-              walk.quantity = arbitration.walks[1].quantity;
+              if (walk.base === 'USDT' || walk.base === 'BRL') {
+                sum = sum + (order.Quantity * order.Rate);
+              } else {
+                sum = sum + order.Quantity;
+              }
+              walk.quantity = this.calcQntBuy(arb.walks[i - 1].quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee);
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
               }
-            }  
+            }
           } else {
             for (let [index, order] of orders.entries()) {
               sum = sum + order.Quantity;
-              walk.quantity = arbitration.walks[1].quantity;
+              walk.quantity = arb.walks[i - 1].quantity;
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
@@ -200,49 +192,23 @@ class Hades {
             }
           }
         } else {
-          if (walk.action === 'sell') {
+          if (walk.quote === 'BTC' || walk.quote === 'USDT' || walk.quote === 'BRL') {
             for (let [index, order] of orders.entries()) {
-              sum = sum + order.Quantity;
-              if (walk.base === 'BRL') {
-                if (arbitration.walks[1].action === 'sell') {
-                  calc = this.calcQntSellBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
-                } else {
-                  calc = this.calcQntBuyBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
-                }
+              if (walk.base === 'USDT' || walk.base === 'BRL') {
+                sum = sum + (order.Quantity * order.Rate);
               } else {
-                if (arbitration.walks[1].action === 'sell' && arbitration.walks[2].base === arbitration.walks[1].base) {
-                  calc = this.calcQntSell(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
-                } else if (arbitration.walks[1].action === 'buy' && arbitration.walks[2].base === arbitration.walks[1].base) {
-                  calc = this.calcQntBuy(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
-                } else if (arbitration.walks[2].base != arbitration.walks[1].base) {
-                  calc = arbitration.walks[1].quantity;
-                }
+                sum = sum + order.Quantity;
               }
-              walk.quantity = this.calcQntSell(this.mask(calc, 8), order.Rate, walk.fee);
+              walk.quantity = this.calcQntSell(arb.walks[i - 1].quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee);
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
               }
-            }  
+            }
           } else {
             for (let [index, order] of orders.entries()) {
-              sum = sum + order.Quantity;   
-              if (walk.base === 'BRL') {
-                if (arbitration.walks[1].action === 'sell') {
-                  calc = this.calcQntSellBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
-                } else {
-                  calc = this.calcQntBuyBRL(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
-                }
-              } else {
-                if (arbitration.walks[1].action === 'sell' && arbitration.walks[2].base === arbitration.walks[1].base) {
-                  calc = this.calcQntSell(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
-                } else if (arbitration.walks[1].action === 'buy' && arbitration.walks[2].base === arbitration.walks[1].base) {
-                  calc = this.calcQntBuy(arbitration.walks[1].quantity, arbitration.walks[1].price, arbitration.walks[1].fee);
-                } else if (arbitration.walks[2].base != arbitration.walks[1].base) {
-                  calc = arbitration.walks[1].quantity;
-                }
-              }
-              walk.quantity = this.calcQntBuy(this.mask(calc, 8), order.Rate, walk.fee);
+              sum = sum + order.Quantity;
+              walk.quantity = arb.walks[i - 1].quantity;
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
@@ -259,7 +225,7 @@ class Hades {
     let price = 0;
 
     // Livro de ofertas
-    let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
+    let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 3);
     // Verificando a ação 
     let orders = walk.action === 'buy' ? book.sell : book.buy;
 
@@ -274,28 +240,29 @@ class Hades {
     return price;
   }  
 
-  async calcProfitOutput(arbitration) {
-    const { 
-      walks 
-    } = arbitration;
+  // Primeiro passo
+  async calcProfitOutput(arb) {
+    const { walks } = arb;
 
     let sum = 0;
     let output = 0;
 
     // Livro de ofertas
-    let book = await walks[walks.length - 1].exchange.getOrderBook(walks[walks.length - 1].symbol, 'ALL', 5);
+    let book = await walks[walks.length - 1].exchange.getOrderBook(walks[walks.length - 1].symbol, 'ALL', 3);
     // Verificando a ação 
     let orders = walks[walks.length - 1].action === 'buy' ? book.sell : book.buy;
 
     if (walks[walks.length - 1].action === 'sell') {
       for (let [index, order] of orders.entries()) {
         sum = sum + order.Quantity;
-        if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
+        // Montando o preço da rotina
+        if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT' || walks[walks.length - 1].quote === 'BRL') {
           output = walks[walks.length - 1].quantity;
         } else {
           output = this.calcQntSell(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
         }
-        if (output > arbitration.entry && walks[walks.length - 1].quantity <= sum) {
+        // Analisando entre as ordens se existe algum lucro
+        if (output > arb.entry && walks[walks.length - 1].quantity <= sum) {
           walks[walks.length - 1].price = order.Rate;
           break;
         }
@@ -303,57 +270,44 @@ class Hades {
     } else {
       for (let [index, order] of orders.entries()) {
         sum = sum + order.Quantity;
-        if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT') {
+        // Montando o preço da rotina
+        if (walks[walks.length - 1].quote === 'BTC' || walks[walks.length - 1].quote === 'USDT' || walks[walks.length - 1].quote === 'BRL') {
           output = walks[walks.length - 1].quantity;
         } else {
           output = this.calcQntBuy(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
         }
-        if (output > arbitration.entry && walks[walks.length - 1].quantity <= sum) {
+        // Analisando entre as ordens se existe algum lucro
+        if (output > arb.entry && walks[walks.length - 1].quantity <= sum) {
           walks[walks.length - 1].price = order.Rate;
           break;
         }
       }
     }
 
-    return this.mask(output, 8);
+    return output;
   }  
 
-  async opportunityTakerBuy(walk, entry) {
+  async oppTakerBuy(walk, entry) {
     let update = 0;
     let amount = await walk.exchange.getBalance(walk.quote);
-
-    // Cancelando ordem
+    // Verificando se existe alguma ordem em aberto
     let transactions = await walk.exchange.getOpenOrders(walk.symbol);
-
+    // Se existir
     if (transactions.data.result != null) {
+      // Cancele ordem
       await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
       console.log('Cancelando ordem');
-      
-      let wallet = await walk.exchange.getBalance(walk.quote);
-
-      if (wallet.data.result[0].Available >= 0.0001 && walk.quote != 'BTC') {
-        let rate = await this.calcUpdateRate(walk, wallet.data.result[0].Available)
-
-        await walk.exchange.setBuyLimit(walk.symbol, rate, wallet.data.result[0].Available);
-        console.log('Forçando compra da ordem cancelada.');
-      } else {
-        let rate = await this.calcUpdateRate(walk, walk.quantity)
-
-        await walk.exchange.setBuyLimit(walk.symbol, rate, walk.quantity);
-        console.log('Forçando compra da ordem cancelada.');
-      }
+      // Procurando a melhor oferta
+      let rate = await this.calcUpdateRate(walk, amount.data.result[0].Available);
+      // Realizando a compra forçada
+      await walk.exchange.setBuyLimit(walk.symbol, rate, amount.data.result[0].Available);
+      console.log('Forçando compra da ordem cancelada.');
     }
 
-    if ((amount.data.result[0].Available * walk.price) >= 0.0001 && walk.quote != 'BTC') {
-      update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
-      // Comprar
-      await walk.exchange.setBuyLimit(walk.symbol, update, amount.data.result[0].Available);
-      console.log(`Troca de ${walk.base} por ${walk.quote} (${amount.data.result[0].Available})`);
-    } else {
-      // Comprar
-      await walk.exchange.setBuyLimit(walk.symbol, walk.price, walk.quantity);
-      console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
-    }
+    update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
+    // Comprar
+    await walk.exchange.setBuyLimit(walk.symbol, update, amount.data.result[0].Available);
+    console.log(`Troca de ${walk.base} por ${walk.quote} (${amount.data.result[0].Available})`);
     
     // É preciso transferir ?
     if (walk.transfer) {
@@ -365,43 +319,28 @@ class Hades {
     }
   }
 
-  async opportunityTakerSell(walk, entry) {
+  async oppTakerSell(walk, entry) { 
     let update = 0;
     let amount = await walk.exchange.getBalance(walk.quote);
-    
-    // Cancelando ordem se for preciso
+    // Verificando se existe alguma ordem em aberto
     let transactions = await walk.exchange.getOpenOrders(walk.symbol);
-
+    // Se existir
     if (transactions.data.result != null) {
+      // Cancele ordem
       await walk.exchange.setOrderCancel(transactions.data.result[0].OrderID);
       console.log('Cancelando ordem');
-
-      let wallet = await walk.exchange.getBalance(walk.quote);
-
-      if (wallet.data.result[0].Available >= 0.0001 && walk.quote != 'BTC') {
-        let rate = await this.calcUpdateRate(walk, wallet.data.result[0].Available);
-
-        await walk.exchange.setSellLimit(walk.symbol, rate, wallet.data.result[0].Available);
-        console.log('Forçando venda da ordem cancelada.');
-      } else {
-        let rate = await this.calcUpdateRate(walk, walk.quantity);
-
-        await walk.exchange.setSellLimit(walk.symbol, rate, walk.quantity);
-        console.log('Forçando venda da ordem cancelada.');
-      }
-    }     
-
-    if ((amount.data.result[0].Available * walk.price) >= 0.0001 && walk.quote != 'BTC') {
-      update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
-      // Vender
-      await walk.exchange.setSellLimit(walk.symbol, update, amount.data.result[0].Available);
-      console.log(`Troca de ${walk.quote} (${amount.data.result[0].Available}) por ${walk.base}`);
-    } else {
-      // Vender
-      await walk.exchange.setSellLimit(walk.symbol, walk.price, walk.quantity);
-      console.log(`Troca de ${walk.quote} (${walk.quantity}) por ${walk.base}`);  
+      // Procurando a melhor oferta
+      let rate = await this.calcUpdateRate(walk, amount.data.result[0].Available);
+      // Realizando a venda forçada
+      await walk.exchange.setSellLimit(walk.symbol, rate, amount.data.result[0].Available);
+      console.log('Forçando venda da ordem cancelada.');
     }
 
+    update = await this.calcUpdateRate(walk, amount.data.result[0].Available);
+    // Vender
+    await walk.exchange.setSellLimit(walk.symbol, update, amount.data.result[0].Available);
+    console.log(`Troca de ${walk.base} por ${walk.quote} (${amount.data.result[0].Available})`);
+    
     // É preciso transferir ?
     if (walk.transfer) {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
@@ -412,36 +351,36 @@ class Hades {
     }
   }
 
-  async routine(walk, arbitration) {
+  async routine(walk, arb) {
     // Se for Bleutrade
     if (walk.exchangeto === 1) {
       if (walk.action === 'sell') {
         // Vender
-        await this.opportunityTakerSell(walk, arbitration.entry);
+        await this.oppTakerSell(walk, arb.entry);
       } else if (walk.action === 'buy') {
         // Comprar
-        await this.opportunityTakerBuy(walk, arbitration.entry);                    
+        await this.oppTakerBuy(walk, arb.entry);                    
       }
     } else {
       // Se for diferente de Bleutrade
       if (walk.receive === null) {
         if (walk.action === 'sell') {
           // Vender
-          await this.opportunityTakerSell(walk, arbitration.entry);
+          await this.oppTakerSell(walk, arb.entry);
         } else if (walk.action === 'buy') {
           // Comprar
-          await this.opportunityTakerBuy(walk, arbitration.entry);                    
+          await this.oppTakerBuy(walk, arb.entry);                    
         }
       } else {
         // Enviando BTC ou USDT para outras exchanges
-        await this.rebalancingBalance(walk, arbitration.entry);
+        await this.rebalancingBalance(walk, arb.entry);
 
         if (walk.action === 'sell') {
           // Vender
-          await this.opportunityTakerSell(walk, arbitration.entry);
+          await this.oppTakerSell(walk, arb.entry);
         } else if (walk.action === 'buy') {
           // Comprar
-          await this.opportunityTakerBuy(walk, arbitration.entry);                    
+          await this.oppTakerBuy(walk, arb.entry);                    
         }
       }
     }
@@ -450,26 +389,22 @@ class Hades {
   async run() {
     do {
       try {
-        for (let [i, arbitration] of Arbitrations.entries()) {
-          const { walks } = arbitration;
+        for (let [i, arb] of Arbitrations.entries()) {
+          const { walks } = arb;
           // Calculando a quantidade
-          await this.calcQntOutput(arbitration);
+          await this.calcQntOutput(arb);
           // Verificando se a lucro
-          let profit = await this.calcProfitOutput(arbitration);
+          const profit = await this.calcProfitOutput(arb);
 
-          if (profit > arbitration.entry) {  
-            for (let [c, walk] of walks.entries()) {
+          if (profit > arb.entry) {  
+            for (let [y, walk] of walks.entries()) {
               // Iniciando rotinas
-              await this.routine(walk, arbitration);
-              // Notificação
-              if (c === (walks.length - 1)) {
-                await Telegram.sendMessage(`[${arbitration.name}]: ${this.mask(profit, 8)}`);
-                console.log('Notificando @tiagotrigo');
-              } 
+              //await this.routine(walk, arbitration);
+              console.log(walk)
+              // process.exit();
             }
-            // process.exit();
           } else {
-            console.log(arbitration.name, profit);
+            console.log(arb.name, sprintf(`%.8f`, profit));
           }
           await this.wait(1000);
         }  

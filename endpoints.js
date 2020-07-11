@@ -11,7 +11,8 @@ const Endpoints = {
 		awesomeapi: 'https://economia.awesomeapi.com.br',
 		telegram: 'https://api.telegram.org/bot964920676:AAHv6HXV2CgHT4he7NOSTYuxYQmtB3PKkTw',
 		bitpreco: 'https://api.bitpreco.com',
-		bullgain: 'https://trade.bullgain.com/api/v3'
+		bullgain: 'https://trade.bullgain.com/api/v3',
+		staging: 'https://staging.bleu.com.br/api/v3'
 	}
 };
 

@@ -7,7 +7,7 @@ const Bullgain = require('./bullgain.js');
 const Staging = require('./staging.js');
 
 const Arbitration = [
-  {
+  /*{
     name: 'ETH_BTC',
     entry: 0.0002,
     walks: [
@@ -248,7 +248,7 @@ const Arbitration = [
         },
         transfer: {
           asset: 'ETH',
-          exchangeto: 1,
+          exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         }
       },
@@ -336,7 +336,7 @@ const Arbitration = [
         },
         transfer: {
           asset: 'LTC',
-          exchangeto: 1,
+          exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         }
       },
@@ -358,7 +358,51 @@ const Arbitration = [
         }
       },
     ]
-  },
+  },*/
+  {
+    name: 'BTC_USDT',
+    entry: 0.2,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 9,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  }, 
 ];
 
 module.exports = Arbitration;

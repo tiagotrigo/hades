@@ -89,6 +89,7 @@ class Hades {
   // Primeiro passo
   async calcQntOutput(arb) {
     let sum = 0;
+    let old = 0;
     let calc = 0;
     let price = 0;
 
@@ -192,10 +193,15 @@ class Hades {
         // Calcular, com quantos USD posso comprar BTC ou outro moeda
         if (walk.base === 'BRL' || walk.base === 'USDT') {
           // Se for venda, calcule uma venda, senão calcule uma compra
-          if (arb.walks[i - 1].action === 'sell') {
+          if (walk.action === 'sell') {
             for (let [s, order] of orders.entries()) {
-              sum = sum + (order.Quantity * order.Rate);
-              walk.quantity = this.calcQntSell(arb.walks[i - 1].quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee);
+              sum = sum + order.Quantity;
+              if (arb.walks[i - 1].action === 'sell') {
+                old = this.calcQntSell(arb.walks[i - 1].quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee);
+              } else {
+                old = this.calcQntBuy(arb.walks[i - 1].quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee);
+              }
+              walk.quantity = this.calcQntSell(old, order.Rate, walk.fee);
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
@@ -203,8 +209,13 @@ class Hades {
             }
           } else {
             for (let [b, order] of orders.entries()) {
-              sum = sum + (order.Quantity * order.Rate);
-              walk.quantity = this.calcQntBuy(arb.walks[i - 1].quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee);
+              sum = sum + order.Quantity;
+              if (arb.walks[i - 1].action === 'sell') {
+                old = this.calcQntSell(arb.walks[i - 1].quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee);
+              } else {
+                old = this.calcQntBuy(arb.walks[i - 1].quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee);
+              }
+              walk.quantity = this.calcQntBuy(old, order.Rate, walk.fee);
               if (walk.quantity <= sum) {
                 walk.price = order.Rate;
                 break;
@@ -271,10 +282,14 @@ class Hades {
     let orders = walks[walks.length - 1].action === 'buy' ? book.sell : book.buy;
 
     if (walks[walks.length - 1].action === 'sell') {
-      for (let [index, order] of orders.entries()) {
+      for (let [i, order] of orders.entries()) {
         sum = sum + order.Quantity;
         // Montando o preço da rotina
-        output = this.calcQntSell(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        if (walks[walks.length - 1].base === 'BRL' || walks[walks.length - 1].base === 'USDT') {
+          output = walks[walks.length - 1].quantity;
+        } else {
+          output = this.calcQntSell(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        }
         // Analisando entre as ordens se existe algum lucro
         if (output > arb.entry && walks[walks.length - 1].quantity <= sum) {
           walks[walks.length - 1].price = order.Rate;
@@ -285,7 +300,11 @@ class Hades {
       for (let [index, order] of orders.entries()) {
         sum = sum + order.Quantity;
         // Montando o preço da rotina
-        output = this.calcQntBuy(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        if (walks[walks.length - 1].base === 'BRL' || walks[walks.length - 1].base === 'USDT') {
+          output = walks[walks.length - 1].quantity
+        } else {
+          output = this.calcQntBuy(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
+        }
         // Analisando entre as ordens se existe algum lucro
         if (output > arb.entry && walks[walks.length - 1].quantity <= sum) {
           walks[walks.length - 1].price = order.Rate;
@@ -393,7 +412,7 @@ class Hades {
           // Verificando se a lucro
           const profit = await this.calcProfitOutput(arb);
 
-          if (profit < arb.entry) {
+          if (profit > arb.entry) {
             /*for (let [y, walk] of walks.entries()) {
               // Iniciando rotinas
               await this.routine(walk, arb, y);
@@ -403,7 +422,7 @@ class Hades {
             console.log(arb)
             process.exit()
           } else {
-            console.log(arb.name, sprintf(`%.5f`, profit));
+            console.log(arb.name, sprintf(`%.8f`, profit));
           }
           await this.wait(1000);
           

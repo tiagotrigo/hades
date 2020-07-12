@@ -285,7 +285,7 @@ class Hades {
       for (let [i, order] of orders.entries()) {
         sum = sum + order.Quantity;
         // Montando o preço da rotina
-        if (walks[walks.length - 1].base === 'BRL' || walks[walks.length - 1].base === 'USDT') {
+        if (walks[walks.length - 1].base === 'BRL' || walks[walks.length - 1].base === 'USDT' && (walks.length - 1) > 1) {
           output = walks[walks.length - 1].quantity;
         } else {
           output = this.calcQntSell(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
@@ -300,7 +300,7 @@ class Hades {
       for (let [index, order] of orders.entries()) {
         sum = sum + order.Quantity;
         // Montando o preço da rotina
-        if (walks[walks.length - 1].base === 'BRL' || walks[walks.length - 1].base === 'USDT') {
+        if (walks[walks.length - 1].base === 'BRL' || walks[walks.length - 1].base === 'USDT' && (walks.length - 1) > 1) {
           output = walks[walks.length - 1].quantity
         } else {
           output = this.calcQntBuy(walks[walks.length - 1].quantity, order.Rate, walks[walks.length - 1].fee);
@@ -367,39 +367,6 @@ class Hades {
         await this.oppTakerBuy(walk, arb.entry);                    
       }
     }
-    
-    /* Se for Bleutrade
-    if (walk.exchangeto === 1) {
-      if (walk.action === 'sell') {
-        // Vender
-        await this.oppTakerSell(walk, arb.entry);
-      } else if (walk.action === 'buy') {
-        // Comprar
-        await this.oppTakerBuy(walk, arb.entry);                    
-      }
-    } else {
-      // Se for diferente de Bleutrade
-      if (walk.receive === null) {
-        if (walk.action === 'sell') {
-          // Vender
-          await this.oppTakerSell(walk, arb.entry);
-        } else if (walk.action === 'buy') {
-          // Comprar
-          await this.oppTakerBuy(walk, arb.entry);                    
-        }
-      } else {
-        // Enviando BTC ou USDT para outras exchanges
-        await this.rebalancingBalance(walk, arb.entry);
-
-        if (walk.action === 'sell') {
-          // Vender
-          await this.oppTakerSell(walk, arb.entry);
-        } else if (walk.action === 'buy') {
-          // Comprar
-          await this.oppTakerBuy(walk, arb.entry);                    
-        }
-      }
-    }*/
   }
 
   async run() {

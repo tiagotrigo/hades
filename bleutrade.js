@@ -133,7 +133,6 @@ const Bleutrade = {
     })
   },
   setBuyLimit: function(market, rate, quantity) {
-
     const options = {
       uri: Endpoints.api.bleutrade,
       private: '/private/buylimit',
@@ -162,6 +161,78 @@ const Bleutrade = {
           nonce: options.params.nonce,
           market: options.params.market,
           rate: options.params.rate,
+          quantity: options.params.quantity
+        }
+      }).then((data) => {
+        resolve(data)
+      }).catch((er) => {
+        reject(er)
+      })      
+    })
+  },
+  setBuyMarket: function(market, quantity) {
+    const options = {
+      uri: Endpoints.api.bleutrade,
+      private: '/private/buymarket',
+      params: {
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
+        nonce: Nonce(),
+        market,
+        quantity
+      }
+    };
+
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&quantity=${options.params.quantity}`;
+    const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');    
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'POST',
+        headers: {
+          apisign
+        },
+        url: options.uri + options.private,
+        params: {
+          apikey: options.params.apikey,
+          nonce: options.params.nonce,
+          market: options.params.market,
+          quantity: options.params.quantity
+        }
+      }).then((data) => {
+        resolve(data)
+      }).catch((er) => {
+        reject(er)
+      })      
+    })
+  },
+  setSellMarket: function(market, quantity) {
+    const options = {
+      uri: Endpoints.api.bleutrade,
+      private: '/private/sellmarket',
+      params: {
+        apikey: process.env.BLEUTRADE_APIKEY,
+        apisecret: process.env.BLEUTRADE_APISECRET,
+        nonce: Nonce(),
+        market,
+        quantity
+      }
+    };
+
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&quantity=${options.params.quantity}`;
+    const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');    
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'POST',
+        headers: {
+          apisign
+        },
+        url: options.uri + options.private,
+        params: {
+          apikey: options.params.apikey,
+          nonce: options.params.nonce,
+          market: options.params.market,
           quantity: options.params.quantity
         }
       }).then((data) => {

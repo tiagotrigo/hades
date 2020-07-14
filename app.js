@@ -162,7 +162,7 @@ class Hades {
   // Ação de compra
   async oppTakerBuy(walk, entry) {
     // Comprar
-    await walk.exchange.setBuyLimit(walk.symbol, walk.price, walk.quantity);
+    await walk.exchange.setBuyMarket(walk.symbol, walk.quantity);
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
     // É preciso transferir ?
     if (walk.transfer) {
@@ -176,7 +176,7 @@ class Hades {
   // Ação de venda
   async oppTakerSell(walk, entry) { 
     // Vender
-    await walk.exchange.setSellLimit(walk.symbol, walk.price, walk.quantity);
+    await walk.exchange.setSellMarket(walk.symbol, walk.quantity);
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
     
     // É preciso transferir ?
@@ -237,7 +237,9 @@ class Hades {
               await this.routine(walk, arb, y);
             }
             await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
-            console.log('Enviando notificação por telegram'); 
+            console.log('Enviando notificação por telegram');
+            //console.log(arb)
+            //process.exit()
           } else {
             console.log(arb.name, profit);
           }

@@ -170,6 +170,78 @@ const Exc = {
       })      
     })
   },
+  setBuyMarket: function(market, quantity) {
+    const options = {
+      uri: Endpoints.api.exc,
+      private: '/private/buymarket',
+      params: {
+        apikey: process.env.EXC_APIKEY,
+        apisecret: process.env.EXC_APISECRET,
+        nonce: Nonce(),
+        market,
+        quantity
+      }
+    };
+
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&quantity=${options.params.quantity}`;
+    const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');    
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'POST',
+        headers: {
+          apisign
+        },
+        url: options.uri + options.private,
+        params: {
+          apikey: options.params.apikey,
+          nonce: options.params.nonce,
+          market: options.params.market,
+          quantity: options.params.quantity
+        }
+      }).then((data) => {
+        resolve(data)
+      }).catch((er) => {
+        reject(er)
+      })      
+    })
+  },
+  setSellMarket: function(market, quantity) {
+    const options = {
+      uri: Endpoints.api.exc,
+      private: '/private/sellmarket',
+      params: {
+        apikey: process.env.EXC_APIKEY,
+        apisecret: process.env.EXC_APISECRET,
+        nonce: Nonce(),
+        market,
+        quantity
+      }
+    };
+
+    const hmacURL = `${options.uri}${options.private}?apikey=${options.params.apikey}&nonce=${options.params.nonce}&market=${options.params.market}&quantity=${options.params.quantity}`;
+    const apisign = Crypto.createHmac('sha512', options.params.apisecret).update(hmacURL).digest('hex');    
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'POST',
+        headers: {
+          apisign
+        },
+        url: options.uri + options.private,
+        params: {
+          apikey: options.params.apikey,
+          nonce: options.params.nonce,
+          market: options.params.market,
+          quantity: options.params.quantity
+        }
+      }).then((data) => {
+        resolve(data)
+      }).catch((er) => {
+        reject(er)
+      })      
+    })
+  },
   setSellLimit: function(market, rate, quantity) {
     const options = {
       uri: Endpoints.api.exc,

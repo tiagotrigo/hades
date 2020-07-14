@@ -404,59 +404,378 @@ const Arbitration = [
       },
     ]
   },
-  // {
-  //   name: 'BTC_USDT_DOGE_BTC',
-  //   entry: 0.0002,
-  //   walks: [
-  //     {
-  //       exchangeto: 2,
-  //       exchange: Exc,
-  //       fee: 0.0025,
-  //       price: 0,
-  //       quantity: 0,
-  //       action: 'sell',
-  //       symbol: 'BTC_USDT',
-  //       quote: 'BTC',
-  //       base: 'USDT',
-  //       receive: {
-  //         asset: 'BTC',
-  //         exchangeto: 2,
-  //         mail: 'tiago.a.trigo@gmail.com'
-  //       },
-  //       transfer: null
-  //     },
-  //     {
-  //       exchangeto: 2,
-  //       exchange: Exc,
-  //       fee: 0.9975,
-  //       price: 0,
-  //       quantity: 0,
-  //       action: 'buy',
-  //       symbol: 'DOGE_USDT',
-  //       quote: 'DOGE',
-  //       base: 'USDT',
-  //       receive: null,
-  //       transfer: null
-  //     },
-  //     {
-  //       exchangeto: 2,
-  //       exchange: Exc,
-  //       fee: 0.0025,
-  //       price: 0,
-  //       quantity: 0,
-  //       action: 'sell',
-  //       symbol: 'DOGE_BTC',
-  //       quote: 'DOGE',
-  //       base: 'BTC',
-  //       receive: null,
-  //       transfer: {
-  //         asset: 'BTC',
-  //         exchangeto: 9,
-  //         mail: 'tiago.a.trigo@gmail.com'
-  //       }
-  //     },
-  //   ]
-  // },
+  // 3 Moedas
+  {
+    name: 'BTC_USDT_DOGE_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'DOGE_USDT',
+        quote: 'DOGE',
+        base: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'DOGE_BTC',
+        quote: 'DOGE',
+        base: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 9,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT_LTC_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'LTC_USDT',
+        quote: 'LTC',
+        base: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'LTC_BTC',
+        quote: 'LTC',
+        base: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 9,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT_LTC_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'LTC_USDT',
+        quote: 'LTC',
+        base: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'LTC_BTC',
+        quote: 'LTC',
+        base: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 9,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT_ETH_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.0025,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 9,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT_ETH_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 9,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT_NBC_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'NBC_USDT',
+        quote: 'NBC',
+        base: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 9,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT_BCH_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BCH_USDT',
+        quote: 'BCH',
+        base: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.0015,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BCH_BTC',
+        quote: 'BCH',
+        base: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 9,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
 ];
 
 module.exports = Arbitration;

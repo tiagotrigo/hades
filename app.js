@@ -64,26 +64,7 @@ class Hades {
     await Bullgain.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
     console.log(`Enviando ${walk.receive.asset} (${entry}) da Bullgain para ${exchangeto}`);
   }
-  // Atualizando o preço, procurando a melhor oferta
-  async calcUpdateRate(walk, quantity) {
-    let sum = 0;
-    let price = 0;
 
-    // Livro de ofertas
-    let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 3);
-    // Verificando a ação 
-    let orders = walk.action === 'buy' ? book.sell : book.buy;
-
-    for (let [index, order] of orders.entries()) {
-      sum = sum + order.Quantity;
-      if (quantity <= sum) {
-        price = order.Rate;
-        break;
-      }
-    }
-
-    return price;
-  }
   // Primeiro passo
   async calcQntOutput(arb) {
     let sum = 0;
@@ -232,14 +213,14 @@ class Hades {
           const profit = await this.calcProfitOutput(arb);
 
           if (profit > arb.entry) {
-            // for (let [y, walk] of walks.entries()) {
-            //   // Iniciando rotinas
-            //   await this.routine(walk, arb, y);
-            // }
-            // await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
-            // console.log('Enviando notificação por telegram');
-            console.log(arb)
-            process.exit()
+            for (let [y, walk] of walks.entries()) {
+              // Iniciando rotinas
+              await this.routine(walk, arb, y);
+            }
+            await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
+            console.log('Enviando notificação para @tiagotrigo');
+            // console.log(arb)
+            // process.exit()
           } else {
             console.log(arb.name, profit);
           }

@@ -318,7 +318,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT',
-    entry: 2,
+    entry: 5,
     walks: [
       {
         exchangeto: 2,
@@ -362,7 +362,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT',
-    entry: 2,
+    entry: 5,
     walks: [
       {
         exchangeto: 1,

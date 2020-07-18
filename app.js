@@ -4,7 +4,6 @@ const R = require('ramda');
 const await = require('await');
 const Telegram = require('./telegram');
 const Bullgain = require('./bullgain');
-const sprintf = require('sprintf-js').sprintf;
 const Arbitrations = require('./arbitration');
 
 class Hades {
@@ -65,80 +64,131 @@ class Hades {
     console.log(`Enviando ${walk.receive.asset} (${entry}) da Bullgain para ${exchangeto}`);
   }
 
-  // Primeiro passo
   async calcQntOutput(arb) {
     let sum = 0;
-    let price = 0;
+    let qnt = 0;
+    let price = null;
 
-    for (let [i, walk] of arb.walks.entries()) {      
+    for (let [i, walk] of arb.walks.entries()) {
       // Livro de ofertas
-      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 3);
+      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 10);
+      // Verificando a mascara
+      let markets = await walk.exchange.getMarkets();
+      let decimal = markets.find(i => walk.symbol === i.MarketName);
       // Verificando a ação 
       let orders = walk.action === 'buy' ? book.sell : book.buy;
 
-      price = i === 0 ? arb.entry : arb.walks[i - 1].quantity;
-
-      for (let [s, order] of orders.entries()) {
-        if (order.Rate >= 1) {
-          sum = sum + (order.Quantity * order.Rate);
-        } else {
-          sum = sum + order.Quantity;
-        }
+      if (i === 0) {
+        walk.quantity = arb.entry;
         
-        if (i > 0 && walk.quote === arb.walks[i - 1].quote) {
-          walk.quantity = this.mask(arb.walks[i - 1].quantity, 8);
-        } else {
-          if (walk.action === 'sell') {
-            walk.quantity = this.mask(this.calcQntSell(price, order.Rate, walk.fee), 8);
+        price = orders.find(i => {
+          if (i.Rate >= 1) {
+            sum = sum + (i.Rate * i.Quantity);
           } else {
-            walk.quantity = this.mask(this.calcQntBuy(price, order.Rate, walk.fee), 8);
+            sum = sum + i.Quantity;
           }
+          return walk.quantity <= sum;
+        });
+        
+        walk.price = price.Rate;
+        
+        if (walk.action === 'sell') {
+          walk.quantity = this.mask(this.calcQntSell(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
+        } else {
+          walk.quantity = this.mask(this.calcQntBuy(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
         }
+      } else if (i > 0 && arb.walks[i - 1].quote === walk.quote) {
+        walk.quantity = arb.walks[i - 1].quantity;
+        
+        price = orders.find(i => {
+          if (i.Rate >= 1) {
+            sum = sum + (i.Rate * i.Quantity);
+          } else {
+            sum = sum + i.Quantity;
+          }
+          return walk.quantity <= sum;
+        });     
+        
+        walk.price = price.Rate;
 
-        if (walk.quantity <= sum) {          
-          walk.price = order.Rate;
-          break;
+        if (arb.walks.length > 2 && arb.walks[1].quote != arb.walks[2].quote) {
+          arb.walks[2].duplicate = true;
+        }
+      } else {
+        if (arb.walks.length > 2) {
+          if (walk.duplicate) {
+            walk.quantity = arb.walks[i - 1].quantity;
+            
+            price = orders.find(i => {
+              if (i.Rate >= 1) {
+                sum = sum + (i.Rate * i.Quantity);
+              } else {
+                sum = sum + i.Quantity;
+              }
+              return walk.quantity <= sum;
+            });
+            
+            walk.price = price.Rate;
+            
+            if (walk.action === 'sell') {
+              walk.quantity = this.mask(this.calcQntSell(walk.quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee), decimal.DividendDecimal);
+            } else {
+              walk.quantity = this.mask(this.calcQntBuy(walk.quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee), decimal.DividendDecimal);
+            }
+          } else {
+            walk.quantity = arb.walks[i - 1].quantity;
+            
+            price = orders.find(i => {
+              if (i.Rate >= 1) {
+                sum = sum + (i.Rate * i.Quantity);
+              } else {
+                sum = sum + i.Quantity;
+              }
+              return walk.quantity <= sum;
+            });
+            
+            walk.price = price.Rate;
+            
+            if (walk.action === 'sell') {
+              walk.quantity = this.mask(this.calcQntSell(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
+            } else {
+              walk.quantity = this.mask(this.calcQntBuy(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
+            }
+          }
+        } else {
+          walk.quantity = arb.walks[i - 1].quantity;
+          
+          price = orders.find(i => {
+            if (i.Rate >= 1) {
+              sum = sum + (i.Rate * i.Quantity);
+            } else {
+              sum = sum + i.Quantity;
+            }
+            return walk.quantity <= sum;
+          });
+          
+          walk.price = price.Rate;
+          
+          if (walk.action === 'sell') {
+            walk.quantity = this.mask(this.calcQntSell(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
+          } else {
+            walk.quantity = this.mask(this.calcQntBuy(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
+          }
         }
       }
     }
   }  
   // Segundo passo
   async calcProfitOutput(arb) {
-    const { walks } = arb;
-
     let output = 0;
-    let sum = 0;
-    let price = 0;
 
-    for (let [i, walk] of arb.walks.entries()) {      
-      // Livro de ofertas
-      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 3);
-      // Verificando a ação 
-      let orders = walk.action === 'buy' ? book.sell : book.buy;
-
-      price = i === 0 ? arb.entry : arb.walks[i - 1].quantity;
-
-      for (let [s, order] of orders.entries()) {
-        if (order.Rate >= 1) {
-          sum = sum + (order.Quantity * order.Rate);
-        } else {
-          sum = sum + order.Quantity;
-        }
-        
-        if (walk.action === 'sell') {
-          output = this.mask(this.calcQntSell(price, order.Rate, walk.fee), 8);
-        } else {
-          output = this.mask(this.calcQntBuy(price, order.Rate, walk.fee), 8);
-        }
-
-        if (output > arb.entry && walks[walks.length - 1].quantity <= sum) {     
-          walks[walks.length - 1].price = order.Rate;
-          break;
-        }
-      }
-    }
-
-    return output;
+    if (arb.walks[arb.walks.length - 1].action === 'sell') {
+      output = this.calcQntSell(arb.walks[arb.walks.length - 1].quantity, arb.walks[arb.walks.length - 1].price, arb.walks[arb.walks.length - 1].fee);
+    } else {
+      output = this.calcQntBuy(arb.walks[arb.walks.length - 1].quantity, arb.walks[arb.walks.length - 1].price, arb.walks[arb.walks.length - 1].fee);
+    } 
+    
+    return this.mask(output, 8);
   }
   // Ação de compra
   async oppTakerBuy(walk, entry) {
@@ -219,8 +269,6 @@ class Hades {
             }
             await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
             console.log('Enviando notificação para @tiagotrigo');
-            // console.log(arb)
-            // process.exit()
           } else {
             console.log(arb.name, profit);
           }

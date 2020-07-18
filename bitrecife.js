@@ -18,7 +18,7 @@ const Bitrecife = {
         method: 'GET',
         url: options.uri + options.public
       }).then((data) => {
-        resolve(data)  
+        resolve(data.data.result)  
       }).catch((er) => {
         reject(er)
       })

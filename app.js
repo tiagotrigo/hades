@@ -46,6 +46,9 @@ class Hades {
       case 3:
         exchangeto = 'Bitrecife';
         break;
+      case 8:
+        exchangeto = 'Bomesp';
+        break;
       case 9:
         exchangeto = 'Bullgain';
         break;
@@ -71,7 +74,7 @@ class Hades {
 
     for (let [i, walk] of arb.walks.entries()) {
       // Livro de ofertas
-      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 10);
+      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
       // Verificando a mascara
       let markets = await walk.exchange.getMarkets();
       let decimal = markets.find(i => walk.symbol === i.MarketName);
@@ -97,9 +100,9 @@ class Hades {
         } else {
           walk.quantity = this.mask(this.calcQntBuy(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
         }
-      } else if (i > 0 && arb.walks[i - 1].quote === walk.quote) {
+      } else if (i > 0 && walk.quote != 'USDT' || walk.quote != 'BTC' || walk.quote != 'BRL') {
         walk.quantity = arb.walks[i - 1].quantity;
-        
+
         price = orders.find(i => {
           if (i.Rate >= 1) {
             sum = sum + (i.Rate * i.Quantity);
@@ -107,79 +110,14 @@ class Hades {
             sum = sum + i.Quantity;
           }
           return walk.quantity <= sum;
-        });     
+        });
         
         walk.price = price.Rate;
-
-        if (arb.walks.length > 2 && arb.walks[1].quote != arb.walks[2].quote) {
-          arb.walks[2].duplicate = true;
-        }
-      } else {
-        if (arb.walks.length > 2) {
-          if (walk.duplicate) {
-            walk.quantity = arb.walks[i - 1].quantity;
-            
-            price = orders.find(i => {
-              if (i.Rate >= 1) {
-                sum = sum + (i.Rate * i.Quantity);
-              } else {
-                sum = sum + i.Quantity;
-              }
-              return walk.quantity <= sum;
-            });
-            
-            walk.price = price.Rate;
-            
-            if (walk.action === 'sell') {
-              walk.quantity = this.mask(this.calcQntSell(walk.quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee), decimal.DividendDecimal);
-            } else {
-              walk.quantity = this.mask(this.calcQntBuy(walk.quantity, arb.walks[i - 1].price, arb.walks[i - 1].fee), decimal.DividendDecimal);
-            }
-          } else {
-            walk.quantity = arb.walks[i - 1].quantity;
-            
-            price = orders.find(i => {
-              if (i.Rate >= 1) {
-                sum = sum + (i.Rate * i.Quantity);
-              } else {
-                sum = sum + i.Quantity;
-              }
-              return walk.quantity <= sum;
-            });
-            
-            walk.price = price.Rate;
-            
-            if (walk.action === 'sell') {
-              walk.quantity = this.mask(this.calcQntSell(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
-            } else {
-              walk.quantity = this.mask(this.calcQntBuy(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
-            }
-          }
-        } else {
-          walk.quantity = arb.walks[i - 1].quantity;
-          
-          price = orders.find(i => {
-            if (i.Rate >= 1) {
-              sum = sum + (i.Rate * i.Quantity);
-            } else {
-              sum = sum + i.Quantity;
-            }
-            return walk.quantity <= sum;
-          });
-          
-          walk.price = price.Rate;
-          
-          if (walk.action === 'sell') {
-            walk.quantity = this.mask(this.calcQntSell(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
-          } else {
-            walk.quantity = this.mask(this.calcQntBuy(walk.quantity, walk.price, walk.fee), decimal.DividendDecimal);
-          }
-        }
       }
     }
   }  
   // Segundo passo
-  async calcProfitOutput(arb) {
+  async calcProfitOutput(arb) {    
     let output = 0;
 
     if (arb.walks[arb.walks.length - 1].action === 'sell') {
@@ -191,10 +129,22 @@ class Hades {
     return this.mask(output, 8);
   }
   // Ação de compra
-  async oppTakerBuy(walk, entry) {
-    // Comprar
-    await walk.exchange.setBuyMarket(walk.symbol, walk.quantity);
-    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
+  async oppTakerBuy(walk, entry, index) {
+    let trade = await walk.exchange.getBalance(walk.trade);
+
+    if (index === 0 && (walk.quote === 'USDT' || walk.quote === 'BTC' || walk.quote === 'BRL')) {    
+      // Comprar
+      await walk.exchange.setBuyMarket(walk.symbol, entry);
+      console.log(`Troca de ${walk.base} por ${walk.quote} (${entry})`);
+    } else if (index === 0 && (walk.quote != 'USDT' || walk.quote != 'BTC' || walk.quote != 'BRL')) {
+      // Comprar
+      await walk.exchange.setBuyMarket(walk.symbol, walk.quantity);
+      console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
+    } else {
+      // Comprar
+      await walk.exchange.setBuyMarket(walk.symbol, trade.data.result[0].Available);
+      console.log(`Troca de ${walk.base} por ${walk.quote} (${trade.data.result[0].Available})`);
+    }
     // É preciso transferir ?
     if (walk.transfer) {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
@@ -205,10 +155,22 @@ class Hades {
     }
   }
   // Ação de venda
-  async oppTakerSell(walk, entry) { 
-    // Vender
-    await walk.exchange.setSellMarket(walk.symbol, walk.quantity);
-    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
+  async oppTakerSell(walk, entry, index) { 
+    let trade = await walk.exchange.getBalance(walk.trade);
+
+    if (index === 0 && (walk.quote === 'USDT' || walk.quote === 'BTC' || walk.quote === 'BRL')) {    
+      // Vender
+      await walk.exchange.setSellMarket(walk.symbol, entry);
+      console.log(`Troca de ${walk.base} por ${walk.quote} (${entry})`);
+    } else if (index === 0 && (walk.quote != 'USDT' || walk.quote != 'BTC' || walk.quote != 'BRL')) {
+      // Vender
+      await walk.exchange.setSellMarket(walk.symbol, walk.quantity);
+      console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
+    } else {
+      // Vender
+      await walk.exchange.setSellMarket(walk.symbol, trade.data.result[0].Available);
+      console.log(`Troca de ${walk.base} por ${walk.quote} (${trade.data.result[0].Available})`);
+    }
     
     // É preciso transferir ?
     if (walk.transfer) {
@@ -225,29 +187,29 @@ class Hades {
     if (index === 0 && walk.exchangeto === 8) {
       if (walk.action === 'sell') {
         // Vender
-        await this.oppTakerSell(walk, arb.entry);
+        await this.oppTakerSell(walk, arb.entry, index);
       } else if (walk.action === 'buy') {
         // Comprar
-        await this.oppTakerBuy(walk, arb.entry);                    
+        await this.oppTakerBuy(walk, arb.entry, index);                    
       }  
     } else if (index === 0) {
       // Enviando BTC ou USDT para outras exchanges
-      await this.rebalancingBalance(walk, arb.entry);
+      await this.rebalancingBalance(walk, arb.entry, index);
 
       if (walk.action === 'sell') {
         // Vender
-        await this.oppTakerSell(walk, arb.entry);
+        await this.oppTakerSell(walk, arb.entry, index);
       } else if (walk.action === 'buy') {
         // Comprar
-        await this.oppTakerBuy(walk, arb.entry);                    
+        await this.oppTakerBuy(walk, arb.entry, index);                    
       } 
     } else {
       if (walk.action === 'sell') {
         // Vender
-        await this.oppTakerSell(walk, arb.entry);
+        await this.oppTakerSell(walk, arb.entry, index);
       } else if (walk.action === 'buy') {
         // Comprar
-        await this.oppTakerBuy(walk, arb.entry);                    
+        await this.oppTakerBuy(walk, arb.entry, index);                    
       }
     }
   }

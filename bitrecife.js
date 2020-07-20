@@ -162,8 +162,10 @@ const Bitrecife = {
           quantity: options.params.quantity
         }
       }).then((data) => {
+        console.log(data.data)
         resolve(data)  
       }).catch((er) => {
+        console.log(er.data)
         reject(er)
       })
     })
@@ -198,10 +200,12 @@ const Bitrecife = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        resolve(data)
+        console.log(data.data)
+        resolve(data)  
       }).catch((er) => {
+        console.log(er.data)
         reject(er)
-      })      
+      })     
     })
   },
   setSellMarket: function(market, quantity) {
@@ -234,10 +238,12 @@ const Bitrecife = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        resolve(data)
+        console.log(data.data)
+        resolve(data)  
       }).catch((er) => {
+        console.log(er.data)
         reject(er)
-      })      
+      })     
     })
   },
   setSellLimit: function(market, rate, quantity) {
@@ -272,8 +278,10 @@ const Bitrecife = {
           quantity: options.params.quantity
         }
       }).then((data) => {
+        console.log(data.data)
         resolve(data)  
       }).catch((er) => {
+        console.log(er.data)
         reject(er)
       })
     })

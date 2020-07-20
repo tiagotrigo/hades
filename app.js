@@ -213,13 +213,12 @@ class Hades {
           const profit = await this.calcProfitOutput(arb);
 
           if (profit > arb.entry) {
-            // for (let [y, walk] of walks.entries()) {
-            //   // Iniciando rotinas
-            //   await this.routine(walk, arb, y);
-            // }
-            // await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
-            // console.log('Enviando notificação para @tiagotrigo');            
-            console.log(arb)
+            for (let [y, walk] of walks.entries()) {
+              // Iniciando rotinas
+              await this.routine(walk, arb, y);
+            }
+            await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
+            console.log('Enviando notificação para @tiagotrigo');            
           } else {
             console.log(arb.name, profit);
           }

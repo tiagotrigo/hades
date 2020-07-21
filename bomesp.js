@@ -132,10 +132,10 @@ const Bitrecife = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })
     })
@@ -170,10 +170,10 @@ const Bitrecife = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })     
     })
@@ -208,10 +208,10 @@ const Bitrecife = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })      
     })
@@ -249,10 +249,10 @@ const Bitrecife = {
           postonly: options.params.postonly
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })
     })

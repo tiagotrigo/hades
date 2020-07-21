@@ -164,10 +164,10 @@ const Bleutrade = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })     
     })
@@ -202,10 +202,10 @@ const Bleutrade = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })     
     })
@@ -240,10 +240,10 @@ const Bleutrade = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })      
     })
@@ -280,10 +280,10 @@ const Bleutrade = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })      
     })

@@ -162,10 +162,10 @@ const Bullgain = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })
     })
@@ -200,10 +200,10 @@ const Bullgain = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })      
     })
@@ -238,10 +238,10 @@ const Bullgain = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })     
     })
@@ -278,10 +278,10 @@ const Bullgain = {
           quantity: options.params.quantity
         }
       }).then((data) => {
-        console.log(data.data)
+        
         resolve(data)  
       }).catch((er) => {
-        console.log(er.data)
+        
         reject(er)
       })
     })

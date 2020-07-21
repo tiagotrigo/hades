@@ -3,7 +3,7 @@
 const R = require('ramda');
 const await = require('await');
 const Telegram = require('./telegram');
-const Bitrecife = require('./bullgain');
+const Bitrecife = require('./bitrecife');
 const Arbitrations = require('./arbitration');
 
 class Hades {
@@ -86,7 +86,7 @@ class Hades {
       walk.total = 0;
       walk.quantity = 0;
       // Livro de ofertas
-      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
+      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 20);
       // Verificando a ação 
       let orders = walk.action === 'buy' ? book.sell : book.buy;         
       // Buy - total
@@ -96,7 +96,9 @@ class Hades {
       } else if (i === 1) {
         this.calcule(walk, orders, arb.walks[i - 1].total);
       } else if (i === 2) {
-        this.calcule(walk, orders, arb.walks[i - 1].total);
+        this.calcule(walk, orders, arb.walks[i - 1].total);      
+      } else if (i === 3) {
+        this.calcule(walk, orders, arb.walks[i - 1].total);      
       }
     }
   }  
@@ -142,7 +144,7 @@ class Hades {
   async oppTakerBuy(walk, entry, index) {
     // Comprar
     await walk.exchange.setBuyLimit(walk.symbol, walk.price, this.mask(walk.total, 8));
-    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
+    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.total})`);
     // É preciso transferir ?
     if (walk.transfer) {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
@@ -210,18 +212,18 @@ class Hades {
           const profit = await this.calcProfitOutput(arb);
 
           if (profit > arb.entry) {
-            /*for (let [y, walk] of walks.entries()) {
+            for (let [y, walk] of walks.entries()) {
               // Iniciando rotinas
               await this.routine(walk, arb, y);
             }
             await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
-            console.log('Enviando notificação para @tiagotrigo'); */
-            console.log(arb.name, profit)
-            console.log(arb)    
+            console.log(`Enviando (${arb.walks[arb.walks.length - 1].total}) notificação para @tiagotrigo`); 
+            // console.log(arb)
+            // process.exit();
           } else {
             console.log(arb.name, this.mask(profit, 8));
           }
-          await this.wait(1000);          
+          // await this.wait(1000);          
         }  
       } catch(e) {
         console.log(e.message)

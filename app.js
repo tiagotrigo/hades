@@ -3,7 +3,7 @@
 const R = require('ramda');
 const await = require('await');
 const Telegram = require('./telegram');
-const Bullgain = require('./bullgain');
+const Bitrecife = require('./bullgain');
 const Arbitrations = require('./arbitration');
 
 class Hades {
@@ -77,73 +77,71 @@ class Hades {
   async rebalancingBalance(walk, entry) {
     let exchangeto = this.exchangeNameSelected(walk.receive.exchangeto);
 
-    await Bullgain.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
-    console.log(`Enviando ${walk.receive.asset} (${entry}) da Bullgain para ${exchangeto}`);
+    await Bitrecife.setDirectTransfer(walk.receive.asset, entry, walk.receive.exchangeto, walk.receive.mail);
+    console.log(`Enviando ${walk.receive.asset} (${entry}) da Bitrecife para ${exchangeto}`);
   }
 
   async calcQntOutput(arb) {
-    let total = 0;
-    let value = 0;
-    let valueBook = 0;
-    let quantity = 0;
-    let price = 0;
-
-
     for (let [i, walk] of arb.walks.entries()) {
-
+      walk.total = 0;
+      walk.quantity = 0;
       // Livro de ofertas
       let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 5);
-      // Verificando a mascara
-      let markets = await walk.exchange.getMarkets();
-      let decimal = markets.find(i => walk.symbol === i.MarketName);
       // Verificando a ação 
-      let orders = walk.action === 'buy' ? book.sell : book.buy;     
-      // Reset
-      walk.price = 0;
-      walk.quantity = 0;
-      walk.total = 0;
-
-      value = i === 0 ? arb.entry : arb.walks[i - 1].quantity;
-
-      if (walk.action === 'buy') {       
-        for (let x = 0; x < orders.length; x++) {
-          valueBook = orders[x].Quantity * orders[x].Rate;          
-          if (valueBook < value) {
-            value = value - valueBook;
-            walk.price = orders[x].Rate;
-            walk.quantity = walk.quantity + orders[x].Quantity;
-          } else {
-            walk.quantity = walk.quantity + (value / orders[x].Rate);
-            walk.price = orders[x].Rate;
-            walk.total = walk.quantity * walk.fee;
-            break;
-          }
-        }
-      } else {
-        for (let x = 0; x < orders.length; i++) {
-          if (orders[x].Quantity < value) {
-            value = value - orders[x].Quantity;
-            walk.quantity = walk.quantity + orders[x].Quantity;
-            walk.price = orders[x].Rate;
-            walk.total = walk.total + (orders[x].Quantity * orders[x].Rate) * walk.fee; 
-          } else {
-            walk.quantity = walk.quantity + value;
-            walk.price = orders[x].Rate;
-            walk.total = walk.total + (value * orders[x].Rate) * walk.fee;
-            break;
-          }
-        }
+      let orders = walk.action === 'buy' ? book.sell : book.buy;         
+      // Buy - total
+      // Sell - quantity
+      if (i === 0) {
+        this.calcule(walk, orders, arb.entry);
+      } else if (i === 1) {
+        this.calcule(walk, orders, arb.walks[i - 1].total);
+      } else if (i === 2) {
+        this.calcule(walk, orders, arb.walks[i - 1].total);
       }
     }
   }  
+
+  calcule(walk, orders, value) {
+    let valueBook = 0;
+    if (walk.action === 'buy') {      
+      for (let x = 0; x < orders.length; x++) {
+        valueBook = orders[x].Quantity * orders[x].Rate;         
+        if (valueBook < value) {
+          value = value - valueBook;
+          walk.price = orders[x].Rate;
+          walk.quantity = walk.quantity + orders[x].Quantity;
+        } else {
+          walk.quantity = walk.quantity + (value / orders[x].Rate);
+          walk.price = orders[x].Rate;
+          walk.total = walk.quantity * walk.fee;
+          break;
+        }
+      }
+    } else {
+      for (let y = 0; y < orders.length; y++) {
+        if (orders[y].Quantity < value) {
+          value = value - orders[y].Quantity;
+          walk.quantity = walk.quantity + orders[y].Quantity;
+          walk.price = orders[y].Rate;
+          walk.total = walk.total + (orders[y].Quantity * orders[y].Rate) * walk.fee; 
+        } else {
+          walk.quantity = walk.quantity + value;
+          walk.price = orders[y].Rate;
+          walk.total = walk.total + (value * orders[y].Rate) * walk.fee;
+          break;
+        }
+      }
+    }
+  }
+
   // Segundo passo
   async calcProfitOutput(arb) {        
-    return arb.entry - arb.walks[arb.walks.length - 1].quantity;
+    return arb.walks[arb.walks.length - 1].total; - arb.entry;
   }
   // Ação de compra
   async oppTakerBuy(walk, entry, index) {
     // Comprar
-    await walk.exchange.setBuyLimit(walk.symbol, walk.price, this.mask(walk.quantity, 8));
+    await walk.exchange.setBuyLimit(walk.symbol, walk.price, this.mask(walk.total, 8));
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
     // É preciso transferir ?
     if (walk.transfer) {
@@ -158,8 +156,7 @@ class Hades {
   async oppTakerSell(walk, entry, index) { 
     // Vender
     await walk.exchange.setSellLimit(walk.symbol, walk.price, this.mask(walk.quantity, 8));
-    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
-    
+    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);    
     // É preciso transferir ?
     if (walk.transfer) {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
@@ -171,8 +168,8 @@ class Hades {
   }
   // Controlador de ações
   async routine(walk, arb, index) {
-    // Se iniciar com a Bullgain
-    if (index === 0 && walk.exchangeto === 9) {
+    // Se iniciar com a Bitrecife
+    if (index === 0 && walk.exchangeto === 3) {
       if (walk.action === 'sell') {
         // Vender
         await this.oppTakerSell(walk, arb.entry, index);
@@ -213,14 +210,16 @@ class Hades {
           const profit = await this.calcProfitOutput(arb);
 
           if (profit > arb.entry) {
-            for (let [y, walk] of walks.entries()) {
+            /*for (let [y, walk] of walks.entries()) {
               // Iniciando rotinas
               await this.routine(walk, arb, y);
             }
             await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
-            console.log('Enviando notificação para @tiagotrigo');            
+            console.log('Enviando notificação para @tiagotrigo'); */
+            console.log(arb.name, profit)
+            console.log(arb)    
           } else {
-            console.log(arb.name, profit);
+            console.log(arb.name, this.mask(profit, 8));
           }
           await this.wait(1000);          
         }  

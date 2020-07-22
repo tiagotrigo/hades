@@ -60,6 +60,9 @@ class Hades {
       case 3:
         exchangeto = 'Bitrecife';
         break;
+      case 6:
+        exchangeto = 'Comprar Bitcoin';
+        break;
       case 7:
         exchangeto = 'Bomesp Global';
         break;
@@ -150,7 +153,11 @@ class Hades {
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
       let exchangeto = this.exchangeNameSelected(walk.transfer.exchangeto);
 
-      await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+      if (index === 0 && walk.exchangeto === 3) {
+        await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.total, 8), walk.transfer.exchangeto, walk.transfer.mail);
+      } else {
+        await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+      }
       console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
     }
   }

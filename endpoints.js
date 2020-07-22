@@ -13,7 +13,8 @@ const Endpoints = {
 		telegram: 'https://api.telegram.org/bot964920676:AAHv6HXV2CgHT4he7NOSTYuxYQmtB3PKkTw',
 		bitpreco: 'https://api.bitpreco.com',
 		bullgain: 'https://trade.bullgain.com/api/v3',
-		staging: 'https://staging.bleu.com.br/api/v3'
+		staging: 'https://staging.bleu.com.br/api/v3',
+		comprarBitcoin: 'https://app.comprarbitcoin.com.br/api/v3',
 	}
 };
 

@@ -7,11 +7,196 @@ const Bullgain = require('./bullgain.js');
 const Staging = require('./staging.js');
 const BomespBrasil = require('./bomespBrasil.js');
 const BomespGlobal = require('./bomespGlobal.js');
+const ComprarBitcoin = require('./comprarBitcoin.js');
 
 const Arbitration = [
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 5.00,
+    entry: 10.00,
+    walks: [
+      {
+        exchangeto: 6,
+        exchange: ComprarBitcoin,
+        fee: 0.9970,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        receive: {
+          asset: 'USDT',
+          exchangeto: 6,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT >> BTC_USDT',
+    entry: 10.00,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        receive: {
+          asset: 'USDT',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 6,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 6,
+        exchange: ComprarBitcoin,
+        fee: 0.9970,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT >> BTC_USDT',
+    entry: 10.00,
+    walks: [
+      {
+        exchangeto: 6,
+        exchange: ComprarBitcoin,
+        fee: 0.9970,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        receive: {
+          asset: 'USDT',
+          exchangeto: 6,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT >> BTC_USDT',
+    entry: 10.00,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        receive: {
+          asset: 'USDT',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 6,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 6,
+        exchange: ComprarBitcoin,
+        fee: 0.9970,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT >> BTC_USDT',
+    entry: 10.00,
     walks: [
       {
         exchangeto: 2,
@@ -57,7 +242,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 5.00,
+    entry: 10.00,
     walks: [
       {
         exchangeto: 1,
@@ -103,7 +288,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_USDT >> ETH_USDT',
-    entry: 5.00,
+    entry: 10.00,
     walks: [
       {
         exchangeto: 2,
@@ -149,7 +334,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_USDT >> ETH_USDT',
-    entry: 5.00,
+    entry: 10.00,
     walks: [
       {
         exchangeto: 1,
@@ -195,7 +380,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT >> LTC_USDT',
-    entry: 5.00,
+    entry: 10.00,
     walks: [
       {
         exchangeto: 2,
@@ -241,7 +426,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT >> LTC_USDT',
-    entry: 5.00,
+    entry: 10.00,
     walks: [
       {
         exchangeto: 1,
@@ -579,7 +764,7 @@ const Arbitration = [
         total: 0,
         receive: null,
         transfer: {
-          asset: 'BTC',
+          asset: 'USDT',
           exchangeto: 1,
           mail: 'tiago.a.trigo@gmail.com'
         }
@@ -635,7 +820,63 @@ const Arbitration = [
         total: 0,
         receive: null,
         transfer: {
+          asset: 'USDT',
+          exchangeto: 6,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 6,
+        exchange: ComprarBitcoin,
+        fee: 0.9970,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        receive: null,
+        transfer: {
           asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    name: 'USDT_BRL >> BTC_USDT >> BTC_BRL',
+    entry: 10.00,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'USDT_BRL',
+        quote: 'USDT',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'USDT',
           exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         }

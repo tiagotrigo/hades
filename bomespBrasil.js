@@ -6,10 +6,10 @@ const Crypto = require('crypto');
 const Nonce = require('nonce')();
 const Endpoints = require('./endpoints.js');
 
-const Bitrecife = {
+const BomespBrasil = {
   getMarkets: function() {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       public: '/public/getmarkets'
     };
 
@@ -20,13 +20,13 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data.data.result)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
   getTicker: function(market) {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       public: '/public/getticker'
     };
 
@@ -40,13 +40,13 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
   getOrderBook: function(market, type, depth) {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       public: '/public/getorderbook'
     };
 
@@ -62,17 +62,17 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data.data.result)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
   getBalance: function(asset) {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       private: '/private/getbalance',
       params: {
-        apikey: process.env.BOMESP_APIKEY,
-        apisecret: process.env.BOMESP_APISECRET,
+        apikey: process.env.BOMESP_BRASIL_APIKEY,
+        apisecret: process.env.BOMESP_BRASIL_APISECRET,
         nonce: Nonce(),
         asset
       }
@@ -96,17 +96,17 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
   setBuyLimit: function(market, rate, quantity) {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       private: '/private/buylimit',
       params: {
-        apikey: process.env.BOMESP_APIKEY,
-        apisecret: process.env.BOMESP_APISECRET,
+        apikey: process.env.BOMESP_BRASIL_APIKEY,
+        apisecret: process.env.BOMESP_BRASIL_APISECRET,
         nonce: Nonce(),
         market,
         rate,
@@ -142,11 +142,11 @@ const Bitrecife = {
   },
   setBuyMarket: function(market, quantity) {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       private: '/private/buymarket',
       params: {
-        apikey: process.env.BOMESP_APIKEY,
-        apisecret: process.env.BOMESP_APISECRET,
+        apikey: process.env.BOMESP_BRASIL_APIKEY,
+        apisecret: process.env.BOMESP_BRASIL_APISECRET,
         nonce: Nonce(),
         market,
         quantity
@@ -180,11 +180,11 @@ const Bitrecife = {
   },
   setSellMarket: function(market, quantity) {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       private: '/private/sellmarket',
       params: {
-        apikey: process.env.BOMESP_APIKEY,
-        apisecret: process.env.BOMESP_APISECRET,
+        apikey: process.env.BOMESP_BRASIL_APIKEY,
+        apisecret: process.env.BOMESP_BRASIL_APISECRET,
         nonce: Nonce(),
         market,
         quantity
@@ -218,11 +218,11 @@ const Bitrecife = {
   },
   setSellLimit: function(market, rate, quantity) {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       private: '/private/selllimit',
       params: {
-        apikey: process.env.BOMESP_APIKEY,
-        apisecret: process.env.BOMESP_APISECRET,
+        apikey: process.env.BOMESP_BRASIL_APIKEY,
+        apisecret: process.env.BOMESP_BRASIL_APISECRET,
         nonce: Nonce(),
         market,
         rate,
@@ -259,11 +259,11 @@ const Bitrecife = {
   },
   setOrderCancel: function(orderId) {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       private: '/private/ordercancel',
       params: {
-        apikey: process.env.BOMESP_APIKEY,
-        apisecret: process.env.BOMESP_APISECRET,
+        apikey: process.env.BOMESP_BRASIL_APIKEY,
+        apisecret: process.env.BOMESP_BRASIL_APISECRET,
         nonce: Nonce(),
         orderId
       }
@@ -287,17 +287,17 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
   getOpenOrders: function(market) {
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       private: '/private/getopenorders',
       params: {
-        apikey: process.env.BOMESP_APIKEY,
-        apisecret: process.env.BOMESP_APISECRET,
+        apikey: process.env.BOMESP_BRASIL_APIKEY,
+        apisecret: process.env.BOMESP_BRASIL_APISECRET,
         nonce: Nonce(),
         market
       }
@@ -321,18 +321,18 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   },
   setDirectTransfer: function(asset, quantity, exchangeto, accountto) {
     // 1 - Bleutrade, 2 - ExCripto, 3 - Bitrecife
     const options = {
-      uri: Endpoints.api.bomesp,
+      uri: Endpoints.api.bomespBrasil,
       private: '/private/directtransfer',
       params: {
-        apikey: process.env.BOMESP_APIKEY,
-        apisecret: process.env.BOMESP_APISECRET,
+        apikey: process.env.BOMESP_BRASIL_APIKEY,
+        apisecret: process.env.BOMESP_BRASIL_APISECRET,
         nonce: Nonce(),
         asset,
         quantity,
@@ -362,10 +362,10 @@ const Bitrecife = {
       }).then((data) => {
         resolve(data)  
       }).catch((er) => {
-        console.log('Ooops!');
+        reject(er)
       })
     })
   }
 };
 
-module.exports = Bitrecife;
+module.exports = BomespBrasil;

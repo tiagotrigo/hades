@@ -5,7 +5,8 @@ const Bitrecife = require('./bitrecife.js');
 const Bleutrade = require('./bleutrade.js');
 const Bullgain = require('./bullgain.js');
 const Staging = require('./staging.js');
-const Bomesp = require('./bomesp.js');
+const BomespBrasil = require('./bomespBrasil.js');
+const BomespGlobal = require('./bomespGlobal.js');
 
 const Arbitration = [
   {
@@ -468,6 +469,98 @@ const Arbitration = [
       },
     ]
   },
+  {
+    name: 'NBC_BTC >> NBC_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        total: 0,
+        receive: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'NBC',
+          exchangeto: 7,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 7,
+        exchange: BomespGlobal,
+        fee: 0.9979,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'NBC_BTC >> NBC_BTC',
+    entry: 0.0002,
+    walks: [
+      {
+        exchangeto: 7,
+        exchange: BomespGlobal,
+        fee: 0.9979,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        total: 0,
+        receive: {
+          asset: 'BTC',
+          exchangeto: 7,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'NBC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
   // 3 Passos
   {
     name: 'USDT_BRL >> BTC_USDT >> BTC_BRL',
@@ -854,6 +947,118 @@ const Arbitration = [
         action: 'sell',
         symbol: 'ETH_BRL',
         quote: 'ETH',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    name: 'BTC_BRL >> NBC_BTC >> NBC_BRL',
+    entry: 10.00,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'NBC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'NBC_BRL',
+        quote: 'NBC',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    name: 'BTC_BRL >> NBC_BTC >> NBC_BRL',
+    entry: 10.00,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 7,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 7,
+        exchange: BomespGlobal,
+        fee: 0.9979,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'NBC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'NBC_BRL',
+        quote: 'NBC',
         base: 'BRL',
         total: 0,
         receive: null,

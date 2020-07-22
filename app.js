@@ -60,8 +60,11 @@ class Hades {
       case 3:
         exchangeto = 'Bitrecife';
         break;
+      case 7:
+        exchangeto = 'Bomesp Global';
+        break;
       case 8:
-        exchangeto = 'Bomesp';
+        exchangeto = 'Bomesp Brasil';
         break;
       case 9:
         exchangeto = 'Bullgain';
@@ -83,22 +86,19 @@ class Hades {
 
   async calcQntOutput(arb) {
     for (let [i, walk] of arb.walks.entries()) {
+      // Reset
       walk.total = 0;
       walk.quantity = 0;
       // Livro de ofertas
       let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 20);
       // Verificando a ação 
       let orders = walk.action === 'buy' ? book.sell : book.buy;         
-      // Buy - total
-      // Sell - quantity
+      // buy - total
+      // sell - quantity
       if (i === 0) {
         this.calcule(walk, orders, arb.entry);
-      } else if (i === 1) {
+      } else {        
         this.calcule(walk, orders, arb.walks[i - 1].total);
-      } else if (i === 2) {
-        this.calcule(walk, orders, arb.walks[i - 1].total);      
-      } else if (i === 3) {
-        this.calcule(walk, orders, arb.walks[i - 1].total);      
       }
     }
   }  

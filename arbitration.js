@@ -1928,6 +1928,146 @@ const Arbitration = [
       },
     ]
   },
+  {
+    name: 'ETH_BRL >> HTML_ETH >> HTML_USDT >> USDT_BRL',
+    entry: 10.00,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_BRL',
+        quote: 'ETH',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'HTML_ETH',
+        quote: 'HTML',
+        base: 'ETH',
+        total: 0,
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'HTML_USDT',
+        quote: 'HTML',
+        base: 'USDT',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'USDT_BRL',
+        quote: 'USDT',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    name: 'USDT_BRL >> USDT_BRL >> BTC_BRL >> BTC_BRL',
+    entry: 10.00,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'USDT_BRL',
+        quote: 'USDT',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 8,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 8,
+        exchange: BomespBrasil,
+        fee: 0.9965,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'USDT_BRL',
+        quote: 'USDT',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 8,
+        exchange: BomespBrasil,
+        fee: 0.9965,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
 ];
 
 module.exports = Arbitration;

@@ -163,6 +163,8 @@ class Hades {
     }
 
     if (walk.redirect) {
+      await this.wait(300); 
+      
       let wallet = await Bleutrade.getBalance(walk.redirect.asset);
       let exchangeto = this.exchangeNameSelected(walk.redirect.exchangeto);
 
@@ -189,6 +191,8 @@ class Hades {
     }
 
     if (walk.redirect) {
+      await this.wait(300); 
+
       let wallet = await Bleutrade.getBalance(walk.redirect.asset);
       let exchangeto = this.exchangeNameSelected(walk.redirect.exchangeto);
 

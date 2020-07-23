@@ -147,7 +147,7 @@ class Hades {
   // Ação de compra
   async oppTakerBuy(walk, entry, index) {
     // Comprar
-    await walk.exchange.setBuyLimit(walk.symbol, walk.price, this.mask(walk.total, 8));
+    await walk.exchange.setBuyMarket(walk.symbol, this.mask(walk.total, 8));
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.total})`);
     // É preciso transferir ?
     if (walk.transfer) {
@@ -173,7 +173,7 @@ class Hades {
   // Ação de venda
   async oppTakerSell(walk, entry, index) { 
     // Vender
-    await walk.exchange.setSellLimit(walk.symbol, walk.price, this.mask(walk.quantity, 8));
+    await walk.exchange.setSellMarket(walk.symbol, this.mask(walk.quantity, 8));
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);    
     // É preciso transferir ?
     if (walk.transfer) {

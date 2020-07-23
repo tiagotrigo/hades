@@ -4,6 +4,7 @@ const R = require('ramda');
 const await = require('await');
 const Telegram = require('./telegram');
 const Bitrecife = require('./bitrecife');
+const Bleutrade = require('./bleutrade');
 const Arbitrations = require('./arbitration');
 
 class Hades {
@@ -160,6 +161,14 @@ class Hades {
       }
       console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
     }
+
+    if (walk.redirect) {
+      let wallet = await Bleutrade.getBalance(walk.redirect.asset);
+      let exchangeto = this.exchangeNameSelected(walk.redirect.exchangeto);
+
+      await Bleutrade.setDirectTransfer(walk.redirect.asset, wallet.data.result[0].Available, walk.redirect.exchangeto, walk.redirect.mail);
+      console.log(`Redirect ${walk.redirect.asset} para exchange ${exchangeto}`); 
+    }
   }
   // Ação de venda
   async oppTakerSell(walk, entry, index) { 
@@ -173,11 +182,18 @@ class Hades {
 
       if (walk.exchangeto === 3) {
         await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.quantity, 8), walk.transfer.exchangeto, walk.transfer.mail);
-        console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
       } else {
         await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
-        console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
       }
+      console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
+    }
+
+    if (walk.redirect) {
+      let wallet = await Bleutrade.getBalance(walk.redirect.asset);
+      let exchangeto = this.exchangeNameSelected(walk.redirect.exchangeto);
+
+      await Bleutrade.setDirectTransfer(walk.redirect.asset, wallet.data.result[0].Available, walk.redirect.exchangeto, walk.redirect.mail);
+      console.log(`Redirect ${walk.redirect.asset} para exchange ${exchangeto}`); 
     }
   }
   // Controlador de ações
@@ -229,13 +245,11 @@ class Hades {
               await this.routine(walk, arb, y);
             }
             await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
-            console.log(`Enviando (${arb.walks[arb.walks.length - 1].total}) notificação para @tiagotrigo`); 
-            // console.log(arb)
-            // process.exit();
+            console.log(`Enviando (${arb.walks[arb.walks.length - 1].total}) notificação para @tiagotrigo`);
           } else {
             console.log(arb.name, this.mask(profit, 8));
           }
-          // await this.wait(1000);          
+          await this.wait(1000);          
         }  
       } catch(e) {
         console.log(e.message)

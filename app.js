@@ -151,6 +151,8 @@ class Hades {
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.total})`);
     // É preciso transferir ?
     if (walk.transfer) {
+      await this.wait(300);
+
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
       let exchangeto = this.exchangeNameSelected(walk.transfer.exchangeto);
 
@@ -164,7 +166,7 @@ class Hades {
 
     if (walk.redirect) {
       await this.wait(300); 
-      
+
       let wallet = await Bleutrade.getBalance(walk.redirect.asset);
       let exchangeto = this.exchangeNameSelected(walk.redirect.exchangeto);
 
@@ -179,6 +181,8 @@ class Hades {
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);    
     // É preciso transferir ?
     if (walk.transfer) {
+      await this.wait(300);
+
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
       let exchangeto = this.exchangeNameSelected(walk.transfer.exchangeto);
 
@@ -250,12 +254,12 @@ class Hades {
               await this.routine(walk, arb, y);
             }
             await Telegram.sendMessage(`[${arb.name}]: ${profit}`);
-            console.log(`Enviando (${arb.walks[arb.walks.length - 1].total}) notificação para @tiagotrigo`);
+            console.log(`Lucro de (${arb.walks[arb.walks.length - 1].total})`);
             console.log(' ');
           } else {
             console.log(arb.name, this.mask(profit, 8));
           }
-          await this.wait(1000);          
+          // await this.wait(1000);          
         }  
       } catch(e) {
         console.log(e.message)

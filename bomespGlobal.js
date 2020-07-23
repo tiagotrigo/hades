@@ -352,7 +352,6 @@ const BomespGlobal = {
           accountto: options.params.accountto
         }
       }).then((data) => {
-        console.log(data.data)
         resolve(data)  
       }).catch((er) => {
         console.log(er)

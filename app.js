@@ -102,7 +102,7 @@ class Hades {
       if (i === 0) {
         this.calcule(walk, orders, arb.entry);
       } else {        
-        this.calcule(walk, orders, arb.walks[i - 1].total);
+        this.calcule(walk, orders, arb.walks[i - 1].total);  
       }
     }
   }  
@@ -173,6 +173,8 @@ class Hades {
       await Bleutrade.setDirectTransfer(walk.redirect.asset, wallet.data.result[0].Available, walk.redirect.exchangeto, walk.redirect.mail);
       console.log(`Redirect ${walk.redirect.asset} para exchange ${exchangeto}`); 
     }
+
+    await this.wait(300);
   }
   // Ação de venda
   async oppTakerSell(walk, entry, index) { 
@@ -203,6 +205,8 @@ class Hades {
       await Bleutrade.setDirectTransfer(walk.redirect.asset, wallet.data.result[0].Available, walk.redirect.exchangeto, walk.redirect.mail);
       console.log(`Redirect ${walk.redirect.asset} para exchange ${exchangeto}`); 
     }
+
+    await this.wait(300);
   }
   // Controlador de ações
   async routine(walk, arb, index) {
@@ -259,7 +263,7 @@ class Hades {
           } else {
             console.log(arb.name, this.mask(profit, 8));
           }
-          // await this.wait(1000);          
+          //await this.wait(300);          
         }  
       } catch(e) {
         console.log(e.message)

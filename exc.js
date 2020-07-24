@@ -205,7 +205,7 @@ const Exc = {
         
         resolve(data)
       }).catch((er) => {
-        
+        console.log(er.data)
         reject(er)
       })      
     })
@@ -243,7 +243,7 @@ const Exc = {
         
         resolve(data)
       }).catch((er) => {
-        
+        console.log(er.data)
         reject(er)
       })      
     })

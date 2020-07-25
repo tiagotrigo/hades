@@ -151,12 +151,15 @@ class Hades {
     let b = await walk.exchange.setBuyMarket(walk.symbol, this.mask(walk.total, 8));
 
     while (b.data.success === false) {
+      await this.wait(300);
+
       b = await walk.exchange.setBuyMarket(walk.symbol, this.mask(walk.total, 8));
       console.log(`Forçando troca de ${walk.base} por ${walk.quote} (${walk.total})`);
     }
 
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.total})`);
     console.log('Trade:', b.data.success ? 'Sucesso' : b.data.message);    
+    
     // É preciso transferir ?
     if (walk.transfer) {
       await this.wait(300);
@@ -170,8 +173,11 @@ class Hades {
       } else {
         t = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
       }
+      
       while (t.data.success === false) {
-        await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.total, 8), walk.transfer.exchangeto, walk.transfer.mail);
+        await this.wait(300);
+
+        t = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.total, 8), walk.transfer.exchangeto, walk.transfer.mail);
         console.log(`Forçando envio ${walk.transfer.asset} para exchange ${exchangeto}`);
       }
 
@@ -197,6 +203,8 @@ class Hades {
     let s = await walk.exchange.setSellMarket(walk.symbol, this.mask(walk.quantity, 8));
 
     while (s.data.success === false) {
+      await this.wait(300);
+
       s = await walk.exchange.setSellMarket(walk.symbol, this.mask(walk.quantity, 8));
       console.log(`Forçando troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
     }
@@ -216,8 +224,11 @@ class Hades {
       } else {
         t = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
       }
+      
       while (t.data.success === false) {
-        await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.quantity, 8), walk.transfer.exchangeto, walk.transfer.mail);
+        await this.wait(300);
+
+        t = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.quantity, 8), walk.transfer.exchangeto, walk.transfer.mail);
         console.log(`Forçando envio ${walk.transfer.asset} para exchange ${exchangeto}`);
       }
 

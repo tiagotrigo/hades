@@ -147,14 +147,22 @@ class Hades {
   }
   // Ação de compra
   async oppTakerBuy(walk, entry, index) {
+    let amt = null;
     // Comprar
     let b = await walk.exchange.setBuyMarket(walk.symbol, this.mask(walk.total, 8));
 
     while (b.data.success === false) {
       await this.wait(300);
 
-      b = await walk.exchange.setBuyMarket(walk.symbol, this.mask(walk.total, 8));
-      console.log(`Forçando troca de ${walk.base} por ${walk.quote} (${walk.total})`);
+      amt = await walk.exchange.getBalance(walk.trade);
+
+      if (walk.exchangeto === 3) {
+        b = await walk.exchange.setBuyMarket(walk.symbol, this.mask(walk.total, 8));
+      } else {
+        b = await walk.exchange.setBuyMarket(walk.symbol, this.mask(amt.data.result[0].Available, 8));
+      }
+
+      console.log(`Forçando troca de ${walk.base} por ${walk.quote} (${amt.data.result[0].Available})`);
     }
 
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.total})`);
@@ -164,27 +172,27 @@ class Hades {
     if (walk.transfer) {
       await this.wait(300);
 
-      let t = null;
+      let dt = null;
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
       let exchangeto = this.exchangeNameSelected(walk.transfer.exchangeto);
 
       if (walk.exchangeto === 3) {
-        t = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.total, 8), walk.transfer.exchangeto, walk.transfer.mail);
+        dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.total, 8), walk.transfer.exchangeto, walk.transfer.mail);
       } else {
-        t = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+        dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
       }
       
-      while (t.data.success === false) {
+      while (dt.data.success === false) {
         await this.wait(300);
 
-        t = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.total, 8), walk.transfer.exchangeto, walk.transfer.mail);
+        dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.total, 8), walk.transfer.exchangeto, walk.transfer.mail);
         console.log(`Forçando envio ${walk.transfer.asset} para exchange ${exchangeto}`);
       }
 
       console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
-      console.log('Envio:', t.data.success ? 'Sucesso' : t.data.message);
+      console.log('Envio:', dt.data.success ? 'Sucesso' : dt.data.message);
     }
-
+    // Redirect?
     if (walk.redirect) {
       await this.wait(300); 
 
@@ -198,44 +206,53 @@ class Hades {
     await this.wait(300);
   }
   // Ação de venda
-  async oppTakerSell(walk, entry, index) { 
+  async oppTakerSell(walk, entry, index) {
+    let amt = null;
     // Vender
     let s = await walk.exchange.setSellMarket(walk.symbol, this.mask(walk.quantity, 8));
 
     while (s.data.success === false) {
       await this.wait(300);
 
-      s = await walk.exchange.setSellMarket(walk.symbol, this.mask(walk.quantity, 8));
-      console.log(`Forçando troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);
+      amt = await walk.exchange.getBalance(walk.trade);
+
+      if (walk.exchangeto === 3) {
+        s = await walk.exchange.setSellMarket(walk.symbol, this.mask(walk.quantity, 8));
+      } else {
+        s = await walk.exchange.setSellMarket(walk.symbol, this.mask(amt.data.result[0].Available, 8));
+      }
+
+      console.log(`Forçando troca de ${walk.base} por ${walk.quote} (${amt.data.result[0].Available})`);
     }
 
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);    
     console.log('Trade:', s.data.success ? 'Sucesso' : s.data.message);
+    
     // É preciso transferir ?
     if (walk.transfer) {
       await this.wait(300);
 
-      let t = null;
+      let dt = null;
       let wallet = await walk.exchange.getBalance(walk.transfer.asset);
       let exchangeto = this.exchangeNameSelected(walk.transfer.exchangeto);
 
       if (walk.exchangeto === 3) {
-        t = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.quantity, 8), walk.transfer.exchangeto, walk.transfer.mail);
+        dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.quantity, 8), walk.transfer.exchangeto, walk.transfer.mail);
       } else {
-        t = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
+        dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
       }
       
-      while (t.data.success === false) {
+      while (dt.data.success === false) {
         await this.wait(300);
 
-        t = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.quantity, 8), walk.transfer.exchangeto, walk.transfer.mail);
+        dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.quantity, 8), walk.transfer.exchangeto, walk.transfer.mail);
         console.log(`Forçando envio ${walk.transfer.asset} para exchange ${exchangeto}`);
       }
 
       console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
-      console.log('Envio:', t.data.success ? 'Sucesso' : t.data.message);
+      console.log('Envio:', dt.data.success ? 'Sucesso' : dt.data.message);
     }
-
+    // Redirect?
     if (walk.redirect) {
       await this.wait(300); 
 

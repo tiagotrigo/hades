@@ -76,6 +76,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 1,
@@ -98,6 +99,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -168,6 +170,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 2,
@@ -195,6 +198,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -219,6 +223,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 2,
@@ -241,6 +246,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -265,6 +271,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 1,
@@ -287,6 +294,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -357,6 +365,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 1,
@@ -379,6 +388,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'USDT',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -403,6 +413,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 2,
@@ -425,6 +436,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'USDT',
         total: 0,
+        trade: 'LTC',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -449,6 +461,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 1,
@@ -471,6 +484,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'USDT',
         total: 0,
+        trade: 'LTC',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -495,6 +509,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'BTC',
           exchangeto: 2,
@@ -517,6 +532,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -541,6 +557,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 1,
@@ -563,6 +580,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -587,6 +605,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 2,
@@ -609,6 +628,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'BTC',
         total: 0,
+        trade: 'LTC',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -633,6 +653,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 1,
@@ -655,6 +676,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'BTC',
         total: 0,
+        trade: 'LTC',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -679,6 +701,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 1,
@@ -701,6 +724,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'NBC',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -730,6 +754,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 7,
@@ -752,6 +777,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'NBC',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -777,6 +803,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 1,
@@ -795,6 +822,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -809,6 +837,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'USDT',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -833,6 +862,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 1,
@@ -851,6 +881,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -865,6 +896,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'USDT',
         total: 0,
+        trade: 'LTC',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -889,6 +921,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: {
           asset: 'USDT',
           exchangeto: 1,
@@ -907,6 +940,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -921,6 +955,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'USDT',
         total: 0,
+        trade: 'NBC',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -945,6 +980,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 1,
@@ -963,6 +999,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'USDT',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: null
       },
@@ -977,6 +1014,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1001,6 +1039,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 2,
@@ -1019,6 +1058,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'USDT',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: null
       },
@@ -1033,6 +1073,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1057,6 +1098,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 2,
@@ -1079,6 +1121,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'USDT',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: null
       },
@@ -1093,6 +1136,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1117,6 +1161,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 1,
@@ -1139,6 +1184,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'USDT',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -1157,6 +1203,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1166,8 +1213,6 @@ const Arbitration = [
       },
     ]
   },
-
-
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
     entry: 0.0003,
@@ -1183,6 +1228,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 1,
@@ -1201,6 +1247,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'USDT',
         total: 0,
+        trade: 'LTC',
         receive: null,
         transfer: null
       },
@@ -1215,6 +1262,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1239,6 +1287,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 2,
@@ -1257,6 +1306,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'USDT',
         total: 0,
+        trade: 'LTC',
         receive: null,
         transfer: null
       },
@@ -1271,6 +1321,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1295,6 +1346,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 2,
@@ -1317,6 +1369,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'USDT',
         total: 0,
+        trade: 'LTC',
         receive: null,
         transfer: null
       },
@@ -1331,6 +1384,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1355,6 +1409,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 1,
@@ -1377,6 +1432,7 @@ const Arbitration = [
         quote: 'LTC',
         base: 'USDT',
         total: 0,
+        trade: 'LTC',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -1395,6 +1451,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1403,8 +1460,7 @@ const Arbitration = [
         }
       },
     ]
-  },
-  
+  },  
   {
     name: 'NBC_BTC >> NBC_USDT >> BTC_USDT',
     entry: 0.0003,
@@ -1420,6 +1476,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 1,
@@ -1438,6 +1495,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'USDT',
         total: 0,
+        trade: 'NBC',
         receive: null,
         transfer: null
       },
@@ -1452,6 +1510,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1476,6 +1535,7 @@ const Arbitration = [
         quote: 'BCH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 1,
@@ -1494,6 +1554,7 @@ const Arbitration = [
         quote: 'BCH',
         base: 'USDT',
         total: 0,
+        trade: 'BCH',
         receive: null,
         transfer: null
       },
@@ -1508,6 +1569,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1533,6 +1595,7 @@ const Arbitration = [
         quote: 'DOGE',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: {
           asset: 'BTC',
           exchangeto: 2,
@@ -1551,6 +1614,7 @@ const Arbitration = [
         quote: 'DOGE',
         base: 'USDT',
         total: 0,
+        trade: 'DOGE',
         receive: null,
         transfer: null
       },
@@ -1565,6 +1629,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1589,6 +1654,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -1607,6 +1673,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1625,6 +1692,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -1701,6 +1769,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -1719,6 +1788,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1737,6 +1807,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -1757,6 +1828,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -1775,6 +1847,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'ETH',
@@ -1793,6 +1866,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BRL',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: null
       },
@@ -1869,6 +1943,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -1887,6 +1962,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'NBC',
@@ -1905,6 +1981,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BRL',
         total: 0,
+        trade: 'NBC',
         receive: null,
         transfer: null
       },
@@ -1981,6 +2058,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -1999,6 +2077,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'ETH',
@@ -2017,6 +2096,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BRL',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: null
       },
@@ -2037,6 +2117,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -2055,6 +2136,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'NBC',
@@ -2073,6 +2155,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BRL',
         total: 0,
+        trade: 'NBC',
         receive: null,
         transfer: null
       },
@@ -2093,6 +2176,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -2116,6 +2200,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'NBC',
@@ -2139,6 +2224,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BRL',
         total: 0,
+        trade: 'NBC',
         receive: null,
         transfer: null
       },
@@ -2159,6 +2245,7 @@ const Arbitration = [
         quote: 'USDC',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDC',
@@ -2177,6 +2264,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDC',
         total: 0,
+        trade: 'USDC',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -2195,6 +2283,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -2215,6 +2304,7 @@ const Arbitration = [
         quote: 'CBRL',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'CBRL',
@@ -2233,6 +2323,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'CBRL',
         total: 0,
+        trade: 'CBRL',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -2251,6 +2342,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -2271,6 +2363,7 @@ const Arbitration = [
         quote: 'CBRL',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'CBRL',
@@ -2289,6 +2382,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'CBRL',
         total: 0,
+        trade: 'CBRL',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -2307,6 +2401,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: null
       },
@@ -2327,6 +2422,7 @@ const Arbitration = [
         quote: 'RAS',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'RAS',
@@ -2345,6 +2441,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'RAS',
         total: 0,
+        trade: 'RAS',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -2363,6 +2460,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: null
       },
@@ -2383,6 +2481,7 @@ const Arbitration = [
         quote: 'RAS',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'RAS',
@@ -2401,6 +2500,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'RAS',
         total: 0,
+        trade: 'RAS',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -2419,6 +2519,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -2439,6 +2540,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -2457,6 +2559,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -2475,6 +2578,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -2495,6 +2599,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -2513,6 +2618,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDT',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -2531,6 +2637,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -2552,6 +2659,7 @@ const Arbitration = [
         quote: 'USDC',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDC',
@@ -2570,6 +2678,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDC',
         total: 0,
+        trade: 'USDC',
         receive: null,
         transfer: null
       },
@@ -2584,6 +2693,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'ETH',
@@ -2602,6 +2712,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BRL',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: null
       },
@@ -2622,6 +2733,7 @@ const Arbitration = [
         quote: 'USDC',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDC',
@@ -2640,6 +2752,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'USDC',
         total: 0,
+        trade: 'USDC',
         receive: null,
         transfer: null
       },
@@ -2654,6 +2767,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'NBC',
@@ -2672,6 +2786,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BRL',
         total: 0,
+        trade: 'NBC',
         receive: null,
         transfer: null
       },
@@ -2692,6 +2807,7 @@ const Arbitration = [
         quote: 'CBRL',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'CBRL',
@@ -2710,6 +2826,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'CBRL',
         total: 0,
+        trade: 'CBRL',
         receive: null,
         transfer: {
           asset: 'CBRL',
@@ -2728,6 +2845,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'NBC',
@@ -2746,6 +2864,7 @@ const Arbitration = [
         quote: 'NBC',
         base: 'BRL',
         total: 0,
+        trade: 'NBC',
         receive: null,
         transfer: null
       },
@@ -2766,6 +2885,7 @@ const Arbitration = [
         quote: 'CBRL',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'CBRL',
@@ -2784,6 +2904,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'CBRL',
         total: 0,
+        trade: 'CBRL',
         receive: null,
         transfer: null
       },
@@ -2798,6 +2919,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BTC',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'ETH',
@@ -2816,6 +2938,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BRL',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: null
       },
@@ -2836,6 +2959,7 @@ const Arbitration = [
         quote: 'ETH',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'ETH',
@@ -2854,6 +2978,7 @@ const Arbitration = [
         quote: 'HTML',
         base: 'ETH',
         total: 0,
+        trade: 'ETH',
         receive: null,
         transfer: null
       },
@@ -2868,6 +2993,7 @@ const Arbitration = [
         quote: 'HTML',
         base: 'USDT',
         total: 0,
+        trade: 'HTML',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -2886,6 +3012,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: null
       },
@@ -2906,6 +3033,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -2924,6 +3052,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: null
       },
@@ -2938,6 +3067,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -2956,6 +3086,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -2976,6 +3107,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'USDT',
@@ -2994,6 +3126,7 @@ const Arbitration = [
         quote: 'USDT',
         base: 'BRL',
         total: 0,
+        trade: 'USDT',
         receive: null,
         transfer: null
       },
@@ -3008,6 +3141,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -3026,6 +3160,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },
@@ -3046,6 +3181,7 @@ const Arbitration = [
         quote: 'CBRL',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'CBRL',
@@ -3064,6 +3200,7 @@ const Arbitration = [
         quote: 'CBRL',
         base: 'BRL',
         total: 0,
+        trade: 'CBRL',
         receive: null,
         transfer: null
       },
@@ -3078,6 +3215,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BRL',
         receive: null,
         transfer: {
           asset: 'BTC',
@@ -3096,6 +3234,7 @@ const Arbitration = [
         quote: 'BTC',
         base: 'BRL',
         total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: null
       },

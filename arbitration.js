@@ -12,7 +12,7 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 const Arbitration = [
   // {
   //   name: 'BTC_USDT >> BTC_USDT',
-  //   entry: 6.00,
+  //   entry: 10.02,
   //   walks: [
   //     {
   //       exchangeto: 6,
@@ -63,7 +63,7 @@ const Arbitration = [
   // },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 1,
@@ -157,7 +157,7 @@ const Arbitration = [
   // },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 2,
@@ -210,7 +210,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 2,
@@ -258,7 +258,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 1,
@@ -306,7 +306,7 @@ const Arbitration = [
   },
   // {
   //   name: 'ETH_USDT >> ETH_USDT',
-  //   entry: 1.00,
+  //   entry: 5.02,
   //   walks: [
   //     {
   //       exchangeto: 2,
@@ -352,7 +352,7 @@ const Arbitration = [
   // },
   {
     name: 'ETH_USDT >> ETH_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 1,
@@ -400,7 +400,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT >> LTC_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 2,
@@ -448,7 +448,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT >> LTC_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 1,
@@ -790,7 +790,7 @@ const Arbitration = [
   // 3 Passos
   {
     name: 'BTC_USDT >> ETH_BTC >> ETH_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 1,
@@ -849,7 +849,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> LTC_BTC >> LTC_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 1,
@@ -908,7 +908,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> NBC_BTC >> NBC_USDT',
-    entry: 1.00,
+    entry: 5.02,
     walks: [
       {
         exchangeto: 1,
@@ -1641,7 +1641,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_BRL >> BTC_USDT >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -1700,7 +1700,7 @@ const Arbitration = [
   },
   // {
   //   name: 'USDT_BRL >> BTC_USDT >> BTC_BRL',
-  //   entry: 6.00,
+  //   entry: 10.02,
   //   walks: [
   //     {
   //       exchangeto: 3,
@@ -1756,7 +1756,7 @@ const Arbitration = [
   // },
   {
     name: 'USDT_BRL >> BTC_USDT >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -1815,7 +1815,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_BRL >> ETH_USDT >> ETH_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -1874,7 +1874,7 @@ const Arbitration = [
   },
   // {
   //   name: 'USDT_BRL >> ETH_USDT >> ETH_BRL',
-  //   entry: 6.00,
+  //   entry: 10.02,
   //   walks: [
   //     {
   //       exchangeto: 3,
@@ -1930,7 +1930,7 @@ const Arbitration = [
   // },
   {
     name: 'USDT_BRL >> NBC_USDT >> NBC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -1989,7 +1989,7 @@ const Arbitration = [
   },
   /*{
     name: 'BTC_BRL >> ETH_BTC >> ETH_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2045,7 +2045,7 @@ const Arbitration = [
   },*/
   {
     name: 'BTC_BRL >> ETH_BTC >> ETH_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2104,7 +2104,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_BRL >> NBC_BTC >> NBC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2163,7 +2163,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_BRL >> NBC_BTC >> NBC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2232,7 +2232,7 @@ const Arbitration = [
   },
   {
     name: 'USDC_BRL >> BTC_USDC >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2291,7 +2291,7 @@ const Arbitration = [
   },  
   {
     name: 'CBRL_BRL >> BTC_CBRL >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2350,7 +2350,7 @@ const Arbitration = [
   }, 
   {
     name: 'CBRL_BRL >> USDT_CBRL >> USDT_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2409,7 +2409,7 @@ const Arbitration = [
   },
   {
     name: 'RAS_BRL >> USDT_RAS >> USDT_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2468,7 +2468,7 @@ const Arbitration = [
   },
   {
     name: 'RAS_BRL >> BTC_RAS >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2527,7 +2527,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_BRL >> BTC_USDT >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2586,7 +2586,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_BRL >> BTC_USDT >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2646,7 +2646,7 @@ const Arbitration = [
   // 4 Passos
   {
     name: 'USDC_BRL >> BTC_USDC >> ETH_BTC >> ETH_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2720,7 +2720,7 @@ const Arbitration = [
   },
   {
     name: 'USDC_BRL >> BTC_USDC >> NBC_BTC >> NBC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2794,7 +2794,7 @@ const Arbitration = [
   },
   {
     name: 'CBRL_BRL >> BTC_CBRL >> NBC_BTC >> NBC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2872,7 +2872,7 @@ const Arbitration = [
   },
   {
     name: 'CBRL_BRL >> BTC_CBRL >> ETH_BTC >> ETH_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -2946,7 +2946,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BRL >> HTML_ETH >> HTML_USDT >> USDT_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -3020,7 +3020,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_BRL >> USDT_BRL >> BTC_BRL >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -3094,7 +3094,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_BRL >> USDT_BRL >> BTC_BRL >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,
@@ -3168,7 +3168,7 @@ const Arbitration = [
   },
   {
     name: 'CBRL_BRL >> CBRL_BRL >> BTC_BRL >> BTC_BRL',
-    entry: 6.00,
+    entry: 10.02,
     walks: [
       {
         exchangeto: 3,

@@ -142,8 +142,8 @@ class Hades {
   }
 
   // Segundo passo
-  async calcProfitOutput(arb) {        
-    return arb.walks[arb.walks.length - 1].total; - arb.entry;
+  async calcProfitOutput(arb) {  
+    return arb.walks[arb.walks.length - 1].total;
   }
   // Ação de compra
   async oppTakerBuy(walk, entry, index) {
@@ -154,15 +154,19 @@ class Hades {
     while (b.data.success === false) {
       await this.wait(300);
 
+      walk.total = 0;
+      walk.quantity = 0;
+
       amt = await walk.exchange.getBalance(walk.trade);
+      // Livro de ofertas
+      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 20);
+      // Verificando a ação 
+      let orders = walk.action === 'buy' ? book.sell : book.buy;
 
-      if (walk.exchangeto === 3) {
-        b = await walk.exchange.setBuyMarket(walk.symbol, this.mask(walk.total, 8));
-      } else {
-        b = await walk.exchange.setBuyMarket(walk.symbol, this.mask(amt.data.result[0].Available, 8));
-      }
+      this.calcule(walk, orders, amt.data.result[0].Available); 
 
-      console.log(`Forçando troca de ${walk.base} por ${walk.quote} (${amt.data.result[0].Available})`);
+      b = await walk.exchange.setBuyMarket(walk.symbol, this.mask(walk.total, 8));
+      console.log(`Forçando trade`);
     }
 
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.total})`);
@@ -214,15 +218,19 @@ class Hades {
     while (s.data.success === false) {
       await this.wait(300);
 
+      walk.total = 0;
+      walk.quantity = 0;
+
       amt = await walk.exchange.getBalance(walk.trade);
+      // Livro de ofertas
+      let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 20);
+      // Verificando a ação 
+      let orders = walk.action === 'buy' ? book.sell : book.buy;
 
-      if (walk.exchangeto === 3) {
-        s = await walk.exchange.setSellMarket(walk.symbol, this.mask(walk.quantity, 8));
-      } else {
-        s = await walk.exchange.setSellMarket(walk.symbol, this.mask(amt.data.result[0].Available, 8));
-      }
+      this.calcule(walk, orders, amt.data.result[0].Available); 
 
-      console.log(`Forçando troca de ${walk.base} por ${walk.quote} (${amt.data.result[0].Available})`);
+      s = await walk.exchange.setSellMarket(walk.symbol, this.mask(walk.quantity, 8));
+      console.log(`Forçando trade`);
     }
 
     console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);    
@@ -300,17 +308,22 @@ class Hades {
 
   async run() {
     do {
-      try {
-        for (let [i, arb] of Arbitrations.entries()) {
-          const { walks } = arb;
-          // Calculando a quantidade
+      for (let [i, arb] of Arbitrations.entries()) {
+        // Calculando a quantidade
+        try {
           await this.calcQntOutput(arb);
-          // Verificando se a lucro
-          const profit = await this.calcProfitOutput(arb);
-
+        } catch(e) {
+          continue;
+        };
+        // Verificando se a lucro
+        const profit = await this.calcProfitOutput(arb);
+        
+        if (profit === 0) {
+          continue;
+        } else {
           if (profit > arb.entry) {
             console.log(' ');
-            for (let [y, walk] of walks.entries()) {
+            for (let [y, walk] of arb.walks.entries()) {
               // Iniciando rotinas
               await this.routine(walk, arb, y);
             }
@@ -320,11 +333,9 @@ class Hades {
           } else {
             console.log(arb.name, this.mask(profit, 8));
           }
-          //await this.wait(300);          
-        }  
-      } catch(e) {
-        console.log(e.message)
-      }
+        }
+        //await this.wait(300);          
+      } 
     } while (true);
   }
 }

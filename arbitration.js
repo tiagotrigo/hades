@@ -1333,7 +1333,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.0003,
     walks: [
       {
         exchangeto: 2,

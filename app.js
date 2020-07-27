@@ -185,13 +185,6 @@ class Hades {
       } else {
         dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
       }
-      
-      while (dt.data.success === false) {
-        await this.wait(300);
-
-        dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.total, 8), walk.transfer.exchangeto, walk.transfer.mail);
-        console.log(`Forçando envio ${walk.transfer.asset} para exchange ${exchangeto}`);
-      }
 
       console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
       console.log('Envio:', dt.data.success ? 'Sucesso' : dt.data.message);
@@ -248,13 +241,6 @@ class Hades {
         dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.quantity, 8), walk.transfer.exchangeto, walk.transfer.mail);
       } else {
         dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
-      }
-      
-      while (dt.data.success === false) {
-        await this.wait(300);
-
-        dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, this.mask(walk.quantity, 8), walk.transfer.exchangeto, walk.transfer.mail);
-        console.log(`Forçando envio ${walk.transfer.asset} para exchange ${exchangeto}`);
       }
 
       console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);

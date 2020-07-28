@@ -65,7 +65,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 5.02,
+    entry: 2.02,
     walks: [
       {
         exchangeto: 1,
@@ -113,7 +113,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 5.02,
+    entry: 2.02,
     walks: [
       {
         exchangeto: 6,
@@ -161,7 +161,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 5.02,
+    entry: 2.02,
     walks: [
       {
         exchangeto: 2,
@@ -212,105 +212,105 @@ const Arbitration = [
       },
     ]
   },
-  {
-    name: 'BTC_USDT >> BTC_USDT',
-    entry: 5.02,
-    walks: [
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
-  {
-    name: 'BTC_USDT >> BTC_USDT',
-    entry: 5.02,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
+  // {
+  //   name: 'BTC_USDT >> BTC_USDT',
+  //   entry: 2.02,
+  //   walks: [
+  //     {
+  //       exchangeto: 2,
+  //       exchange: Exc,
+  //       fee: 0.9975,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'BTC_USDT',
+  //       quote: 'BTC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'USDT',
+  //       receive: {
+  //         asset: 'USDT',
+  //         exchangeto: 2,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       },
+  //       transfer: {
+  //         asset: 'BTC',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'BTC_USDT',
+  //       quote: 'BTC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'BTC',
+  //       receive: null,
+  //       transfer: {
+  //         asset: 'USDT',
+  //         exchangeto: 3,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //   ]
+  // },
+  // {
+  //   name: 'BTC_USDT >> BTC_USDT',
+  //   entry: 2.02,
+  //   walks: [
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'BTC_USDT',
+  //       quote: 'BTC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'USDT',
+  //       receive: {
+  //         asset: 'USDT',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       },
+  //       transfer: {
+  //         asset: 'BTC',
+  //         exchangeto: 2,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 2,
+  //       exchange: Exc,
+  //       fee: 0.9975,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'BTC_USDT',
+  //       quote: 'BTC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'BTC',
+  //       receive: null,
+  //       transfer: {
+  //         asset: 'USDT',
+  //         exchangeto: 3,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //   ]
+  // },
   {
     name: 'ETH_USDT >> ETH_USDT',
-    entry: 5.02,
+    entry: 2.02,
     walks: [
       {
         exchangeto: 2,
@@ -358,7 +358,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_USDT >> ETH_USDT',
-    entry: 5.02,
+    entry: 2.02,
     walks: [
       {
         exchangeto: 1,
@@ -406,7 +406,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT >> LTC_USDT',
-    entry: 6.02,
+    entry: 2.02,
     walks: [
       {
         exchangeto: 2,
@@ -452,57 +452,57 @@ const Arbitration = [
       },
     ]
   },
-  {
-    name: 'LTC_USDT >> LTC_USDT',
-    entry: 6.02,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'LTC_USDT',
-        quote: 'LTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'LTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'LTC_USDT',
-        quote: 'LTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'LTC',
-        receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
+  // {
+  //   name: 'LTC_USDT >> LTC_USDT',
+  //   entry: 2.02,
+  //   walks: [
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'LTC_USDT',
+  //       quote: 'LTC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'USDT',
+  //       receive: {
+  //         asset: 'USDT',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       },
+  //       transfer: {
+  //         asset: 'LTC',
+  //         exchangeto: 2,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 2,
+  //       exchange: Exc,
+  //       fee: 0.9975,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'LTC_USDT',
+  //       quote: 'LTC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'LTC',
+  //       receive: null,
+  //       transfer: {
+  //         asset: 'USDT',
+  //         exchangeto: 3,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //   ]
+  // },
   {
     name: 'ETH_BTC >> ETH_BTC',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 2,
@@ -550,7 +550,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_BTC',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 1,
@@ -598,7 +598,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_BTC',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 2,
@@ -646,7 +646,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_BTC',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 1,
@@ -694,7 +694,7 @@ const Arbitration = [
   },
   {
     name: 'NBC_BTC >> NBC_BTC',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 1,
@@ -747,7 +747,7 @@ const Arbitration = [
   },
   {
     name: 'NBC_BTC >> NBC_BTC',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 7,
@@ -796,7 +796,7 @@ const Arbitration = [
   // 3 Passos
   {
     name: 'BTC_USDT >> ETH_BTC >> ETH_USDT',
-    entry: 6.02,
+    entry: 2.02,
     walks: [
       {
         exchangeto: 1,
@@ -855,7 +855,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> LTC_BTC >> LTC_USDT',
-    entry: 6.02,
+    entry: 2.02,
     walks: [
       {
         exchangeto: 1,
@@ -914,7 +914,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> NBC_BTC >> NBC_USDT',
-    entry: 6.02,
+    entry: 2.02,
     walks: [
       {
         exchangeto: 1,
@@ -973,7 +973,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 1,
@@ -1032,7 +1032,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 2,
@@ -1091,7 +1091,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 2,
@@ -1154,7 +1154,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 1,
@@ -1221,7 +1221,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 1,
@@ -1280,7 +1280,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 2,
@@ -1339,7 +1339,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 2,
@@ -1402,7 +1402,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 1,
@@ -1469,7 +1469,7 @@ const Arbitration = [
   },  
   {
     name: 'NBC_BTC >> NBC_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 1,
@@ -1528,7 +1528,7 @@ const Arbitration = [
   },  
   {
     name: 'BCH_BTC >> BCH_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 1,
@@ -1587,7 +1587,7 @@ const Arbitration = [
   },
   {
     name: 'DOGE_BTC >> DOGE_USDT >> BTC_USDT',
-    entry: 0.0003,
+    entry: 0.0005,
     walks: [
       {
         exchangeto: 2,
@@ -2657,6 +2657,66 @@ const Arbitration = [
       },
     ]
   },
+
+  // {
+  //   name: 'NBC_BTC >> BTC_BRL >> NBC_BRL',
+  //   entry: 25,
+  //   walks: [
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'NBC_BTC',
+  //       quote: 'NBC',
+  //       base: 'BTC',
+  //       total: 0,
+  //       trade: 'NBC',
+  //       receive: {
+  //         asset: 'NBC',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       },
+  //       transfer: {
+  //         asset: 'BTC',
+  //         exchangeto: 3,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 3,
+  //       exchange: Bitrecife,
+  //       fee: 0.9976,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'BTC_BRL',
+  //       quote: 'BTC',
+  //       base: 'BRL',
+  //       total: 0,
+  //       trade: 'BTC',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //     {
+  //       exchangeto: 3,
+  //       exchange: Bitrecife,
+  //       fee: 0.9976,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'NBC_BRL',
+  //       quote: 'NBC',
+  //       base: 'BRL',
+  //       total: 0,
+  //       trade: 'BRL',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //   ]
+  // },
   // 4 Passos
   {
     name: 'USDC_BRL >> BTC_USDC >> ETH_BTC >> ETH_BRL',
@@ -3222,6 +3282,80 @@ const Arbitration = [
         exchangeto: 9,
         exchange: Bullgain,
         fee: 0.99684,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    name: 'CBRL_BRL >> CBRL_BRL >> BTC_BRL >> BTC_BRL',
+    entry: 100,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'CBRL_BRL',
+        quote: 'CBRL',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'CBRL',
+          exchangeto: 6,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 6,
+        exchange: ComprarBitcoin,
+        fee: 0.9970,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'CBRL_BRL',
+        quote: 'CBRL',
+        base: 'BRL',
+        total: 0,
+        trade: 'CBRL',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 6,
+        exchange: ComprarBitcoin,
+        fee: 0.9970,
         price: 0,
         quantity: 0,
         action: 'buy',

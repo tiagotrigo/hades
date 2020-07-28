@@ -294,34 +294,38 @@ class Hades {
 
   async run() {
     do {
-      for (let [i, arb] of Arbitrations.entries()) {
-        // Calculando a quantidade
-        try {
-          await this.calcQntOutput(arb);
-        } catch(e) {
-          continue;
-        };
-        // Verificando se a lucro
-        const profit = await this.calcProfitOutput(arb);
-        
-        if (profit === 0) {
-          continue;
-        } else {
-          if (profit > arb.entry) {
-            console.log(' ');
-            for (let [y, walk] of arb.walks.entries()) {
-              // Iniciando rotinas
-              await this.routine(walk, arb, y);
-            }
-            await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
-            console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);
-            console.log(' ');
+      try {
+        for (let [i, arb] of Arbitrations.entries()) {
+          // Calculando a quantidade
+          try {
+            await this.calcQntOutput(arb);
+          } catch(e) {
+            continue;
+          };
+          // Verificando se a lucro
+          const profit = await this.calcProfitOutput(arb);
+          
+          if (profit === 0) {
+            continue;
           } else {
-            console.log(arb.name, this.mask(profit, 8));
+            if (profit > arb.entry) {
+              console.log(' ');
+              for (let [y, walk] of arb.walks.entries()) {
+                // Iniciando rotinas
+                await this.routine(walk, arb, y);
+              }
+              await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
+              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);
+              console.log(' ');
+            } else {
+              console.log(arb.name, this.mask(profit, 8));
+            }
           }
-        }
-        //await this.wait(300);          
-      } 
+          //await this.wait(300);          
+        } 
+      } catch(e) {
+        console.log(e.message)
+      }
     } while (true);
   }
 }

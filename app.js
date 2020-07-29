@@ -304,21 +304,24 @@ class Hades {
           };
           // Verificando se a lucro
           const profit = await this.calcProfitOutput(arb);
+          // Verificando mascara
+          let decimal = await arb.walks[arb.walks.length - 1].exchange.getAssets();
+          let mask = decimal.find(i => i.Asset === arb.walks[arb.walks.length - 1].trade);
           
           if (profit === 0) {
             continue;
           } else {
-            if (profit > arb.entry) {
+            if (this.mask(profit, mask.DecimalPlaces) > arb.entry) {
               console.log(' ');
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
               }
-              await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
-              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);
+              await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, mask.DecimalPlaces)}`);
+              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, mask.DecimalPlaces)})`);
               console.log(' ');
             } else {
-              console.log(arb.name, this.mask(profit, 8));
+              console.log(arb.name, this.mask(profit, mask.DecimalPlaces));
             }
           }
           //await this.wait(300);          

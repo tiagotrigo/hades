@@ -7,6 +7,23 @@ const Nonce = require('nonce')();
 const Endpoints = require('./endpoints.js');
 
 const Exc = {
+  getAssets: function() {
+    const options = {
+      uri: Endpoints.api.exc,
+      public: '/public/getassets'
+    };
+
+    return new Promise((resolve, reject) => {
+      const data = Axios({
+        method: 'GET',
+        url: options.uri + options.public
+      }).then((data) => {
+        resolve(data.data.result)  
+      }).catch((er) => {
+        reject(er)
+      })
+    })
+  },
   getMarkets: function() {
     const options = {
       uri: Endpoints.api.exc,

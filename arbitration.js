@@ -3659,7 +3659,7 @@ const Arbitration = [
         quantity: 0,
         action: 'buy',
         symbol: 'RAS_BRL',
-        quote: 'Ras',
+        quote: 'RAS',
         base: 'BRL',
         total: 0,
         trade: 'BRL',

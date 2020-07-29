@@ -854,6 +854,65 @@ const Arbitration = [
     ]
   },
   {
+    name: 'USDT_BRL >> USDT_CBRL >> CBRL_BRL',
+    entry: 100,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'USDT_BRL',
+        quote: 'USDT',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'USDT_CBRL',
+        quote: 'USDT',
+        base: 'CBRL',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'CBRL',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'CBRL_BRL',
+        quote: 'CBRL',
+        base: 'BRL',
+        total: 0,
+        trade: 'CBRL',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
     name: 'BTC_BRL >> NBC_BRL >> NBC_BTC',
     entry: 0.0005,
     walks: [

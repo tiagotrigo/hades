@@ -12,7 +12,7 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 const Arbitration = [
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 6,
@@ -65,7 +65,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 1,
@@ -113,7 +113,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 6,
@@ -161,7 +161,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 2,
@@ -214,7 +214,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 2,
@@ -262,7 +262,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 1,
@@ -310,7 +310,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_USDT >> ETH_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 2,
@@ -358,7 +358,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_USDT >> ETH_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 1,
@@ -406,7 +406,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT >> LTC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 2,
@@ -454,7 +454,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT >> LTC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 1,
@@ -918,7 +918,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> ETH_BTC >> ETH_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 1,
@@ -977,7 +977,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> LTC_BTC >> LTC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 1,
@@ -1036,7 +1036,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> NBC_BTC >> NBC_USDT',
-    entry: 0.2,
+    entry: 3.00,
     walks: [
       {
         exchangeto: 1,

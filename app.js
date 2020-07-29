@@ -293,6 +293,9 @@ class Hades {
   }
 
   async run() {
+    let mask = null;
+    let decimal = null;
+
     do {
       try {
         for (let [i, arb] of Arbitrations.entries()) {
@@ -304,9 +307,14 @@ class Hades {
           };
           // Verificando se a lucro
           const profit = await this.calcProfitOutput(arb);
-          // Verificando mascara
-          let decimal = await arb.walks[arb.walks.length - 1].exchange.getAssets();
-          let mask = decimal.find(i => i.Asset === arb.walks[arb.walks.length - 1].trade);
+          
+          if (arb.walks[arb.walks.length - 1].exchangeto === 3) {
+            decimal = await arb.walks[arb.walks.length - 2].exchange.getAssets();
+            mask = decimal.find(i => i.Asset === arb.walks[arb.walks.length - 2].transfer.asset); 
+          } else {
+            decimal = await arb.walks[arb.walks.length - 1].exchange.getAssets();
+            mask = decimal.find(i => i.Asset === arb.walks[arb.walks.length - 1].transfer.asset);
+          }
           
           if (profit === 0) {
             continue;

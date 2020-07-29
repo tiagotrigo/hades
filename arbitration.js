@@ -3647,6 +3647,80 @@ const Arbitration = [
       },
     ]
   },
+  {
+    name: 'RAS_BRL >> RAS_BRL >> BTC_BRL >> BTC_BRL',
+    entry: 100,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'RAS_BRL',
+        quote: 'Ras',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'RAS',
+          exchangeto: 6,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 6,
+        exchange: ComprarBitcoin,
+        fee: 0.9970,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'RAS_BRL',
+        quote: 'RAS',
+        base: 'BRL',
+        total: 0,
+        trade: 'RAS',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 6,
+        exchange: ComprarBitcoin,
+        fee: 0.9970,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
 ];
 
 module.exports = Arbitration;

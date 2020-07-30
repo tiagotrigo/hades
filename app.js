@@ -321,7 +321,7 @@ class Hades {
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, arb.decimal)})`);
               console.log(' ');
             } else {
-              console.log(arb.name, this.mask(profit, decimal));
+              console.log(arb.name, this.mask(profit, arb.decimal));
             }
           }
           //await this.wait(300);          

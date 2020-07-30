@@ -308,28 +308,20 @@ class Hades {
           // Verificando se a lucro
           const profit = await this.calcProfitOutput(arb);
           
-          if (arb.walks[arb.walks.length - 1].exchangeto === 3) {
-            decimal = await arb.walks[arb.walks.length - 2].exchange.getAssets();
-            mask = decimal.find(i => i.Asset === arb.walks[arb.walks.length - 2].transfer.asset); 
-          } else {
-            decimal = await arb.walks[arb.walks.length - 1].exchange.getAssets();
-            mask = decimal.find(i => i.Asset === arb.walks[arb.walks.length - 1].transfer.asset);
-          }
-          
           if (profit === 0) {
             continue;
           } else {
-            if (this.mask(profit, mask.DecimalPlaces) > arb.entry) {
+            if (profit > this.mask(arb.entry, arb.decimal)) {
               console.log(' ');
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
               }
-              await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, mask.DecimalPlaces)}`);
-              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, mask.DecimalPlaces)})`);
+              await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
+              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);
               console.log(' ');
             } else {
-              console.log(arb.name, this.mask(profit, mask.DecimalPlaces));
+              console.log(arb.name, this.mask(profit, 8));
             }
           }
           //await this.wait(300);          

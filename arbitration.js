@@ -3970,7 +3970,7 @@ const Arbitration = [
   // 5 Passos
   {
     name: 'BTC_BRL >> DOGE_BTC >> DOGE_USDT >> BTC_USDT >> BT_BRL',
-    entry: 10.10,
+    entry: 6.05,
     walks: [
       {
         exchangeto: 3,
@@ -4025,6 +4025,103 @@ const Arbitration = [
         exchangeto: 2,
         exchange: Exc,
         fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    name: 'BTC_BRL >> LTC_BTC >> LTC_USDT >> BTC_USDT >> BTC_BRL',
+    entry: 6.05,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'LTC_BTC',
+        quote: 'LTC',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'LTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'LTC_USDT',
+        quote: 'LTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'LTC',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
         price: 0,
         quantity: 0,
         action: 'buy',

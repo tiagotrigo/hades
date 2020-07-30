@@ -317,11 +317,11 @@ class Hades {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
               }
-              await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
-              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);
+              await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, arb.decimal)}`);
+              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, arb.decimal)})`);
               console.log(' ');
             } else {
-              console.log(arb.name, this.mask(profit, 8));
+              console.log(arb.name, this.mask(profit, decimal));
             }
           }
           //await this.wait(300);          

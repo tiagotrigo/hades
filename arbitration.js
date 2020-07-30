@@ -696,7 +696,7 @@ const Arbitration = [
       },
     ]
   },
-  {
+  /*{
     name: 'NBC_BTC >> NBC_BTC',
     entry: 0.0005,
     decimal: 8,
@@ -798,7 +798,7 @@ const Arbitration = [
         }
       },
     ]
-  },
+  },*/
   // 3 Passos
   {
     name: 'BTC_BRL >> BTC_CBRL >> CBRL_BRL',

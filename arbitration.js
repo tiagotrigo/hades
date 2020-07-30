@@ -502,7 +502,7 @@ const Arbitration = [
   },*/
   {
     name: 'ETH_BTC >> ETH_BTC',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -551,7 +551,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_BTC',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -600,7 +600,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_BTC',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -649,7 +649,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_BTC',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -819,7 +819,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_BRL >> NBC_BRL >> NBC_BTC',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -1060,7 +1060,7 @@ const Arbitration = [
   },*/
   {
     name: 'ETH_BTC >> ETH_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -1120,7 +1120,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -1184,7 +1184,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -1244,7 +1244,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -1308,7 +1308,7 @@ const Arbitration = [
   },
   {
     name: 'NBC_BTC >> NBC_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -1368,7 +1368,7 @@ const Arbitration = [
   },  
   {
     name: 'BCH_BTC >> BCH_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -1428,7 +1428,7 @@ const Arbitration = [
   },
   {
     name: 'DOGE_BTC >> DOGE_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -3222,7 +3222,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_BRL >> USDT_BRL >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -3305,7 +3305,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_BRL >> USDT_BRL >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {
@@ -3388,7 +3388,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_BRL >> USDT_BRL >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00050000,
     decimal: 8,
     walks: [
       {

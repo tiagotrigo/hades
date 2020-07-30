@@ -3969,7 +3969,7 @@ const Arbitration = [
   // 5 Passos
   {
     name: 'BTC_BRL >> DOGE_BTC >> DOGE_USDT >> BTC_USDT >> BTC_BRL',
-    entry: 10.05,
+    entry: 100.10,
     walks: [
       {
         exchangeto: 3,
@@ -4058,7 +4058,7 @@ const Arbitration = [
   },  
   {
     name: 'BTC_BRL >> LTC_BTC >> LTC_USDT >> BTC_USDT >> BTC_BRL',
-    entry: 10.05,
+    entry: 100.10,
     walks: [
       {
         exchangeto: 3,

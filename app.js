@@ -311,7 +311,7 @@ class Hades {
           if (profit === 0) {
             continue;
           } else {
-            if (profit > this.mask(arb.entry, arb.decimal)) {
+            if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
               console.log(' ');
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas

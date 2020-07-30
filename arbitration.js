@@ -10,7 +10,7 @@ const BomespGlobal = require('./bomespGlobal.js');
 const ComprarBitcoin = require('./comprarBitcoin.js');
 
 const Arbitration = [
-  {
+  /*{
     name: 'BTC_USDT >> BTC_USDT',
     entry: 3.00,
     walks: [
@@ -499,7 +499,7 @@ const Arbitration = [
         }
       },
     ]
-  },
+  },*/
   {
     name: 'ETH_BTC >> ETH_BTC',
     entry: 0.0005,
@@ -975,7 +975,7 @@ const Arbitration = [
       },
     ]
   },
-  {
+  /*{
     name: 'BTC_USDT >> ETH_BTC >> ETH_USDT',
     entry: 3.00,
     walks: [
@@ -1151,7 +1151,7 @@ const Arbitration = [
         }
       },
     ]
-  },
+  },*/
   {
     name: 'ETH_BTC >> ETH_USDT >> BTC_USDT',
     entry: 0.0005,
@@ -2838,7 +2838,6 @@ const Arbitration = [
       },
     ]
   },
-
   // {
   //   name: 'NBC_BTC >> BTC_BRL >> NBC_BRL',
   //   entry: 25,
@@ -3970,7 +3969,7 @@ const Arbitration = [
   // 5 Passos
   {
     name: 'BTC_BRL >> DOGE_BTC >> DOGE_USDT >> BTC_USDT >> BTC_BRL',
-    entry: 6.05,
+    entry: 10.05,
     walks: [
       {
         exchangeto: 3,
@@ -4059,7 +4058,7 @@ const Arbitration = [
   },  
   {
     name: 'BTC_BRL >> LTC_BTC >> LTC_USDT >> BTC_USDT >> BTC_BRL',
-    entry: 6.05,
+    entry: 10.05,
     walks: [
       {
         exchangeto: 3,

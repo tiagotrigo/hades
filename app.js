@@ -293,9 +293,6 @@ class Hades {
   }
 
   async run() {
-    let mask = null;
-    let decimal = null;
-
     do {
       try {
         for (let [i, arb] of Arbitrations.entries()) {

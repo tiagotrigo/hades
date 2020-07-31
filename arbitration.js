@@ -2563,6 +2563,81 @@ const Arbitration = [
     ]
   },
   {
+    name: 'ETH_BTC >> HTML_ETH >> HTML_USDT >> BTC_USDT',
+    entry: 0.0005,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'HTML_ETH',
+        quote: 'HTML',
+        base: 'ETH',
+        total: 0,
+        trade: 'ETH',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'HTML_USDT',
+        quote: 'HTML',
+        base: 'USDT',
+        total: 0,
+        trade: 'HTML',
+        receive: null,
+        transfer: null
+      },
+        {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
     name: 'USDT_BRL >> USDT_BRL >> BTC_BRL >> BTC_BRL',
     entry: 100.10,
     decimal: 2,
@@ -3392,11 +3467,7 @@ const Arbitration = [
         base: 'BTC',
         total: 0,
         trade: 'BTC',
-        receive: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
+        receive: null,
         transfer: {
           asset: 'LTC',
           exchangeto: 1,
@@ -3430,6 +3501,100 @@ const Arbitration = [
         base: 'USDT',
         total: 0,
         trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
+    name: 'USDT_BRL >> USDT_BRL > NBC_BRL >> NBC_BTC >> BTC_BRL',
+    entry: 6,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'USDT_BRL',
+        quote: 'USDT',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 8,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 8,
+        exchange: BomespBrasil,
+        fee: 0.9965,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'USDT_BRL',
+        quote: 'USDT',
+        base: 'BRL',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 8,
+        exchange: BomespBrasil,
+        fee: 0.9965,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'NBC_BRL',
+        quote: 'NBC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'NBC',
+          exchangeto: 7,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 7,
+        exchange: BomespGlobal,
+        fee: 0.9979,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'NBC_BTC',
+        quote: 'NBC',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
         receive: null,
         transfer: {
           asset: 'BTC',

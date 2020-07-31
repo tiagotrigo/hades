@@ -12,7 +12,7 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 const Arbitration = [
   {
     name: 'USDT_CBRL >> USDT_CBRL',
-    entry: 10,
+    entry: 5,
     decimal: 2,
     walks: [
       {
@@ -61,7 +61,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_CBRL >> USDT_CBRL',
-    entry: 10,
+    entry: 5,
     decimal: 2,
     walks: [
       {
@@ -110,7 +110,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_CBRL >> BTC_USDT >> BTC_CBRL',
-    entry: 10,
+    entry: 5,
     decimal: 2,
     walks: [
       {
@@ -174,7 +174,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_CBRL >> BTC_USDT >> BTC_CBRL',
-    entry: 10,
+    entry: 5,
     decimal: 2,
     walks: [
       {
@@ -238,7 +238,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_CBRL >> BTC_USDT >> BTC_CBRL',
-    entry: 10,
+    entry: 5,
     decimal: 2,
     walks: [
       {

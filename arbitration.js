@@ -3598,6 +3598,11 @@ const Arbitration = [
         receive: null,
         transfer: {
           asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        redirect: {
+          asset: 'BTC',
           exchangeto: 3,
           mail: 'tiago.a.trigo@gmail.com'
         }

@@ -195,7 +195,7 @@ const Arbitration = [
           mail: 'tiago.a.trigo@gmail.com'
         },
         transfer: {
-          asset: 'CBRL',
+          asset: 'USDT',
           exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         }

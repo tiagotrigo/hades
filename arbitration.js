@@ -3638,7 +3638,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_BRL >> DOGE_BTC >> DOGE_USDT >> BTC_USDT >> BTC_BRL',
-    entry: 100,
+    entry: 10,
     decimal: 2,
     walks: [
       {
@@ -3728,7 +3728,7 @@ const Arbitration = [
   },  
   {
     name: 'BTC_BRL >> LTC_BTC >> LTC_USDT >> BTC_USDT >> BTC_BRL',
-    entry: 100,
+    entry: 10,
     decimal: 2,
     walks: [
       {
@@ -3822,7 +3822,7 @@ const Arbitration = [
   },
   {
     name: 'USDT_BRL >> USDT_BRL > NBC_BRL >> NBC_BTC >> BTC_BRL',
-    entry: 100,
+    entry: 10,
     decimal: 2,
     walks: [
       {

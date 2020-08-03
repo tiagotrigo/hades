@@ -495,7 +495,7 @@ const Arbitration = [
   // 3 Passos
   {
     name: 'BTC_USDT >> ETH_USDT >> ETH_BTC',
-    entry: 0.0005,
+    entry: 0.00010000,
     decimal: 8,
     walks: [
       {
@@ -551,7 +551,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> ETH_USDT >> ETH_BTC',
-    entry: 0.0005,
+    entry: 0.00010000,
     decimal: 8,
     walks: [
       {
@@ -611,7 +611,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> LTC_USDT >> LTC_BTC',
-    entry: 0.0005,
+    entry: 0.00010000,
     decimal: 8,
     walks: [
       {
@@ -667,7 +667,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> LTC_USDT >> LTC_BTC',
-    entry: 0.0005,
+    entry: 0.00010000,
     decimal: 8,
     walks: [
       {
@@ -727,7 +727,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> NBC_USDT >> NBC_BTC',
-    entry: 0.0005,
+    entry: 0.00010000,
     decimal: 8,
     walks: [
       {
@@ -2739,7 +2739,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> HTML_ETH >> HTML_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00010000,
     decimal: 8,
     walks: [
       {
@@ -3439,7 +3439,7 @@ const Arbitration = [
   // // 5 Passos
   {
     name: 'BTC_USDT >> ETH_USDT >> HTML_ETH >> HTML_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.00010000,
     decimal: 8,
     walks: [
       {

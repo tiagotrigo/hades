@@ -843,7 +843,7 @@ const Arbitration = [
   },
   {
     name: 'ETH_BTC >> ETH_USDT >> BTC_USDT',
-    entry:0.00100000
+    entry: 0.00100000,
     decimal: 8,
     walks: [
       {

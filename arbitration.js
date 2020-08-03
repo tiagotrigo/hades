@@ -499,8 +499,8 @@ const Arbitration = [
     decimal: 8,
     walks: [
       {
-        exchangeto: 3,
-        exchange: Bitrecife,
+        exchangeto: 8,
+        exchange: BomespBrasil,
         fee: 0.9976,
         price: 0,
         quantity: 0,
@@ -510,12 +510,12 @@ const Arbitration = [
         base: 'BRL',
         total: 0,
         trade: 'BTC',
-        receive: null,
-        transfer: {
+        receive: {
           asset: 'BTC',
           exchangeto: 8,
           mail: 'tiago.a.trigo@gmail.com'
-        }
+        },
+        transfer: null
       },
       {
         exchangeto: 8,

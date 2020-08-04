@@ -11,6 +11,461 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 
 const Arbitration = [
   {
+    name: 'ETH_USDT >> BTC_USDT >> ETH_BTC',
+    entry: 0.006,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        total: 0,
+        trade: 'ETH',
+        receive: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'ETH_USDT >> BTC_USDT >> ETH_BTC',
+    entry: 0.006,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        total: 0,
+        trade: 'ETH',
+        receive: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'HTML_ETH >> HTML_USDT >> ETH_USDT',
+    entry: 0.006,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'HTML_ETH',
+        quote: 'HTML',
+        base: 'ETH',
+        total: 0,
+        trade: 'ETH',
+        receive: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'HTML_USDT',
+        quote: 'HTML',
+        base: 'USDT',
+        total: 0,
+        trade: 'HTML',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'HTML_ETH >> HTML_USDT >> ETH_USDT',
+    entry: 0.006,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'HTML_ETH',
+        quote: 'HTML',
+        base: 'ETH',
+        total: 0,
+        trade: 'ETH',
+        receive: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'HTML_USDT',
+        quote: 'HTML',
+        base: 'USDT',
+        total: 0,
+        trade: 'HTML',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'ETH_USDT >> HTML_USDT >> HTML_ETH',
+    entry: 0.006,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        total: 0,
+        trade: 'ETH',
+        receive: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'HTML_USDT',
+        quote: 'HTML',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'HTML_ETH',
+        quote: 'HTML',
+        base: 'ETH',
+        total: 0,
+        trade: 'HTML',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'ETH_USDT >> ETH_USDT',
+    entry: 0.006,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        total: 0,
+        trade: 'ETH',
+        receive: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'ETH_BTC >> ETH_BTC',
+    entry: 0.006,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'ETH',
+        receive: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'ETH_BTC >> ETH_BTC',
+    entry: 0.006,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'ETH',
+        receive: {
+          asset: 'ETH',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
     name: 'USDT_CBRL >> USDT_CBRL',
     entry: 10,
     decimal: 2,

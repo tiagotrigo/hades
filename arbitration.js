@@ -13,7 +13,7 @@ const Arbitration = [
   {
     name: 'ETH_USDT >> BTC_USDT >> ETH_BTC',
     entry: 0.006,
-    decimal: 8,
+    decimal: 4,
     walks: [
       {
         exchangeto: 1,
@@ -77,7 +77,7 @@ const Arbitration = [
   {
     name: 'ETH_USDT >> BTC_USDT >> ETH_BTC',
     entry: 0.006,
-    decimal: 8,
+    decimal: 4,
     walks: [
       {
         exchangeto: 1,
@@ -134,10 +134,11 @@ const Arbitration = [
       },
     ]
   },
+
   {
     name: 'HTML_ETH >> HTML_USDT >> ETH_USDT',
     entry: 0.006,
-    decimal: 8,
+    decimal: 4,
     walks: [
       {
         exchangeto: 1,
@@ -201,7 +202,7 @@ const Arbitration = [
   {
     name: 'HTML_ETH >> HTML_USDT >> ETH_USDT',
     entry: 0.006,
-    decimal: 8,
+    decimal: 4,
     walks: [
       {
         exchangeto: 1,
@@ -261,7 +262,7 @@ const Arbitration = [
   {
     name: 'ETH_USDT >> HTML_USDT >> HTML_ETH',
     entry: 0.006,
-    decimal: 8,
+    decimal: 4,
     walks: [
       {
         exchangeto: 1,
@@ -321,7 +322,7 @@ const Arbitration = [
   {
     name: 'ETH_USDT >> ETH_USDT',
     entry: 0.006,
-    decimal: 8,
+    decimal: 4,
     walks: [
       {
         exchangeto: 1,
@@ -370,7 +371,7 @@ const Arbitration = [
   {
     name: 'ETH_BTC >> ETH_BTC',
     entry: 0.006,
-    decimal: 8,
+    decimal: 4,
     walks: [
       {
         exchangeto: 1,

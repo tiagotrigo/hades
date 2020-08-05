@@ -13,7 +13,7 @@ const Arbitration = [
   {
     name: 'ETH_USDT >> ETH_USDT',
     entry: 0.1,
-    decimal: 2,
+    decimal: 6,
     walks: [
       {
         exchangeto: 2,
@@ -58,7 +58,7 @@ const Arbitration = [
   {
     name: 'BTC_USDT >> BTC_USDT',
     entry: 0.1,
-    decimal: 2,
+    decimal: 6,
     walks: [
       {
         exchangeto: 2,
@@ -103,7 +103,7 @@ const Arbitration = [
   {
     name: 'LTC_USDT >> LTC_USDT',
     entry: 0.1,
-    decimal: 2,
+    decimal: 6,
     walks: [
       {
         exchangeto: 2,

@@ -318,7 +318,7 @@ class Hades {
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);              
               console.log(' ');
               // Aguardando para o próximo trade
-              await this.wait(300);
+              await this.wait(1000);
             }
             console.log(arb.name, this.mask(profit, 8));
           }

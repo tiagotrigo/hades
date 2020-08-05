@@ -11,6 +11,55 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 
 const Arbitration = [
   {
+    name: 'ETH_BTC >> ETH_BTC',
+    entry: 0.0005,
+    decimal: 8,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'ETH',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
     name: 'USDT_BRL >> NBC_BRL >> NBC_USDT',
     entry: 2,
     decimal: 6,
@@ -1276,7 +1325,11 @@ const Arbitration = [
         total: 0,
         trade: 'ETH',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
     ]
   },
@@ -1336,7 +1389,11 @@ const Arbitration = [
         total: 0,
         trade: 'ETH',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
     ]
   },
@@ -1392,7 +1449,11 @@ const Arbitration = [
         total: 0,
         trade: 'LTC',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
     ]
   },
@@ -1452,7 +1513,11 @@ const Arbitration = [
         total: 0,
         trade: 'LTC',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
     ]
   },

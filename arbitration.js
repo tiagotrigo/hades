@@ -11,6 +11,70 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 
 const Arbitration = [
   {
+    name: 'USDT_BRL >> NBC_BRL >> NBC_USDT',
+    entry: 2,
+    decimal: 6,
+    walks: [
+      {
+        exchangeto: 8,
+        exchange: BomespBrasil,
+        fee: 0.9965,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'USDT_BRL',
+        quote: 'USDT',
+        base: 'BRL',
+        total: 0,
+        trade: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 8,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 8,
+        exchange: BomespBrasil,
+        fee: 0.9965,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'NBC_BRL',
+        quote: 'NBC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'NBC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'NBC_USDT',
+        quote: 'NBC',
+        base: 'USDT',
+        total: 0,
+        trade: 'NBC',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
     name: 'ETH_USDT >> ETH_USDT',
     entry: 2,
     decimal: 6,
@@ -156,8 +220,7 @@ const Arbitration = [
         }
       },
     ]
-  },
-  
+  },  
   // {
   //   name: 'ETH_USDT >> BTC_USDT >> ETH_BTC',
   //   entry: 0.007,

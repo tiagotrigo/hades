@@ -32,7 +32,11 @@ const Arbitration = [
           exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         },
-        transfer: null
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
       {
         exchangeto: 1,
@@ -77,7 +81,11 @@ const Arbitration = [
           exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         },
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
       {
         exchangeto: 1,
@@ -122,7 +130,11 @@ const Arbitration = [
           exchangeto: 2,
           mail: 'tiago.a.trigo@gmail.com'
         },
-        transfer: null
+        transfer: {
+          asset: 'LTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
       {
         exchangeto: 1,

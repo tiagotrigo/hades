@@ -2556,7 +2556,7 @@ const Arbitration = [
         transfer: null
       },
     ]
-  },
+  },  
   {
     name: 'BTC_BRL >> BTC_CBRL >> CBRL_BRL',
     entry: 10,

@@ -12,7 +12,7 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 const Arbitration = [
   {
     name: 'ETH_USDT >> ETH_USDT',
-    entry: 0.1,
+    entry: 0.5,
     decimal: 6,
     walks: [
       {
@@ -57,7 +57,7 @@ const Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 0.1,
+    entry: 0.5,
     decimal: 6,
     walks: [
       {
@@ -102,7 +102,7 @@ const Arbitration = [
   },
   {
     name: 'LTC_USDT >> LTC_USDT',
-    entry: 0.1,
+    entry: 0.5,
     decimal: 6,
     walks: [
       {

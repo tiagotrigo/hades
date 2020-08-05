@@ -11,6 +11,141 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 
 const Arbitration = [
   {
+    name: 'ETH_USDT >> ETH_USDT',
+    entry: 0.1,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_USDT',
+        quote: 'ETH',
+        base: 'USDT',
+        total: 0,
+        trade: 'ETH',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT >> BTC_USDT',
+    entry: 0.1,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'LTC_USDT >> LTC_USDT',
+    entry: 0.1,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'LTC_USDT',
+        quote: 'LTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'LTC_USDT',
+        quote: 'LTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'LTC',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
     name: 'ETH_USDT >> BTC_USDT >> ETH_BTC',
     entry: 0.006,
     decimal: 4,

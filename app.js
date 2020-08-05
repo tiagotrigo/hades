@@ -309,8 +309,8 @@ class Hades {
             continue;
           } else {
             while (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
-              // Aguardando para o próximo trade
-              await this.wait(1000);
+              await this.wait(5000);
+
               console.log(' ');
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
@@ -318,11 +318,10 @@ class Hades {
               }
               await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);              
-              console.log(' ');              
+              console.log(' ');                            
             }
-            console.log(arb.name, this.mask(profit, 8));
-          }
-                    
+            console.log(`[#${i}]`, arb.name, this.mask(profit, 8));                        
+          }                    
         } 
       } catch(e) {
         console.log(e.message)

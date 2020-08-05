@@ -308,20 +308,21 @@ class Hades {
           if (profit === 0) {
             continue;
           } else {
-            if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
+            while (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
               console.log(' ');
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
               }
               await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
-              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);
+              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);              
               console.log(' ');
-            } else {
-              console.log(arb.name, this.mask(profit, 8));
+              // Aguardando para o próximo trade
+              await this.wait(300);
             }
+            console.log(arb.name, this.mask(profit, 8));
           }
-          //await this.wait(300);          
+                    
         } 
       } catch(e) {
         console.log(e.message)

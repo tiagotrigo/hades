@@ -613,7 +613,7 @@ const Arbitration = [
   //     },
   //   ]
   // },
-  
+
   {
     name: 'USDT_CBRL >> USDT_CBRL',
     entry: 15,
@@ -1445,7 +1445,11 @@ const Arbitration = [
         total: 0,
         trade: 'NBC',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
     ]
   },

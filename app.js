@@ -91,8 +91,9 @@ class Hades {
   async calcQntOutput(arb) {
     for (let [i, walk] of arb.walks.entries()) {
       // Reset
-      walk.total = 0;
+      walk.price = 0;
       walk.quantity = 0;
+      walk.total = 0;
       // Livro de ofertas
       let book = await walk.exchange.getOrderBook(walk.symbol, 'ALL', 20);
       // Verificando a ação 
@@ -292,6 +293,13 @@ class Hades {
     }
   }
 
+  repeatArbitration(data, i, arb) {
+    // Inserir o elemento anterior à frente, caso tenha lucro
+    data.splice(i + 1, 0, arb);
+    // Remove o elemento anterior que já deu lucro
+    data.splice(i, 1);
+  }
+
   async run() {
     do {
       try {
@@ -310,16 +318,19 @@ class Hades {
           } else {
             if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
               console.log(' ');
+              
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
               }
               await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);              
-              console.log(' ');                            
+              console.log(' ');      
+              // Repetindo um caminho com lucro
+              this.repeatArbitration(Arbitrations, i, arb);
             } else {
               console.log(`[#${i}]`, arb.name, this.mask(profit, 8));  
-            }
+            }               
           }                    
         } 
       } catch(e) {

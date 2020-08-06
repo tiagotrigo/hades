@@ -1320,7 +1320,7 @@ const Arbitration = [
       },
     ]
   },
-  3 Passos
+  // 3 Passos
   {
     name: 'BTC_BRL >> NBC_BRL >> NBC_BTC',
     entry: 0.0005,
@@ -3439,7 +3439,7 @@ const Arbitration = [
       },
     ]
   },
-  4 Passos
+  // 4 Passos
   {
     name: 'CBRL_BRL >> BTC_CBRL >> NBC_BTC >> NBC_BRL',
     entry: 10,

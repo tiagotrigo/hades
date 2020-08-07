@@ -1748,7 +1748,11 @@ let Arbitration = [
         total: 0,
         trade: 'USDT',
         receive: null,
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
     ]
   },

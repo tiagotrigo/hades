@@ -11,6 +11,66 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 
 let Arbitration = [
   {
+    name: 'BTC_BRL >> BTC_RAS >> RAS_BRL',
+    entry: 150,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_RAS',
+        quote: 'BTC',
+        base: 'RAS',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'RAS',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'RAS_BRL',
+        quote: 'RAS',
+        base: 'BRL',
+        total: 0,
+        trade: 'RAS',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
+  {
     name: 'BTC_USDT >> DOGE_BTC >> DOGE_USDT',
     entry: 2,
     decimal: 6,
@@ -2542,7 +2602,7 @@ let Arbitration = [
   }, 
   {
     name: 'CBRL_BRL >> USDT_CBRL >> USDT_BRL',
-    entry: 100,
+    entry: 150,
     decimal: 2,
     walks: [
       {
@@ -2662,7 +2722,7 @@ let Arbitration = [
   },
   {
     name: 'RAS_BRL >> BTC_RAS >> BTC_BRL',
-    entry: 10,
+    entry: 150,
     decimal: 2,
     walks: [
       {

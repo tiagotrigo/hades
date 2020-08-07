@@ -269,7 +269,7 @@ class Hades {
     }
   }
 
-  repeat(i, arb) {
+  repeat(arb, i) {
     // Inserir o elemento anterior à frente, caso tenha lucro
     Arbitrations.splice(i + 1, 0, {
       ...arb, 
@@ -314,9 +314,9 @@ class Hades {
                 await this.routine(walk, arb, y);
               }
               await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
-              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);              
+              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`); 
               // Repetindo um caminho com lucro
-              this.repeat(i, arb);
+              this.repeat(arb, i);
               console.log(' ');      
             } else {
               if (i + 1 === Arbitrations.length) {

@@ -2662,7 +2662,7 @@ let Arbitration = [
   },
   {
     name: 'RAS_BRL >> USDT_RAS >> USDT_BRL',
-    entry: 10,
+    entry: 150,
     decimal: 2,
     walks: [
       {

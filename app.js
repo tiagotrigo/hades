@@ -281,6 +281,8 @@ class Hades {
     Arbitrations.map((item, index) => {
       if (item.gain === true) {
         Arbitrations.splice(index, 1);
+      } else {
+        item.gain = false
       }
     });
   }
@@ -303,6 +305,7 @@ class Hades {
             continue;
           } else {
             if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
+              console.log(' ');   
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
@@ -314,8 +317,8 @@ class Hades {
               console.log(' ');      
             } else {
               if (i + 1 === Arbitrations.length) {
-                this.clean();
                 console.log(`[CLEAN]`, arb.name, this.mask(profit, 8));                                
+                this.clean();
               } else {
                 console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, 8));                 
               }

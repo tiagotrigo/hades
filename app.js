@@ -10,7 +10,7 @@ const Arbitrations = require('./arbitration');
 class Hades {
   
   constructor() {
-    this.mail = 'tiago.a.trigo@gmail.com';
+    this.rebot = false
   }
 
   wait(ms) {
@@ -278,13 +278,16 @@ class Hades {
   }
 
   clean() {
-    Arbitrations.map((item, index) => {
-      if (item.gain === true) {
-        Arbitrations.splice(index, 1);
-      } else {
-        item.gain = false
-      }
-    });
+    this.rebot = false;
+    while (this.rebot === false) { 
+      this.rebot = true;
+      Arbitrations.map((item, index) => {
+        if (item.gain === true) {
+          Arbitrations.splice(index, 1);
+          this.rebot = false;
+        }
+      });
+    }
   }
 
   async run() {

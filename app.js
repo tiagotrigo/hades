@@ -163,7 +163,7 @@ class Hades {
         dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
       }
 
-      console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
+      console.log(`Enviando ${walk.transfer.asset} para ${exchangeto}`);
       console.log('Envio:', dt.data.success ? 'Sucesso' : dt.data.message);
     }
     // Redirect?
@@ -174,7 +174,7 @@ class Hades {
       let exchangeto = this.exchangeNameSelected(walk.redirect.exchangeto);
 
       await Bleutrade.setDirectTransfer(walk.redirect.asset, wallet.data.result[0].Available, walk.redirect.exchangeto, walk.redirect.mail);
-      console.log(`Redirect ${walk.redirect.asset} para exchange ${exchangeto}`); 
+      console.log(`Redirect ${walk.redirect.asset} para ${exchangeto}`); 
     }
 
     await this.wait(300);
@@ -220,7 +220,7 @@ class Hades {
         dt = await walk.exchange.setDirectTransfer(walk.transfer.asset, wallet.data.result[0].Available, walk.transfer.exchangeto, walk.transfer.mail);
       }
 
-      console.log(`Enviando ${walk.transfer.asset} para exchange ${exchangeto}`);
+      console.log(`Enviando ${walk.transfer.asset} para ${exchangeto}`);
       console.log('Envio:', dt.data.success ? 'Sucesso' : dt.data.message);
     }
     // Redirect?
@@ -231,7 +231,7 @@ class Hades {
       let exchangeto = this.exchangeNameSelected(walk.redirect.exchangeto);
 
       await Bleutrade.setDirectTransfer(walk.redirect.asset, wallet.data.result[0].Available, walk.redirect.exchangeto, walk.redirect.mail);
-      console.log(`Redirect ${walk.redirect.asset} para exchange ${exchangeto}`); 
+      console.log(`Redirect ${walk.redirect.asset} para ${exchangeto}`); 
     }
 
     await this.wait(300);
@@ -277,12 +277,10 @@ class Hades {
     });
   }
 
-  clear() {
+  clean() {
     Arbitrations.map((item, index) => {
       if (item.gain === true) {
         Arbitrations.splice(index, 1);
-      } else {
-        item.gain = false;
       }
     });
   }
@@ -305,23 +303,22 @@ class Hades {
             continue;
           } else {
             if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
-              console.log(' ');
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
               }
               await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);              
-              console.log(' ');      
               // Repetindo um caminho com lucro
               this.repeat(i, arb);
+              console.log(' ');      
             } else {
-              if (i === (Arbitrations.length - 1)) {
-                console.log(`[#${i}]`, arb.name, this.mask(profit, 8));                
-                this.clear();
+              if (i + 1 === Arbitrations.length) {
+                this.clean();
+                console.log(`[CLEAN]`, arb.name, this.mask(profit, 8));                                
               } else {
-                console.log(`[#${i}]`, arb.name, this.mask(profit, 8));                
-              }  
+                console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, 8));                 
+              }
             }               
           }                    
         } 

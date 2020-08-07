@@ -24,30 +24,6 @@ class Hades {
     return Math.floor((num * output)) / output;
   }
 
-  calcQntBuy(entry, price, fee) {
-    let tax = (1 - fee) * entry;
-    let quantity = tax / price;
-
-    return quantity;
-  }
-
-  calcQntSell(entry, price, fee) {
-    let tax = entry * (1 - fee);
-    let quantity = tax / price;
-
-    return quantity;
-  }
-
-  calcBuyProfit(entry, price, fee) {
-    let quantity = entry / price;
-    return quantity;
-  }
-
-  calcSellProfit(entry, price, fee) {
-    let quantity = entry * price;
-    return quantity;
-  }
-
   exchangeNameSelected(exchange) {
     let exchangeto = '';
     
@@ -293,17 +269,29 @@ class Hades {
     }
   }
 
-  repeatArbitration(data, i, arb) {
+  repeat(i, arb) {
     // Inserir o elemento anterior à frente, caso tenha lucro
-    data.splice(i + 1, 0, arb);
-    // Remove o elemento anterior que já deu lucro
-    data.splice(i, 1);
+    Arbitrations.splice(i + 1, 0, {
+      ...arb, 
+      gain: true
+    });
+  }
+
+  clear() {
+    Arbitrations.map((item, index) => {
+      if (item.gain === true) {
+        Arbitrations.splice(index, 1);
+      } else {
+        item.gain = false;
+      }
+    });
   }
 
   async run() {
     do {
       try {
         for (let [i, arb] of Arbitrations.entries()) {
+
           // Calculando a quantidade
           try {
             await this.calcQntOutput(arb);
@@ -318,7 +306,6 @@ class Hades {
           } else {
             if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
               console.log(' ');
-              
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
@@ -327,9 +314,14 @@ class Hades {
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`);              
               console.log(' ');      
               // Repetindo um caminho com lucro
-              this.repeatArbitration(Arbitrations, i, arb);
+              this.repeat(i, arb);
             } else {
-              console.log(`[#${i}]`, arb.name, this.mask(profit, 8));  
+              if (i === (Arbitrations.length - 1)) {
+                console.log(`[#${i}]`, arb.name, this.mask(profit, 8));                
+                this.clear();
+              } else {
+                console.log(`[#${i}]`, arb.name, this.mask(profit, 8));                
+              }  
             }               
           }                    
         } 

@@ -313,17 +313,17 @@ class Hades {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
               }
-              await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, 8)}`);
-              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, 8)})`); 
+              await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, arb.decimal)}`);
+              console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, arb.decimal)})`); 
               // Repetindo um caminho com lucro
               this.repeat(arb, i);
               console.log(' ');      
             } else {
               if (i + 1 === Arbitrations.length) {
-                console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, 8));                                
+                console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, arb.decimal));                                
                 this.clean();
               } else {
-                console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, 8));                 
+                console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, arb.decimal));                 
               }
             }               
           }                    

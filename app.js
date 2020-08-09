@@ -320,7 +320,7 @@ class Hades {
               console.log(' ');      
             } else {
               if (i + 1 === Arbitrations.length) {
-                console.log(`[CLEAN]`, arb.name, this.mask(profit, 8));                                
+                console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, 8));                                
                 this.clean();
               } else {
                 console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, 8));                 

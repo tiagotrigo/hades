@@ -607,7 +607,7 @@ let Arbitration = [
         transfer: null
       },
       {
-        exchangeto: 2,
+        exchangeto: 1,
         exchange: Bleutrade,
         fee: 0.9985,
         price: 0,
@@ -693,6 +693,66 @@ let Arbitration = [
         base: 'USDT',
         total: 0,
         trade: 'DOGE',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
+    name: 'BTC_USDT >> BCH_BTC >> BCH_USDT',
+    entry: 5,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BCH_BTC',
+        quote: 'BCH',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BCH_USDT',
+        quote: 'BCH',
+        base: 'USDT',
+        total: 0,
+        trade: 'BCH',
         receive: null,
         transfer: {
           asset: 'USDT',

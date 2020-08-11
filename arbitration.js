@@ -3451,6 +3451,100 @@ let Arbitration = [
       }
     ]
   },
+  {
+    name: 'RAS_BRL >> USDT_RAS >> BTC_USDT >> BTC_USDC >> USDC_BRL',
+    entry: 150,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'RAS_BRL',
+        quote: 'RAS',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'RAS',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'USDT_RAS',
+        quote: 'USDT',
+        base: 'RAS',
+        total: 0,
+        trade: 'RAS',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDC',
+        quote: 'BTC',
+        base: 'USDC',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'USDC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'USDC_BRL',
+        quote: 'USDC',
+        base: 'BRL',
+        total: 0,
+        trade: 'USDC',
+        receive: null,
+        transfer: null
+      }
+    ]
+  },
 ];
 
 module.exports = Arbitration;

@@ -316,7 +316,9 @@ class Hades {
               await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, arb.decimal)}`);
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, arb.decimal)})`); 
               // Repetindo um caminho com lucro
-              this.repeat(arb, i);
+              if (arb.entry != 2) {
+                this.repeat(arb, i);
+              }
               console.log(' ');      
             } else {
               if (i + 1 === Arbitrations.length) {

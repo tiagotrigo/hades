@@ -294,7 +294,6 @@ class Hades {
     do {
       try {
         for (let [i, arb] of Arbitrations.entries()) {
-
           // Calculando a quantidade
           try {
             await this.calcQntOutput(arb);
@@ -316,16 +315,16 @@ class Hades {
               await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, arb.decimal)}`);
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, arb.decimal)})`); 
               // Repetindo um caminho com lucro
-              if (arb.entry != 2) {
+              if (arb.entry != 3) {
                 this.repeat(arb, i);
               }
               console.log(' ');      
             } else {
-              if (i + 1 === Arbitrations.length) {
-                console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, arb.decimal));                                
+              if (arb.name === 'BTC_BRL >> BTC_BRL >> NBC_BRL >> NBC_BTC >> BTC_BRL') {
+                console.log(`[#${i}]`, arb.name, this.mask(profit, arb.decimal));                                
                 this.clean();
               } else {
-                console.log(`[${i + 1}/${Arbitrations.length}]`, arb.name, this.mask(profit, arb.decimal));                 
+                console.log(`[#${i}]`, arb.name, this.mask(profit, arb.decimal));                 
               }
             }               
           }                    

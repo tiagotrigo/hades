@@ -318,9 +318,7 @@ class Hades {
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, arb.decimal)})`); 
               
               // Repetindo um caminho com lucro
-              if (arb.entry != 3) {
-                this.repeat(arb, i);
-              }
+              this.repeat(arb, i);
               
               console.log(' ');      
             } else {

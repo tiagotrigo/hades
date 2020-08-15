@@ -203,7 +203,7 @@ class Hades {
       console.log(`Forçando trade`);
     }
 
-    console.log(`Troca de ${walk.base} por ${walk.quote} (${walk.quantity})`);    
+    console.log(`Troca de ${walk.quote} por ${walk.base} (${walk.quantity})`);    
     console.log('Trade:', s.data.success ? 'Sucesso' : s.data.message);
     
     // É preciso transferir ?
@@ -308,16 +308,20 @@ class Hades {
           } else {
             if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
               console.log(' ');   
+
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);
               }
+              
               await Telegram.sendMessage(`[${arb.name}]: ${this.mask(profit, arb.decimal)}`);
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, arb.decimal)})`); 
+              
               // Repetindo um caminho com lucro
               if (arb.entry != 3) {
                 this.repeat(arb, i);
               }
+              
               console.log(' ');      
             } else {
               if (arb.name === 'BTC_BRL >> BTC_BRL >> NBC_BRL >> NBC_BTC >> BTC_BRL') {

@@ -132,6 +132,7 @@ class Hades {
       await this.wait(300);
 
       walk.total = 0;
+      walk.price = 0;
       walk.quantity = 0;
 
       amt = await walk.exchange.getBalance(walk.trade);
@@ -189,6 +190,7 @@ class Hades {
       await this.wait(300);
 
       walk.total = 0;
+      walk.price = 0;
       walk.quantity = 0;
 
       amt = await walk.exchange.getBalance(walk.trade);
@@ -307,7 +309,7 @@ class Hades {
             continue;
           } else {
             if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
-              console.log(' ');   
+              console.log(' '); 
 
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
@@ -321,7 +323,7 @@ class Hades {
               this.repeat(arb, i);
               console.log(' ');      
             } else {
-              if (arb.name === 'BTC_BRL >> BTC_BRL >> NBC_BRL >> NBC_BTC >> BTC_BRL') {
+              if (arb.last === true) {
                 console.log(`[#${i}]`, arb.name, this.mask(profit, arb.decimal));                                
                 this.clean();
               } else {

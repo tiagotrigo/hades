@@ -203,7 +203,7 @@ class Hades {
       console.log(`Forçando trade`);
     }
 
-    console.log(`Troca de ${walk.quote} por ${walk.base} (${walk.quantity})`);    
+    console.log(`Troca de ${walk.quote} (${walk.quantity}) por ${walk.base}`);    
     console.log('Trade:', s.data.success ? 'Sucesso' : s.data.message);
     
     // É preciso transferir ?
@@ -319,7 +319,6 @@ class Hades {
               
               // Repetindo um caminho com lucro
               this.repeat(arb, i);
-              
               console.log(' ');      
             } else {
               if (arb.name === 'BTC_BRL >> BTC_BRL >> NBC_BRL >> NBC_BTC >> BTC_BRL') {

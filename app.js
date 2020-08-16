@@ -132,7 +132,6 @@ class Hades {
       await this.wait(300);
 
       walk.total = 0;
-      walk.price = 0;
       walk.quantity = 0;
 
       amt = await walk.exchange.getBalance(walk.trade);
@@ -190,7 +189,6 @@ class Hades {
       await this.wait(300);
 
       walk.total = 0;
-      walk.price = 0;
       walk.quantity = 0;
 
       amt = await walk.exchange.getBalance(walk.trade);

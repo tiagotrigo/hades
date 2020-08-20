@@ -11,9 +11,73 @@ const ComprarBitcoin = require('./comprarBitcoin.js');
 
 let Arbitration = [ 
   {
+    name: 'USDT_BRL >> BTC_BRL >> BTC_USDT',
+    entry: 15,
+    decimal: 6,
+    walks: [
+      {
+        exchangeto: 8,
+        exchange: BomespBrasil,
+        fee: 0.9965,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'USDT_BRL',
+        quote: 'USDT',
+        base: 'BRL',
+        total: 0,
+        trade: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 8,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 8,
+        exchange: BomespBrasil,
+        fee: 0.9965,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
+  {
     name: 'ETH_USDT >> HTML_ETH >> HTML_USDT',
-    entry: 10,
-    decimal: 2,
+    entry: 15,
+    decimal: 6,
     walks: [
       {
         exchangeto: 1,
@@ -69,74 +133,10 @@ let Arbitration = [
         }
       },
     ]
-  },
-  {
-    name: 'USDT_BRL >> BTC_BRL >> BTC_USDT',
-    entry: 10,
-    decimal: 6,
-    walks: [
-      {
-        exchangeto: 8,
-        exchange: BomespBrasil,
-        fee: 0.9965,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'USDT_BRL',
-        quote: 'USDT',
-        base: 'BRL',
-        total: 0,
-        trade: 'USDT',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 8,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: null
-      },
-      {
-        exchangeto: 8,
-        exchange: BomespBrasil,
-        fee: 0.9965,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
+  }, 
   {
     name: 'ETH_USDT >> ETH_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -185,7 +185,7 @@ let Arbitration = [
   },  
   {
     name: 'LTC_USDT >> LTC_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -234,7 +234,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -283,7 +283,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> BTC_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -332,7 +332,7 @@ let Arbitration = [
   },
   {
     name: 'USDT_BRL >> NBC_BRL >> NBC_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -394,10 +394,9 @@ let Arbitration = [
       },
     ]
   },
-  // BTC_USDT >> LTC_BTC >> LTC_USDT 
   {
     name: 'BTC_USDT >> LTC_BTC >> LTC_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -461,7 +460,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> LTC_BTC >> LTC_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -525,7 +524,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> LTC_BTC >> LTC_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -583,10 +582,9 @@ let Arbitration = [
       },
     ]
   }, 
-  // BTC_USDT >> ETH_BTC >> ETH_USDT
   {
     name: 'BTC_USDT >> ETH_BTC >> ETH_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -650,7 +648,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> ETH_BTC >> ETH_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -714,7 +712,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> ETH_BTC >> ETH_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -772,10 +770,9 @@ let Arbitration = [
       },
     ]
   },
-  // BTC_USDT >> DOGE_BTC >> DOGE_USDT
   {
     name: 'BTC_USDT >> DOGE_BTC >> DOGE_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -835,7 +832,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> DOGE_BTC >> DOGE_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -897,10 +894,9 @@ let Arbitration = [
       },
     ]
   },
-  // BTC_USDT >> BCH_BTC >> BCH_USDT
   {
     name: 'BTC_USDT >> BCH_BTC >> BCH_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -964,7 +960,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> BCH_BTC >> BCH_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -1021,11 +1017,10 @@ let Arbitration = [
         }
       },
     ]
-  }, 
-  // BTC_USDT >> NBC_BTC >> NBC_USDT
+  },   
   {
     name: 'BTC_USDT >> NBC_BTC >> NBC_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {
@@ -1089,7 +1084,7 @@ let Arbitration = [
   }, 
   {
     name: 'BTC_USDT >> NBC_BTC >> NBC_USDT',
-    entry: 10,
+    entry: 15,
     decimal: 6,
     walks: [
       {

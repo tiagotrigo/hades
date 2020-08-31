@@ -1604,7 +1604,7 @@ let Arbitration = [
   // NBC
   {
     name: 'NBC_BTC >> NBC_BTC',
-    entry: 10,
+    entry: 150,
     decimal: 1,
     walks: [
       {
@@ -1658,7 +1658,7 @@ let Arbitration = [
   },
   {
     name: 'NBC_BTC >> BTC_USDT >> NBC_USDT',
-    entry: 10,
+    entry: 150,
     decimal: 1,
     walks: [
       {
@@ -1726,7 +1726,7 @@ let Arbitration = [
   },
   {
     name: 'NBC_BTC >> BTC_USDT >> NBC_USDT',
-    entry: 10,
+    entry: 150,
     decimal: 1,
     walks: [
       {

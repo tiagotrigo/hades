@@ -10,359 +10,6 @@ const BomespGlobal = require('./bomespGlobal.js');
 const ComprarBitcoin = require('./comprarBitcoin.js');
 
 let Arbitration = [
-  // TOP BRL
-  {
-    name: 'BTC_BRL >> LTC_BTC >> LTC_BTC >> BTC_BRL',
-    entry: 10,
-    decimal: 2,
-    walks: [
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'LTC_BTC',
-        quote: 'LTC',
-        base: 'BTC',
-        total: 0,
-        trade: 'BTC',
-        receive: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'LTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'LTC_BTC',
-        quote: 'LTC',
-        base: 'BTC',
-        total: 0,
-        trade: 'LTC',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: null
-      }
-    ]
-  },
-  {
-    name: 'BTC_BRL >> ETH_BTC >> ETH_BTC >> BTC_BRL',
-    entry: 10,
-    decimal: 2,
-    walks: [
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'ETH_BTC',
-        quote: 'ETH',
-        base: 'BTC',
-        total: 0,
-        trade: 'BTC',
-        receive: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'ETH',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'ETH_BTC',
-        quote: 'ETH',
-        base: 'BTC',
-        total: 0,
-        trade: 'ETH',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: null
-      }
-    ]
-  },
-  {
-    name: 'BTC_BRL >> DOGE_BTC >> DOGE_USDT >> BTC_USDT >> BTC_BRL',
-    entry: 10,
-    decimal: 2,
-    walks: [
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'DOGE_BTC',
-        quote: 'DOGE',
-        base: 'BTC',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'DOGE_USDT',
-        quote: 'DOGE',
-        base: 'USDT',
-        total: 0,
-        trade: 'DOGE',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },  
-  {
-    name: 'BTC_BRL >> LTC_BTC >> LTC_USDT >> BTC_USDT >> BTC_BRL',
-    entry: 10,
-    decimal: 2,
-    walks: [
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'LTC_BTC',
-        quote: 'LTC',
-        base: 'BTC',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: {
-          asset: 'LTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'LTC_USDT',
-        quote: 'LTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'LTC',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },
-
-
   // USDT
   {
     name: 'USDT_BRL >> BTC_BRL >> BTC_USDT',
@@ -3548,6 +3195,358 @@ let Arbitration = [
       },
     ]
   },
+  
+  // TOP BRL
+  /*{
+    name: 'BTC_BRL >> LTC_BTC >> LTC_BTC >> BTC_BRL',
+    entry: 10,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'LTC_BTC',
+        quote: 'LTC',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'LTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'LTC_BTC',
+        quote: 'LTC',
+        base: 'BTC',
+        total: 0,
+        trade: 'LTC',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      }
+    ]
+  },
+  {
+    name: 'BTC_BRL >> ETH_BTC >> ETH_BTC >> BTC_BRL',
+    entry: 10,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: {
+          asset: 'ETH',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'ETH_BTC',
+        quote: 'ETH',
+        base: 'BTC',
+        total: 0,
+        trade: 'ETH',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      }
+    ]
+  },
+  {
+    name: 'BTC_BRL >> DOGE_BTC >> DOGE_USDT >> BTC_USDT >> BTC_BRL',
+    entry: 10,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'DOGE_BTC',
+        quote: 'DOGE',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'DOGE_USDT',
+        quote: 'DOGE',
+        base: 'USDT',
+        total: 0,
+        trade: 'DOGE',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },  
+  {
+    name: 'BTC_BRL >> LTC_BTC >> LTC_USDT >> BTC_USDT >> BTC_BRL',
+    entry: 10,
+    decimal: 2,
+    walks: [
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BRL',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'LTC_BTC',
+        quote: 'LTC',
+        base: 'BTC',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: {
+          asset: 'LTC',
+          exchangeto: 1,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'LTC_USDT',
+        quote: 'LTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'LTC',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'BTC_USDT',
+        quote: 'BTC',
+        base: 'USDT',
+        total: 0,
+        trade: 'USDT',
+        receive: null,
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+      {
+        exchangeto: 3,
+        exchange: Bitrecife,
+        fee: 0.9976,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'BTC_BRL',
+        quote: 'BTC',
+        base: 'BRL',
+        total: 0,
+        trade: 'BTC',
+        receive: null,
+        transfer: null
+      },
+    ]
+  },
   {
     name: 'BTC_BRL >> BTC_USDC >> USDC_BRL',
     entry: 10,
@@ -3728,8 +3727,6 @@ let Arbitration = [
       },
     ]
   },
-  
-
   {
     name: 'CBRL_BRL >> USDT_CBRL >> USDT_BRL',
     entry: 10,
@@ -4395,7 +4392,7 @@ let Arbitration = [
         transfer: null
       },
     ]
-  },  
+  },  */
 ];
 
 module.exports = Arbitration;

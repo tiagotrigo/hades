@@ -3135,6 +3135,7 @@ let Arbitration = [
     name: 'BTC_BRL >> USDT_BRL >> BTC_USDT',
     entry: 0.0005,
     decimal: 8,
+    last: true,
     walks: [
       {
         exchangeto: 8,

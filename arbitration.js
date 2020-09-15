@@ -1212,7 +1212,7 @@ let Arbitration = [
   // CBRL
   {
     name: 'USDT_CBRL >> USDT_CBRL',
-    entry: 10,
+    entry: 25,
     decimal: 2,
     walks: [
       {
@@ -1261,7 +1261,7 @@ let Arbitration = [
   },
   {
     name: 'USDT_CBRL >> USDT_CBRL',
-    entry: 10,
+    entry: 25,
     decimal: 2,
     walks: [
       {

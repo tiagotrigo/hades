@@ -76,7 +76,7 @@ let Arbitration = [
   // USDT
   {
     name: 'USDT_BRL >> BTC_BRL >> BTC_USDT',
-    entry: 25,
+    entry: 15,
     decimal: 6,
     walks: [
       {

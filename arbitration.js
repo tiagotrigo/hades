@@ -144,9 +144,9 @@ let Arbitration = [
     decimal: 6,
     walks: [
       {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
+        exchangeto: 1,
+        exchange: Bleutrade,
+        fee: 0.9985,
         price: 0,
         quantity: 0,
         action: 'buy',
@@ -157,10 +157,14 @@ let Arbitration = [
         trade: 'USDT',
         receive: {
           asset: 'USDT',
-          exchangeto: 2,
+          exchangeto: 1,
           mail: 'tiago.a.trigo@gmail.com'
         },
-        transfer: null
+        transfer: {
+          asset: 'BTC',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
       },
       {
         exchangeto: 2,

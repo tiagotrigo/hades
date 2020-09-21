@@ -138,7 +138,6 @@ let Arbitration = [
       },
     ]
   },
-  
   {
     name: 'BTC_USDT >> DOGE_BTC >> DOGE_USDT',
     entry: 100,
@@ -162,70 +161,6 @@ let Arbitration = [
           mail: 'tiago.a.trigo@gmail.com'
         },
         transfer: null
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'DOGE_BTC',
-        quote: 'DOGE',
-        base: 'BTC',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'DOGE_USDT',
-        quote: 'DOGE',
-        base: 'USDT',
-        total: 0,
-        trade: 'DOGE',
-        receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
-  {
-    name: 'BTC_USDT >> DOGE_BTC >> DOGE_USDT',
-    entry: 100,
-    decimal: 6,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
       },
       {
         exchangeto: 2,

@@ -407,7 +407,7 @@ let Arbitration = [
       {
         exchangeto: 2,
         exchange: Exc,
-        fee: 0.9985,
+        fee: 0.9975,
         price: 0,
         quantity: 0,
         action: 'sell',

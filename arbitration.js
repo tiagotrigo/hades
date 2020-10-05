@@ -550,188 +550,188 @@ let Arbitration = [
 
 
   // NBC
-  {
-    name: 'NBC_BTC >> NBC_BTC',
-    entry: 150,
-    decimal: 1,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'NBC_BTC',
-        quote: 'NBC',
-        base: 'BTC',
-        total: 0,
-        trade: 'NBC',
-        receive: {
-          asset: 'NBC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 7,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 7,
-        exchange: BomespGlobal,
-        fee: 0.9979,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'NBC_BTC',
-        quote: 'NBC',
-        base: 'BTC',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: {
-          asset: 'NBC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        redirect: {
-          asset: 'NBC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
-  {
-    name: 'NBC_BTC >> BTC_USDT >> NBC_USDT',
-    entry: 150,
-    decimal: 1,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'NBC_BTC',
-        quote: 'NBC',
-        base: 'BTC',
-        total: 0,
-        trade: 'NBC',
-        receive: {
-          asset: 'NBC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 2,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 2,
-        exchange: Exc,
-        fee: 0.9975,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'NBC_USDT',
-        quote: 'NBC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: null,
-        transfer: {
-          asset: 'NBC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
-  {
-    name: 'NBC_BTC >> BTC_USDT >> NBC_USDT',
-    entry: 150,
-    decimal: 1,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'NBC_BTC',
-        quote: 'NBC',
-        base: 'BTC',
-        total: 0,
-        trade: 'NBC',
-        receive: {
-          asset: 'NBC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'NBC_USDT',
-        quote: 'NBC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: null,
-        transfer: {
-          asset: 'NBC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  }, 
+  // {
+  //   name: 'NBC_BTC >> NBC_BTC',
+  //   entry: 150,
+  //   decimal: 1,
+  //   walks: [
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'NBC_BTC',
+  //       quote: 'NBC',
+  //       base: 'BTC',
+  //       total: 0,
+  //       trade: 'NBC',
+  //       receive: {
+  //         asset: 'NBC',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       },
+  //       transfer: {
+  //         asset: 'BTC',
+  //         exchangeto: 7,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 7,
+  //       exchange: BomespGlobal,
+  //       fee: 0.9979,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'NBC_BTC',
+  //       quote: 'NBC',
+  //       base: 'BTC',
+  //       total: 0,
+  //       trade: 'BTC',
+  //       receive: null,
+  //       transfer: {
+  //         asset: 'NBC',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       },
+  //       redirect: {
+  //         asset: 'NBC',
+  //         exchangeto: 3,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //   ]
+  // },
+  // {
+  //   name: 'NBC_BTC >> BTC_USDT >> NBC_USDT',
+  //   entry: 150,
+  //   decimal: 1,
+  //   walks: [
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'NBC_BTC',
+  //       quote: 'NBC',
+  //       base: 'BTC',
+  //       total: 0,
+  //       trade: 'NBC',
+  //       receive: {
+  //         asset: 'NBC',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       },
+  //       transfer: {
+  //         asset: 'BTC',
+  //         exchangeto: 2,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 2,
+  //       exchange: Exc,
+  //       fee: 0.9975,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'BTC_USDT',
+  //       quote: 'BTC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'BTC',
+  //       receive: null,
+  //       transfer: {
+  //         asset: 'USDT',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'NBC_USDT',
+  //       quote: 'NBC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'USDT',
+  //       receive: null,
+  //       transfer: {
+  //         asset: 'NBC',
+  //         exchangeto: 3,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //   ]
+  // },
+  // {
+  //   name: 'NBC_BTC >> BTC_USDT >> NBC_USDT',
+  //   entry: 150,
+  //   decimal: 1,
+  //   walks: [
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'NBC_BTC',
+  //       quote: 'NBC',
+  //       base: 'BTC',
+  //       total: 0,
+  //       trade: 'NBC',
+  //       receive: {
+  //         asset: 'NBC',
+  //         exchangeto: 1,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       },
+  //       transfer: null
+  //     },
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'BTC_USDT',
+  //       quote: 'BTC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'BTC',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //     {
+  //       exchangeto: 1,
+  //       exchange: Bleutrade,
+  //       fee: 0.9985,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'NBC_USDT',
+  //       quote: 'NBC',
+  //       base: 'USDT',
+  //       total: 0,
+  //       trade: 'USDT',
+  //       receive: null,
+  //       transfer: {
+  //         asset: 'NBC',
+  //         exchangeto: 3,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //   ]
+  // }, 
   // FIM NBC
 
 

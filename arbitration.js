@@ -13,7 +13,7 @@ let Arbitration = [
   // BRL
   {
     name: 'BTC_BRL >> BTC_USDT >> USDT_BRL',
-    entry: 500,
+    entry: 250,
     decimal: 2,
     walks: [
       {
@@ -73,7 +73,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_BRL >> BTC_USDC >> USDC_BRL',
-    entry: 500,
+    entry: 250,
     decimal: 2,
     walks: [
       {
@@ -134,7 +134,7 @@ let Arbitration = [
   // USDT
   {
     name: 'USDT_BRL >> BTC_BRL >> BTC_USDT',
-    entry: 35,
+    entry: 10,
     decimal: 6,
     walks: [
       {
@@ -258,7 +258,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> DOGE_BTC >> DOGE_USDT',
-    entry: 35,
+    entry: 10,
     decimal: 6,
     walks: [
       {
@@ -322,7 +322,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> ETH_BTC >> ETH_USDT',
-    entry: 35,
+    entry: 10,
     decimal: 6,
     walks: [
       {
@@ -386,7 +386,7 @@ let Arbitration = [
   // CBRL
   {
     name: 'USDT_CBRL >> USDT_CBRL',
-    entry: 35,
+    entry: 10,
     decimal: 2,
     walks: [
       {
@@ -435,7 +435,7 @@ let Arbitration = [
   },
   {
     name: 'USDT_CBRL >> USDT_CBRL',
-    entry: 35,
+    entry: 10,
     decimal: 2,
     walks: [
       {
@@ -484,7 +484,7 @@ let Arbitration = [
   },
   {
     name: 'CBRL_BRL >> LQX_BRL >> LQX_CBRL',
-    entry: 35,
+    entry: 10,
     decimal: 2,
     walks: [
       {

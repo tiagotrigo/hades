@@ -309,9 +309,6 @@ class Hades {
             if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
               console.log(' '); 
 
-              console.log(arb)
-              process.exit()
-
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
                 await this.routine(walk, arb, y);

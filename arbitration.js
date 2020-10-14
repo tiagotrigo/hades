@@ -381,6 +381,66 @@ let Arbitration = [
       },
     ]
   },
+  {
+    name: 'USDT_CBRL >> LQX_CBRL >> LQX_USDT',
+    entry: 20,
+    decimal: 6,
+    walks: [
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'USDT_CBRL',
+        quote: 'USDT',
+        base: 'CBRL',
+        total: 0,
+        trade: 'USDT',
+        receive: {
+          asset: 'USDT',
+          exchangeto: 2,
+          mail: 'tiago.a.trigo@gmail.com'
+        },
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'buy',
+        symbol: 'LQX_CBRL',
+        quote: 'LQX',
+        base: 'CBRL',
+        total: 0,
+        trade: 'CBRL',
+        receive: null,
+        transfer: null
+      },
+      {
+        exchangeto: 2,
+        exchange: Exc,
+        fee: 0.9975,
+        price: 0,
+        quantity: 0,
+        action: 'sell',
+        symbol: 'LQX_USDT',
+        quote: 'LQX',
+        base: 'USDT',
+        total: 0,
+        trade: 'LQX',
+        receive: null,
+        transfer: {
+          asset: 'USDT',
+          exchangeto: 3,
+          mail: 'tiago.a.trigo@gmail.com'
+        }
+      },
+    ]
+  },
   // FIM USDT
 
   // CBRL

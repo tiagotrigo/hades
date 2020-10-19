@@ -40,12 +40,6 @@ class Hades {
       case 6:
         exchangeto = 'Comprar Bitcoin';
         break;
-      case 7:
-        exchangeto = 'Bomesp Global';
-        break;
-      case 8:
-        exchangeto = 'Bomesp Brasil';
-        break;
       case 9:
         exchangeto = 'Bullgain';
         break;
@@ -308,6 +302,9 @@ class Hades {
           } else {
             if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
               console.log(' '); 
+
+              // console.log(arb)
+              // process.exit()
 
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas

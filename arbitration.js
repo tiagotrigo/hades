@@ -942,66 +942,6 @@ let Arbitration = [
     ]
   },
   {
-    name: 'BTC_USDT >> NBC_USDT >> NBC_BTC',
-    entry: 0.001,
-    decimal: 8,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'BTC',
-        receive: {
-          asset: 'BTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'NBC_USDT',
-        quote: 'NBC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'NBC_BTC',
-        quote: 'NBC',
-        base: 'BTC',
-        total: 0,
-        trade: 'NBC',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
-  {
     name: 'ETH_BTC >> HTML_ETH >> HTML_USDT >> BTC_USDT',
     entry: 0.001,
     decimal: 8,

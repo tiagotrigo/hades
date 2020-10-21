@@ -129,81 +129,81 @@ let Arbitration = [
       },
     ]
   },
-  {
-    name: 'CBRL_BRL >> CBRL_BRL >> BTC_BRL >> BTC_BRL',
-    entry: 500,
-    decimal: 2,
-    walks: [
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'CBRL_BRL',
-        quote: 'CBRL',
-        base: 'BRL',
-        total: 0,
-        trade: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'CBRL',
-          exchangeto: 9,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 9,
-        exchange: Bullgain,
-        fee: 0.99684,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'CBRL_BRL',
-        quote: 'CBRL',
-        base: 'BRL',
-        total: 0,
-        trade: 'CBRL',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 9,
-        exchange: Bullgain,
-        fee: 0.99684,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BRL',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-      {
-        exchangeto: 3,
-        exchange: Bitrecife,
-        fee: 0.9976,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BTC_BRL',
-        quote: 'BTC',
-        base: 'BRL',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: null
-      },
-    ]
-  },
+  // {
+  //   name: 'CBRL_BRL >> CBRL_BRL >> BTC_BRL >> BTC_BRL',
+  //   entry: 500,
+  //   decimal: 2,
+  //   walks: [
+  //     {
+  //       exchangeto: 3,
+  //       exchange: Bitrecife,
+  //       fee: 0.9976,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'CBRL_BRL',
+  //       quote: 'CBRL',
+  //       base: 'BRL',
+  //       total: 0,
+  //       trade: 'BRL',
+  //       receive: null,
+  //       transfer: {
+  //         asset: 'CBRL',
+  //         exchangeto: 9,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 9,
+  //       exchange: Bullgain,
+  //       fee: 0.99684,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'CBRL_BRL',
+  //       quote: 'CBRL',
+  //       base: 'BRL',
+  //       total: 0,
+  //       trade: 'CBRL',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //     {
+  //       exchangeto: 9,
+  //       exchange: Bullgain,
+  //       fee: 0.99684,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'buy',
+  //       symbol: 'BTC_BRL',
+  //       quote: 'BTC',
+  //       base: 'BRL',
+  //       total: 0,
+  //       trade: 'BRL',
+  //       receive: null,
+  //       transfer: {
+  //         asset: 'BTC',
+  //         exchangeto: 3,
+  //         mail: 'tiago.a.trigo@gmail.com'
+  //       }
+  //     },
+  //     {
+  //       exchangeto: 3,
+  //       exchange: Bitrecife,
+  //       fee: 0.9976,
+  //       price: 0,
+  //       quantity: 0,
+  //       action: 'sell',
+  //       symbol: 'BTC_BRL',
+  //       quote: 'BTC',
+  //       base: 'BRL',
+  //       total: 0,
+  //       trade: 'BTC',
+  //       receive: null,
+  //       transfer: null
+  //     },
+  //   ]
+  // },
   // USDT
   {
     name: 'USDT_BRL >> BTC_BRL >> BTC_USDT',

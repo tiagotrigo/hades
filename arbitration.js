@@ -1026,66 +1026,6 @@ let Arbitration = [
         }
       },
     ]
-  },  
-  {
-    name: 'BCH_BTC >> BCH_USDT >> BTC_USDT',
-    entry: 0.0005,
-    decimal: 8,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BCH_BTC',
-        quote: 'BCH',
-        base: 'BTC',
-        total: 0,
-        trade: 'BTC',
-        receive: {
-          asset: 'BTC',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'BCH_USDT',
-        quote: 'BCH',
-        base: 'USDT',
-        total: 0,
-        trade: 'BCH',
-        receive: null,
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: null,
-        transfer: {
-          asset: 'BTC',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
   },
   {
     name: 'BTC_BRL >> USDT_BRL >> BTC_USDT',

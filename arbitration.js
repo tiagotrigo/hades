@@ -235,7 +235,7 @@ let Arbitration = [
   // BTC  
   {
     name: 'ETH_BTC >> ETH_BTC',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -284,7 +284,7 @@ let Arbitration = [
   },  
   {
     name: 'ETH_BTC >> ETH_BTC',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -333,7 +333,7 @@ let Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_BTC',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -382,7 +382,7 @@ let Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_BTC',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -431,7 +431,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> LTC_USDT >> LTC_BTC',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -491,7 +491,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> LTC_USDT >> LTC_BTC',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -555,7 +555,7 @@ let Arbitration = [
   },
   {
     name: 'ETH_BTC >> HTML_ETH >> HTML_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -630,7 +630,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> ETH_USDT >> HTML_ETH >> HTML_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -720,7 +720,7 @@ let Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -780,7 +780,7 @@ let Arbitration = [
   },  
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -844,7 +844,7 @@ let Arbitration = [
   },
   {
     name: 'NBC_BTC >> NBC_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {

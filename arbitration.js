@@ -904,7 +904,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_BRL >> USDT_BRL >> BTC_USDT',
-    entry: 0.002,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -964,7 +964,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_BRL >> USDC_BRL >> BTC_USDT',
-    entry: 0.002,
+    entry: 0.001,
     decimal: 8,
     last: true,
     walks: [

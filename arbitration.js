@@ -207,7 +207,7 @@ let Arbitration = [
   // USDT
   {
     name: 'USDT_BRL >> BTC_BRL >> BTC_USDT',
-    entry: 20,
+    entry: 8,
     decimal: 6,
     walks: [
       {
@@ -267,7 +267,7 @@ let Arbitration = [
   },
   {
     name: 'BTC_USDT >> DOGE_BTC >> DOGE_USDT',
-    entry: 20,
+    entry: 8,
     decimal: 6,
     walks: [
       {
@@ -331,7 +331,7 @@ let Arbitration = [
   },
   {
     name: 'USDT_BRL >> BTC_BRL >> BTC_USDT',
-    entry: 20,
+    entry: 8,
     decimal: 6,
     walks: [
       {
@@ -384,66 +384,6 @@ let Arbitration = [
         base: 'USDT',
         total: 0,
         trade: 'BTC',
-        receive: null,
-        transfer: {
-          asset: 'USDT',
-          exchangeto: 3,
-          mail: 'tiago.a.trigo@gmail.com'
-        }
-      },
-    ]
-  },
-  {
-    name: 'BTC_USDT >> LTC_BTC >> LTC_USDT',
-    entry: 20,
-    decimal: 6,
-    walks: [
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'BTC_USDT',
-        quote: 'BTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'USDT',
-        receive: {
-          asset: 'USDT',
-          exchangeto: 1,
-          mail: 'tiago.a.trigo@gmail.com'
-        },
-        transfer: null
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'buy',
-        symbol: 'LTC_BTC',
-        quote: 'LTC',
-        base: 'BTC',
-        total: 0,
-        trade: 'BTC',
-        receive: null,
-        transfer: null,
-      },
-      {
-        exchangeto: 1,
-        exchange: Bleutrade,
-        fee: 0.9985,
-        price: 0,
-        quantity: 0,
-        action: 'sell',
-        symbol: 'LTC_USDT',
-        quote: 'LTC',
-        base: 'USDT',
-        total: 0,
-        trade: 'LTC',
         receive: null,
         transfer: {
           asset: 'USDT',

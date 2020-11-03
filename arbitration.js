@@ -1017,10 +1017,10 @@ let Arbitration = [
         }
       },
     ]
-  },
+  },  
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.0005,
+    entry: 0.001,
     decimal: 8,
     walks: [
       {
@@ -1084,7 +1084,7 @@ let Arbitration = [
   },
   {
     name: 'LTC_BTC >> LTC_USDT >> BTC_USDT',
-    entry: 0.001,
+    entry: 0.0005,
     decimal: 8,
     last: true,
     walks: [

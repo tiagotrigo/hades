@@ -40,6 +40,9 @@ class Hades {
       case 6:
         exchangeto = 'Comprar Bitcoin';
         break;
+      case 8:
+        exchangeto = 'Stonoex';
+        break;
       case 9:
         exchangeto = 'Bullgain';
         break;

@@ -15,6 +15,7 @@ const Endpoints = {
 		bullgain: 'https://trade.bullgain.com/api/v3',
 		staging: 'https://staging.bleu.com.br/api/v3',
 		comprarBitcoin: 'https://app.comprarbitcoin.com.br/api/v3',
+		stonoex: 'https://exchange.stonoex.com/api/v3',
 	}
 };
 

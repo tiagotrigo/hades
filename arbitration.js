@@ -4,6 +4,7 @@ const Exc = require('./exc.js');
 const Bitrecife = require('./bitrecife.js');
 const Bleutrade = require('./bleutrade.js');
 const Bullgain = require('./bullgain.js');
+const Stonoex = require('./stonoex.js');
 const Staging = require('./staging.js');
 const ComprarBitcoin = require('./comprarBitcoin.js');
 

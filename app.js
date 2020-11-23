@@ -306,8 +306,8 @@ class Hades {
             if (this.mask(profit, arb.decimal) > this.mask(arb.entry, arb.decimal)) {
               console.log(' '); 
 
-              // console.log(arb)
-              // process.exit()
+              //console.log(arb)
+              //process.exit()
 
               for (let [y, walk] of arb.walks.entries()) {
                 // Iniciando rotinas
@@ -318,12 +318,12 @@ class Hades {
               console.log(`Lucro de (${this.mask(arb.walks[arb.walks.length - 1].total, arb.decimal)})`); 
               
               // Repetindo um caminho com lucro
-              this.repeat(arb, i);
+              //this.repeat(arb, i);
               console.log(' ');      
             } else {
               if (arb.last === true) {
                 console.log(`[#${i}]`, arb.name, this.mask(profit, arb.decimal));                                
-                this.clean();
+                //this.clean();
               } else {
                 console.log(`[#${i}]`, arb.name, this.mask(profit, arb.decimal));                 
               }

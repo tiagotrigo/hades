@@ -37,7 +37,7 @@ let Arbitration = [
       {
         exchangeto: 9,
         exchange: Bullgain,
-        fee: 0.99685,
+        fee: 0.9968,
         price: 0,
         quantity: 0,
         action: 'sell',
@@ -52,7 +52,7 @@ let Arbitration = [
       {
         exchangeto: 9,
         exchange: Bullgain,
-        fee: 0.99685,
+        fee: 0.9968,
         price: 0,
         quantity: 0,
         action: 'buy',
@@ -112,7 +112,7 @@ let Arbitration = [
       {
         exchangeto: 9,
         exchange: Bullgain,
-        fee: 0.99685,
+        fee: 0.9968,
         price: 0,
         quantity: 0,
         action: 'sell',
@@ -127,7 +127,7 @@ let Arbitration = [
       {
         exchangeto: 9,
         exchange: Bullgain,
-        fee: 0.99685,
+        fee: 0.9968,
         price: 0,
         quantity: 0,
         action: 'buy',
@@ -187,7 +187,7 @@ let Arbitration = [
       {
         exchangeto: 9,
         exchange: Bullgain,
-        fee: 0.99685,
+        fee: 0.9968,
         price: 0,
         quantity: 0,
         action: 'sell',
@@ -202,7 +202,7 @@ let Arbitration = [
       {
         exchangeto: 9,
         exchange: Bullgain,
-        fee: 0.99685,
+        fee: 0.9968,
         price: 0,
         quantity: 0,
         action: 'buy',
